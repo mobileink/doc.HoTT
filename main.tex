@@ -1,0 +1,311 @@
+% THIS IS NOT THE FILE YOU SHOULD PROCESS. IT IS THE "MAIN" FILE,
+% BUT IT GETS INCLUDED BY ONE OF THE hott-xxx.tex FILES. THOSE ARE
+% THE MAIN ONES.
+
+% DOCUMENT CLASS
+\documentclass[\OPTfontsize]{book}
+
+\PassOptionsToPackage{table}{xcolor}
+
+\usepackage{etex} % We're running out of registers and dimensions, or some such
+
+% PAGE GEOMETRY
+\usepackage[papersize={\OPTpagesize},
+            twoside,
+            includehead,
+            top=\OPTtopmargin,
+            bottom=\OPTbottommargin,
+            inner=\OPTinnermargin,
+            outer=\OPToutermargin,
+            bindingoffset=\OPTbindingoffset]{geometry}
+
+% HYPERLINKING AND PDF METADATA
+\usepackage[backref=page,
+            colorlinks,
+            citecolor=linkcolor,
+            linkcolor=linkcolor,
+            urlcolor=linkcolor,
+            unicode,
+            pdfauthor={Univalent Foundations Program},
+            pdftitle={Homotopy Type Theory: Univalent Foundations of Mathematics},
+            pdfsubject={Mathematics},
+            pdfkeywords={type theory, homotopy theory, univalence axiom}]{hyperref}
+\renewcommand{\backref}[1]{}
+\renewcommand{\backrefalt}[4]{%
+   \ifcase #1 %
+   (No citations.)
+   \or
+   (Cited on page\ #2.)
+   \else
+   (Cited on pages\ #2.)
+   \fi}
+
+% OTHER PACKAGES
+
+% Use this package and stick \layout somewhere in the text to see
+% page margins, text size and width etc. Useful for debugging page format.
+\usepackage{layout}
+
+%%% Because Germans have umlauts and Slavs have even stranger ways of mangling letters
+\usepackage[utf8]{inputenc}
+
+%%% For table {tab:theorems}
+\usepackage{pifont}
+
+%%% Multi-Columns for long lists of names
+\usepackage{multicol}
+
+%%% Set the fonts
+\usepackage{mathpazo}
+\usepackage[scaled=0.95]{helvet}
+\usepackage{courier}
+\linespread{1.05} % Palatino looks better with this
+
+\usepackage{graphicx}
+\usepackage{comment}
+
+\usepackage{fancyhdr} % To set headers and footers
+
+\usepackage{nextpage} % So we can jump to odd-numbered pages
+
+\usepackage{amssymb,amsmath,amsthm,stmaryrd,mathrsfs,wasysym}
+\usepackage{enumitem,mathtools,xspace}
+\usepackage{xstring} % For generating singluars and plurals in \backref
+
+\usepackage{xcolor} % For colored cells in tables we need \cellcolor
+\usepackage{wallpaper} % For the background image on the cover page
+
+\usepackage{booktabs} % For nice tables
+\usepackage{array} % For nice tables
+
+\definecolor{linkcolor}{rgb}{\OPTlinkcolor}
+\usepackage{aliascnt}
+\usepackage[capitalize]{cleveref}
+\usepackage[all,2cell,cmtip]{xy}
+\UseAllTwocells
+%\usepackage{natbib}
+\usepackage{braket} % used for \setof{ ... } macro
+
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing,arrows}
+
+\usepackage{etoolbox}           % hacking commands for TOC
+
+\usepackage{mathpartir}         % for formal.tex appendix, section 3
+
+\usepackage[numbered]{bookmark} % add chapter/section numbers to the toc in the pdf metadata
+
+\input{macros}
+
+%%%% Indexing
+\usepackage{makeidx}
+\makeindex
+
+%%%% Header and footers
+\pagestyle{fancyplain}
+\setlength{\headheight}{15pt}
+\renewcommand{\chaptermark}[1]{\markboth{\textsc{Chapter \thechapter. #1}}{}}
+\renewcommand{\sectionmark}[1]{\markright{\textsc{\thesection\ #1}}}
+
+\lhead[\fancyplain{}{{\thepage}}]%
+      {\fancyplain{}{\nouppercase{\rightmark}}}
+\rhead[\fancyplain{}{\nouppercase{\leftmark}}]%
+      {\fancyplain{}{\thepage}}
+\cfoot[]{}
+\lfoot[]{}
+\rfoot[]{}
+
+%%%% Chapter & part style
+\usepackage[raggedright]{titlesec}
+\titleformat{\part}[display]{\fontsize{\OPTpartfont}{\OPTpartfont}\fontseries{m}\fontshape{sc}\selectfont}{\hfil\partname\ \Roman{part}}{\OPTpartskip}{\fontsize{\OPTparttitlefont}{\OPTparttitlefont}\fontseries{b}\fontshape{sc}\selectfont\hfil}
+\titleformat{\chapter}[display]{\fontsize{\OPTchapterfont}{\OPTchapterfont}\fontseries{m}\fontshape{it}\selectfont}{\chaptertitlename\ \thechapter}{\OPTchapterskip}{\fontsize{\OPTchaptertitlefont}{\OPTchaptertitlefont}\fontseries{b}\fontshape{n}\selectfont}
+
+% To avoid compiling stuff other than what you're working on right
+% now, uncomment the following command and give your file as its
+% argument.
+%\includeonly{}
+
+% For some reason \pagecolor overlays the cover image,
+% unless we use it once before the document starts.
+\definecolor{covercolor}{cmyk}{\OPTcovercolor}
+\definecolor{covertext}{cmyk}{\OPTcovertextcolor}
+\pagecolor{white}
+\nopagecolor
+
+\begin{document}
+
+% NB: This does not actually appear anywhere because we have
+% a custom title page.
+\title{Homotopy Type Theory: Univalent Foundations of Mathematics}
+\author{The Univalent Foundations Program}
+
+
+\frontmatter % Turn on arabic page numbers and unnumbered chapters
+
+% Half-title, title, copyright page do not have displayed page numbers
+\pagestyle{empty}
+
+\include{front} %%% Title page and copyright
+
+\cleartooddpage
+
+% Add Preface to PDF Metadata but not printed TOC
+\hypertarget{preface}{}
+\bookmark[dest=preface]{Preface}
+
+% Preface and TOC have arabic numbers
+\pagestyle{fancyplain}
+
+\include{preface}
+
+\cleartooddpage[\thispagestyle{empty}]
+
+% Add TOC to PDF Metadata but not printed TOC
+\hypertarget{toc}{}
+\bookmark[dest=toc]{Table of Contents}
+
+\setcounter{tocdepth}{1}        % chapters and sections for the toc
+\tableofcontents
+\setcounter{tocdepth}{2}        % chapters, sections, and subsections for the
+                                % metadata of the pdf
+\cleartooddpage[\thispagestyle{empty}]
+
+\mainmatter % Turn on roman page numbers and numbered chapters
+
+% Turn on headers and footers for mainmatter (must appear after \cleartooddpage)
+\pagestyle{fancyplain}
+
+\include{introduction}
+
+\part{Foundations}
+\label{part:foundations}
+
+\include{preliminaries}
+
+\include{basics}
+
+\include{logic}
+
+\include{equivalences}
+
+\include{induction}
+
+\include{hits}
+
+\include{hlevels}
+
+\cleartooddpage[\thispagestyle{empty}] % Needed for correct TOC
+\part{Mathematics}
+\label{part:mathematics}
+
+\include{homotopy}
+
+\include{categories}
+
+\include{setmath}
+
+\include{reals}
+
+%%%% Appendix
+
+\cleartooddpage[\thispagestyle{empty}] % Needed for correct TOC
+\phantomsection % Needed for correct TOC also
+\part*{Appendix}
+
+% We use magic to get the appendix look like Bibliography and Index
+
+\appendix
+
+\renewcommand{\chaptermark}[1]{\markboth{\textsc{Appendix. \thechapter. #1}}{}}
+\renewcommand{\sectionmark}[1]{\markright{\textsc{\thesection\ #1}}}
+
+\include{formal}
+
+% Joke
+\nocite{Angiuli13}
+\nocite{BauerAcceptanceVideo}
+
+%%%% Bibliography
+\bibliographystyle{halpha}
+\phantomsection % black magic to get TOC to point to correct page
+\addcontentsline{toc}{part}{\bibname}
+\markboth{}{\textsc{Bibliography}}
+{\renewcommand{\markboth}[2]{} % Prevent bibliography from resetting the header to something silly
+\OPTbibliographyfont
+\bibliography{references}}
+
+\cleartooddpage[\thispagestyle{empty}]
+
+%%%% Index of symbols
+
+\include{symbols}
+
+\cleartooddpage[\thispagestyle{empty}]
+
+%%%%% Index of terms
+
+%% Global cross-references for index
+\indexsee{principle}{axiom}
+\indexsee{number!real}{real numbers}
+\indexsee{abelian group}{group, abelian}
+\indexsee{sequence!Cauchy}{Cauchy sequence}
+\indexsee{adjunction}{adjoint functor}
+\indexsee{higher topos}{$(\infty,1)$-topos}
+\indexsee{topos!higher}{$(\infty,1)$-topos}
+\indexsee{source!of a function}{domain}
+\indexsee{target!of a function}{codomain}
+\indexsee{type!truncation of}{truncation}
+\indexsee{propositional!truncation}{truncation}
+\indexsee{proof-relevant mathematics}{mathematics, proof-relevant}
+\indexsee{classical!mathematics}{mathematics, classical}
+\indexsee{classical!logic}{logic}
+\indexsee{constructive!mathematics}{mathematics, constructive}
+\indexsee{constructive!logic}{logic}
+\indexsee{intuitionistic logic}{logic}
+\indexsee{definition!inductive}{type, inductive}
+\indexsee{inductive!definition}{type, inductive}
+\indexsee{bounded!totally}{totally bounded}
+\indexsee{sum!of numbers}{addition}
+\indexsee{continuous map}{function, continuous}
+\indexsee{function!continuity of@``continuity'' of}{``continuity''}
+\indexsee{function!functoriality of@``functoriality'' of}{``functoriality''}
+\indexsee{codes}{encode-decode method}
+\indexsee{inequality}{order}
+\indexsee{Coq@\Coq}{proof assistant}
+\indexsee{Agda@\Agda}{proof assistant}
+\indexsee{NuPRL@\NuPRL}{proof assistant}
+\indexsee{generator!of an inductive type}{constructor}
+\indexsee{groupoid!.infinity-@$\infty$-}{$\infty$-groupoid}
+\indexsee{higher groupoid}{$\infty$-groupoid}
+\indexsee{hierarchy!of n-types@of $n$-types}{$n$-type}
+\indexsee{homotopy!n-type@$n$-type}{$n$-type}
+\indexsee{homotopy!theory, classical}{classical homotopy theory}
+\indexsee{homotopy!fiber}{fiber}
+\indexsee{homotopy!limit}{limit of types}
+\indexsee{homotopy!colimit}{colimit of types}
+\indexsee{implementation}{proof assistant}
+\indexsee{notation, abuse of}{abuse of notation}
+\indexsee{language, abuse of}{abuse of language}
+\indexsee{operator!induction}{induction principle}
+\indexsee{operator!modal}{modality}
+\indexsee{commutative!group}{group, abelian}
+\indexsee{countable axiom of choice}{axiom of choice, countable}
+
+% tell the index to get itself into the table of contents
+\phantomsection % black magic to get TOC to point to correct page
+\addcontentsline{toc}{part}{Index}
+\markboth{}{\textsc{Index}}
+\renewcommand{\markboth}[2]{}
+{\OPTindexfont
+\setlength{\columnsep}{\OPTindexcolumnsep}
+\printindex}
+
+% The back cover
+\include{back}
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: "hott-online"
+%%% End: 

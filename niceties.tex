@@ -1,0 +1,222 @@
+\section{Philosophical Niceties}
+
+ML Type Theory is centered (more or less) on one of the major
+logico-philosophical topics of the 20th century, namely the nature of
+assertion and its relation to propositions and inferences.
+
+You don't have to understand the arcana of this debate in order to
+understand type theory (or HoTT), but some familiarity with the main
+outline is very helpful.  Actually, I think it's essential, if you
+want to understand the HoTT Book's account of \textit{judgement},
+presented in HoTT Chapter 1 (reproduced below).  Fortunately the
+presentation is relatively straightforward.
+
+\begin{remark}
+  Stress: this is largely a philosophical issue, or perhaps an issue
+  in Philosophy of Language.  It's really about how our utterances
+  come to have the significances they do.
+\end{remark}
+
+Outline:
+
+\begin{itemize}
+\item Frege's elevation of \textit{force} as essential
+\item Dealing with embedded (and therefore forceless) propositions
+\item Wittgenstein
+\item Dummett
+\item etc.
+\item Brandom's recent innovation: decompose ``assertion'' into ``commitment'' and ``entitlement''
+\end{itemize}
+
+What the HoTT Book refers to as judgment (following ML) could also be
+called assertion.  Brandom's account of the ``fine structure'' of
+assertion is very helpful here.  Among other things, it provides a
+very simple explanation of how embedded propositions work.  Embedded
+propositions are unasserted; the problem is how to reconcile this with
+the fact that they are function as assertions if unembedded.  On
+Brandom's account, [todo...]
+
+In other words, we can have commitment with or without entitlement,
+and vice-versa.
+
+A set membership statement can be explained in terms of commitments
+and entitlements.  A free occurance of e.g. \(a\in A\) is ordinarily
+taken as an assertion (judgment).  We can follow Frege and make this
+\textit{force} explicit: \(\vdash a\in A\).  The problem with this,
+however, is that, in contemporary usage, this would make \(a\in A\)
+\textit{logically} true, which is not what we want.  Instead we want a
+representation of committment to the proposition, as at least
+ordinarily true, without regard to its logical truth.\marginnote{TODO:
+  logical v. ordinary truth is pretty hairy for non-logicians so the
+  distinction should be explicated.}
+
+In sum:  the implicity sense of \(a\in A\) is something like: 
+\[\exists \Gamma, a, A | \Gamma\vdash a\in A\]
+
+Informally: there exists a set of propositions \(\Gamma\), a value (or
+object) \(a\), and a set \(A\) such that the propostion \(a\in A\) is
+deducible from \(\Gamma\).
+
+So the meaning of \(a\in A\) essentially involves existential
+quantification.  It is a statement about the world, that it contains
+the relavant entities, not about the entities themselves.
+
+\begin{remark}
+  Not quite; \(a\in A\) is surely a statement about \(a\), maybe also
+  about \(A\), no?  But still there must be an implicity existential
+  quantification over the propositions that entail the statement.
+\end{remark}
+
+There is a logical subtlety here.  \(a\in A\) seems to be about a
+determinate \(a\) and a determinate \(A\), but it isn't, not if we
+take it to be an existentially quantified statement.  That's because
+\(\exists a, A | a\in A\) does not pick out determinate individuals;
+it just says that \textit{some} such individuals exist in the domain
+of interpretation.  True, \(a\) and \(A\) are said to be bound by
+\(\exists\), but that's not entirely accurate; quantified variables
+are not bound in the way that constant symbols like \(\pi\) or \(0\)
+are bound.  Whatever we go on to say about \(a\) and \(A\) --
+e.g. \(a\in A\) -- remains within the scope of the quantifier, so it
+does not count as a statement about determinate individuals.  It's a
+statement about the world, that it contains entities that satisfy the
+predicate.
+
+On the other hand, the same seems to be true of \(a : A\): though
+these symbols be bound, we don't know what they are bound to.  They
+are not bound by an implicit existential quantifier; \(a : A\) does
+\textit{not} mean \(\exists a, A | a : A\).
+
+\begin{remark}
+  Plus, quantifiers have to be used with a predicate; strictly
+  speaking, \(\exists a, A\) is not a complete statement.
+\end{remark}
+
+By contrast, the Type Theoretic analogue \(a : A\) is a statement
+about a specific value and a specific type, without any
+quantification.  It is not directly a statement about the world, but
+about part of the world.  Or: it expresses both commitment and
+entitlement.  That's why it cannot be embedded in e.g. ``if \(a : A\)
+then it is not the case that \(b : B\)''.  Embedded propositions
+cannot carry force, but \(a : A\) always carries force, intrinsically,
+as it were.
+
+%%%%%%%%
+\subsection{a : A}
+\label{subs:aA}
+
+Forms go from symbols to terms to sentences; from \(a\) to \(a+b\) to
+\(a+b=\).
+
+The ``judgment'' \(a : A\) is clearly a compound term, so it cannot
+merely name something.  But is it a sentence?  Does it denote a
+proposition?  Or is it analogous to terms like \(a+b\) which are names
+of a sort but involve some additional meaning beyond mere reference.
+
+It seems it must involve a proposition, or let's say propositional
+content.  We take \(a : A\) as a statement of fact, rather than a mere
+reference to some part of the world.  Then how is it distinct from
+\(a\in A\)?
+
+The HoTT Book says it is ``analogous'' to the set-theoretic statement
+\(a\in A\), but essentially different, since \(a\in A\) is a
+proposition but \(a : A\) is a judgment.  It says that, \textit{when
+  working internally in type theory}, \(a : A\) cannot be embedded, as
+in `` if \(a : A\) then it is not the case that \(b : B\)'', nor can
+the judgment \(a : A\) be disproved.
+
+So let's look closely at what this means.  Earlier, HoTT says that
+(some) judgments involving A ``exist at a different level from the
+\textit{proposition} \(A\) itself, which is an internal statement of
+the theory.''  (p. 18) There's a bit of circularity there; what is an
+``internal statement''?
+
+{\todo The nature of ``proposition'' has been a topic of
+  considerable debate.  Review some of the alternative accounts on
+  offer.}
+
+
+The basic idea seems to be based on the well-known concept that
+propositions by themselves are devoid of force, and must be asserted.
+HoTT seems to imply that judgments are asserted propositions -- or
+more correctly, assertings of propositions.
+
+This seems a little bit off.  Assertion is something only people do.
+An inked form on a page cannot really be construed as an assertion.
+So we need to work out the mechanics of how a written form like \(a :
+A\) can be viewed as a ``judgment'' in this sense.  I think Brandom's
+model of assertion works.  It would say, I think, that \(a : A\)
+counts as a judgment (assertion) because by convention we agree to
+treat it that way, whereas we treat \(a\in A\) slightly differently,
+because of the conventions elaborated by 20th century logic.
+
+When HoTTB refers to ``working internally in type theory'', it seems,
+the idea is to consider propositions in isolation from their
+assertion.  Assertion, on this view, is something that comes from
+outside of the world of propositions.  This is perfectly in tune with
+the idea that asserting is something people do, but that what gets
+assert\textit{ed} -- the \textit{content} of an assertion -- is
+distinct from the assert\textit{ing}.
+
+\begin{remark}
+  Sellars called this the notorious -ing/-ed distinction.
+\end{remark}
+
+This would seem to make \(a : A\) an assert\textit{ing}.
+
+We can think of \atypeA{} as a \textit{given} proposition: one that,
+while unasserted, has the same force as a propositional assertion.  Or
+another way to put it would be to say that use of \atypeA{} is
+inalienably performative.
+
+In fact \atypeA{} corresponds nicely to a common linguistic practice,
+namely combining a proper name and a description, as in ``Joan of
+Arc'', ``King George'', or ``Slick Willy''.  Or, more colloquially,
+``poor Tom'', ``angry Joe'', or ``Gimpel the fool''.  And the
+primitive nature of types can be clearly illustrated by analogy with
+the military.  In type theory, every object has a type, just as
+everybody in the military has a rank.  You cannot be in the military
+unless you have a rank.  Within the military, the proper way refer to
+someone in the miliary is to combine rank and name: General Custer,
+Sergeant York, Private Bilko.  So the difference between \atypeA{} and
+\(a\in A\) is like the difference between ``This is General Custer''
+and ``This is Custer; he is a General''.
+
+On the other hand, ``This is General Custer'' doesn't look much like a
+\textit{judgment}, although it does look like a \textit{claim}.  But
+not that it is not a claim about the meaning of ``General Custer'';
+rather it is a claim about the relation between ``This'' and ``General
+Custer''.  You could be wrong about the name or the rank of whomever
+you mean by ``This'', but you cannot be wrong about ``General
+Custer''; that's just a qualified name.  Being wrong in this sense
+about ``This is General Custer'' is an empirical matter; in type
+theory, the question of whether \atypeA (``this is a-of-A'') is
+correct or not never even arises.  It doesn't make an empirical
+assertion, it states a \textit{given}.  Or we might say it gives a
+fact.  By contrast, \(a\in A\), as a proposition, may be either true
+or false; when we say ``let \(a\in A\)'', we implicitly stipulate that
+\(a\in A\) is to be \textit{assumed} to be true, but it is not
+\textit{given} as true.  In other words, we can gloss it as ``\(a\in
+A\) has a truth-value like any proposition, so it could be false, but
+please assume that it is true.''
+
+Another critical distinction: in standard set theory and logic,
+judgments come from the outside, as it were.  But in HoTT, judgments
+of the form \atypeA are internal.  They may be derivable inside the
+system (by production of a proof or witness.)  In other words,
+inference in set theory comes from outside of the world of sets, but
+inference in HoTT is built in to the structure of types.  Inference
+(construction) is part of the intrinsic meaning of types.
+
+%%%%%%%%
+\subsection{Justification}
+\label{subs:just}
+
+The HoTT Book's account of judgments in Chapter 1 section 1 seems to
+conflate the distinction Brandom makes between commitment and
+entitlement.  ``Informally, a deductive system is a collection of
+rules for deriving things called judgments.''  But derivation (proof)
+starts and ends in propositions; commitment is something else.  The
+derivation or proof provide warrant for entitlement to the commitment
+- justification of the conclusion.  So how would Brandom parse
+``judgment'' as HoTT uses the term?
+

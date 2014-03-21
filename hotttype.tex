@@ -1,0 +1,397 @@
+\documentclass[12pt,toc]{tufte-handout}
+%% \documentclass[reqno,12pt]{tufte-book}
+%% \usepackage{trace}
+%% \documentclass[reqno,12pt]{article}
+
+% BLACK & WHITE
+\input{opt-black-white}
+
+% FORMATTING DEPENDENT ON PAPER SIZE
+\input{opt-letter}
+
+\usepackage{etex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% packages included by original hott main.tex
+
+%%% For table {tab:theorems}
+\usepackage{pifont}
+
+%%% Multi-Columns for long lists of names
+\usepackage{multicol}
+
+\usepackage{graphicx}
+\usepackage{comment}
+
+\usepackage{fancyhdr} % To set headers and footers
+
+%% \usepackage{nextpage} % So we can jump to odd-numbered pages
+
+\usepackage{amssymb,amsmath,amsthm,stmaryrd,mathrsfs,wasysym}
+\usepackage{enumitem,mathtools,xspace}
+%% \numberwithin{equation}{subsection}
+
+\usepackage{xstring} % For generating singluars and plurals in \backref
+
+%% \usepackage{xcolor,mdframed}
+\usepackage{xcolor} % For colored cells in tables we need \cellcolor
+\usepackage{wallpaper} % For the background image on the cover page
+
+\usepackage{booktabs} % For nice tables
+\usepackage{array} % For nice tables
+
+\definecolor{linkcolor}{rgb}{\OPTlinkcolor}
+\usepackage{aliascnt}
+\usepackage[capitalize]{cleveref}
+\usepackage[all,2cell,cmtip]{xy}
+\UseAllTwocells
+%\usepackage{natbib}
+\usepackage{braket} % used for \setof{ ... } macro
+
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing,arrows}
+
+\usepackage{etoolbox}           % hacking commands for TOC
+
+%% \usepackage{mathpartir}         % for formal.tex appendix, section 3
+
+\usepackage[numbered]{bookmark} % add chapter/section numbers to the toc in the pdf metadata
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{macros}
+
+\usepackage{appendix}
+
+%% \usepackage{csquotes}
+
+\usepackage{setspace}
+
+%% broken (doesn't work with tufte-handout):
+\usepackage{zed-csp}
+%% broken:
+%% \usepackage{ltcadiz-fam}
+
+\usepackage{fontspec}
+%% \usepackage{xltxtra,xunicode}
+\defaultfontfeatures{Scale=MatchLowercase}
+
+%% \defaultfontfeatures{Scale=MatchLowercase}
+%% \setmainfont[Mapping=tex-text]{Times New Roman}
+%% \setsansfont[Mapping=tex-text]{Arial}
+%% \setmonofont{Courier}
+
+\setmainfont[Ligatures=TeX]{TeX Gyre Bonum}
+\setromanfont[Ligatures=TeX]{TeX Gyre Bonum}
+\setsansfont[Ligatures=TeX]{TeX Gyre Adventor}
+\setmonofont[Ligatures=TeX]{TeX Gyre Cursor}
+
+
+%% \setmainfont[Mapping=tex-text]{Minion Pro}
+%% \setromanfont[Mapping=tex-text]{Minion Pro}
+%% \setsansfont[Mapping=tex-text]{TeX Gyre Heros}
+
+%% Bugfix: see https://code.google.com/p/tufte-latex/issues/detail?id=64
+% Set up the spacing using fontspec features
+\renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+\renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=0.0}#1}}
+
+\usepackage{epigraph}
+\setlength{\epigraphwidth}{.8\textwidth}
+
+%% general symbols - degree, etc.
+%% \usepackage{gensymb}
+
+\usepackage [english]{babel}
+\usepackage [autostyle, english = american]{csquotes}
+
+%% nice double-stroke fonts
+\usepackage{dsfont}
+
+% Small sections of multiple columns
+\usepackage{multicol}
+
+% Provides paragraphs of dummy text
+\usepackage{lipsum}
+
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
+
+%\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+%\geometry{letterpaper}                   % ... or a4paper or a5paper or ...
+
+\usepackage{xfrac}
+
+\usepackage{hyperref}
+\hypersetup{
+  bookmarks=true,         % show bookmarks bar?
+  bookmarksdepth=3,
+  unicode=true,          % non-Latin characters in Acrobat’s bookmarks
+  pdftoolbar=true,        % show Acrobat’s toolbar?
+  pdfmenubar=true,        % show Acrobat’s menu?
+  pdffitwindow=false,     % window fit to page when opened
+  pdfstartview={FitH},    % fits the width of the page to the window
+  pdftitle={Intuition and Exponentiation},    % title
+  pdfauthor={G. A. Reynolds},     % author
+  pdfsubject={Mathematics},   % subject of the document
+  pdfcreator={G. A. Reynolds},   % creator of the document
+  pdfproducer={Producer}, % producer of the document
+  pdfkeywords={Exponentiation} {Mathematics}
+  pdfnewwindow=true,      % links in new window
+  colorlinks=true,       % false: boxed links; true: colored links
+  linkcolor=blue,          % color of internal links
+  citecolor=blue,        % color of links to bibliography
+  filecolor=magenta,      % color of file links
+  urlcolor=cyan           % color of external links
+}
+
+%% \usepackage[
+%% bibstyle=numeric,
+%% citestyle=authoryear,
+%% hyperref,
+%% bibencoding=utf8,
+%% backref=true,
+%% backend=biber]{biblatex}
+
+%% http://tex.stackexchange.com/questions/66778/citation-alias-with-multibib-and-natbib
+%% \makeatletter
+%% \def\@mb@citenamelist{cite,citep,citet,citealp,citealt,citepalias,citetalias}
+%% \makeatother
+
+%% http://stackoverflow.com/questions/2496599/how-do-i-cite-the-title-of-an-article-in-latex
+\defcitealias{z-iso-13568}{ISO 13568:2002 Information technology -- Z formal specification notation --
+  Syntax, type system and semantics}
+
+\usepackage{tikz}
+\usepackage[markings,customcolors]{hf-tikz}
+\usetikzlibrary{%
+  arrows%
+  ,calc%
+  ,decorations.text%
+  ,decorations.pathreplacing%
+  ,fadings%
+  ,positioning
+  ,shapes.geometric%
+}
+
+\usepackage{tikz-3dplot}
+
+\usepackage{pgfplots}
+\pgfplotsset{height=7cm,compat=1.9}
+
+\usepackage{tkz-euclide}
+\usetkzobj{all}
+
+%% prettier integral syms, but broken on miktex
+%% \usepackage{esint}
+
+
+%% \usepackage{MnSymbol}
+%% \usepackage[misc]{ifsym}
+
+%% \usepackage{morefloats}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{HoTT Types \\
+\Large Derived from the HoTT Book}
+\author{}
+%\date{}                                           % Activate to display a given date or no date
+
+%%%%%%%%%%%%%%%%
+%% tufte-latex customizations
+
+\makeatletter
+\let\runauthor\@author
+\let\runtitle\@title
+\makeatother
+
+%% running headers
+\newcommand{\changefont}{%
+  \fontsize{7}{9.5}\selectfont
+}
+\fancypagestyle{plain}{
+  \fancyhead[LO,LE]{\leftmark }
+  \fancyhead[RO,RE]{\rightmark}
+  \fancyfoot[CO,CE]{\thepage}
+  \fancyfoot[LE]{\textsc{\runtitle}}
+  \fancyfoot[RO]{\textsc{\runtitle}}
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0pt}
+}
+\pagestyle{plain}
+
+\def\chpcolor{blue!45}
+\def\chpcolortxt{blue!60}
+\def\sectionfont{\LARGE}
+
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}        % sections and subsections for the toc
+
+\makeatletter
+%% Section:
+\def\@sectionstrut{\vrule\@width\z@\@height12.5\p@}
+\def\@makesectionhead#1{%
+  {%\par\vspace{20pt}%
+    \parindent -10pt\raggedleft\sectionfont
+    %% \colorbox{\chpcolor}{%
+    %%   \parbox[t]{90pt}{\color{white}\@sectionstrut\@depth4.5\p@\hfill
+    %%     \ifnum\c@secnumdepth>\z@\thesection\fi}%
+    %% }%
+    \vspace{10pt}%
+    \begin{minipage}[t]{\textwidth}%{\dimexpr\textwidth-90pt-2\fboxsep\relax}
+      \@sectionstrut\hspace{-15pt}\textit{\textbf\Huge #1}
+    \end{minipage}\par
+    \vspace{5pt}%
+  }
+}
+%% \def\@makesectionhead#1{%
+%%   {\par\vspace{20pt}%
+%%    \parindent 0pt\raggedleft\sectionfont
+%%    \colorbox{\chpcolor}{%
+%%      \parbox[t]{90pt}{\color{white}\@sectionstrut\@depth4.5\p@\hfill
+%%        \ifnum\c@secnumdepth>\z@\thesection\fi}%
+%%    }%
+%%    \begin{minipage}[t]{\dimexpr\textwidth-90pt-2\fboxsep\relax}
+%%    \color{\chpcolortxt}\@sectionstrut\hspace{5pt}\textbf{#1}
+%%    \end{minipage}\par
+%%    \vspace{10pt}%
+%%   }
+%% }
+\def\section{\@afterindentfalse\secdef\@section\@ssection}
+\def\@section[#1]#2{%
+  \ifnum\c@secnumdepth>\m@ne
+  \refstepcounter{section}%
+  \addcontentsline{toc}{section}{\protect\numberline{\thesection}#1}%
+  \else
+  \phantomsection
+  \addcontentsline{toc}{section}{#1}%
+  \fi
+  \sectionmark{#1}%
+  \if@twocolumn
+  \@topnewpage[\@makesectionhead{#2}]%
+  \else
+  \@makesectionhead{#2}\@afterheading
+  \fi
+}
+\def\@ssection#1{%
+  \if@twocolumn
+  \@topnewpage[\@makesectionhead{#1}]%
+  \else
+  \@makesectionhead{#1}\@afterheading
+  \fi
+}
+\makeatother
+
+%%%%%%%%%%%%%%%%
+%% macros
+
+\newenvironment{important}[1][]{%
+  \begin{mdframed}[%
+      backgroundcolor={red!15}, hidealllines=true,
+      skipabove=0.7\baselineskip, skipbelow=0.7\baselineskip,
+      splitbottomskip=2pt, splittopskip=4pt, #1]%
+    \makebox[0pt]{% ignore the withd of !
+      \smash{% ignor the height of !
+        \fontsize{32pt}{32pt}\selectfont% make the ! bigger
+        \hspace*{-19pt}% move ! to the left
+        \raisebox{-2pt}{% move ! up a little
+          {\color{red!70!black}\sffamily\bfseries !}% type the bold red !
+        }%
+      }%
+    }%
+}{\end{mdframed}}
+
+%% reversed integral sign
+\makeatletter
+\providecommand*{\curv}{%
+  \mathrel{%
+    \mathpalette\@curv\int
+  }%
+}
+\newcommand*{\@curv}[2]{%
+  \reflectbox{$\m@th#1#2$}%
+}
+\makeatother
+
+
+
+\newtheorem{theorem}{Theorem}
+%\newtheorem{cor}{Corollary}
+%\newtheorem{lem}{Lemma}
+%% \newtheorem*{defn}{Definition}
+%% \theoremstyle{remark}
+\newtheorem{remark}{Remark}
+\newtheorem*{commentary}{Commentary}
+\newtheorem*{todo}{TODO}
+%% \newtheorem{eg}{Example}
+
+\newcommand\cspace{coordinate space}
+\newcommand\Cspace{Coordinate space}
+\newcommand\CSpace{Coordinate Space}
+
+\newcommand\dspace{design space}
+\newcommand\Dspace{Design space}
+\newcommand\DSpace{Design Space}
+
+\newcommand\Omg{\(\Omega\)}
+\newcommand\sccs{standard cartesian coordinate space}
+\newcommand\origin{\((0,0)\)}
+\newcommand\ab{\((a,b)\)}
+
+\newcommand\atypeA{\ensuremath{(a : A)}}
+
+%% \newcommand\N{\(\mathds{N}\)}
+%% \newcommand\R{\(\mathds{R}\)}
+%% \newcommand\RR{\(\mathds{R}\times\mathds{R}\)}
+%% \newcommand\Rtwo{\(\mathds{R}^2\)}
+%% \newcommand\Z{\(\mathds{Z}\)}
+
+\includeonly{%
+introduction%
+,preliminaries
+,niceties
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%% \ifx\traceon\undefined \tracingall \else \traceon \fi
+
+\maketitle
+
+\begin{abstract}
+  Currently this doc contains the intro and chapter 1 from the
+  \href{http://homotopytypetheory.org/book/}{HoTT Book}, plus some
+  notes on some of the basic ideas like type and judgment.  The idea
+  is to winnow out some of the strictly mathematical stuff leaving the
+  core ``philosophical'' stuff, and annotate the text with some
+  comments and quotes from Martin-L\"{o}f, Brandom, etc.  The purpose
+  is to more fully articulate the link between HoTT's ideas of type
+  and judgment (etc.) to the philosophical debates about language,
+  assertion, proposition from which they emerged.  Why?  Because I
+  find those bits of the HoTT a little murky, and philosophers like
+  Brandom have a lot to say about the issues.
+\end{abstract}
+
+\tableofcontents
+%% \setcounter{tocdepth}{2}        % chapters, sections, and subsections for the
+%%                                 % metadata of the pdf
+%% \cleartooddpage[\thispagestyle{empty}]
+
+%% \mainmatter % Turn on roman page numbers and numbered chapters
+
+\include{introduction}
+
+\include{preliminaries}
+
+\include{niceties}
+
+%%%% Bibliography
+%% \bibliographystyle{halpha}
+%% \phantomsection % black magic to get TOC to point to correct page
+%% \addcontentsline{toc}{part}{\bibname}
+%% \markboth{}{\textsc{Bibliography}}
+%% {\renewcommand{\markboth}[2]{} % Prevent bibliography from resetting the header to something silly
+%% \OPTbibliographyfont
+\bibliography{references}
+\bibliographystyle{plainnat}
+
+
+\end{document}
