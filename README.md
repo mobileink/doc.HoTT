@@ -16,10 +16,20 @@ on it.
 ## Point
 
 The HoTT Book is excellent, but is aimed at a fairly sophisticated
-audience.  Most of the mathematics is over my head.  The more basic
-stuff about types, judgments, etc. I think I understand (I have read
-Martin-Lof's papers, and lots of other related stuff), but I find some
-of the explanations in the intro and chapter 1 a little murky.
+audience.  Most of the mathematics is over my head.  Not that I'm
+uninterested in the math; I just don't have the time to study it.  So
+my main interest in the HoTT Book is as a route to programming with
+dependent types.  The more basic stuff about types, judgments, etc. I
+think I understand (I have read Martin-Lof's papers, and lots of other
+related stuff), but I find some of the explanations in the intro and
+chapter 1 a little murky.
+
+There are lots of papers, tutorials, etc. about dependent types and
+intuitionistic type theory freely available on the web.  Why the HoTT
+Book?  Well, for one thing it aims at presenting a foundation of
+mathematics; so there is a clear contrast with set theory.  For
+another, it's pretty readable, at least the intro and chapter 1 are,
+even for non-mathematicians.
 
 I'd like to eventually turn this into a bona fide guide to HoTT for a
 non-specialist audience, with particular focus on your working stiff
@@ -37,6 +47,24 @@ But for the moment, this is where I dump my notes as I work my way
 through the bits of the HoTT Book that I am capable of understanding.
 With liberal quotations from Martin-Lof and other major figures
 (Frege, Wittgenstein, Dummett, and especially Brandom.)
+
+See [Topoi: The Categorial Analysis of
+Logic](http://ebooks.library.cornell.edu/cgi/t/text/text-idx?c=math;idno=gold010)
+for an excellent example of technical exposition of arcana.  Goldblatt
+explains the basics of category theory in simple and intuitive terms,
+often by comparing the CT way of seeing with the set theoretic way.
+The HoTT Book is already pretty good at this but I'd like a (reduced)
+version that targets the reasonably well-informed practicing
+programmer rather than the mathematician.  For example, I'd like to
+see an explicit discussion of the contrast between the classical way
+of understanding the quantifiers versus the type theoretic way.
+(First step: explain what problem was solved by the invention of
+quantifiers, and why were they a good solution; then, what problem
+does type-theoretic quantification solve.  Etc.  In this case, the
+classic quantifiers do not pick out determinate individuals
+(witnesses).  This might be trivial for trained mathematicians and
+logicians, but it's not for the rest of us.  Compare the subtleties of
+material implication, which seems so simple on the surface.)
 
 ## Plan
 
@@ -63,6 +91,11 @@ judgments, assertions, etc.
   drawing the distinction, but is very concise; it could use more
   detail, plus some concrete examples, in my opinion.
 
+* Add contrasting set-theoretic examples wherever type-theoretic
+  concepts are explained.  It makes it a lot easier to see what's
+  going on if you can relate the unfamiliar stuf to what you already
+  know.
+
 * The relation between the "things" and inference.  HoTTB chapter 1
   offers a very concise account of this, which I understand to mean
   that inference in set theory is "external" to its objects (sets),
@@ -70,10 +103,24 @@ judgments, assertions, etc.
   whose constructors etc. are "internal" to the system; or something
   like that).  This could use a more detailed elaboration.
 
+* What's the deal with induction and quantification?  The relation
+  between classic predicate logic and dependent type theory could be
+  made more clear.  Quantification, for example, is non-procedural in
+  classic logic - you quantify over a domain conceptually, but you
+  don't say *how* that is done - and type theory provides procedural
+  analogues for the quantifiers.  For non-specialists learning
+  dependent type theory stuff like this really helps develop
+  intuition.  IOW one way of looking at the task is: given the
+  essentially non-procedural concepts of set theory and classic logic
+  that we all know and love, come up with a way of capturing the same
+  basic ideas as procedures.
+
 * _a : A_ as analogue of proper noun plus description, e.g. King
   George, President Washington, General Custer, Seargeant York,
   Chicken George, Slick Willy, Ivan the Terrible, Joan of Arc, Crazy
   Eddy, maybe Joe Sixpack, Joe the Plumber, Law-school LIz, Commie Bryan, etc.
+
+* Gentzen on natural deduction.  Prawitz.
 
 * Martin-Lof on judgment, proposition, assertion, etc.
 
