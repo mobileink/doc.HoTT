@@ -271,14 +271,24 @@ In principle, this could be equally true for any other foundational system, but 
 
 \index{mathematics!constructive|(}%
 
-One of the most striking differences between classical\index{mathematics!classical} foundations and type theory is the idea of \emph{proof relevance}, according to which mathematical statements, and even their proofs, become first-class mathematical objects.
-In type theory, we represent mathematical statements by types, which can be regarded simultaneously as both mathematical constructions and mathematical assertions, a conception also known as \emph{propositions as types}.
-\index{proposition!as types}%
-Accordingly, we can regard a term $a : A$ as both an element of the type $A$ (or in homotopy type theory, a point of the space $A$), and at the same time, a proof of the proposition $A$.
-To take an example, suppose we have sets $A$ and $B$ (discrete spaces),
-\index{discrete!space}%
-and consider the statement ``$A$ is isomorphic to $B$''.
-In type theory, this can be rendered as:
+One of the most striking differences between
+classical\index{mathematics!classical} foundations and type theory is
+the idea of \emph{proof relevance}, according to which mathematical
+statements, and even their proofs, become first-class mathematical
+objects.  In type theory, we represent mathematical statements by
+types, which can be regarded simultaneously as both mathematical
+constructions and mathematical assertions, a conception also known as
+\emph{propositions as types}.  \index{proposition!as types}%
+Accordingly, we can regard a term $a : A$ as both an element of the
+type $A$ (or in homotopy type theory, a point of the space $A$), and
+at the same time, a proof of the proposition $A$.\sidenote{This
+  suggests (to me, anyway) that ``element of type $A$'' and ``proof of
+  the proposition $A$'' are different things, and $a : A$ can be used
+  to name both.  But I don't think that's right; $a : A$ is one thing.
+  Better to say that they are distinct ways of looking at one thing.}
+To take an example, suppose we have sets $A$ and $B$ (discrete
+spaces), and consider the statement ``$A$ is
+isomorphic to $B$''.  In type theory, this can be rendered as:
 \begin{narrowmultline*}
   \mathsf{Iso}(A,B) \defeq \narrowbreak
   \sm{f : A\to B}{g : B\to A}\Big(\big(\tprd{x:A} g(f(x)) = x\big) \times \big(\tprd{y:B}\, f(g(y)) = y\big)\Big).

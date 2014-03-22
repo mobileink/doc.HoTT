@@ -361,16 +361,25 @@ introduction%
 
 \begin{abstract}
   Currently this doc contains the intro and chapter 1 from the
-  \href{http://homotopytypetheory.org/book/}{HoTT Book}, plus some
-  notes on some of the basic ideas like type and judgment.  The idea
-  is to winnow out some of the strictly mathematical stuff leaving the
-  core ``philosophical'' stuff, and annotate the text with some
-  comments and quotes from Martin-L\"{o}f, Brandom, etc.  The purpose
-  is to more fully articulate the link between HoTT's ideas of type
-  and judgment (etc.) to the philosophical debates about language,
-  assertion, proposition from which they emerged.  Why?  Because I
-  find those bits of the HoTT a little murky, and philosophers like
-  Brandom have a lot to say about the issues.
+  \href{http://homotopytypetheory.org/book/}{HoTT Book}, followed by
+  some notes.  Eventually the intro and chapter 1 will contain
+  annotations, comments, additional examples, etc., but I have not
+  started that yet, so if you are already familiar with the text you
+  need not read them -- I haven't (so far as I recall) changed anything.
+
+  The idea is to winnow out some of the strictly mathematical stuff
+  leaving the core ``philosophical'' stuff, and annotate the text with
+  some comments and quotes from Martin-L\"{o}f, Brandom, etc.  Or
+  maybe leave the math stuff in, but annotate it with more detailed
+  explanation and examples in programming languages.  In any case the
+  purpose is to more fully articulate the link between HoTT's ideas of
+  type and judgment (etc.) to the philosophical debates about
+  language, assertion, proposition from which they emerged.  Why?
+  Because I find those bits of the HoTT a little murky, and
+  philosophers like Brandom have a lot to say about the issues.  Also,
+  to show more clearly how type theory differs from set theory and
+  classic logic.  Another goal is to provide more practical guidance
+  to programmers interested in exploring dependent types.
 \end{abstract}
 
 \tableofcontents
@@ -386,7 +395,69 @@ introduction%
 
 \include{niceties}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Frege}
+\label{sect:frege}
+
+{\todo The Frege Point; force v. content, etc.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Martin-L\"{o}f}
+\label{sect:ml}
+
+{\todo Summarize ML's remarks on assertion, proposition, etc.}
+
 \include{brandom}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{From Truth to Testimony}
+\label{sect:truth}
+
+We have propositions as types, and we have non-propositional types
+like $\nat$.  There is an obvious conflict of intuitions here.
+Propositions, like \(1>0\), have truth conditions; names like \(\nat\)
+do not.  How can they be the same kind of thing?
+
+I think the way out of this embarrassment is recognition that the
+classic concept of truth is not relevant to type theory; or, in a more
+positive vein, that only a deflationary or minimalist notion of truth
+should be used in type theory.  In type theory one does not say that a
+proposition \textit{is} true or false; instead one says that a
+(propositional) type is proven or disproven, or that either it or its
+negation has a witness\sidenote{Or, a ``maker'' or ``constructor''.}.  Instead of a concept of truth we have a
+concept of testimony.  Of course, ordinarily witnesses testify as to
+the truth of some proposition; but the witnesses of type theory do
+more than that---or rather they do something else, namely they produce
+or ``make'' the proposition.
+
+%%%%%%%%
+\subsection{Proof, Witness, Constructor}
+\label{subs:pwc}
+
+Type theory seems to have settled on an idiom; one says, for example,
+that types have or do not have proofs or witnesses.  But there are
+problems with both of these terms.  The former covers too much ground
+since it includes non-constructive proofs.  The latter invokes a
+misleading metaphor, since a witness testifies to the truth, whereas a
+type-theoretic witness to a type constructs (makes, produces, etc.)
+something.  In the case of propositional types, constructors ``make''
+the proposition (in the sense that they are inferences that terminate
+in the proposition); in the case of non-propositional types,
+constructors make ``elements'' of the type, which serve as proxies(?) for
+the type.
+
+\begin{remark}
+  Problem: here again propositional and non-propositional types behave
+  differently.  Every proof of a proposition has the proposition as
+  its conclusion; they are all ``the same'' because they all have that
+  element in the same structural position.  But the proof of
+  e.g. \(\nat\) is different.  For example, \(2\) is a witness for
+  \(\nat\).  Or rather, anything that constructs \(2\) is such a
+  witness.  What all such constructions have in common is \(2\), not
+  \(\nat\).  So they are all clearly proofs of \(2\), but we want them
+  to be proofs of \(\nat\).  How do we get there?
+\end{remark}
+
 
 %%%% Bibliography
 %% \bibliographystyle{halpha}

@@ -18,16 +18,16 @@ rather than epistemological.  ``Logic is for establishing the truth of
 cerain kinds of claims, by \textit{proving} them.  But logic can also
 be thought of in expressive terms, as a distinctive set of tools for
 \textit{saying} something that cannot otherwise be made
-explicit''. (AR p. 19) One of his favorite examples is the inference
-from ``Pittsburgh is west of Princeton'' to ``Princeton is east of
-Pittburgh''.  We can endorse that inference as a good material
-inference - material because it follows from the meanings of the terms
-the sentences contain - even if our language does not contain a
-conditional connstruction like ``if...then''.  But once we extend our
-language by adding such a device, we can make that endorsement
-explicit by saying ``If Pittsburgh is west of Princeton, then
-Princeton is east of Pittsburgh''.  So ``if...then'' is an expressive
-device, rather than an epistemological one.
+explicit''.\citep[19]{brandom_articulating_2001} One of his favorite
+examples is the inference from ``Pittsburgh is west of Princeton'' to
+``Princeton is east of Pittburgh''.  We can endorse that inference as
+a good material inference - material because it follows from the
+meanings of the terms the sentences contain - even if our language
+does not contain a conditional connstruction like ``if...then''.  But
+once we extend our language by adding such a device, we can make that
+endorsement explicit by saying ``If Pittsburgh is west of Princeton,
+then Princeton is east of Pittsburgh''.  So ``if...then'' is an
+expressive device, rather than an epistemological one.
 
 Brandom's model of assertion involves both a
 social aspect and a structure of commitment and entitlement.  The
@@ -50,12 +50,12 @@ virtue of which they deserve to be understood as propsitionally
 contentful, consists in consequential relations among the particular
 doxastic commitments and entitlements---the ways in which one claim can
 commit or entitle one to others (for which it accordingaly can serve
-as a reason).''  (MIE p. 142)
+as a reason).''  \citep[142]{brandom_making_1998}
 
 ``Uttering a sentence with assertional force or significance is
 putting it forward \textit{as} a potential reason.  Asserting is
 givein reasons....The function of assertion is making sentences
-available for use as premises in inferences.'' (MIE p. 168)
+available for use as premises in inferences.'' \citep[168]{brandom_making_1998}
 
 ``The basic model of inferential practices that institute assertional
 significance...is defined by a structure that must be understood in
@@ -73,7 +73,7 @@ corresponding \textit{responsibility}.... In asserting a claim, one
 not only authorizes further assertions (for oneself and for others),
 but undertakes a responsibility, for one commits oneself to being able
 to vindicate the original claim by showing that one is entitled to
-make it.'' (MIE p. 168-171)
+make it.''\citep[168-171]{brandom_making_1998}
 
 ``At the core of assertional practice lie three fundamental ways in
 which one can demonstrate one's entitlement to a clam and thereby
@@ -88,9 +88,9 @@ it is to appeal to the authority of another asserter.  The
 hear the claim to reassert it.  The significance of this license is
 that it makes available to those who rely on it and rassert the
 original claim a special way of ischargin thheir responsibiity to
-demonstrate their entitlement to it.'' (MIE p. 174; the third way
+demonstrate their entitlement to it.''\citep[174; the third way
 involves invoking one's own authority as a reliable noninferential
-reporter, which is discussed later in MIE.)
+reporter, which is discussed later in MIE.]{brandom_making_1998}
 
 %%%%%%%%
 \subsection{Propositional Content}
@@ -134,3 +134,118 @@ commitment to P while declining to undertake the commitment oneself.
   Brandom's structure.  Brandom's account should turn out better since
   it is more finely articulated, and distinguishes explicitly between
   commitment and entitlement.}
+
+%%%%%%%%
+\subsection{Understanding Propositions as Types}
+\label{subs:brandomunderstanding}
+
+There is a natural bridge from Brandom's account of assertion (of
+propositions) to the type-theoretic notion of what it means to
+understand a type.
+
+In HoTT, to understand a type is to understand what counts as a
+witness to or proof of that type.  Here ``witness'' is surely the
+better word, since witnesses are always required to appear in court
+and offer testimony in person.  ``Proof'' is too broad a term, since
+(ordinarily) it encompasses classical non-constructive proof as well
+as constructive proof.  A non-constructive proof does not produce a
+witness; it can only offer hearsay testimony, so to speak.  Whatever
+witnesses a non-constructive proof claim to have cannot be sworn in
+and so cannot be interrogated, whereas a witness in the dock can be
+directly challenged.  We can \textit{decide} whether or not to accept
+the testimony of the witness---decide that the offered proof has a
+flaw.
+
+[On the other hand, the judicial metaphor breaks down at the crucial
+  point: type theoretic witnesses do not really testify on behalf of
+  the proposition; they \textit{produce} the proposition.  So maybe it
+  would be better to drop ``witness'' in favor of some other term,
+  like ``maker''.  (Actually we already have ``constructor''.)
+  Ironically, the notion of ``truth-maker'' plays the central role in
+  classic truth-conditional logic: the truth-conditions of a
+  proposition are just those conditions that ``make'' it true.  Here,
+  instead of truth-makers, we have type- or proposition-constructors;
+  instead of truth-conditional logic, we have proof-conditional
+  logic.]
+
+
+For Brandom, understanding a proposition is to be construed in
+inferential terms already.  The propositional content of an assertion
+just \textit{is} its inferential articulation: the network of
+inferences in which it plays the role of premise or conclusion.  So to
+understand that propositional content is to grasp those inferences,
+both upstream---inferences in which the proposition serves as
+conclusion---and downstream---inferences in which it plays the role of
+premise.
+
+\marginnote{A caveat is in order here.  When Brandom talks about propositions and
+inferences, he is not referring to the machinery of formal logic.  His
+topic is ordinary discourse; for him, formal logic emerges as a set of
+expressive devices whose functioning is parasitic on the normative
+structure of discourse practices.  Nonetheless, the structure of his
+philosophical account of discourse practices serves the needs of HoTT
+just about perfectly.}
+
+But an inference of which \(P\) is the conclusion is a \textit{reason}
+for \(P\); it serves as justification that entitles one to a
+commitment to \(P\).  It follows that understanding a proposition
+means grasping what counts as its justification.  And this is just
+what we need for HoTT.  The only difference is that HoTT imposes an
+additional constraint: the only acceptable justifications are
+constructive, ones that yield the proposition not only as the
+conclusion of an inference but as the product of a procedure.  In
+other words, constructive inferences.
+
+Now: how do we get from this notion of what it takes to understand a
+proposition to the notion of propositions-as-types?  First, notice
+that Brandom's model imposes no restrictions on the \textit{kind} of
+inferences involved in articulating propositional content.  That's
+because his is the philosophical project of understanding language use
+in general.\sidenote{On his account, assertion is fundamental; no
+  practice can count as discursive practice unless it involves
+  assertion.  His approach stands in contrast to Wittgensteinian
+  approaches that treat language as a motley, with no ``downtown'', no
+  one fundamental kind of speech act.  On the other hand, for
+  mathematicians, logicians, and others working in similarly
+  regimented idioms, assertion is usually not only the fundamental
+  speech act, it is the \textit{only} speech act (within the idiom,
+  that is).}  HoTT narrows this down by excluding from consideration
+all but constructive inferences; in effect, it can be viewed as an
+application of Brandom's model to a restricted subset of the universe
+of discursive practices.  But in both cases, there is no antecedently
+determinable restriction on the \textit{number} of distinct inferences
+involved in the articulation of the conceptual content of a
+proposition.\sidenote{It follows that the meaning of a mathematical
+  statement like \(1+1=2\) is nothing more nor less than its proofs,
+  which although distinct can be treated as equivalent---in the idiom
+  of matheamtics, equivalent ``up to'' their common conclusion(up to
+  iso-conclusionism?).  This gives us a single, univocal meaning for
+  the proposition in spite of proof plurality.  Which is desireable,
+  since we do not want to say that \(1+1=2\) has a variety of
+  meanings.  Unity in diversity.  TODO: treat this separately.} In the
+case of ordinary language, different people may have wildly different
+reasons for undertaking a commitment to a particular proposition.  In
+mathematics, as is well know, there many be many distinct proofs for a
+given theorem.  This fundamental \textit{plurality} is what
+underwrites the notion of propositions-as-types.  Since a proposition
+\(P\) may play the role of conclusion in any number of distinct valid
+inferences, we can generalize and say that \(P\) ``represents'' all
+those inferences; or we can say, equivalently, that all those
+inferences are the same \textit{kind} of inference, the kind whose
+conclusion is \(P\).  Calling \(P\) the \textit{type} of those
+inferences, and in turn calling the inferences \textit{witnesses} to
+(or proofs of) \(P\) is then just a linguistic move---there is nothing
+special about the word ``type'', and any similar word would have done
+as well.  The critical point is the relation between the proposition
+and its proofs.
+
+To recapitulate: to say that a proposition is the type of its proofs
+is just to say that those proofs form the category (or equivalence
+class) of all proofs whose conclusion is the proposition; to use the
+proposition as the designated symbol representing that class or
+category; and to call the whole mess a ``type''.  By extension, we can
+use the text of the proposition as the name of the type.  So for
+example the proposition \(1>0\) is the (symbol of the) type of all
+proofs whose conclusion is the proposition \(1>0\); or, the name
+``\(1>0\)'' is the name of that type.
+
