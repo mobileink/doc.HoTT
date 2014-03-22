@@ -36,7 +36,7 @@ With liberal quotations from Martin-Lof and other major figures
 
 ### Content
 
-* add language-specific examples to section Type Theory (HoTT ch. 1)
+* add language-specific examples to HoTT ch. 1.
 
 * explicate philosophical foundations of type theory.  Martin-Lof was
 specific: his original motivation was "solely philosophical".  To some
@@ -54,8 +54,15 @@ judgments, assertions, etc.
   but easy to under-appreciate.  It seems to me that ultimately set
   theory and type theory represent radically different ways of
   thinking.  The HoTT Book, chapter 1, does a fairly good job of
-  drawing the distinction, but at a relatively superficial level; it
-  could use more detail, plus some concrete examples, in my opinion.
+  drawing the distinction, but is very concise; it could use more
+  detail, plus some concrete examples, in my opinion.
+
+* The relation between the "things" and inference.  HoTTB chapter 1
+  offers a very concise account of this, which I understand to mean
+  that inference in set theory is "external" to its objects (sets),
+  while in type theory inference is intrinsic to its objects (types,
+  whose constructors etc. are "internal" to the system; or something
+  like that).  This could use a more detailed elaboration.
 
 * _a : A_ as analogue of proper noun plus description, e.g. King
   George, President Washington, General Custer, Seargeant York,
@@ -71,7 +78,43 @@ recognizably the same proposition. . . . I shall call this point about
 assertion the Frege point. . ." Geach, "Assertion" (Some call this the
 Geach-Frege Point)
 
-* Brandom on assertion as commitment + entitlement
+ * my understanding of "judgment" as explained in Chapter 1 section 1
+   is that it amounts to an intrinsically asserted proposition, one
+   that always carries assertional force.  That's why *a : A* cannot
+   be embedded as the antecendent in a conditional; conditional
+   antecedents are always unasserted propositions, and *a : A* is
+   intrinsically an assertion (judgment).
+
+* Brandom on assertion as socially articulated commitment + entitlement
+
+* HoTTB chapter 1 presents a mathematical view of deductive systems,
+  likening them to formal games where judgments are "positions", or to
+  algebras where judgments are elements and deductive rules are
+  operations, etc.  That's fine as far as it goes, but in the end I
+  think it inadequate and even somewhat misleading.  Assertion,
+  judgment, etc. are things that only people can do.  Treating them as
+  mathematical abstractions, e.g. a move in a game, algebraic
+  operation, etc., inevitably "loses the phenomenon".  In other words,
+  it is not correct to say things like "P is a judgment" or assertion,
+  since judgments/assertions always involve both a judger/asserter and
+  what gets judged/asserted.  So we need an account of what it means
+  to say "P is an assertion" when refering to a P written in a
+  mathematical text.  It must mean something like "convention says
+  readers should _treat_ the written expression as if it had been
+  asserted by somebody" - in other words, its a normative affair
+  involving assumptions or stipulations.
+
+* Something about proof assistants.
+
+  * more on the connection between the math side of things and the (automated) proof side of things
+
+  * maybe some kind of basic intro to using proof assistants.  it's not
+   easy to find good intros to this; for example, one often comes
+   across references to "tactics", but I've never come across a
+   concise and clear explanation of what they are
+
+  * I'm thinking specifically about Agda, ATS, and Idris - tools you
+   can use to actually write programs
 
 ### Organization
 
