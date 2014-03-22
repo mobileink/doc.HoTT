@@ -6,7 +6,12 @@ Homotopic Type Theory for ordinary mortals.
 
 Currently this document consists of the introduction and first chapter
 of [the HoTT Book](http://homotopytypetheory.org/book/) ([github
-repo](https://github.com/HoTT/book)), plus a section of notes.
+repo](https://github.com/HoTT/book)), plus a section of notes.  The
+HoTT Book is published under the Creative Commons
+Attribution-ShareAlike 3.0 Unported License, so I'm assuming the
+authors actually want people not just to read it but to do stuff with
+it, like create derived works.  Or, in this case, create mashups based
+on it.
 
 ## Point
 
@@ -18,14 +23,15 @@ of the explanations in the intro and chapter 1 a little murky.
 
 I'd like to eventually turn this into a bona fide guide to HoTT for a
 non-specialist audience, with particular focus on your working stiff
-programmer.  Recently I've come across some online discussions about
-dependently typed languages, among pretty sophisticated programmers
-and language designers, that lead me to think that the real
-significance of type theory is not particularly well-understood even
-among the technical cognoscenti.  There seems to be a persistent
-inclination to think of a type as a kind of fancy or mysterious set,
-when in fact it is something entirely different (at least as far as I
-can tell).
+programmer.  Retaining most of the text taken from the HoTT Book but
+adding some commentary, notes, guides, etc.  Recently I've come across
+some online discussions about dependently typed languages, among
+pretty sophisticated programmers and language designers, that lead me
+to think that the real significance of type theory is not particularly
+well-understood even among the technical cognoscenti.  There seems to
+be a persistent inclination to think of a type as a kind of fancy or
+mysterious set, when in fact it is something entirely different (at
+least as far as I can tell).
 
 But for the moment, this is where I dump my notes as I work my way
 through the bits of the HoTT Book that I am capable of understanding.
@@ -85,7 +91,9 @@ Geach-Frege Point)
    antecedents are always unasserted propositions, and *a : A* is
    intrinsically an assertion (judgment).
 
-* Brandom on assertion as socially articulated commitment + entitlement
+* Brandom on assertion as socially articulated commitment +
+  entitlement, and how this can be used to explicate the concept of
+  judgment in HoTT.
 
 * HoTTB chapter 1 presents a mathematical view of deductive systems,
   likening them to formal games where judgments are "positions", or to
