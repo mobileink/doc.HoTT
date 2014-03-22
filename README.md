@@ -85,8 +85,9 @@ Geach-Frege Point)
 
 * Convert to XML and write some XSL styleshoots to produce a dazzling
   adaptive animated etc. HTML5 web site.  For example I'd like to
-  emulate tufte's style; something approaching that using HTML5 tags
-  is at (http://bost.ocks.org/mike/join/)
+  emulate tufte's style; something approaching that (at least, with
+  marginnotes) using HTML5 tags is at
+  (http://bost.ocks.org/mike/join/)
 
 
 * etc.
