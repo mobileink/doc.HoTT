@@ -126,7 +126,7 @@ Geach-Frege Point)
   stuff, etc. and in general simplify.  Use [tufte-latex](https://code.google.com/p/tufte-latex/), with side and
   margin notes, etc.
 
-* Convert to XML and write some XSL styleshoots to produce a dazzling
+* Convert to XML and write some XSL stylesheets to produce a dazzling
   adaptive animated etc. HTML5 web site.  For example I'd like to
   emulate tufte's style; something approaching that (at least, with
   marginnotes) using HTML5 tags is at
