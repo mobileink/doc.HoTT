@@ -55,6 +55,27 @@ judgments, assertions, etc.
   drawing the distinction, but at a relatively superficial level; it
   could use more detail, plus some concrete examples, in my opinion.
 
-* Brandom on assertion
+* _a : A_ as analogue of proper noun plus description, e.g. King
+  George, President Washington, General Custer, Seargeant York,
+  Chicken George, Slick Willy, Ivan the Terrible, Joan of Arc, Crazy
+  Eddy, maybe Joe Sixpack, Joe the Plumber, Law-school LIz, Commie Bryan, etc.
+
+* Martin-Lof on judgment, proposition, assertion, etc.
+
+* Geach on assertion: the Frege Point.  "A thought may have just the
+same content whether you assent to its truth or not; a proposition may
+occur in discourse now asserted, now unasserted, and yet be
+recognizably the same proposition. . . . I shall call this point about
+assertion the Frege point. . ." Geach, "Assertion" (Some call this the
+Geach-Frege Point)
+
+* Brandom on assertion as commitment + entitlement
+
+* Liberate the text from the HoTT Book latex: get rid of the index
+  stuff, etc. and in general simplify
+
+* Convert to XML and write some XSL styleshoots to produce a dazzling adaptive
+  animated etc. HTML5 web site.
+
 
 * etc.
