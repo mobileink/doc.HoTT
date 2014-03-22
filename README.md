@@ -34,6 +34,8 @@ With liberal quotations from Martin-Lof and other major figures
 
 ## Plan
 
+### Content
+
 * add language-specific examples to section Type Theory (HoTT ch. 1)
 
 * explicate philosophical foundations of type theory.  Martin-Lof was
@@ -71,11 +73,20 @@ Geach-Frege Point)
 
 * Brandom on assertion as commitment + entitlement
 
-* Liberate the text from the HoTT Book latex: get rid of the index
-  stuff, etc. and in general simplify
+### Organization
 
-* Convert to XML and write some XSL styleshoots to produce a dazzling adaptive
-  animated etc. HTML5 web site.
+???
+
+### Formatting and Style
+
+* Liberate the text from the HoTT Book latex: get rid of the index
+  stuff, etc. and in general simplify.  Use [tufte-latex](https://code.google.com/p/tufte-latex/), with side and
+  margin notes, etc.
+
+* Convert to XML and write some XSL styleshoots to produce a dazzling
+  adaptive animated etc. HTML5 web site.  For example I'd like to
+  emulate tufte's style; something approaching that using HTML5 tags
+  is at (http://bost.ocks.org/mike/join/)
 
 
 * etc.
