@@ -58,8 +58,8 @@
 %% \usepackage{mathpartir}         % for formal.tex appendix, section 3
 
 \usepackage[numbered]{bookmark} % add chapter/section numbers to the toc in the pdf metadata
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{macros}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage{appendix}
 
@@ -193,8 +193,9 @@
 %% \usepackage{morefloats}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{HoTT Types \\
-\Large Derived from the HoTT Book}
+\title{HoTT Types}
+%% \\
+%% \Large Derived from the HoTT Book}
 \author{}
 %\date{}                                           % Activate to display a given date or no date
 
@@ -314,6 +315,31 @@
 }
 \makeatother
 
+%% \def\LaTeX{%
+%%   L\kern-.36em
+%%   {\setbox0=\hbox{T}%
+%%     \vbox to \ht0{\hbox{\the\scriptfont0 A}\vss}}%
+%%   \kern-.15em
+%%   \TeX
+%% }
+
+\def\HoTT{%
+  H\kern-.7pt
+  {\tiny\raisebox{1pt}{o}}%
+  %% {\setbox0=\hbox{T}%
+  %%  \vbox to \ht0{\vss\hbox{\the\scriptfont0 o}\vss}}%
+  \kern-1.5pt
+  TT
+}
+
+\def\HoTTB{%
+  the H\kern-.7pt
+  {\tiny\raisebox{1pt}{o}}%
+  %% {\setbox0=\hbox{T}%
+  %%  \vbox to \ht0{\vss\hbox{\the\scriptfont0 o}\vss}}%
+  \kern-1.5pt
+  TT Book
+}
 
 
 \newtheorem{theorem}{Theorem}
@@ -351,8 +377,12 @@
 introduction%
 ,preliminaries
 ,niceties
+,foundations
+,types
+,proof
 ,brandom
 }
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 %% \ifx\traceon\undefined \tracingall \else \traceon \fi
@@ -393,17 +423,33 @@ introduction%
 
 \include{preliminaries}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The Language of \HoTT}
+\label{sect:hottlang}
+
+One way to think about mathematics and logic is in terms of objects,
+structures, relations, and the like.  etc.
+
+But one can also think of it in terms of vocabularies (or idioms,
+etc.).  Then mastering a discipline is not just a matter grasping some
+content, but also of acquiring practical mastery over a vocabulary.
+
+The vocabulary of set theory has dominated mathematical discourse for
+most of the last 100 years or so.  Starting in the late 1940s, a
+competing vocabulary based on category theory began to emerge.  Today
+it is not uncommon to see both vocabularies deployed in the same
+discourse (lecture, paper).
+
+{\todo Type theory as a vocabulary - mostly confined to logic, then
+  computer science.  Etc.  \HoTT{} as the latest distinctive vocab. -
+  covering both math and compsci, also regions of logic.
+  Significantly different that both set theory and classic logic.}
+
 \include{niceties}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Foundations}
-\label{sect:foundations}
+\include{foundations}
 
-HoTT purports to offer a new foundational concept for mathematics.  If
-we take assertion to be the foundational concept of type theory (I'm
-not sure this works, but it seems plausible), then Brandom's account
-of assertion can link type theory to a foundational account of
-discursive practice (rationality).
+\include{types}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Assertion and Judgment}
@@ -515,6 +561,9 @@ incoherent.
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Expressivity}
 \label{sect:expressivity}
 
@@ -540,7 +589,8 @@ The conclusion is not merely that P is true, however; it is that P
 
 Constructive proofs, by contrast, are not modal.  They do not say what
 must be the case, they say what \textit{is} the case.  Or rather, they
-\textit{show} what is the case.
+\textit{show} what is the case.  (I leave aside the question of
+whether what is, is necessary.)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Habeus Corpus Logics}
@@ -555,9 +605,11 @@ it tried to disappear people.
 
 Type theory, and constructive logics generally, operate under a writ
 of habeus corpus that is permanently in effect.  Except that this writ
-requires the production not of a detainee, but of a witness.  So its
-actually more like a law of evidence, but I'm too lazy to come up with
-a clever legalism to express that idea.
+requires the production not of a detainee, but of a witness.  If you
+claim to have a proof, you must produce a witness who is competent to
+testify to that fact.  So its actually more like a law of evidence,
+but I'm too lazy to come up with a clever legalism to express that
+idea.
 
 
 

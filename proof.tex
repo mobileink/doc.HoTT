@@ -1,0 +1,139 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Proof}
+\label{sect:proof}
+
+Traditional (classic) view: a proof is an epistemic device; it
+displays, exhibits, makes \textit{visible} (if only to the mind's eye)
+a form of \textit{certain knowledge}.\sidenote{The link between
+  knowing and seeing runs very deep in Western culture.  Not
+  surprisingly it is closely connected with representationalism and
+  cartesianism generally.  It has pretty much dominated Western
+  thinking since Descartes, but has come under strong attack from
+  Pragmatists.  Dewey called it ``the spectator theory of knowledge.''f
+  See \citep{rorty_philosophy_2009} etc.}
+
+Alternatives to the spectator theory: pragmatism, know-how over know-that.
+
+{\todo.  Etc. summary of concepts of proof.  Emphasize contrast
+  between representationalism and inferentialism.  Representationalism
+  is atomistic: you could have only one concept.  Inferentialism is
+  holistic: you have to start out with at least two concepts, since
+  every inference involves a premise and a conclusion.  Inferentialism
+  is a natural fit for \HoTT.}
+
+
+For \HoTT{}, as for most varieties of constructivism, it is better to
+abandon traditional notions of proof as something you see in favor of a
+more pragmatic notion of proof as something you do.
+
+etc.
+
+Critical point: in \HoTT we have two ``kinds'' of types: propositional
+types and non-propositional types.\sidenote{This is not in general
+  recognized in \HoTTB, but I think it should be emphasized, if only
+  because it reflects intuition.}  If we are to also treat ``proof''
+(or witness or whatever) as a fundamental principle of \HoTT, one that
+complements the concept of type, then we need to treat both ``type''
+and ``proof'' as genuses (genii?) of which propositional and non-propositional
+are species.
+
+\begin{remark}
+  General point (to be made elsewhere, maybe in
+  \cref{sect:foundations}: the concepts of type and proof go together.
+  You cannot have one without the other.  That's very different than
+  set theory.  You can have sets and elements without proofs.
+\end{remark}
+
+
+
+Long story short: we are in dire need of improved terminology.  My
+suggestion is as follows:
+
+\begin{description}
+\item [Proof of a proposition] In contrast to the classic spectator
+  view, we treat proof not as the exhibition (or: making available for
+  inspection) of the form of a bit of certain knowledge, but as the
+  \textit{demonstrative expression} of the proposition.
+  Alternatively, the expressive demonstration of the proposition.  So
+  whereas a classic proof is something that must be ``seen'' in order
+  to be grasped, a type-theoretic proof is something that must be
+  actively \textit{done}, not merely passively observed.  One must be
+  able to follow the construction of the proof.
+
+\item [Proof of a non-propositional type] Classically, one only proves
+  propositions, not terms.  So the idea of e.g. ``proving'' the
+  natural numbers doesn't even make sense; it reflects a category
+  mistake.  But in \HoTT, the concept of ``proving'' a type is
+  primitive; the problem is that ``proving'' is the wrong word.  
+\end{description}
+
+So here's one way to look at it: we construct (make) proofs; but the
+proofs we construct are expressions of the type.
+
+%%%%%%%%
+\subsection{Of the Ambiguity of Of}
+\label{subs:ofofof}
+
+``Of'' supports two distinct readings.  Consider ``the conviction of
+the defendant''.  If the court did the convicting, then ``of'' acts as
+a kind of intermediary between a verbal noun (``conviction'' as act or
+action of convicting) and its direct object (``court convicted
+defendant'').  The conviction affects the defendant from the outside;
+it does not ``belong'' to the defendant but to the court.  On the
+other hand, if we take ``the conviction of the defendant'' to refer to
+a belief to which the defendant is firmly committed, then the
+conviction is ``internal''; it belongs to and comes from the
+defendant.
+
+This ambiguity of ``of'' afflicts phrases like ``proof of the
+proposition'' as well.  If we can disambiguate it some of the mystery
+of the relation between types and proofs will vanish.
+
+When we \textit{exhibit} a classic proof of a proposition, the proof
+comes out as external to the proposition proved, just as a court's
+conviction of a defendant is external to the defendant.  Such a proof
+is something added or attached to the proposition.
+
+But when we \textit{demonstrate} a proposition,\sidenote{Note: we
+  demonstrate propositions, not proofs; a demonstration of a
+  proposition \textit{is} a proof.} the demonstration (that is, proof)
+is to be deemed an expression of the proposition in the internal
+sense: an expression whose source, so to speak, is the proposition
+itself, rather than the writer of the proof.  This may sound odd or
+even ridiculously anthropomorphic, but if you think about it a bit it
+makes perfect sense.  The mathematical proofs we write down are not
+really expressions our our thought, but of mathematical structures,
+entities, relations etc.  So they express
+mathematics.\sidenote{Actually we should probably think of them as
+  having a dual expressivism.  On the one hand they clearly express
+  mathematics; but on the other hand, the particular form a proof
+  takes is an expression of the writer's style or way of thinking.}
+
+We can think of a demonstration in this sense as expressing a type's
+structure, construed as the inferential articulation of the concept of
+the type.\sidenote{See \cref{sect:brandom} for more on the inferential
+articulation of conceptual content.}
+
+The nice thing about this way of thinking is that it resolves the
+tension between propositional and non-propositional types with respect
+to proof.  In both cases, what \HoTT{} calls proof or witness is to be
+taken as a demonstrative expression, or expressive demonstration, of
+the type itself.  In the case of propositional types, favor the term
+``demonstration'', with its connotations of progressive unfolding of a
+logical structure, or better, rational argument.  In the case of
+non-propositional types like \N, favor the term ``demonstrative'',
+with its adjectival sense of ``something having a demonstrative
+function'', rather than a nominal sense of ``act or action of
+demonstrating''.  So an element of a propositional type we would call
+a demonstration of the type, and an element of a non-propositional
+type we would call a demonstrative of the type.\marginnote{So $2$ is a
+  demonstrative of the natural numbers; a proof that ``$2$ is even'' is a
+  demonstration that expresses just that ``$2$ is even''.}
+
+\begin{remark}
+  Demonstration qua demonstration of know-how?  Expression as
+  expression of a type's structure - that is, its inferential
+  articulation?
+\end{remark}
+
+In both cases we have demonstration rather than proof of the type.  As genus.

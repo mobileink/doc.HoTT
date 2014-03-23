@@ -1,0 +1,29 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Type}
+\label{sect:type}
+
+\HoTTB page 27 describes a ``general pattern for introduction of a new
+kind of type''.  Martin-L\"{o}f does this too, somewhere.  In \HoTTB,
+the list is
+
+\begin{description}
+\item [Formation Rules]
+\item [Introduction Rules]  or constructors
+\item [Elimination Rules] or eliminators
+\item [Computation Rules]  ``which express how an eliminator acts on a constructor''
+\item [Uniqueness Principle] which ``expresses uniqueness of maps into
+  or out of that type.  Optional.
+\end{description}
+
+
+The question is where to place this stuff in the description of \HoTT.
+Are these things primitives?  Do they form essential aspects of a
+type?  Or in other words, can we have (think of) types without these rules?
+
+\HoTTB introduces them almost as an afterthought, as a Remark in the
+third major construction defined in Chapter 1.  But I suspect this is
+a mistake or oversight; it looks to me like these rules are indeed
+fundamental, essential to the concept of type.  In that case, they
+should be presented along with the introduction of the type concept,
+rather than in the middle of a description of a particular type.
+

@@ -1,0 +1,286 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Foundations}
+\label{sect:foundations}
+
+\HoTT purports to offer a new foundational concept for mathematics.  If
+we take assertion to be the foundational concept of type theory (I'm
+not sure this works, but it seems plausible), then Brandom's account
+of assertion can link type theory to a foundational account of
+discursive practice (rationality).
+
+Today set theory is the reigning foundational theory of mathematics.
+It's fairly easy to present it as such: first you list the axioms,
+then you show how to ``construct'' the natural numbers from sets,
+using a successor function.  Or you might follow the lead of the Z
+specification notation\sidenote{\cite{zed_spec}}, and proceed from
+sets to relations and then to functions.  However you do it, it's all
+pretty intuitive and relatively easy to explain, even to mathophobes.
+
+What would such a foundational presentation look like for \HoTT?  If
+\HoTT turns out to be a genuinely foundational theory, then it must be
+grounded in intuition; specifically, we should expect that its basic
+notions correspond in some way to some collection of pre-theoretic
+mathematical intuitions, just as the axioms of set theory do, or as
+the axioms of geometry match our ordinary intuitions about the
+organization of space as we experience it pre-theoretically.
+
+Presentations of set theory usually begin by discussing the axioms;
+but even though axioms serve as ``unexplained explainers'', such a
+presentation inevitably depends on a yet more primitive layer of
+concepts.  Specifically, not only the (pre-theoretical) concepts of
+set, subset, and membership, but also axiom and perhaps proof.  All of
+these ``preliminary'' concepts---let's call them
+``principles''---correspond more or less directly to intuitions
+available to any concept-user.
+
+In general, an explicit account of the fundamental \textit{principles}
+of set theory is either omitted or informally glossed, before the
+presentation moves on to the axioms.  But type theory, in the end, is
+radically different from set theory at a very fundamental level, as
+far as I can see.  ``Set'' and ``type'' are so easily grasped that it
+is easy think of them as more-or-less the same sort of thing; but if
+you look hard at them, they are very different, even fundamentally
+different.  So I think a presentation of \HoTT would be well served by
+beginning with an explicit account of principles, even before moving
+on to consider primitives of the theory.
+
+What are the pre-theoretical principles and primitives of \HoTT?  The
+obvious place to start is ``type''.  The concept of ``type'' obviously
+emerges from ordinary experience; indeed, it is arguably more
+primitive than the concept of ``set''.  Just look at the vast
+literature on the emergence of categorization in developmental and
+cognitive psychology; the ability to categorize is undoubtedly one of
+the most primitive human intellectual skills, if not the most
+primitive.  It may even be a primitive animal capability--bees
+categorize flowers, and every member of sexually reproducing species
+categorizes possible mates.
+
+What about ``axiom''?  At first glance it would seem that any
+foundational account of mathematics (or anything else for that matter)
+must rest on an axiomatic foundation.  Which is just another way of
+saying that any explanation of anything must eventually bottom out on
+a bedrock of unexplained explainers.  You can't explain everything
+without entering an infinite regression.
+
+On the other hand, we can view axiomatic explanation as just one
+``style'' of explanation, one of many.  When you begin with axioms,
+you present them as unequivocally (and unquestionnably) true.  But
+this is really a bit of salesmanship; sometimes axioms turn out not to
+be quite as axiomatic as they seem.  Reconceptualizations happen,
+which may lead us to view axioms in a new light in which they do not
+look quite as certain.  Then axiomatic explanations are still
+intelligible, but are no longer unquestionnable.  The classic example
+of this sort of evolution is to be found in the history of geometry.
+Before the development of non-Euclidean geometries in the 19th
+century, the axioms of Euclidean geometry were not only unquestioned
+but unquestionable:\sidenote{I suspect I'm overstating the case here.
+  Mathematicians: is this true?} the idea that parallel lines could
+meet was not just wrong, but crazy.  Today, using axioms to define a
+geometry is just a way of making clear the assumptions necessary to
+make the theory work.  They no longer represent essential
+connections to externally available bits of certain knowledge.
+
+In other words, axioms are not a necessary condition of adequate
+explanation.  So the question is whether or not the axiomatic style is
+most appropriate for a presentation of \HoTT?  On the one hand, it
+seems to me that it is not necessary; an adequate explanation of \HoTT
+without axioms should be possible.  For example, we can treat the
+concept of ``type'' as primitive, even if we cannot find a good way to
+express it axiomatically.\sidenote{This is a little fuzzy; maybe it
+  doesn't even make sense.  But as long as we're rethinking the
+  foundations of mathematics, we might as well rethink everything.}
+
+\begin{remark}
+  Leaving full presentation of principles for later.  I think it
+  includes at least proposition and judgment, maybe inference and
+  proof.
+\end{remark}
+
+In any case, we'll have to begin somewhere, by stating some
+fundamental principles; then we'll need an account of the primitives,
+whether they take the form of axioms or not.  What are the principles
+upon which \HoTT depends?  And once we have some principles (which are
+external to the theory proper), what are the primitives (which are
+``inside'' the theory)?\sidenote{Ok, ``primitive'' sounds a lot like
+  ``axiom''.  But I think there's a difference, even if I can't quite
+  articulate it.  Let's provisionally say that a primitive is an axiom
+  without the concommitant commitment to unquestionned certainty.}
+
+Here are some possibilities, based on my understanding of the material
+in \HoTTB.  Please keep in mind this is coming from somebody who
+thinks he has a fairly good grasp of what type theory is all about,
+but is still grappling with \HoTT.
+
+%%%%%%%%
+\subsection{\HoTT Principles}
+\label{subs:hottprinciples}
+
+\begin{description}
+\item [Type] Obviously a fundamental concept.  What to say about it, though, is
+  not so obvious.
+\item [Proposition]
+\item [Judgment]
+\item [Proof]\sidenote{from Latin \textit{probare} "to make good;
+  esteem, represent as good; make credible, show, demonstrate; test,
+  inspect; judge by trial" (source also of Spanish \textit{probar},
+  Italian \textit{probare}), from \textit{probus} "worthy, good,
+  upright, virtuous,"} Two kinds, corresponding to the two kinds of
+  provables:\sidenote{Remember, we're talking about pre-theoretical
+    principles (concepts) here, not about \HoTT per se.}
+\begin{description}
+\item [Demonstration] - \textit{rational argument} that compels assent
+  to a proposition\sidenote{``Demonstration'' is intuitively
+    satisfying, but conceptually misleading, insofar as it suggests a
+    visual metaphor.  That would be classical; but for type theory we
+    want metaphors of construction, not inspection.}
+\item [Witness] - evidence that bears witness to the existence of a kind or category
+\end{description}
+\item [Inference]
+\item etc.
+\end{description}
+
+\newthought{The concept of proof in type theory} deserves special
+attention.  \Cref{sect:proof} examines it in detail; here, suffice it
+to say that it extends beyond the traditional and intuitive notion of
+proof as something one does to or with propositions.  In type theory,
+propositional types represent propositions, so a type-theoretic proof
+of a propositional type---call it a ``tt-proof''--- corresponds to an
+ordinary proof of a proposition; it essentially involves inference,
+for example.  But type theory also has lots of non-propositional
+types, like \N.  These do \textit{not} represent propositions:
+propositions have truth-values, natural numbers do not.  In set
+theory, there is no connection between sets, elements, and proofs.  An
+element either is, or is not, a member of a given set.  Period, full
+stop.  The notion of proof never enters the set-membership
+picture.\sidenote{That need not mean that proving membership is never
+  an issue.  But you don't prove membership; rather, you prove that
+  the element satisfies some predicate, which is a different concept.}
+In particular, the existence of a set is not dependent on particular
+members, and the fact that some element is a member of some set has no
+significance with respect to the existence of the set.  By contrast,
+in type theory construction of an element of a type counts as proof of
+the type.  Etc.\sidenote{FIXME: fix this language.}  But this kind of
+``proof'' is not like proof of a proposition; it does not involve a
+proposition that may be true or false, and it does not involve
+inference.  Instead it serves as a kind of evidence that shows the
+type.
+
+\begin{remark}
+  Is there a significant distinction to be made between proof and
+  witness?  I suspect there is, based on the difference between
+  propositions and names.  Both count as evidence, but there is a
+  difference between an inferential proof of a proposition and a
+  ``testimonial'' witness to a kind.  Propositions-as-types unifies
+  the two ideas, but does not erase the distinction.
+\end{remark}
+
+%%%%%%%%
+\subsection{\HoTT Primitives}
+\label{subs:hottprimitives}
+
+\HoTT primitives are ....\sidenote[][-48pt]{A proper exposition would list 1) the name of the
+  primitive, e.g. ``\(\Pi\)-type''; 2) the ``constructor'' symbol,
+  e.g. \(\cross\) for product types; 3) the analogous concept from set
+  theory, and then the ``rules'' for defining a type (formation,
+  construction, elimination, computation, uniqueness).}
+
+\begin{description}
+\item [Function] ``Unlike in set theory, functions are not defined as
+  functional relations; rather they are a primitive concept in type
+  theory.''\sidenote{Or: set theory
+    \textit{defines} a function as a set of ordered pairs whose domain
+    has no duplicates; in other words, it treats a function and its
+    ``graph'' as the same thing.  Question: what happens to the graph
+    of a function in type theory?} \citep[p. 21]{hottbook}
+
+\item [Product] Product types correspond to cartesian products in set
+  theory.  The constructor symbol is the same as in set theory:
+  \(\cross\).\sidenote{Why isn't this called the ``\(\Huge\cross\)-type''?}
+  ``[U]nlike in set theory, where we define ordered pairs to be
+  particular sets and then collect them all together into the
+  cartesian product, in type theory, ordered pairs are a primitive
+  concept, as are functions.''\citep[p. 26]{hottbook}
+
+\item [Coproduct type] Coproduct types correspond to disjoint unions
+  in set theory.  ``In type theory, as was the case with functions and
+  products, the coproduct must be a fundamental construction, since
+  there is no previously defined notion of ``union of
+  types''.\citep[p. 33]{hottbook}
+
+\item [Proposition type] Conceptually, at least, this seems primitive.
+  Especially if the concept of ``proposition'' counts as a
+  pre-theoretic principle.  Which implies that proof is also a
+  pre-theoretic principle.  Propositions are fundamentally different
+  than the other kinds of type, since they have truth-conditions. Etc.
+  It follows that proofs are fundamentally different from other kinds
+  of witness.
+
+\end{description}
+
+\begin{remark}
+  For consistency, we might want to use symbols to designate all of
+  the primitives, just as we do for \(\Pi\) and \(\Sigma\).  This
+  would give us: \(\Huge\fun\)-types, \(\Huge\cross\)-types, and
+  \(\Huge +\)-types.
+\end{remark}
+
+
+%%%%%%%%
+\subsection{\HoTT Quasi-primitives}
+\label{subs:quasiprim}
+
+\noindent ``Fundamental''\sidenote{Obviously we need a better bit of
+  terminology.  ``Quasi-primitives''?  ``Neo-primitives''?  These
+  types are not primitive, strictly speaking, but on the other hand
+  they are basic.  I think there is another fundamental principle at
+  work here.  In set theory, for example, the concept of function is
+  not only not primitive, it isn't necessary.  You could discard it
+  and still have set theory.  But my intuition tells me that e.g. the
+  concept \(\Pi\)-type is in a sense necessary or essential in type
+  theory, even if it is not primitive.  Once you have the primitives,
+  you necessarily have these non-primitive basic types.  Dunno if
+  that's correct, but it would sure be nice if it were.} (but
+non-primitive) types.  These types seem to be on a par with the
+primitive types as far as importance goes, but they presuppose the
+primitives, so cannot themselves be considered primitive.
+
+\begin{description}
+
+\item [Universe]  Is this a primitive?  Probably not, since it builds on the type concept.
+
+\item [\(\Pi\)-type] Informally, ``dependent function''
+  types.\sidenote{As a practical matter, I think it would be useful to
+    have an informal term for these types that falls between
+    ``dependent function type'' and \(\Pi\)-type.  Something like
+    ``p-function type''.  \(\Pi\)-type is admirably concise, but I
+    think it should mention ``function'', since it names a kind of
+    function.}  The concept of \(\Pi\)-type is a generalization of the
+  concept of function type, so it isn't primitive.
+
+\item [\(\Sigma\)-type] Informally, ``dependent pair''
+  type.\sidenote{Shouldn't this be called ``dependent
+    \textit{product}'' type?  The type is product, not pair; pairs are
+    ``elements'' of the type.  Informally, maybe ``sig-prod type?}
+  The concept of \(\Sigma\)-types is a generalization of the concept
+  of product type.
+
+\end{description}
+
+%%%%%%%%
+\subsection{\HoTT Standard Type Library}
+\label{subs:hottstdlib}
+
+\begin{remark}
+  By analogy to the usual ``standard library'' of programming
+  languages.  The idea is to list commonly used types that are neither
+  primitive nor quasi-primitive; ``application'' types, in a sense.
+\end{remark}
+
+
+\begin{description}
+\item [Boolean] \citep[p. 34]{hottbook}
+\item [$\nat$] \citep[p. 36]{hottbook}
+\item [Propsition]
+\item [Identity] 
+\end{description}
+
