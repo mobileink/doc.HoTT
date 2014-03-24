@@ -2,7 +2,7 @@
 \section{Foundations}
 \label{sect:foundations}
 
-\HoTT purports to offer a new foundational concept for mathematics.  If
+\HoTT{} purports to offer a new foundational concept for mathematics.  If
 we take assertion to be the foundational concept of type theory (I'm
 not sure this works, but it seems plausible), then Brandom's account
 of assertion can link type theory to a foundational account of
@@ -16,8 +16,8 @@ specification notation\sidenote{\cite{zed_spec}}, and proceed from
 sets to relations and then to functions.  However you do it, it's all
 pretty intuitive and relatively easy to explain, even to mathophobes.
 
-What would such a foundational presentation look like for \HoTT?  If
-\HoTT turns out to be a genuinely foundational theory, then it must be
+What would such a foundational presentation look like for \HoTT{}?  If
+\HoTT{} turns out to be a genuinely foundational theory, then it must be
 grounded in intuition; specifically, we should expect that its basic
 notions correspond in some way to some collection of pre-theoretic
 mathematical intuitions, just as the axioms of set theory do, or as
@@ -40,7 +40,7 @@ radically different from set theory at a very fundamental level, as
 far as I can see.  ``Set'' and ``type'' are so easily grasped that it
 is easy think of them as more-or-less the same sort of thing; but if
 you look hard at them, they are very different, even fundamentally
-different.  So I think a presentation of \HoTT would be well served by
+different.  So I think a presentation of \HoTT{} would be well served by
 beginning with an explicit account of principles, even before moving
 on to consider primitives of the theory.
 
@@ -66,7 +66,7 @@ on to consider primitives of the theory.
   type-theoretically---and the specific bits of a particular theory
   which are to count as primitive for that theory.  In other words, we
   have the primitives of rationality, and we have the primitives of
-  specific theories.  \HoTT counts as a specific theory; type theory in
+  specific theories.  \HoTT{} counts as a specific theory; type theory in
   general, on the other hand, is closely tied (or at least tie-able)
   to at least one foundational account of rationality (Brandom's).
 
@@ -79,7 +79,7 @@ on to consider primitives of the theory.
   Huw Price\citep{price_naturalism_2010}) that we should
   discard the concept of representation \textit{in toto} since it has
   no useful theoretical work to do.  And I think that type theory and
-  \HoTT amount to ``natural'' idioms for such pragmatist modes of
+  \HoTT{} amount to ``natural'' idioms for such pragmatist modes of
   thinking.
 
   Finally: the pragmatic angle, where the ultimate primitive is just
@@ -96,7 +96,7 @@ on to consider primitives of the theory.
   step up from primitive (type).
 \end{ednote}
 
-What are the pre-theoretical principles and primitives of \HoTT?  The
+What are the pre-theoretical principles and primitives of \HoTT{}?  The
 obvious place to start is ``type''.  The concept of ``type'' obviously
 emerges from ordinary experience; indeed, it is arguably more
 primitive than the concept of ``set''.  Just look at the vast
@@ -134,24 +134,24 @@ connections to externally available bits of certain knowledge.
 
 In other words, axioms are not a necessary condition of adequate
 explanation.  So the question is whether or not the axiomatic style is
-most appropriate for a presentation of \HoTT?  On the one hand, it
-seems to me that it is not necessary; an adequate explanation of \HoTT
+most appropriate for a presentation of \HoTT{}?  On the one hand, it
+seems to me that it is not necessary; an adequate explanation of \HoTT{}
 without axioms should be possible.  For example, we can treat the
 concept of ``type'' as primitive, even if we cannot find a good way to
 express it axiomatically.\sidenote{This is a little fuzzy; maybe it
   doesn't even make sense.  But as long as we're rethinking the
   foundations of mathematics, we might as well rethink everything.}
 
-\begin{remark}
+\begin{ednote}
   Leaving full presentation of principles for later.  I think it
   includes at least proposition and judgment, maybe inference and
   proof.
-\end{remark}
+\end{ednote}
 
 In any case, we'll have to begin somewhere, by stating some
 fundamental principles; then we'll need an account of the primitives,
 whether they take the form of axioms or not.  What are the principles
-upon which \HoTT depends?  And once we have some principles (which are
+upon which \HoTT{} depends?  And once we have some principles (which are
 external to the theory proper), what are the primitives (which are
 ``inside'' the theory)?\sidenote{Ok, ``primitive'' sounds a lot like
   ``axiom''.  But I think there's a difference, even if I can't quite
@@ -159,12 +159,12 @@ external to the theory proper), what are the primitives (which are
   without the concommitant commitment to unquestionned certainty.}
 
 Here are some possibilities, based on my understanding of the material
-in \HoTTB.  Please keep in mind this is coming from somebody who
+in \HoTT{}B.  Please keep in mind this is coming from somebody who
 thinks he has a fairly good grasp of what type theory is all about,
-but is still grappling with \HoTT.
+but is still grappling with \HoTT{}.
 
 %%%%%%%%
-\subsection{\HoTT Principles}
+\subsection{\HoTT{} Principles}
 \label{subs:hottprinciples}
 
 \begin{description}
@@ -178,7 +178,7 @@ but is still grappling with \HoTT.
   Italian \textit{probare}), from \textit{probus} "worthy, good,
   upright, virtuous,"} Two kinds, corresponding to the two kinds of
   provables:\sidenote{Remember, we're talking about pre-theoretical
-    principles (concepts) here, not about \HoTT per se.}
+    principles (concepts) here, not about \HoTT{} per se.}
 \begin{description}
 \item [Demonstration] - \textit{rational argument} that compels assent
   to a proposition\sidenote{``Demonstration'' is intuitively
@@ -199,8 +199,8 @@ but is still grappling with \HoTT.
 attention.  \Cref{sect:proof} examines it in detail; here, suffice it
 to say that it extends beyond the traditional and intuitive notion of
 proof as something one does to or with propositions.  In type theory,
-propositional types represent propositions, so a type-theoretic proof
-of a propositional type---call it a ``tt-proof''--- corresponds to an
+proposition types represent propositions, so a type-theoretic proof
+of a proposition type---call it a ``tt-proof''--- corresponds to an
 ordinary proof of a proposition; it essentially involves inference,
 for example.  But type theory also has lots of non-propositional
 types, like \N.  These do \textit{not} represent propositions:
@@ -221,17 +221,17 @@ proposition that may be true or false, and it does not involve
 inference.  Instead it serves as a kind of evidence that shows the
 type.
 
-\begin{remark}
+\begin{ednote}
   Is there a significant distinction to be made between proof and
   witness?  I suspect there is, based on the difference between
   propositions and names.  Both count as evidence, but there is a
   difference between an inferential proof of a proposition and a
   ``testimonial'' witness to a kind.  Propositions-as-types unifies
   the two ideas, but does not erase the distinction.
-\end{remark}
+\end{ednote}
 
 %%%%%%%%
-\subsection{\HoTT Rules}
+\subsection{\HoTT{} Rules}
 \label{subs:hottrules}
 
 \begin{ednote}
@@ -240,7 +240,7 @@ type.
   correctness, but ``how-to'' rules, productive procedures.
 
   If such ``rules'' are primitives, then we have a very sharp contrast
-  with classic mathematics and logic.  The \HoTTB{} doesn't dwell on
+  with classic mathematics and logic.  The \HoTT{}B{} doesn't dwell on
   the rules; it seems to treat them instrumentally, as devices we need
   in order to come up with new types and elements.  But they are
   substantive; they define what it is to be a type or element.
@@ -268,10 +268,10 @@ type.
 \end{description}
 
 %%%%%%%%
-\subsection{\HoTT Primitives}
+\subsection{\HoTT{} Primitives}
 \label{subs:hottprimitives}
 
-\HoTT primitives are ....\sidenote{A proper exposition would
+\HoTT{} primitives are ....\sidenote{A proper exposition would
   list 1) the name of the primitive, e.g. ``Dependent Product-type'';
   2) the ``constructor'' symbol, e.g. \(\Pi\); 3) the analogous
   concept from set theory; 4) the ``rules'' for defining a type
@@ -303,23 +303,47 @@ type.
 \item [Proposition type] Conceptually, at least, this seems primitive.
   Especially if the concept of ``proposition'' counts as a
   pre-theoretic principle.  Which implies that proof is also a
-  pre-theoretic principle.  Propositions are fundamentally different
-  than the other kinds of type, since they have truth-conditions. Etc.
-  It follows that proofs are fundamentally different from other kinds
-  of witness.
+  pre-theoretic principle.  Proposition types are fundamentally
+  different than the other kinds of type, since they have
+  truth-conditions.\sidenote{Actually this isn't quite right.
+    Propositions have truth-conditions in classic logic, but not not
+    in type theory.  In type theory they have proofs; a propositional
+    type is not true or false, but proven or disproven.  But the
+    larger point stands: the \textit{concept} of proposition is
+    different than the concept of, say, natural number.} Etc.  It
+  follows that proofs are fundamentally different from other kinds of
+  witness.
 
 \end{description}
 
-\begin{remark}
+\begin{ednote}
+  What I've called ``proposition type'' is not \textit{formally}
+  distinct; the distinction I'm after is conceptual.  But this
+  suggests that we need to add at least one more item to our list of
+  primitives: ``ordinary'' or simple types.  Maybe it would be best to
+  start with the natural numbers as an example of a simple type,
+  rather than function types.  Then an example of a proposition type,
+  before proceeding to function type.  The items listed (following the
+  \HoTTB{}) are really constructions, or let's say complex types,
+  built out of two other types.  So maybe the distinction we want is
+  between simple and complex or compound types.  Then the simple types
+  would come out as primitive, and the complex types as derived (just
+  like dependent types.)  Compare the idea of constructions in
+  category theory.  There categories are primitive and e.g. the
+  product category is an example of a category constructed from other
+  categories.
+\end{ednote}
+
+\begin{ednote}
   For consistency, we might want to use symbols to designate all of
   the primitives, just as we do for \(\Pi\) and \(\Sigma\).  This
   would give us: \(\Huge\fun\)-types, \(\Huge\cross\)-types, and
   \(\Huge +\)-types.
-\end{remark}
+\end{ednote}
 
 
 %%%%%%%%
-\subsection{\HoTT Quasi-primitives}
+\subsection{\HoTT{} Quasi-primitives}
 \label{subs:quasiprim}
 
 \noindent ``Fundamental''\sidenote[][-28pt]{\begin{ednote}
@@ -390,14 +414,14 @@ primitive.
 \end{description}
 
 %%%%%%%%
-\subsection{\HoTT Standard Type Library}
+\subsection{\HoTT{} Standard Type Library}
 \label{subs:hottstdlib}
 
-\begin{remark}
+\begin{ednote}
   By analogy to the usual ``standard library'' of programming
   languages.  The idea is to list commonly used types that are neither
   primitive nor quasi-primitive; ``application'' types, in a sense.
-\end{remark}
+\end{ednote}
 
 
 \begin{description}
