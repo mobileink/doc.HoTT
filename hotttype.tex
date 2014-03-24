@@ -29,7 +29,7 @@
 
 %% \usepackage{nextpage} % So we can jump to odd-numbered pages
 
-\usepackage{amssymb,amsmath,amsthm,stmaryrd,mathrsfs,wasysym}
+\usepackage{amssymb,amsmath,stmaryrd,mathrsfs,wasysym}
 \usepackage{enumitem,mathtools,xspace}
 %% \numberwithin{equation}{subsection}
 
@@ -58,8 +58,33 @@
 %% \usepackage{mathpartir}         % for formal.tex appendix, section 3
 
 \usepackage[numbered]{bookmark} % add chapter/section numbers to the toc in the pdf metadata
-\input{macros}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{framed}
+\usepackage[standard,framed]{ntheorem}
+%% \newtheorem{theorem}{Theorem}
+%\newtheorem{cor}{Corollary}
+%\newtheorem{lem}{Lemma}
+%% \newtheorem*{defn}{Definition}
+%% \theoremstyle{remark}
+%% \newtheorem{remark}{Remark}
+%% \newtheorem*{commentary}{Commentary}
+
+%% \theoremclass{Remark}
+%% \theoremstyle{break}
+%% \newtheorem{note}{Note}[section]
+
+\theoremstyle{plain}
+\theorembodyfont{\upshape}
+\theoremsymbol{\ensuremath{\ast}}
+\theoremseparator{}
+%% \newtheorem{ednote}{Ed. note}[section]
+\newframedtheorem{ednote}{Ed. note}[section]
+
+\newtheorem*{todo}{TODO}
+%% \newtheorem{eg}{Example}
+
+\input{macros}
 
 \usepackage{appendix}
 
@@ -342,15 +367,7 @@
 }
 
 
-\newtheorem{theorem}{Theorem}
-%\newtheorem{cor}{Corollary}
-%\newtheorem{lem}{Lemma}
-%% \newtheorem*{defn}{Definition}
-%% \theoremstyle{remark}
-\newtheorem{remark}{Remark}
-\newtheorem*{commentary}{Commentary}
-\newtheorem*{todo}{TODO}
-%% \newtheorem{eg}{Example}
+%%%%%%%%%%%%%%%%
 
 \newcommand\cspace{coordinate space}
 \newcommand\Cspace{Coordinate space}
@@ -373,10 +390,13 @@
 %% \newcommand\Rtwo{\(\mathds{R}^2\)}
 %% \newcommand\Z{\(\mathds{Z}\)}
 
+\newcommand\ML{Martin-L\"{o}f}
+
 \includeonly{%
 introduction%
 ,preliminaries
 ,niceties
+,pragmatism
 ,foundations
 ,types
 ,proof
@@ -446,6 +466,8 @@ discourse (lecture, paper).
   Significantly different that both set theory and classic logic.}
 
 \include{niceties}
+
+\include{pragmatism}
 
 \include{foundations}
 

@@ -44,6 +44,58 @@ different.  So I think a presentation of \HoTT would be well served by
 beginning with an explicit account of principles, even before moving
 on to consider primitives of the theory.
 
+\begin{ednote}
+  Todo: add somewhere in here an explanation of what we mean by
+  ``primitive''.  The basic idea is conceptual independence.  A
+  primitive is like an axiom in the traditional sense: an unexplained
+  explainer.  If it depends (conceptually) on some other concept, then
+  it is not primitive.
+
+  For example: on Brandom's account, representation is not primitive,
+  since it depends on other things.  Nor is conceptual content, for
+  that matter, since it is instituted by proprieties of practice,
+  which are primitive.
+
+  Another way to look at it: if you can get along without it---discard
+  it and still count as playing the same game---then it is not
+  primitive.  So for example dependent types are not primitive: we can
+  play the type-theory game without them.
+
+  On the other hand, I'm trying to distinguish between conceptual
+  primitives---what you have to be able to think in order to think
+  type-theoretically---and the specific bits of a particular theory
+  which are to count as primitive for that theory.  In other words, we
+  have the primitives of rationality, and we have the primitives of
+  specific theories.  \HoTT counts as a specific theory; type theory in
+  general, on the other hand, is closely tied (or at least tie-able)
+  to at least one foundational account of rationality (Brandom's).
+
+  This might not be worth the trouble, but then again type-theory
+  strikes me as sufficiently radical to merit this kind of close
+  philosophical scrutiny.  I think it's hard to overstate the extent
+  to which a type-theoretic mode of thinking differs from classic (set
+  theoretic, classic logic) modes of thinking, and the differences can
+  be quite subtle.  After all, its a pretty radical step to say (with
+  Huw Price\citep{price_naturalism_2010}) that we should
+  discard the concept of representation \textit{in toto} since it has
+  no useful theoretical work to do.  And I think that type theory and
+  \HoTT amount to ``natural'' idioms for such pragmatist modes of
+  thinking.
+
+  Finally: the pragmatic angle, where the ultimate primitive is just
+  practice.  From that perspective, we ought to be looking not so much
+  at primitive concepts as primitive practices.  Two obvious
+  candidates are categorization (=conceptualization) and counting.
+  Pre-linguistic creatures can do both (language is not a necessary
+  condition for counting), and linguistic communities invent
+  terminology that allows there members to say what they otherwise
+  would only be able to do---say \textit{that} there are three lions
+  down by the watering hole rather than pantomiming or pointing them
+  out directly.  This suggests that one way to present type theory is
+  treat the type of natural numbers as, if not primitive, only one
+  step up from primitive (type).
+\end{ednote}
+
 What are the pre-theoretical principles and primitives of \HoTT?  The
 obvious place to start is ``type''.  The concept of ``type'' obviously
 emerges from ordinary experience; indeed, it is arguably more
@@ -182,11 +234,11 @@ type.
 \subsection{\HoTT Primitives}
 \label{subs:hottprimitives}
 
-\HoTT primitives are ....\sidenote[][-48pt]{A proper exposition would list 1) the name of the
-  primitive, e.g. ``\(\Pi\)-type''; 2) the ``constructor'' symbol,
-  e.g. \(\cross\) for product types; 3) the analogous concept from set
-  theory, and then the ``rules'' for defining a type (formation,
-  construction, elimination, computation, uniqueness).}
+\HoTT primitives are ....\sidenote{A proper exposition would
+  list 1) the name of the primitive, e.g. ``Dependent Product-type'';
+  2) the ``constructor'' symbol, e.g. \(\Pi\); 3) the analogous
+  concept from set theory; 4) the ``rules'' for defining a type
+  (formation, construction, elimination, computation, uniqueness).}
 
 \begin{description}
 \item [Function] ``Unlike in set theory, functions are not defined as
@@ -233,7 +285,8 @@ type.
 \subsection{\HoTT Quasi-primitives}
 \label{subs:quasiprim}
 
-\noindent ``Fundamental''\sidenote{Obviously we need a better bit of
+\noindent ``Fundamental''\sidenote[][-28pt]{\begin{ednote}
+  Obviously we need a better bit of
   terminology.  ``Quasi-primitives''?  ``Neo-primitives''?  These
   types are not primitive, strictly speaking, but on the other hand
   they are basic.  I think there is another fundamental principle at
@@ -243,10 +296,39 @@ type.
   concept \(\Pi\)-type is in a sense necessary or essential in type
   theory, even if it is not primitive.  Once you have the primitives,
   you necessarily have these non-primitive basic types.  Dunno if
-  that's correct, but it would sure be nice if it were.} (but
-non-primitive) types.  These types seem to be on a par with the
-primitive types as far as importance goes, but they presuppose the
-primitives, so cannot themselves be considered primitive.
+  that's correct, but it would sure be nice if it were.
+  \end{ednote}}%
+(but non-primitive) concepts and types.  These types seem to be on a par
+with the primitive types as far as importance goes, but they
+presuppose the primitives, so cannot themselves be considered
+primitive.
+
+\begin{ednote}
+  We can make a distinction between the concept of dependent type, and
+  the two specific dependent types introduced here.  Neither is
+  primitive; you can have a type theory without the concept of
+  dependent types.  Most programming languages fit this description,
+  whether they have an explicit type discipline or not.
+\end{ednote}
+
+\begin{ednote}
+  Regarding the notion ``quasi-primitive'': not a very satisfactory
+  term, but I can't come up with a better one at the moment.  What I'd
+  like to show is that the concept of dependent type (maybe also type
+  universe) follows ``naturally'' or necessarily or essentially from
+  the more primitive concepts.  Maybe the right concept here is
+  ``induction'': the primitive concepts (types) ``induce'' the concept
+  of dependent type.  That would be nice esp. if induction is a
+  primary principle.
+\end{ednote}
+
+\begin{theorem}
+  theorem test
+\end{theorem}
+
+\begin{definition}
+  test definition.
+\end{definition}
 
 \begin{description}
 
@@ -293,7 +375,7 @@ primitives, so cannot themselves be considered primitive.
   a number until you've severed the link between the concept of number
   and the concepts of quantity and/or magnitude.  So the natural
   numbers really must start with 1, not 0.
-\item [Propsition]
-\item [Identity] 
+\item [Proposition]  Moved to Primitives section.
+\item [Identity]
 \end{description}
 
