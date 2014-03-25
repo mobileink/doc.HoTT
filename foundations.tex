@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Foundations}
+\section{Type Theory: Foundations}
 \label{sect:foundations}
 
 \HoTT{} purports to offer a new foundational concept for mathematics.  If
@@ -143,6 +143,17 @@ express it axiomatically.\sidenote{This is a little fuzzy; maybe it
   foundations of mathematics, we might as well rethink everything.}
 
 \begin{ednote}
+  \HoTTB addresses this explicitly, p. 20-21.  Roughly, it replaces
+  the axioms of set theory with rules.  But that's not entirely
+  accurate: the rules of \HoTT, after all, are themselves axiomatic.
+  You really cannot get by without some sort of axiom; every journey
+  must start from somewhere.  So what is the difference between the
+  axioms in set theory and those in \tth?  I think it boils down to
+  the difference between conditional and unconditional statements, but
+  I'm not yet sure what the significance of this is.
+\end{ednote}
+
+\begin{ednote}
   Leaving full presentation of principles for later.  I think it
   includes at least proposition and judgment, maybe inference and
   proof.
@@ -158,14 +169,25 @@ external to the theory proper), what are the primitives (which are
   articulate it.  Let's provisionally say that a primitive is an axiom
   without the concommitant commitment to unquestionned certainty.}
 
+
+\begin{ednote}
+  ``Type theory, formal or informal, is a collection of rules for
+  manipulating types and their elements.''\HoTTB p. 101
+\end{ednote}
+
 Here are some possibilities, based on my understanding of the material
 in \HoTT{}B.  Please keep in mind this is coming from somebody who
 thinks he has a fairly good grasp of what type theory is all about,
 but is still grappling with \HoTT{}.
 
 %%%%%%%%
-\subsection{\HoTT{} Principles}
+\subsection{Principles of Type Theory}
 \label{subs:hottprinciples}
+
+\begin{ednote}
+  The idea here is to discuss the ``primitives'' of type theory; that
+  is, the concepts that are essential to any type theory.
+\end{ednote}
 
 \begin{description}
 \item [Type] Obviously a fundamental concept.  What to say about it, though, is
@@ -231,7 +253,7 @@ type.
 \end{ednote}
 
 %%%%%%%%
-\subsection{\HoTT{} Rules}
+\subsection{Type Formers}
 \label{subs:hottrules}
 
 \begin{ednote}
@@ -265,178 +287,5 @@ type.
 \item [Elimination rules]
 \item [Computation rules]
 \item [Uniqueness principle]
-\end{description}
-
-%%%%%%%%
-\subsection{\HoTT{} Primitives}
-\label{subs:hottprimitives}
-
-\HoTT{} primitives are ....\sidenote{A proper exposition would
-  list 1) the name of the primitive, e.g. ``Dependent Product-type'';
-  2) the ``constructor'' symbol, e.g. \(\Pi\); 3) the analogous
-  concept from set theory; 4) the ``rules'' for defining a type
-  (formation, construction, elimination, computation, uniqueness).}
-
-\begin{description}
-\item [Function] ``Unlike in set theory, functions are not defined as
-  functional relations; rather they are a primitive concept in type
-  theory.''\sidenote{Or: set theory
-    \textit{defines} a function as a set of ordered pairs whose domain
-    has no duplicates; in other words, it treats a function and its
-    ``graph'' as the same thing.  Question: what happens to the graph
-    of a function in type theory?} \citep[p. 21]{hottbook}
-
-\item [Product] Product types correspond to cartesian products in set
-  theory.  The constructor symbol is the same as in set theory:
-  \(\cross\).\sidenote{Why isn't this called the ``\(\Huge\cross\)-type''?}
-  ``[U]nlike in set theory, where we define ordered pairs to be
-  particular sets and then collect them all together into the
-  cartesian product, in type theory, ordered pairs are a primitive
-  concept, as are functions.''\citep[p. 26]{hottbook}
-
-\item [Coproduct type] Coproduct types correspond to disjoint unions
-  in set theory.  ``In type theory, as was the case with functions and
-  products, the coproduct must be a fundamental construction, since
-  there is no previously defined notion of ``union of
-  types''.\citep[p. 33]{hottbook}
-
-\item [Proposition type] Conceptually, at least, this seems primitive.
-  Especially if the concept of ``proposition'' counts as a
-  pre-theoretic principle.  Which implies that proof is also a
-  pre-theoretic principle.  Proposition types are fundamentally
-  different than the other kinds of type, since they have
-  truth-conditions.\sidenote{Actually this isn't quite right.
-    Propositions have truth-conditions in classic logic, but not not
-    in type theory.  In type theory they have proofs; a propositional
-    type is not true or false, but proven or disproven.  But the
-    larger point stands: the \textit{concept} of proposition is
-    different than the concept of, say, natural number.} Etc.  It
-  follows that proofs are fundamentally different from other kinds of
-  witness.
-
-\end{description}
-
-\begin{ednote}
-  What I've called ``proposition type'' is not \textit{formally}
-  distinct; the distinction I'm after is conceptual.  But this
-  suggests that we need to add at least one more item to our list of
-  primitives: ``ordinary'' or simple types.  Maybe it would be best to
-  start with the natural numbers as an example of a simple type,
-  rather than function types.  Then an example of a proposition type,
-  before proceeding to function type.  The items listed (following the
-  \HoTTB{}) are really constructions, or let's say complex types,
-  built out of two other types.  So maybe the distinction we want is
-  between simple and complex or compound types.  Then the simple types
-  would come out as primitive, and the complex types as derived (just
-  like dependent types.)  Compare the idea of constructions in
-  category theory.  There categories are primitive and e.g. the
-  product category is an example of a category constructed from other
-  categories.
-\end{ednote}
-
-\begin{ednote}
-  For consistency, we might want to use symbols to designate all of
-  the primitives, just as we do for \(\Pi\) and \(\Sigma\).  This
-  would give us: \(\Huge\fun\)-types, \(\Huge\cross\)-types, and
-  \(\Huge +\)-types.
-\end{ednote}
-
-
-%%%%%%%%
-\subsection{\HoTT{} Quasi-primitives}
-\label{subs:quasiprim}
-
-\noindent ``Fundamental''\sidenote[][-28pt]{\begin{ednote}
-  Obviously we need a better bit of
-  terminology.  ``Quasi-primitives''?  ``Neo-primitives''?  These
-  types are not primitive, strictly speaking, but on the other hand
-  they are basic.  I think there is another fundamental principle at
-  work here.  In set theory, for example, the concept of function is
-  not only not primitive, it isn't necessary.  You could discard it
-  and still have set theory.  But my intuition tells me that e.g. the
-  concept \(\Pi\)-type is in a sense necessary or essential in type
-  theory, even if it is not primitive.  Once you have the primitives,
-  you necessarily have these non-primitive basic types.  Dunno if
-  that's correct, but it would sure be nice if it were.
-  \end{ednote}}%
-(but non-primitive) concepts and types.  These types seem to be on a par
-with the primitive types as far as importance goes, but they
-presuppose the primitives, so cannot themselves be considered
-primitive.
-
-\begin{ednote}
-  We can make a distinction between the concept of dependent type, and
-  the two specific dependent types introduced here.  Neither is
-  primitive; you can have a type theory without the concept of
-  dependent types.  Most programming languages fit this description,
-  whether they have an explicit type discipline or not.
-\end{ednote}
-
-\begin{ednote}
-  Regarding the notion ``quasi-primitive'': not a very satisfactory
-  term, but I can't come up with a better one at the moment.  What I'd
-  like to show is that the concept of dependent type (maybe also type
-  universe) follows ``naturally'' or necessarily or essentially from
-  the more primitive concepts.  Maybe the right concept here is
-  ``induction'': the primitive concepts (types) ``induce'' the concept
-  of dependent type.  That would be nice esp. if induction is a
-  primary principle.
-\end{ednote}
-
-\begin{theorem}
-  theorem test
-\end{theorem}
-
-\begin{definition}
-  test definition.
-\end{definition}
-
-\begin{description}
-
-\item [Universe]  Is this a primitive?  Probably not, since it builds on the type concept.
-
-\item [\(\Pi\)-type] Informally, ``dependent function''
-  types.\sidenote{As a practical matter, I think it would be useful to
-    have an informal term for these types that falls between
-    ``dependent function type'' and \(\Pi\)-type.  Something like
-    ``p-function type''.  \(\Pi\)-type is admirably concise, but I
-    think it should mention ``function'', since it names a kind of
-    function.}  The concept of \(\Pi\)-type is a generalization of the
-  concept of function type, so it isn't primitive.
-
-\item [\(\Sigma\)-type] Informally, ``dependent pair''
-  type.\sidenote{Shouldn't this be called ``dependent
-    \textit{product}'' type?  The type is product, not pair; pairs are
-    ``elements'' of the type.  Informally, maybe ``sig-prod type?}
-  The concept of \(\Sigma\)-types is a generalization of the concept
-  of product type.
-
-\end{description}
-
-%%%%%%%%
-\subsection{\HoTT{} Standard Type Library}
-\label{subs:hottstdlib}
-
-\begin{ednote}
-  By analogy to the usual ``standard library'' of programming
-  languages.  The idea is to list commonly used types that are neither
-  primitive nor quasi-primitive; ``application'' types, in a sense.
-\end{ednote}
-
-
-\begin{description}
-\item [Boolean] \citep[p. 34]{hottbook}
-\item [$\nat$] \citep[p. 36]{hottbook} But there's a problem here;
-  actually several.  First of all, the section on the naturals in
-  chapter one does not actually show how to construct them; its really
-  a section about induction, not the natural numbers.  Second, what it
-  does say about the naturals is that they start from zero.  That
-  obviously won't do; zero is not a natural number, and there is no
-  intuitive notion of zero as a number.  You can't even think of it as
-  a number until you've severed the link between the concept of number
-  and the concepts of quantity and/or magnitude.  So the natural
-  numbers really must start with 1, not 0.
-\item [Proposition]  Moved to Primitives section.
-\item [Identity]
 \end{description}
 

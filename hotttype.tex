@@ -348,24 +348,6 @@
 %%   \TeX
 %% }
 
-\def\HoTT{%
-  H\kern-.7pt
-  {\tiny\raisebox{1pt}{o}}%
-  %% {\setbox0=\hbox{T}%
-  %%  \vbox to \ht0{\vss\hbox{\the\scriptfont0 o}\vss}}%
-  \kern-1.5pt
-  TT}
-
-\def\HoTTB{%
-  the H\kern-.7pt
-  {\tiny\raisebox{1pt}{o}}%
-  %% {\setbox0=\hbox{T}%
-  %%  \vbox to \ht0{\vss\hbox{\the\scriptfont0 o}\vss}}%
-  \kern-1.5pt
-  TT Book
-}
-
-
 %%%%%%%%%%%%%%%%
 
 \newcommand\cspace{coordinate space}
@@ -389,7 +371,29 @@
 %% \newcommand\Rtwo{\(\mathds{R}^2\)}
 %% \newcommand\Z{\(\mathds{Z}\)}
 
+
+\def\HoTT{%
+  H\kern-.7pt
+  {\tiny\raisebox{1pt}{o}}%
+  %% {\setbox0=\hbox{T}%
+  %%  \vbox to \ht0{\vss\hbox{\the\scriptfont0 o}\vss}}%
+  \kern-1.5pt
+  TT}
+
+\def\HoTTB{%
+  the H\kern-.7pt
+  {\tiny\raisebox{1pt}{o}}%
+  %% {\setbox0=\hbox{T}%
+  %%  \vbox to \ht0{\vss\hbox{\the\scriptfont0 o}\vss}}%
+  \kern-1.5pt
+  TT Book
+}
+
 \newcommand\ML{Martin-L\"{o}f}
+
+\newcommand\TTh{Type Theory}
+
+\newcommand\tth{type theory}
 
 \includeonly{%
 introduction%
@@ -398,8 +402,12 @@ introduction%
 ,pragmatism
 ,foundations
 ,types
+,curry-howard
 ,proof
+,semantics
+,math
 ,brandom
+,hotttypes
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -409,12 +417,13 @@ introduction%
 \maketitle
 
 \begin{abstract}
-  Currently this doc contains the intro and chapter 1 from the
-  \href{http://homotopytypetheory.org/book/}{HoTT Book}, followed by
-  some notes.  Eventually the intro and chapter 1 will contain
-  annotations, comments, additional examples, etc., but I have not
-  started that yet, so if you are already familiar with the text you
-  need not read them -- I haven't (so far as I recall) changed anything.
+  Currently this doc contains a (mildly organized) set of notes
+  followed by the intro and chapter 1 from the
+  \href{http://homotopytypetheory.org/book/}{HoTT Book}.  Eventually
+  (maybe) the intro and chapter 1 will contain annotations, comments,
+  additional examples, etc., but I have not started that yet, so if
+  you are already familiar with the text you need not read them -- I
+  haven't (so far as I recall) changed anything.
 
   The idea is to winnow out some of the strictly mathematical stuff
   leaving the core ``philosophical'' stuff, and annotate the text with
@@ -438,57 +447,33 @@ introduction%
 
 %% \mainmatter % Turn on roman page numbers and numbered chapters
 
-\include{introduction}
-
-\include{preliminaries}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{The Language of \HoTT}
-\label{sect:hottlang}
-
-One way to think about mathematics and logic is in terms of objects,
-structures, relations, and the like.  etc.
-
-But one can also think of it in terms of vocabularies (or idioms,
-etc.).  Then mastering a discipline is not just a matter grasping some
-content, but also of acquiring practical mastery over a vocabulary.
-
-The vocabulary of set theory has dominated mathematical discourse for
-most of the last 100 years or so.  Starting in the late 1940s, a
-competing vocabulary based on category theory began to emerge.  Today
-it is not uncommon to see both vocabularies deployed in the same
-discourse (lecture, paper).
-
-{\todo Type theory as a vocabulary - mostly confined to logic, then
-  computer science.  Etc.  \HoTT{} as the latest distinctive vocab. -
-  covering both math and compsci, also regions of logic.
-  Significantly different that both set theory and classic logic.}
-
-\include{niceties}
-
 \include{pragmatism}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Logics}
+\label{sect:logics}
+
+\begin{description}
+\item [Traditional] terms are primitive; propositions are combinations of terms; judgments apply to proposotions
+\item [Modern: classic] LEM, AC, etc.
+\item [Modern: intuitionistic]
+\item [Expressivism]  Brandom's version: propositions are primitive; relation to inferential semantics; Price's global expressivism
+\end{description}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{proof}
+
+\include{semantics}
+
+\include{math}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \include{foundations}
 
 \include{types}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Truth}
-\label{sect:truth}
-
-Why Truth is Not Important in Type Theory (with apologies to
-R. Brandom\cite{brandom_why_2009})
-
-\begin{ednote}
-  Propositions are either true or false in classic math and logic; in
-  type theory they are either proven or disproven.  In this respect
-  type theory is just like contemporary pragmatism, which (generally
-  speaking) treats truth as otiose; what matters is not truth but
-  function or expressiveness.
-
-  This suggests a test for learners: until you've grasped why truth is
-  not imporant in type theory you haven't really grasped type theory.
-\end{ednote}
+\include{curry-howard}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Assertion and Judgment}
@@ -600,7 +585,46 @@ incoherent.
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\include{proof}
+\section{What's the Big Deal about Equality?}
+\label{sect:equality}
+
+\begin{ednote}
+  Equality is arguably the most important concept of \HoTT{}, as far
+  as I can tell, because of the ``Univalence Axiom''.
+\end{ednote}
+
+``In the intensional version of the theory, with which we are
+concerned here, one thus has two different notions of equality:
+propositional equality is the notion represented by the identity
+types, in that two terms are propositionally equal just if their
+identity type IdA(a,b) is inhabited by a term. By contrast,
+definitional equality is a primitive relation on terms and is not
+represented by a type; it behaves much like equality between terms in
+the simply-typed lambda-calculus, or any conventional equational
+theory.
+
+If the terms a and b are definitially equal, then (since they can be
+freely substituted for each other) they are also propositionally
+equal; but the converse is generally not true in the intensional
+version of the theory''\cite{awodey_tth}
+
+``The constructive character, computational tractability, and proof-
+theoretic clarity of the type theory are owed in part to this rather
+subtle treatment of equality between terms, which itself is
+expressible within the theory using the identity types IdA(a, b).''\cite{awodey_tth}
+
+%%%%%%%%
+\subsection{Substitution}
+\label{subs:substitution}
+
+As the quote from Awodey above suggests, the concept of
+substitutability plays a basic role.
+
+\begin{ednote}
+  Compare substitution in lambda calculus, and in Brandom's model.
+  Maybe something about combinatory logic and the elimination of
+  variables?
+\end{ednote}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Expressivity}
@@ -609,10 +633,10 @@ incoherent.
 Instead of ``P is a proposition'' etc. we should say ``P expresses a proposition''.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Classics}
-\label{sect:classics}
+\section{Determinism}
+\label{sect:determinism}
 
-hypothesis: classical math with LEM and AC is inherently
+Hypothesis: classical math with LEM and AC is inherently
 non-deterministic.  Constructive math(s) and logic(s) that discard LEM
 and AC are deterministic.
 
@@ -658,11 +682,6 @@ idea.
 \label{sect:frege}
 
 {\todo The Frege Point; force v. content, etc.}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Gentzen: Natural Deduction}
-\label{sect:gentzen}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -722,6 +741,39 @@ the type.
   to be proofs of \(\nat\).  How do we get there?
 \end{remark}
 
+%%%%%%%%%%%%%%%%
+\include{niceties}
+
+\section{The Language of \HoTT}
+\label{sect:hottlang}
+
+One way to think about mathematics and logic is in terms of objects,
+structures, relations, and the like.  etc.
+
+But one can also think of it in terms of vocabularies (or idioms,
+etc.).  Then mastering a discipline is not just a matter grasping some
+content, but also of acquiring practical mastery over a vocabulary.
+
+The vocabulary of set theory has dominated mathematical discourse for
+most of the last 100 years or so.  Starting in the late 1940s, a
+competing vocabulary based on category theory began to emerge.  Today
+it is not uncommon to see both vocabularies deployed in the same
+discourse (lecture, paper).
+
+{\todo Type theory as a vocabulary - mostly confined to logic, then
+  computer science.  Etc.  \HoTT{} as the latest distinctive vocab. -
+  covering both math and compsci, also regions of logic.
+  Significantly different that both set theory and classic logic.}
+
+\include{hotttypes}
+
+\clearpage
+\appendix
+\begin{appendices}
+
+\include{introduction}
+
+\include{preliminaries}
 
 %%%% Bibliography
 %% \bibliographystyle{halpha}
@@ -733,5 +785,6 @@ the type.
 \bibliography{references}
 \bibliographystyle{plainnat}
 
+\end{appendices}
 
 \end{document}
