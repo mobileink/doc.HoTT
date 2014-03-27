@@ -99,6 +99,131 @@ So here's one way to look at it: we construct (make) proofs; but the
 proofs we construct are expressions of the type (the thing we prove).
 
 %%%%%%%%
+\subsection{Proof}
+\label{subs:proof}
+
+\begin{ednote}
+  Critical point: we want to draw a sharp contrast between the classic
+  and pragmatist conceptions of proof.  Classic: the business of proof
+  is to preserve truth; valid inference is defined in terms of
+  truth-preservation; and the knowledge dispensed by proof is
+  \emph{knowledge that} the conclusion is true of the premises are
+  true.  Pragmatist: validity of inference is grounded in proprieties
+  (norms) of practice rather than truth; valid inference
+  \emph{expresses} good (material) inference; the knowledge expressed
+  by proof is \emph{know-how}: a practical skill of doing rather than
+  an epistemic state of knowing.  Truth has no substantive role to
+  play; it is just a complement we pay to the premises and conclusions
+  of good inference.
+
+  In a nutshell: classically, good inference is what preserves truth;
+  proof is ``truth-conditional''.  Pragmatism turns this upside down
+  and says that truth is what good inference preserves; truth is
+  proof-conditional.  The former starts with truth and derives proof;
+  the latter starts with good inference and derives truth.
+
+  Relevance to type theory: intuitionistic type theory grew out of
+  what can be called a pragmatist tradition in mathematics and logic,
+  even if the key players did not think of themselves as pragmatists.
+  The ``intuitionistic'' bit is key; the concept of ``type'' is
+  neutral with respect to these issues; both classic and pragmatic
+  approaches can use it, and neither can claim exclusive rights to it.
+  ITT provides a pragmatist interpretation of the concept.  One of the
+  key themes of \ML{}'s theory, for example, is an account of
+  assertion (judgment); this is fundamental because it explains the
+  meanings of propositions and proofs.  Dummett is a key figure here,
+  cited explicitly by Brandom as a major influence (I don't know if
+  \ML{} cites him.)  Gentzen, too: natural deduction as a
+  meaning-is-use model of reasoning.
+
+  TODO: centrality of concept of meaning-as-use; role of idea of
+  theory of meaning as essential -- Dummett, but also Frege, etc.
+
+\end{ednote}
+
+\begin{ednote}
+  TODO: concise schematic account of classic concept of proof.  To
+  prove a proposition is to...?  Construct a linguistic expression
+  that corresponds to the truth?  True premises plus truth-preserving
+  inferences.  Writing a concise account is a bit hairy, since we need
+  to account for both syntax and semantics, axioms and deductions.
+  Basic idea: it's not about construction but about representation.
+  How one goes about making a proof is irrelevant; all that matters is
+  the truth value of the result, meaning that the result must
+  ``mirror'' objective reality.  Even inferences are essentially
+  axiomatic; the truth tables \emph{define} the logical constants and
+  the inferences they are involved in.  Proof involves checking the
+  truth values of propositions and inferences in a structure.  In
+  other words, truth tells us whether the proof is good or not.
+  Contrast pragmatism: proof tells us whether conclusion is true or
+  not.
+\end{ednote}
+
+\begin{ednote}
+  Another critical point: pragmatism is about language, that is
+  discursive practice.  It denies that there is anything interesting
+  (read: useful) to say about Truth (capital T), but it has plenty to
+  say about the role that the concept (and terminology) of truth plays
+  in our practical doings and sayings.  It's an extremely useful
+  concept, and without linguistic devices like ``... is true'' we
+  would find discourse vastly more difficult (but not impossible in
+  principle).  But that does not compel us think that Truth is a
+  substantial property, of that something called ``Truth'' exists.  Or
+  more specifically, that true propositions are true in virtue of
+  their correspond to ``reality''.
+\end{ednote}
+
+\newthought{To prove a proposition is to justify it}; in Brandom's
+pragmatist model, this means to to vindicate \emph{entitlement} to
+\emph{commitment} to the proposition that is \emph{expressed by
+  asserting} it.  There are three ways to do this:
+
+\begin{description}
+\item [Demonstration] One can \emph{say explicitly} what entitles
+  commitment to the proposition.  Informally, this means laying out
+  the reasons for it - the chain of inferences in which the
+  proposition plays the role of conclusion or premise.\sidenote{Note
+    that this goes both ways, upstream and downstream.}  Formally,
+  this means stating a proof in the traditional sense of a schedule of
+  propositions linked by inferences licensed by the deductive system.
+\item [Appeal to Authority] Continually articulating explicity proofs
+  would be impossible in practice; but the rational structure of
+  discursive practice means that we can also cite the authority of
+  others who have asserted the proposition.  Formally, this means we
+  can simply refer to previously proven propositions instead of
+  repeating their proofs.  If the a step in the proof of your
+  proposition depends on the Pythagorean Theorem, for example, you can
+  appeal to the theorem by name to justify that step, rather than
+  proving it explicitly.  In Brandom's idiom, what makes this work
+  involves a concept of \emph{intra}personal inheritance of
+  entitlement; it is an aspect of the essentially social nature of
+  discourse and thus reasoning.
+\item [Reliable Disposition] The trickiest of Brandom's three
+  techniques of justification involves the appeal to the commitments
+  of reliable reporters.  By that he means people whose reports are
+  reliable even if they are unable to provide explicit justification
+  of them.  He gives the example of an expert in a certain kind of
+  pottery, whose (``instinctive'') judgments as to whether a
+  particular shard is or is not an example of that kind are generally
+  considered reliable.
+\end{description}
+
+\begin{ednote}
+  I'm not sure where reliable reporting fits into formal reasoning.
+  In general I don't think it plays much of a role in mathematical or
+  logical proofs; mathematicians and logicians do not as a rule simply
+  accept the word of somebody just because his intuitions have proven
+  reliable in the past.  They might accept it informally and say that
+  he is probabaly right, but they would nonetheless demand that
+  eventually the intuition be backed by explicit proof.  Maybe at a
+  very basic level, such as the intuition that there is a unity and a
+  plurality, is a reliable disposition that we attribute to just about
+  everybody.  Brouwer's account of the subjective origin of basic
+  mathematical concepts in terms of intuitions about time, etc. should
+  be mentioned here.
+\end{ednote}
+
+%%%%%%%%
 \subsection{Logical Consequence}
 \label{subs:logconseq}
 
