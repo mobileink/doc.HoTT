@@ -1,5 +1,5 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Types}
+\chapter{Types}
 \label{sect:type}
 
 \HoTTB page 27 describes a ``general pattern for introduction of a new
@@ -38,3 +38,46 @@ rather than in the middle of a description of a particular type.
 
 ``Under the Curry-Howard cor- respondence, one identifies types
 with propositions, and terms with proofs...''\cite{awodey_tth}
+
+%%%%%%%%
+\section{Witness}
+\label{subs:witness}
+
+\begin{ednote}
+  In what sense is a proof a witness to a type, or an ``inhabitant''
+  of a type?  Intuitively this language does not work very well; we
+  don't intuitively think of a proposition as a type ``inhabited'' by
+  proofs.  The notion of proof as ``witness'' to a type is a
+  substantive epistemological notion; it not only says that the proof
+  is related to the type, but also it says something about the nature
+  of that relationship.
+
+  The trick is to see it from the perspective of the machine.  A
+  proposition like \(1+1=2\) is just a form to the machine.  We can
+  see that it is true just by looking, due to some mysterious
+  epistemic capability.  But machines do not have epistemic abilities;
+  a form is a form is a form to a machine.  Hammer, nail.  So in order
+  for the machine to treat \(1+1=2\) as a \emph{true} proposition, we
+  have to give it something more: a proof.  But ``proof'', again, is
+  an substantive epistemic notion; the machine analog must be purely
+  formal.  From the machine perspective, a proof is just another form,
+  or rather, collection of forms (including inference rules as complex
+  forms): to give the machine a proof of P we must provide it with a
+  form or forms that ``lead to'' (produce, result in) P.  To prove a
+  proposition to a machine, we give it forms and reduction rules such
+  that the formal use of those forms and rules results in the form of
+  the proposition to be proved.  (FIXME: a more accurately way of
+  putting this would involve reduction of formulae to normal form,
+  confluence, etc.)
+
+  So we can think of a proof as a kind of device---just another
+  machine (or machine description), but one whose sole output is the
+  proposition to be proved.  Since for any given proposition there may
+  be many ways of building such a proving device, we can treat these
+  devices as forming a kind of equivalence class, which we can
+  identify by taking (the form of) the proposition as a symbol
+  referring to the class.  Now the connection to types and witness
+  becomes clear: the equivalence class of such proving devices forms a
+  type, the type of the devices (proofs), and each device (proof)
+  ``inhabits'' (or as we would prefer, expresses) the type.
+\end{ednote}

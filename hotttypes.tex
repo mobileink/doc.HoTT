@@ -1,5 +1,5 @@
 %%%%%%%%
-\section{\HoTT{} Types}
+\chapter{\HoTT{} Types}
 \label{subs:hott}
 
 \HoTT{} primitives are ....\sidenote{A proper exposition would
@@ -20,7 +20,7 @@
 \end{ednote}
 
 %%%%%%%%
-\subsection{Simple Types}
+\section{Simple Types}
 \label{subs:simpletypes}
 
 \begin{ednote}
@@ -52,7 +52,7 @@ fundamentally different from other kinds of witness.
 
 
 %%%%%%%%
-\subsection{Compound Types}
+\section{Compound Types}
 \label{subs:compountypes}
 
 \begin{description}
@@ -112,8 +112,34 @@ fundamentally different from other kinds of witness.
 
 
 %%%%%%%%
-\subsection{Dependent Types}
+\section{Dependent Types}
 \label{subs:quasiprim}
+
+\begin{ednote}
+  Add sth re:  types indexed over n v. parameterized over \(\alpha\)
+\end{ednote}
+
+\begin{ednote}
+  Major TODO: ``basic'' types (as in Z) plus constraints (predicates)
+  v. complex dependent types.
+
+  Example: the paradigmatic example for dependent types is a list.
+  This combines a type parameter \(\alpha\) and an index \(n\):
+  List~\(\alpha, n:\nat\) means a list of length \(n\) of values of
+  type \(\alpha\).
+
+  But that's only one possibility.  Let's add a real number:
+  List~\(\alpha, n:\nat, x:\real\).  In this case \(x\) could mean
+  anything: sum of the elements of the list, product, mean, standard
+  deviation, etc.  In short \(x\) can be any \emph{statistic} computed
+  over the list.
+
+  This works intuitively; does it work in type theory?  Specifically,
+  \ML{}-style theories like \HoTT?  Would these be genuine types or
+  types plus additional constraints?  In other words, is the
+  interpretation of \(x\) built-in to the type, or is it an ``extra''
+  constraint applied after the fact, as it were.
+\end{ednote}
 
 \noindent ``Fundamental''\sidenote[][-28pt]{\begin{ednote}
   Obviously we need a better bit of
@@ -152,14 +178,6 @@ primitive.
   primary principle.
 \end{ednote}
 
-\begin{theorem}
-  theorem test
-\end{theorem}
-
-\begin{definition}
-  test definition.
-\end{definition}
-
 \begin{description}
 
 \item [Universe]  Is this a primitive?  Probably not, since it builds on the type concept.
@@ -183,7 +201,7 @@ primitive.
 \end{description}
 
 %%%%%%%%
-\subsection{Standard Type Library}
+\section{Standard Type Library}
 \label{subs:hottstdlib}
 
 \begin{ednote}

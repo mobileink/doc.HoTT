@@ -1,10 +1,22 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Proof: Truth and Consequences}
+\chapter{Proof: Truth and Consequences}
 \label{sect:prooftruth}
 
+\begin{ednote}
+  Why Truth is not Important in Computation.  Proof is a mode of
+  expression.  The statement of a proposition--e.g. \(1>0\)--expresses
+  the propostion but leaves its inferential articulation implicit.  A
+  proof of the proposition explicitly articulates its upstream
+  inferential structure.  To say that a proof demonstrates the truth
+  of the proposition it proves is just to say that it makes (part of)
+  its inferential articulation explicit---in whatever proof formalism
+  you decide to use (more than one possibility).  Truth plays no
+  substantial role in this view; it's just a convenient way to say
+  ``explicit inferential articulation''.
+\end{ednote}
 
 %%%%%%%%
-\subsection{Truth}
+\section{Truth}
 \label{subs:truth}
 
 Why Truth is Not Important in Type Theory (with apologies to
@@ -54,6 +66,16 @@ For \HoTT{}, as for most varieties of constructivism, it is better to
 abandon traditional notions of proof as something you see in favor of a
 more pragmatic notion of proof as something you do.
 
+\begin{ednote}
+  But proof as explicit articulation of inferential structure also
+  comes out as a thing.  It must, if we are to have proof objects as
+  mathematical objects; it is not enough just to do a proof, we must
+  produce a proof object---which is just the explicit statement of the
+  inferential structure implicit in the mere statement of a
+  proposition.  So if it is something we do it is also something we
+  produce.
+\end{ednote}
+
 etc.
 
 Critical point: in \HoTT we have two ``kinds'' of types: propositional
@@ -81,26 +103,53 @@ suggestion is as follows:
 \item [Proof of a proposition] In contrast to the classic spectator
   view, we treat proof not as the exhibition (or: making available for
   inspection) of the form of a bit of certain knowledge, but as the
-  \textit{demonstrative expression} of the proposition.
-  Alternatively, the expressive demonstration of the proposition.  So
-  whereas a classic proof is something that must be ``seen'' in order
-  to be grasped, a type-theoretic proof is something that must be
-  actively \textit{done}, not merely passively observed.  One must be
-  able to follow the construction of the proof.
+  \textit{demonstrative expression}\sidenote{Close, but no cookie.
+    The notion of demonstrative expression must be made concrete, in
+    terms of explicit articulation of inferential structure of
+    proposition.} of the proposition.  Alternatively, the expressive
+  demonstration of the proposition.  So whereas a classic proof is
+  something that must be ``seen'' in order to be grasped, a
+  type-theoretic proof is something that must be actively
+  \textit{done}, not merely passively observed.  One must be able to
+  follow the construction of the proof.
+
 
 \item [Proof of a non-propositional type] Classically, one only proves
   propositions, not terms.  So the idea of e.g. ``proving'' the
   natural numbers doesn't even make sense; it reflects a category
   mistake.  But in \HoTT, the concept of ``proving'' a type is
-  primitive; the problem is that ``proving'' is the wrong word.
+  primitive; the problem is that ``proving'' is the wrong
+  word.\sidenote{Hmm.  Proof of the type \(\nat\) by producing a
+    natural number --- how does this count as explicit articulation of
+    inferential structure of \(\nat\)?  What is that structure,
+    anyway?  The inductive definition?  In constructing a natural
+    number, e.g. \(3\), we \emph{use} of the principle of induction,
+    of Succ.  Does this count as making the inferential articulation
+    of \(\nat\) explicit?  That would imply that the explicit
+    articulation of a proof must include the entire apparatus,
+    including inference rules, type formation rules, etc.  But this
+    would mean that definitions (type formation rules) form part of
+    the proof, which seems circular - you cannot ``prove'' \(\nat\) by
+    citing the very definition of \(\nat\).  And while we're at it:
+    what are the type formation rules for propositions like \(1 >
+    0\)?}
 \end{description}
+
+\begin{ednote}
+  Can we think of each natural number as a dependent type?
+  I.e. something like Succ parameterized by -- what?
+\end{ednote}
 
 So here's one way to look at it: we construct (make) proofs; but the
 proofs we construct are expressions of the type (the thing we prove).
 
 %%%%%%%%
-\subsection{Proof}
+\section{Proof}
 \label{subs:proof}
+
+\begin{ednote}
+  Concept of ``proof obligation''
+\end{ednote}
 
 \begin{ednote}
   Critical point: we want to draw a sharp contrast between the classic
@@ -242,7 +291,7 @@ pragmatist model, this means to to vindicate \emph{entitlement} to
 \end{ednote}
 
 %%%%%%%%
-\subsection{Logical Consequence}
+\section{Logical Consequence}
 \label{subs:logconseq}
 
 \cite{prawitz_logical_2005}
@@ -256,7 +305,7 @@ pragmatist model, this means to to vindicate \emph{entitlement} to
 \cite{prawitz_truth_epistemic}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Inference and Deduction}
+\section{Inference and Deduction}
 \label{sect:infdeduc}
 
 \begin{description}
@@ -265,7 +314,7 @@ pragmatist model, this means to to vindicate \emph{entitlement} to
 \end{description}
 
 %%%%%%%%
-\subsection{Of the Ambiguity of Of}
+\section{Of the Ambiguity of Of}
 \label{subs:ofofof}
 
 ``Of'' supports two distinct readings.  Consider ``the conviction of
@@ -284,7 +333,7 @@ proposition'' as well.  If we can disambiguate it some of the mystery
 of the relation between types and proofs will vanish.
 
 %%%%%%%%
-\subsection{Demonstrations and Demonstratives}
+\section{Demonstrations and Demonstratives}
 \label{subs:}
 
 When we \textit{exhibit} a classic proof of a proposition, the proof

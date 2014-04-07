@@ -1,0 +1,219 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Assertion and Judgment}
+\label{sect:assertionjudgment}
+
+%%%%%%%%
+\subsection{notes}
+\label{subs:notes}
+
+This section needs some serious revision.  Here's the straight dope,
+in a nutshell.  In his paper ``Truth of a proposition, evidence of a
+judgement, validity of a proof''\citep{martin-lof_truth_1987}, which
+is specifically about the philosophical basis of \ITT{}, \ML{}
+attempts to explain the concepts proposition, truth, evidence,
+proof, and validity.  The first part of the paper, which gives some
+historical and conceptual background, is just right for the most
+part.  He points out, for example, that for the intuitionist proof
+comes before truth.  But he makes a major blunder when he claims
+that the classic truth-conditional account of the logical
+connectives, an account that is based on truth table semantics, and
+the BHK accounts, which treat a proposition as an expectation or
+task etc., are just different ways of saying the same thing.
+``Façons de parler'', as the saying goes.  But I think this is flat
+out wrong.  Classic and intutionistic logic may use the same
+formulas, but they could not be more different conceptually.
+Classic truth-conditional logic presupposes something like what
+Wittgenstein called (in his Tractatus days, at least) a picture
+theory of meaning. (I may not be getting the exact wording right
+here, but the idea should be clear enough.)  Proof in that kind of
+logic has nothing to do with construction; it's all about
+correspondence, a representational relation between language and
+objective reality.  Obviously there's much more to be said about
+this, but suffice it to say that \ML's claim that classic logic and
+intuitionistic BHK logic are in the same line of business strikes me
+as not only wrong but a little bit shocking.  So wrong that I have
+to wonder why he made that sort of claim.  Maybe he was unfamiliar
+with the pragmatist literature.  And we'll just proceed on the
+assumption that I am not wrong, if you don't mind.  I'll provide a
+more detailed justification of this claim later.
+
+Another thing that looks wrong to me is his account of the BHK
+interpretation of propositions; but in this case, he has an excuse:
+R. Brandom's more refined account of assertion and proposition was
+not yet available.  Brandom's account makes the problems with \ML's
+account quite clear.  The latter follows BHK in treating a
+proposition as a problem to be solved, a task to be accomplished, or
+an expectation of a proof, etc.  The problem is that propositions
+are clearly exactly \emph{not} these things.  Obviously we may
+\emph{treat} a proposition as e.g. a task to be accomplished; but
+that does not determine what a proposition \emph{is}.  Or to put it
+differently \ML{} seems to ignore the significance of \emph{force},
+which is distinct from conceptual content.
+
+For now I don't have time to explicate the point in detail, so
+here's the short version: Brandom divides assertion into commitment
+and entitlement.  And what makes the proposition primitive is that
+it is the minimal unit of \emph{responsibiity} - Brandom traces this
+notion to Kant.  To assert a proposition is to undertake a
+commitment to it, and also to license others to challenge ones
+entitlement to that commitment.  Thus it inescapably involves a kind
+of responsibiity: the responsibility to justify (``vindicate'', as
+Brandom says) one's commitment.  One way to do this is to
+demonstrate the entitlement by giving \emph{reasons} for it.
+
+If you're familiar with the \ML{} paper mentioned above, the
+connection should be fairly obvious.  Commitment and entitlement are
+deontic attitudes, which institute deontic statuses (e.g. being
+correct or incorrect).  They are emphatically \emph{not} properties
+of propositions.  So it is just a mistake to think that propositions
+are or express tasks, problems, or expectations.  On the other hand,
+\emph{assertion} of a proposition does give rise to a responsibility
+to vindicate commitment.  Talk of ``expectation of a proof'' is
+entirely intelligible as a way of saying that assertion licenses
+others to challenge one's commitment---to expect that one can or
+will prove it.  Talk of task or problem is really a way of talking
+of the justification or vindication that one is responsible
+for.\sidenote{And note that this is not a mere matter of voluntary
+  acceptance of responsibility; it arises because assertion licenses
+  others to \emph{hold} one respondible, treat one \emph{as}
+  responsible, and therefore sanction speakers who fail to vindicate
+  their commitments.}
+
+So in the end, \ML{} is speaking more or less the right vocabulary,
+but his explanation is off, and his characterization of propositions
+as involving something in addition to propositional content
+(e.g. expectation, task, etc.) is not defensible, at least from a
+Brandomian perspective.  \HoTT{}, unfortunately, duplicates his
+error in its account of judgment.
+
+The remedy is close at hand, though.  All we need do is recognize that
+what \HoTTB calls ``judgments'', like ``a : A'' and ``a := b'', are
+really \emph{stipulations}, and what it calls propositions,
+\emph{assertions}.  A stipulation, unlike an assertion, does not
+require justification.  A stipulator does not license listeners to
+demand reasons for the stipulation.  Of course they can make such
+demands, but almost by definition we can stipulate \emph{ad libitum}.
+Listeners who don't like our stipulations can go elsewhere; but no
+\emph{rational} challenge can be mounted against a stipulation.  The
+reason it makes no sense to ask for a proof of ``a : A'' is not
+because it is a ``judgment'' but because it is a stipulation and
+therefore needs no justification.  By contrast, ``propositional
+equality'' is just a fancy (and rather unfortunate) term for
+``asserted equality''.
+
+Another way to look at it: \HoTT, following \ML{}, attributes
+special properties to propositions.  But that's hard to defend,
+philosophically, and doesn't amount to genuine explanation; a better
+way is to explain assertion in terms of deontic attitudes and
+responsibilities.
+
+%%%%%%%%
+\subsection{Judgment}
+\label{subs:judgment}
+
+
+The account of judgment offered in the HoTT Book doesn't really work.
+Ditto for Martin-L\"{o}f's account.  For example, it makes sense to
+say ``P is a proposition'', but it doesn't make sense to say ``P is a
+judgment''.  That's because judgment is a act, something one does.
+
+On the other hand, ``judgment'', like ``proposition'', can be treated
+as a verbal noun or as a ``plain'' noun.  Saying ``P is a
+proposition'' is usually taken to mean that P refers to what has been
+proposed.  There is no obvious reason not to treat ``P is a judgment''
+in a similar manner: P refers to what has been judged.
+
+However, there is a difference.  Judging a proposition (what was
+proposed) amounts to \textit{evaluating} what was proposed, as good or
+bad, true or false, or whatever.  By contrast, proposing a proposition
+amounts to merely exhibiting it for consideration.  This arguably
+involves an implicit evaluation - to propose a proposition is to
+implicitly claim that it is good, or true, etc.  But proposing does
+not involve offering an evaluation that is distinct from what is
+proposed, whereas judgment does.  The two are distinct kinds of speech
+act, and refering to the content of a speech act is not the same as
+referring to the speech act itself.
+
+Furthermore, it is not correct to treat the nominal sense of
+``judgment'' as being the content, what has been judged.  The nominal
+sense of ``judgment'' refers to the act of judgment itself, and not
+the proposition judged.
+
+Actually, by the same reasoning it is not correct to say that the
+nominal sense of ``proposition'' is what-is-proposed; rather, it is
+the act proposing, nominalized.  This makes perfect sense when you
+consider that ``proposing'' can also be nominalized; ``the proposing''
+is another way of saying ``the proposition''.
+
+The same goes for all -tion words: suggestion, opposition, etc.  In
+each case, the word can refer to the doing, or to what is done, and
+what is done is always the act of doing itself -- not the subject or
+object of the doing.
+
+This suggests we should make a distinction between, for example, the
+content of a proposition and ``proposition''.  But this term seems to
+be a special case; it has the usual plain noun sense of
+what-was-proposed, the usual verbal sense of ``proposing'', but also
+the nominalized verbal sense of ``act of proposing''.
+
+(But then the same considerations apply to ``judgment''.  The
+difference must go back to semantics.)
+
+\begin{remark}
+  The Arabic grammatical tradition captures this distinction
+  beautifully, mainly because the structure of the language makes it
+  simple to do so.
+\end{remark}
+
+Or put it this way: when we judge a proposition like ``2+2=4'' to be
+true, the what-was-judged is not ``2+2=4'' but the truth of ``2+2=4''.
+
+\begin{remark}
+  But how is this different from ordinary predication, like ``The
+  triangle is red'' as a proposition?  Should we say that what is
+  proposed is not that the triangle is red, but the redness of the
+  triangle?  No, since we're treating it as a propostion, and the
+  whole thing is proposed (exhibited).  If we judge it to be true,
+  then again the judgment 
+\end{remark}
+
+So saying ``P is a judgment'' is incoherent if P is taken to refer to
+nothing more than what is proposed.  If P refers to a claim of the
+form ``X is true'' (or good, etc.), then ``P is a judgment'' seems to
+make more sense; but it doesn't, really.  P still refers to an
+unasserted content; to make sense, we would have to say something like
+``P is a judgment when asserted''.  More explicitly, ``'X is true' is
+a judgment'' (or better, ``'X is true' expresses a judgment'') only
+\textit{exhibits} ``X is true'', which is a proposition, not a
+judgment.  As a proposition it expresses a judgment; but when embedded
+(equivalently, quoted) it does not express anything.
+
+\begin{remark}
+  Compare: ``Snow is white'' iff snow is white.  The quoted bit is a
+  name of the sentence; it counts as a \textit{mention} of the
+  sentence, which has no force.  The unquoted version of same is the
+  sentence itself; it counts as a \textit{use} of the sentence, which
+  has assertional force.  Obviously, the occurances of ``P'' in ``P is
+  a proposition'' and ``P is a judgment are names of a proposition and
+  thus mentions.  So they have no force.
+\end{remark}
+
+The key point is Frege's point: the content of a proposition is
+distinct from the force of the utterance.  That means that P in ``P is
+a proposition'' is unasserted, just as it is when embedded, as in ``If
+P then Q''.  The truth of ``P is a proposition'' is independent of the
+truth of P.
+
+So even if we take the act of declaring ``P'' to be an act of
+judgment, it does not follow that a reference to P is a reference to
+the act of judging that P.  Hence there is no way to make ``P is a
+judgment'' work.  If we take P to refer to what was judged, that again
+is a proposition (or propositional content), so ``P is a judgment'' is
+incoherent.
+
+\begin{remark}
+  We can assert that P, and we can assert P.  We can judge that P, but
+  we cannot judge P.  I don't think this is a mere grammatical
+  distintion; I think it reflects a genuine semantic difference.
+\end{remark}
+

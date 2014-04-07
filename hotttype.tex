@@ -1,5 +1,5 @@
-\documentclass[12pt,toc]{tufte-handout}
-%% \documentclass[reqno,12pt]{tufte-book}
+%% \documentclass[12pt,toc]{tufte-handout}
+\documentclass[reqno,12pt]{tufte-book}
 %% \usepackage{trace}
 %% \documentclass[reqno,12pt]{article}
 
@@ -60,6 +60,7 @@
 \usepackage[numbered]{bookmark} % add chapter/section numbers to the toc in the pdf metadata
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%% these two go together!
 \usepackage{framed}
 \usepackage[standard,framed]{ntheorem}
 %% \newtheorem{theorem}{Theorem}
@@ -391,8 +392,9 @@
 
 \newcommand\ML{Martin-L\"{o}f}
 
-\newcommand\TTh{Type Theory}
+\newcommand\ITT{Intuitionisti Type Theory}
 
+\newcommand\TTh{Type Theory}
 \newcommand\tth{type theory}
 
 \includeonly{%
@@ -409,8 +411,9 @@ introduction%
 ,brandom
 ,hotttypes
 ,misc
-,introduction
-,preliminaries
+%% ,introduction
+%% ,preliminaries
+%% ,lexicon
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -419,7 +422,7 @@ introduction%
 
 \maketitle
 
-\begin{abstract}
+\begin{ednote}
   Currently this doc contains a (mildly organized) set of notes
   followed by the intro and chapter 1 from the
   \href{http://homotopytypetheory.org/book/}{HoTT Book}.  Eventually
@@ -441,7 +444,7 @@ introduction%
   to show more clearly how type theory differs from set theory and
   classic logic.  Another goal is to provide more practical guidance
   to programmers interested in exploring dependent types.
-\end{abstract}
+\end{ednote}
 
 \tableofcontents
 %% \setcounter{tocdepth}{2}        % chapters, sections, and subsections for the
@@ -454,7 +457,7 @@ introduction%
 \include{pragmatism}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Logics}
+\chapter{Logics}
 \label{sect:logics}
 
 \begin{description}
@@ -464,6 +467,18 @@ introduction%
 \item [Expressivism]  Brandom's version: propositions are primitive; relation to inferential semantics; Price's global expressivism
 \end{description}
 
+\begin{ednote}
+  From schema to type.  E.g. \(A,B\vdash A\land B\) --- traditionally
+  viewed as a schema (involving either substitution or denotation), no
+  construction involved.  Move from this to viewing it as a rule of
+  construction or recipe for making something.
+\end{ednote}
+
+\chapter{Proposition}
+
+\begin{ednote}
+  BHK interpretation.  How \ML{} got it wrong wrt classic interpretation.
+\end{ednote}
 
 \include{proof}
 
@@ -482,6 +497,8 @@ introduction%
 
 \include{equality}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Misc}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Expressivity}
 \label{sect:expressivity}
@@ -597,8 +614,15 @@ the type.
   to be proofs of \(\nat\).  How do we get there?
 \end{remark}
 
-\section{The Language of \HoTT}
+\chapter{The Language of \HoTT}
 \label{sect:hottlang}
+
+\begin{ednote}
+  TODO: disentangle commonly used terminology: parameterized types,
+  generic types, algebraic types, generalized algebraic types, types
+  indexed/parameterized, polymorphism, parametric polymorphism,
+  polytypism etc. etc.
+\end{ednote}
 
 \begin{ednote}
   Type formers as entries in a \HoTT{} lexicon, serving not as
@@ -606,6 +630,16 @@ the type.
   the terms mean, they set out how to use them.  That means,
   specifically, the rules governing the notation, not rules governing
   denoted entities.
+
+  NB: rules of use \emph{of vocabulary} \(\neq\) rules of construction
+  \emph{of objects}.  But the idea is for one set of rules to work
+  both ways.  That's pretty much how model-theoretic semantics
+  connects vocab to semantic domain (completeness and consistency).
+  The difference is that the TT semantic domain here (i.e. objects and
+  their rules of construction) is not a passive, platonistic realm of
+  ``real'' objects, but a pragmatic ``field'' of action.  So rules of
+  vocab use and rules of construction converge while remaining
+  conceptually distinct.  IOW the difference is not metaphysical.
 
   On this view we treat \HoTT{} as truly a vocabulary rather than a
   theory about something.  Or more precisely as a regimented idiom or
@@ -661,20 +695,25 @@ the (valid) sequents of the type system.'' same, p. 3
 \clearpage
 \appendix
 \begin{appendices}
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \chapter{HoTT Book Excerpts}
+  \include{introduction}
 
-\include{introduction}
+  \include{preliminaries}
 
-\include{preliminaries}
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \include{lexicon}
 
-%%%% Bibliography
-%% \bibliographystyle{halpha}
-%% \phantomsection % black magic to get TOC to point to correct page
-%% \addcontentsline{toc}{part}{\bibname}
-%% \markboth{}{\textsc{Bibliography}}
-%% {\renewcommand{\markboth}[2]{} % Prevent bibliography from resetting the header to something silly
-%% \OPTbibliographyfont
-\bibliography{references}
-\bibliographystyle{plainnat}
+  %%%% Bibliography
+  %% \bibliographystyle{halpha}
+  %% \phantomsection % black magic to get TOC to point to correct page
+  %% \addcontentsline{toc}{part}{\bibname}
+  %% \markboth{}{\textsc{Bibliography}}
+  %% {\renewcommand{\markboth}[2]{} % Prevent bibliography from resetting the header to something silly
+  %% \OPTbibliographyfont
+
+  \bibliography{references}
+  \bibliographystyle{plainnat}
 
 \end{appendices}
 
