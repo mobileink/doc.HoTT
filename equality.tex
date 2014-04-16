@@ -1,10 +1,139 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{What's the Big Deal about Equality?}
-\label{sect:equality}
+\chapter{Equality: What's the Big Deal?}
+\label{chap:equality}
 
 \begin{ednote}
   Equality is arguably the most important concept of \HoTT{}, as far
   as I can tell, because of the ``Univalence Axiom''.
+\end{ednote}
+
+\begin{ednote}
+  Intuitively, \(2+2=4\) is trivially obvious.  But it is also
+  ``obvious'' that no two distinct things in the world can be
+  ``equal''; that is, they cannot be the same thing.  If that is the
+  case, then what ought we to make of \(2+2=4\)?  This is Frege's
+  problem: what does it mean to say that \(a=b\)?  If \(a\) and \(b\)
+  are the same thing, then we learn nothing from \(a=b\).  If they are
+  not the same thing, what does it mean to say that they are equal?
+
+  In the real world we often treat distinct things as equal; for
+  example, two distinct apples are not the same thing but they are
+  ``equally'' apples.  This suggests we should add a clause to
+  equality statements: distinct things may be equal \emph{under a
+    description}.  This is code for saying that although they are not
+  the same thing--not in fact equal--they are nonetheless
+  \emph{equivalent} from a particular perspective: equivalent under a
+  description.
+
+  So we can adopt the same (pun intended) perpsective with respect to
+  mathematical equalities.  We can treat \(2+2\) and \(4\) as distinct
+  things that are equivalent under a description--in this case, the
+  ``description'' is the lambda calculus: computation.  The former
+  expression reduces to the latter, which is taken as a cannonical
+  form.
+
+  Notice that this perspective is metaphysically conservative; it does
+  not say anything about the denotations of \(2+2\) and \(4\).  It
+  does not make any claim as to what the expressions ``really'' mean
+  (denote).  In other words, this is an intensional perspective.  This
+  makes intuitive sense, since \(2+2\) obviously ``means'' something
+  more than just \(4\); in particular, its meaning includes the notion
+  of addition.
+
+  The upshot is that equality turns out to be code for equivalence.
+  The Univalence Axiom says that the relation between equality and
+  equivalence is itself and equivalence: equality is equivalent to
+  equivalent.
+\end{ednote}
+
+\begin{ednote}
+  Note the importance of equality/equivalence in uniqueness proofs
+  (induction and coinduction).  See Jacobs and Rutten Tutorial on
+  (Co)Algebras and (Co)Induction.
+\end{ednote}
+
+\begin{ednote}
+  Illustration: the Myth of Purity.  Take \(2+2=4\) as an example.
+  The Myth of Purity says that (in a ``purely'' functional language)
+  the meaning of \(2+2=4\) is exhausted by the denotational semantics
+  of the language -- each symbol denotes a value, and a (syntactically
+  correct) combination of symbols of this kind (a sentence or
+  proposition) denotes a truth value, these denotations exhaust the
+  meaning of the expression.  In other words, \emph{no side-effects}.
+  This corresponds to a ``classical'' (set-theoretic, extensional,
+  representational, etc.) perspective, in which things have meanings
+  (denotations) independent not only of what we know to be the case,
+  but of what we \emph{do}.  But from a computational (intuitionist,
+  constructivist, pragmatist, etc.) perspective, the meaning of
+  \(2+2\) involves (represents, encodes, -- pick your terminology)
+  computation, and \emph{computation always has side-effects}.
+
+  Computation is something that we (or our machines) \emph{do}; it is
+  not merely something we \emph{know}.  Computation always consumes
+  space, time, and energy.  If you choose to think of \(2+2=4\) in
+  denotational, extensional terms (which is fine, by the way), you
+  effectively ``lose the phenomenon'', as the ethnomethodologists say.
+  If you actually ``execute'' such a statement on a real-world
+  computer, it will have side effects---its ``meaning'' will include
+  consumption of memory, cpu cycles, and energy.  Such side effects
+  are of course orthogonal to the part of meaning in which we are most
+  interested, namely the value of \(2+2\), the correctness of
+  \(2+2=4\), and so forth; but it is nonetheless an inalienable
+  component or aspect of the meaning of the expressions.
+
+  [Another way to illustrate: lambda expressions can be viewed as
+    representations of their normal forms, or of the reduction
+    ``process'' that computes normal form, or both.  The former view
+    corresponds to the classic denotational perspective, the latter to
+    a constructivist perspective.]
+
+  This is also true from a theoretical perspective, but it appears
+  under a different, theoretical description: complexity.  Even if we
+  abstract from real world silicon and electrical grids, computation
+  cannot be separated from complexity.
+
+  [TODO: link mathematical representations of computational complexity
+    with real-world correlates time, space, and energy.  It actually becomes more clear ]
+
+  The moral of the story is that \emph{there are no pure languages},
+  functional or otherwise.  At least, not in the sense of ``pure''
+  that means something like ``purely denotational'' or the like.
+
+  This does not mean that there are no pure \emph{perspectives}, or
+  that such perspectives are silly or irrational.  Quite the contrary;
+  it is perfectly reasonable--rational--to adopt a purely denotational
+  perspective on computation, if you find it \emph{useful} to do so.
+  And there are many good uses to which such a perspective can be put.
+  But what is not reasonable is to make the further claim that this
+  perspective is the One True Picture of the Way Things Really Are.
+  That is a metaphysical claim, not a mathematical or logical or
+  computability claim.  In other words, it is \emph{not} legitimate to
+  claim that the classic perspective is primitive, privileged above
+  other perspectives.  By the same token, neither is it legitimate to
+  claim that a computational (constructivist, etc.) perspective is
+  Mother Nature's Own Perspective.  The byword here is
+  \emph{fundamental pluralism}---recognition of the legitimacy of a
+  variety of perspectives (vocabularies, languages, etc.), no one of
+  which can lay claim to foundational status prior to all the others.
+
+  To return to the example we started with: \(2+2=4\) can be viewed
+  from a variety of perspectives, none of which can claim to offer the
+  whole truth and nothing but the truth about its meaning.  It is
+  sometimes \emph{useful} to talk of a ``purely functional''
+  interpretation of such expressions, but such talk should not be
+  mistaken for talk about their ``true nature''.
+\end{ednote}
+
+\begin{ednote}
+  This sort of ``pragmatist'' perspective is evident even in some of
+  the higher reaches of contemporar mathematics.  Here's Awodey on
+  Category Theory: ``The idea is that objects and arrow are determined
+  by the role the play in the category via their relations to other
+  objects and arrows, that is, by their position in a structure and
+  not by what they `are' or `are made of' in some absolute sense.''
+  (p. 29, 2nd ed.)  There is a striking resemblance between this claim
+  about Category Theory and the sorts of claims (neo-)pragmatist
+  philosophers make about language and meaning.
 \end{ednote}
 
 ``In the intensional version of the theory, with which we are
@@ -17,7 +146,7 @@ represented by a type; it behaves much like equality between terms in
 the simply-typed lambda-calculus, or any conventional equational
 theory.
 
-If the terms a and b are definitially equal, then (since they can be
+If the terms a and b are definitionally equal, then (since they can be
 freely substituted for each other) they are also propositionally
 equal; but the converse is generally not true in the intensional
 version of the theory''\cite{awodey_tth}
@@ -40,3 +169,34 @@ substitutability plays a basic role.
   variables?
 \end{ednote}
 
+%%%%%%%%
+\subsection{Bisimilarity}
+\label{subs:bisimilarity}
+
+\begin{ednote}
+  See Jacobs and Rutten, p. 8; talking of ``observable'' states of a
+  system X whose internal states are hidden, they say that the notion
+  of bisimilarity of states ``expresses of two states that we cannot
+  distinguish them via the operations that are at our disposal,
+  i.e. that they are `equal as far as we can see'.  But this does not
+  mean that these states are also identical as elements of X.
+  Bisimilarity is an important, and typically coalgebraic, concept.''
+  Here ``equal as far as we can see'' sounds a lot like ``equal under
+  a description''.  J\&R prefer the notion of \emph{observation} for
+  coalgebras, in contrast to \emph{construction} for algebras.  But
+  that doesn't seem very symmetric.  We're not merely (passively)
+  observing; we're \emph{treating} something in a certain way.  Making
+  v. taking.  Construction v. description?  Experimentation?
+
+  In a sense you can say that our observations are themselves
+  constructed.  In J\&R's examples, we have buttons etc. for acting on
+  the system even if we do not have knowledge of its internal states.
+  So ``observation'' means interacting with the system.  So we can
+  take algebraic construction as construction of something not already
+  there, ``starting from nothing'', and coalgebraic
+  ``co-construction'' as construction of a description of something
+  already there.
+
+  Algebraic construction as bottom-up; coalgebraic coconstruction as
+  top-down?
+\end{ednote}
