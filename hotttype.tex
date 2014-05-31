@@ -1,3 +1,5 @@
+%%%%  CAVEAT:  xelatex chokes on pkg soul (loaded by tufte); use lualatex
+
 %% \documentclass[12pt,toc]{tufte-handout}
 \documentclass[reqno,12pt]{tufte-book}
 %% \usepackage{trace}
@@ -130,6 +132,7 @@
 
 \usepackage [english]{babel}
 \usepackage [autostyle, english = american]{csquotes}
+%% \usepackage{quoting}
 
 %% nice double-stroke fonts
 \usepackage{dsfont}
@@ -398,22 +401,23 @@
 \newcommand\tth{type theory}
 
 \includeonly{%
-introduction%
-,pragmatism
-,proof
-,semantics
-,math
-,foundations
-,types
+%% introduction%
+%% ,pragmatism
+%% ,proof
+%% ,semantics
+%% ,math
+%% ,foundations
+%% ,types
 ,curry-howard
-,assertion
-,equality
-,brandom
-,hotttypes
-,misc
+%% ,assertion
+%% ,equality
+%% ,brandom
+%% ,hotttypes
+%% ,misc
 %% ,introduction
 %% ,preliminaries
-%% ,lexicon
+,lexicon
+,proofassistants
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -457,33 +461,9 @@ introduction%
 \include{pragmatism}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Logics}
-\label{sect:logics}
-
-\begin{description}
-\item [Traditional] terms are primitive; propositions are combinations of terms; judgments apply to proposotions
-\item [Modern: classic] LEM, AC, etc.
-\item [Modern: intuitionistic]
-\item [Expressivism]  Brandom's version: propositions are primitive; relation to inferential semantics; Price's global expressivism
-\end{description}
-
-\begin{ednote}
-  From schema to type.  E.g. \(A,B\vdash A\land B\) --- traditionally
-  viewed as a schema (involving either substitution or denotation), no
-  construction involved.  Move from this to viewing it as a rule of
-  construction or recipe for making something.
-\end{ednote}
-
-\chapter{Proposition}
-
-\begin{ednote}
-  BHK interpretation.  How \ML{} got it wrong wrt classic interpretation.
-\end{ednote}
-
+\include{logics}
 \include{proof}
-
 \include{semantics}
-
 \include{math}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -498,198 +478,8 @@ introduction%
 \include{equality}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Misc}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Expressivity}
-\label{sect:expressivity}
-
-Instead of ``P is a proposition'' etc. we should say ``P expresses a proposition''.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Determinism}
-\label{sect:determinism}
-
-Hypothesis: classical math with LEM and AC is inherently
-non-deterministic.  Constructive math(s) and logic(s) that discard LEM
-and AC are deterministic.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Modality}
-\label{sect:modality}
-
-Classic proofs (that use LEM) are modal.  Consider the way a classic
-LEM-dependent proof works.  You start by stating the hypothesis: P is
-true.  You assume that P is not true; then you derive a contradiction.
-The conclusion is not merely that P is true, however; it is that P
-\textit{must} be true.
-
-Constructive proofs, by contrast, are not modal.  They do not say what
-must be the case, they say what \textit{is} the case.  Or rather, they
-\textit{show} what is the case.  (I leave aside the question of
-whether what is, is necessary.)
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Habeus Corpus Logics}
-\label{sect:habeus}
-
-The principle of ``Habeus Corpus'', from the Latin ``(You shall) have
-the body'', was once enshrined as a fundamental principle of
-Anglo-American law.  It was used to force the State to present a
-detainee in person before the court, back in the days when we
-occasionally had the temerity to question the wisdom of the State when
-it tried to disappear people.
-
-Type theory, and constructive logics generally, operate under a writ
-of habeus corpus that is permanently in effect.  Except that this writ
-requires the production not of a detainee, but of a witness.  If you
-claim to have a proof, you must produce a witness who is competent to
-testify to that fact.  So its actually more like a law of evidence,
-but I'm too lazy to come up with a clever legalism to express that
-idea.
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Frege}
-\label{sect:frege}
-
-{\todo The Frege Point; force v. content, etc.}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Martin-L\"{o}f}
-\label{sect:ml}
-
-{\todo Summarize ML's remarks on assertion, proposition, etc.}
-
-\include{brandom}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{From Truth to Testimony}
-\label{sect:truth}
-
-We have propositions as types, and we have non-propositional types
-like $\nat$.  There is an obvious conflict of intuitions here.
-Propositions, like \(1>0\), have truth conditions; names like \(\nat\)
-do not.  How can they be the same kind of thing?
-
-I think the way out of this embarrassment is recognition that the
-classic concept of truth is not relevant to type theory; or, in a more
-positive vein, that only a deflationary or minimalist notion of truth
-should be used in type theory.  In type theory one does not say that a
-proposition \textit{is} true or false; instead one says that a
-(propositional) type is proven or disproven, or that either it or its
-negation has a witness\sidenote{Or, a ``maker'' or ``constructor''.}.  Instead of a concept of truth we have a
-concept of testimony.  Of course, ordinarily witnesses testify as to
-the truth of some proposition; but the witnesses of type theory do
-more than that---or rather they do something else, namely they produce
-or ``make'' the proposition.
-
-%%%%%%%%
-\subsection{Proof, Witness, Constructor}
-\label{subs:pwc}
-
-Type theory seems to have settled on an idiom; one says, for example,
-that types have or do not have proofs or witnesses.  But there are
-problems with both of these terms.  The former covers too much ground
-since it includes non-constructive proofs.  The latter invokes a
-misleading metaphor, since a witness testifies to the truth, whereas a
-type-theoretic witness to a type constructs (makes, produces, etc.)
-something.  In the case of propositional types, constructors ``make''
-the proposition (in the sense that they are inferences that terminate
-in the proposition); in the case of non-propositional types,
-constructors make ``elements'' of the type, which serve as proxies(?) for
-the type.
-
-\begin{remark}
-  Problem: here again propositional and non-propositional types behave
-  differently.  Every proof of a proposition has the proposition as
-  its conclusion; they are all ``the same'' because they all have that
-  element in the same structural position.  But the proof of
-  e.g. \(\nat\) is different.  For example, \(2\) is a witness for
-  \(\nat\).  Or rather, anything that constructs \(2\) is such a
-  witness.  What all such constructions have in common is \(2\), not
-  \(\nat\).  So they are all clearly proofs of \(2\), but we want them
-  to be proofs of \(\nat\).  How do we get there?
-\end{remark}
-
-\chapter{The Language of \HoTT}
-\label{sect:hottlang}
-
-\begin{ednote}
-  TODO: disentangle commonly used terminology: parameterized types,
-  generic types, algebraic types, generalized algebraic types, types
-  indexed/parameterized, polymorphism, parametric polymorphism,
-  polytypism etc. etc.
-\end{ednote}
-
-\begin{ednote}
-  Type formers as entries in a \HoTT{} lexicon, serving not as
-  definitions but as (normative) rules of usage.  They don't say what
-  the terms mean, they set out how to use them.  That means,
-  specifically, the rules governing the notation, not rules governing
-  denoted entities.
-
-  NB: rules of use \emph{of vocabulary} \(\neq\) rules of construction
-  \emph{of objects}.  But the idea is for one set of rules to work
-  both ways.  That's pretty much how model-theoretic semantics
-  connects vocab to semantic domain (completeness and consistency).
-  The difference is that the TT semantic domain here (i.e. objects and
-  their rules of construction) is not a passive, platonistic realm of
-  ``real'' objects, but a pragmatic ``field'' of action.  So rules of
-  vocab use and rules of construction converge while remaining
-  conceptually distinct.  IOW the difference is not metaphysical.
-
-  On this view we treat \HoTT{} as truly a vocabulary rather than a
-  theory about something.  Or more precisely as a regimented idiom or
-  dialect.  The user is free to treat e.g. \N as ``defining'' a true
-  model of the natural numbers, but \HoTT{} makes no such claim.
-\end{ednote}
-
-One way to think about mathematics and logic is in terms of objects,
-structures, relations, and the like.  etc.
-
-But one can also think of it in terms of vocabularies (or idioms,
-etc.).  Then mastering a discipline is not just a matter grasping some
-content, but also of acquiring practical mastery over a vocabulary.
-
-The vocabulary of set theory has dominated mathematical discourse for
-most of the last 100 years or so.  Starting in the late 1940s, a
-competing vocabulary based on category theory began to emerge.  Today
-it is not uncommon to see both vocabularies deployed in the same
-discourse (lecture, paper).
-
-{\todo Type theory as a vocabulary - mostly confined to logic, then
-  computer science.  Etc.  \HoTT{} as the latest distinctive vocab. -
-  covering both math and compsci, also regions of logic.
-  Significantly different that both set theory and classic logic.}
-
-``it is possible to directly formalize the world of homotopy types
-using the class of languages called dependent type systems and in
-particular Martin-Lof type systems.'' V. Voevodsky
-\url{http://www.math.ias.edu/~vladimir/Site3/Univalent\_Foundations\_files/univalent\_foundations\_project.pdf}
-
-Note: ``class of languages called dependent type systems'' -
-languages, not theories
-
-``Type systems are syntactic objects which are specified in several
-steps. First one chooses a formal language L which allows the use of
-variables and substitution. Then one chooses a collection of relations
-on the sets of L-expressions with a given set of free variables which
-is stable under the substitutions. These relations are called the
-reduction rules and the equivalence relation generated by the
-reduction rules is called the conversion relation....  A type system
-based on L is defined as a pair of subsets BB and BBg in the sets of
-pre-contexts and pre-sequents respectively which satisfy a number of
-conditions with respect to reduction and substitution. Elements of BB
-are called the (valid) contexts of a type system and elements of BBg
-the (valid) sequents of the type system.'' same, p. 3
-
-
+\include{hottlang}
 \include{hotttypes}
-
-%%%%%%%%%%%%%%%%
 \include{misc}
 
 \clearpage
@@ -712,8 +502,10 @@ the (valid) sequents of the type system.'' same, p. 3
   %% {\renewcommand{\markboth}[2]{} % Prevent bibliography from resetting the header to something silly
   %% \OPTbibliographyfont
 
-  \bibliography{references}
-  \bibliographystyle{plainnat}
+  \include{proofassistants}
+
+  %% \bibliography{references}
+  %% \bibliographystyle{plainnat}
 
 \end{appendices}
 

@@ -2,6 +2,164 @@
 \chapter{Curry-Howard}
 \label{sect:curry-howard}
 
+\section{Two kinds of proof}
+
+Proof in logic and math: \textit{discursive} proof.
+
+Proof in ordinary language: evidence, demonstration, etc.
+
+Empirical v. logical proof.
+
+Example: to prove to you that there is a coin in this purse I can open
+the purse and display the coin.
+
+The ``proof'' of the proposition is thus a performance of a certain
+kind: a proof-performance.  But \textit{kinds} are abstract; the
+specific performance should thus be construed as a \textit{token} of
+the kind.  In this particular case (displaying a coin in a purse), the
+performance can be repeated.  Of course, each performance will differ
+from all the others in its fine detail, but insofar as each repeat
+performance counts as proof \textit{of the same kind}, each counts as
+a \textit{proof token} of the same type.
+
+But it is not merely a proof-token; a proof-token of the type that
+proves a particular proposition.  Every specific proof-token is a
+proof of a particular proposition P.  So a given performance of this
+sort - a repeatable proof-token - is classifiable as a proof-of-P
+token (=performance).  The notion of \enquote{proof token} is a
+generalization over proof-of-P tokens for all P.
+
+In the case of ordinary provings like the example given above -
+consider the sort of ``proving'' that goes on in schoolyards, where
+proving means showing - proof is non-discursive: it does not involve
+explicit reasoning.  Caveat: this may count as a kind of empirical
+proof, but is not to be confused with inductive reasoning.  What makes
+a given performance count as a proof is a deep question we won't go
+into here, but we all know that e.g. displaying a coin in a purse
+counts as proof of the proposition that the purse contains a coin.
+
+NB: the original proposition ends up as the conclusion of a piece of
+practical reasoning: I see a coin in the purse; therefore there is a
+coin in the purse.
+
+In the case of mathematical and logical reasoning, proof involves
+discursive performance.
+
+Written proofs as traces of discursive performances.
+
+The proposition to be proved ends up as the conclusion of the proof.
+
+The type of a proposition (statement, etc.) is \textit{not} the type
+of its proofs.  The type of a proof of P is exactly
+\textit{proof-of-P}, not P.  More exactly,
+proof-whose-\textit{conclusion}-is-P.  That's the kind of thing such a
+proof is: it's the sort of thing that counts as a proof of (proves) P.
+
+So what is the type of a proposition?  The question is malformed; what
+we really want to know is, what is the type of a proposition
+\textit{token}.  The answer is obvious but hard to articulate clearly
+in English, due to the inherent circularity of the type/token
+distinction.  The type of a token is just its type; the tokens of a
+type are, well, its tokens.  This page has many tokens of type
+\enquote{the}.
+
+\subsection{Tokens, Terms, Types}
+\label{subsec:tokens-terms-types}
+
+To communicate clearly about these issues, we need special notation.
+Quote marks are insufficient; they turn an expression into a name of
+the expression.  The famous example (Tarski's convention T) is:
+
+\enquote{Snow is white} if and only if snow is white.
+
+This sentence contains two tokens of type `snow is white'; the first
+is mentioned, the second used.  Technically the quoted version
+functions as a name (thus mention) of the sentence, while the unquoted
+version is just the sentence (used).  The quoted version does
+\textit{not} denote or indicate the type of the sentence.  For that we
+can use a designated notation such as \(\ulcorner \urcorner\), so that
+\(\ulcorner\)3\(\urcorner\) refers to the type of tokens of the form
+`3'.  Call these token-type quote marks.  When we need to explicitly
+refer to some symbol \textit{qua} token, we use \(\llcorner \lrcorner\)
+and write \(\llcorner 3\lrcorner\).  So \(\llcorner 3\lrcorner\) is a
+token of type \(\ulcorner 3\urcorner\).
+
+\subsection{Structure of Proofs}
+\label{subsec:structproofs}
+
+So: we have a proposition P, and we have a discursive proof of P.
+What \textit{kinds} of things are involved here?  What is the
+structure of the kinds?  Kinds rather than types, because we want to
+reserve the notion of type for syntactic duty: a type system is a kind
+formal notation that combines the notions of syntactic calculus and
+kindedness.
+
+A proof of P is a proof token whose conclusion is a token of type P
+(and type P is in turn a token of type Proposition.)
+
+The \textit{written} form of the proof token as a trace of a proof
+process or computation.  So conclusion of a (static) written proof ~
+end result of a (dynamic) computation or construction.
+
+Compare proof of an int and proof of a proposition.  An integer symbol
+like \(23\) is a formula, just like a propositional formula.  It
+denotes a device that computes a result.  This is true even of
+``simple'' symbols like \(3\): in contrast to the denotational
+perspective, under which \(3\) simply denotes the integer, under the
+constructive perspective the symbol \(3\) denotes a device that
+computes the integer.  The type/token distinction applies here just
+like it applies to propositions and proofs: a computation (proof) of
+\(3\) is a process/proof/computation/whatever whose conclusion is a
+token of type 3.  That type in turn is a token in the type Z
+(integer).  Similarly, the type of a proposition token is a token of
+type Proposition (or we might call it type Provable, or Proven or even
+True or the like).
+
+Remark: token and term.  Same thing?  Not really.  Term contrasts with
+type, just like token, but at a different level of abstraction.  By
+example: 3 (on the page) is a token of type \(\ulcorner\)3\(\urcorner\),
+which in turn is a term of type Z (here ``type Z'' means type of
+values, rather than \(\ulcorner Z\urcorner\), the type of `Z' tokens).
+
+Now how does this related to Curry-Howard?  In particular proof checking etc.?
+
+We can interpret the usual formulation \enquote{a proposition is the
+  type of its proofs} to be an abbreviated way of saying that the type
+of a proposition serves to categorize proofs whose conclusions are
+tokens whose type is the proposition.
+
+Key concept: token-repeatability.  In the example of pulling a coin
+from my pocket in order to prove the proposition that there is a coin
+in my pocket, once I have performed the proof, I cannot repeat it,
+since the coin is no longer in my pocket. (See: linear logic.)  But if
+the proposition is that there is a coin in purse, I can prove it by
+opening the purse and displaying the coin.  Since the coin stays in
+the purse, I can repeat this proof as often as I like: produce as many
+proof-tokens of this kind as I wish.
+
+In the case of formal logic and computation, proofs are repeatable.
+
+\section{Proofs and Propositions}
+
+The usual formulation is something along the lines of \enquote{a
+  proposition is the type of its proofs}.  But this obviously cannot
+be quite right: propositions and proofs are distinct \textit{kinds} of
+things, so how can a proof be a kind of proposition?.  We would never
+say that a building is the type of its blueprint; why say that a
+proposition is the type of its proofs?
+
+The problem is that the standard terminology ``forgets'' about
+computation.  They type of a compound expression is by definition the
+type of its \enquote{result}.  In the case of mathematical
+expressions, the result (of a computation) is a value of a certain
+type; in the case of propositions, the result (of a proof) is either a
+proposition or a truth value, depending on your preferred perspctive.
+In both cases, it would be more accurate to talk of both the type of a
+computation and the type of the result of a computation.
+
+
+
+\section{Misc. notes}
 \begin{ednote}
   Usually presented as ``propositions-as-types'', but this suggests an
   asymmetrical relationship; in fact the principle is that
@@ -33,3 +191,14 @@
 Analogies.  Proof/proposition, term/type: ``There is also a one-to-one
 correspondence between proofs of a certain proposition in constructive
 predicate logic and terms of the corresponding type.'' (Dependent Types at Work)
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{bhk}
+\label{sect:bhk}
+
+
+\begin{ednote}
+  Importance of metaphors.  See ML on BHK: proof as task to be
+  accomplished, problem to be solved.  Add another metaphor:
+  destination to be reached.
+\end{ednote}
