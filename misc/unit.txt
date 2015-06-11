@@ -1,0 +1,406 @@
+HoTT without Equality
+
+or: Equality/Identity type as a generalization of Unit type.
+
+We can discard both the concept of equality and the principle of
+induction.
+
+First note that our ordinary sense of equality does not involve proof
+as a first-class object.  To show that a=b the best we can do is
+display a and b in reduced/normal form, look at them, and see that
+they are equal.  The HoTT book puts it this way: "[t]he basic way to
+construct an element of a = b is to know that a and b are the same."
+(p. 47) But this is a cop-out.  The problem is that knowledge is not
+something that we can display for inspection and manipulation.  We
+inspect a and b, and "see" (that is, know or come to know) that they
+are they same; how can we then display that knowledge itself?  We
+cannot.
+
+Type theory thus requires an extension of our ordinary concept of
+equality.  It's not enough just to know that two things are the same;
+we must have a way of displaying that knowledge in some form.  HoTT
+solves this problem by fiat: it simply declares that refl(a) is to
+count as proof that a=a.  But note that this does not really say much
+about equality; after all, labels like "refl" and "Identity" for
+tokens and types are arbitrary.  They are chosen to suggest
+(informally) well-know concepts, but they have no intrinsic meaning -
+refl suggests the mathematical principle of reflexivity, but that is
+literally not what it means.  It is just a constructor; all we know
+from refl(a):(a=a) is that we have a token of a type.  We could change
+the names to aqjd(a):(a qedrtw a) and it would make no difference to
+the meaning.  There is nothing in the type-theoretic meaning of refl
+etc. that bears any relation to the concept of equality.
+
+HoTT's use of the induction principle for equality.  First, a concept
+of induction that does not include an inductive hypothesis can hardly
+be considered an induction principle.  So HoTT's "induction principle
+for equality" is an abuse of language; whatever it is, it does not
+involve genuine induction.  In fact it seems to be no more than a
+disguised version of substitution salve veritate: equals can be
+substituted for equals.  The critical point is that it relies on an
+external concept of equality, drawn from homotopy theory.
+
+Informally expressed, what HoTT says is that to prove P for all
+equality tokens, it is sufficient to prove it for one distinguished
+equality token, namely the reflexivity token.  What makes this work is
+the interpretation of a = b (given a:A, b:A) as a path between points
+a and b in space A.  More precisely, the proof of a=b is taken to be a
+continuous function f on the unit interval [0,1] into space A with
+f(0)=a and f(1)=b.  So to prove a=b, it is sufficient to prove a=a -
+that is, to construct a continuous, constant function g on [0,1] into
+A with f(x)=a for all x in [0,1].  What makes this sufficient is the
+homotopy between f and g; that is, f can be continuously deformed
+until it is point-wise equalt to g, and vice-versa.  That makes f and
+g homotopy-equivalent, and this homotopy equivalence is interpreted as
+evidence a proof a (that is, path between) a and a is "equal" to any
+proof of (path between) a and b, so if you can prove something for the
+former you can prove it for the latter.
+
+How can we construct a proof of a=a?  That is, how can we construct
+the appropriate constant function?  Unfortunately, we cannot, not in
+type theory; we just have to assume it, and the way we do that is to
+punt, and just declare that the constructor refl(a) just is that
+function.  So it takes the form of the sole constructor for type
+(a=a); by definition, refl(a):(a=a).  So if you prove something for
+refl(a), you've proved it for every x:(a=b); or rather, a refl(a) is
+equivalent to every proof of (a=b).
+
+This looks suspiciously like an existential conditional: if
+refl(a):(a=a), then /there exists/ some x such that x:(a=b).  But that
+is not quite right; the principle does not address the question of
+whether such an x exists.  Rather, it says that if it does exist, it
+will satisfy any P that refl(a) satisfies.  In other words, the HoTT
+approach says nothing about how to go about finding some x:(a=b); it
+only addresses how we can use such things /if/ they exist.
+
+In summary: the homotopy interpretation says that any proof of (a=b)
+is equivalent to a proof of (a=a), and vice-versa.  Path induction,
+which depends on the homotopy interpretation, says that we can define
+functions on (a=b) in terms of functions on (a=a) - another way of
+saying that to prove something for all (a=b) it is sufficient to prove
+it for (a=a).
+
+It's all very elegant, but it depends essentially on something
+external to type theory, and it involves a very questionable notion of
+induction.
+
+Summary:
+
+    * equality/identity types and the refl constructor have nothing to do with equality
+
+    * "path induction" does not involve induction
+
+    * 
+
+* An alternative approach: Dependent Unit types
+
+We have:
+
+    *    : Unit0
+    *a   : Unit1 a
+    **a  : Unit2 a a
+
+    a,b:A, *a, *b : Unit1 a |- a=b : Unit2 a b
+
+    ***a : Unit3 a a a
+    etc.
+
+
+
+We add some eliminators; for now we'll restrict our attention to
+Unit and Unit2.  Expressed as inference rules:
+
+    x : Unit3 a b c |-  **a : Unit2 a a
+    x : Unit3 a b c |-  **b : Unit2 a a
+    x : Unit3 a b c |-  **c : Unit2 a a
+
+    x : Unit2 a b |-  *a : Unit1 a
+    x : Unit2 a b |-  *b : Unit1 a
+    x : Unit1 a   |-  *  : Unit0
+    x : Unit0     |-  ???
+
+** Explanation.
+
+Like HoTT's 1 type, each Unit type has only a single constructor, so
+every element is "equal" to that constructor.  This is the source of
+the interpretation of Unit2 as the equality type.  Given x:Unit(a,b),
+we know a*:Unit(a) and b*:Unit(a); and since there is only one element
+of Unit(a), we know that a* and b* are "the same".
+
+Erm, except that to prove that every element of Unit(a) is "equal" to
+*a, we need an equality type.
+
+So the whole thing depends on the idea that every element of a type is
+"equal" to one built by a constructor.  Or: every element is
+expressible as a canonical form, where the latter means a form whose
+principal term is a constructor.
+
+Aside: the notion that we need to prove such a thing is an artifact of
+model-theoretic semantics.  See Bauer's blog at
+http://math.andrej.com/2013/08/28/the-elements-of-an-inductive-type/
+
+HoTT, p. 171 (https://books.google.com/books?id=LkDUKMv3yp0C&lpg=PP1&pg=PA171#v=onepage&q&f=false):
+
+"The view of identity types as inductive types has historically caused
+some confusion, because of the intuition mentioned in §5.1 that all
+the elements of an inductive type should be obtained by repeatedly
+applying its constructors."
+
+For identity types "[t]here is only one constructor, refl, but not
+every path is equal to the constant path.  More precisely, we cannot
+prove, using only the induction principle for identity types (either
+one), that every inhabitant of a = a is equal to refl(a)".
+
+Ok, the problem is a misconstrual of the role of canonical form.  It's
+not that every element is produced using constructors, but that every
+element can be expressed as a canonical form.  And this is a principle
+of type theory, not an artifact of a particular model.  (It means
+among other things that you can always use the elimination rules.)
+
+Example of and element that is not a constructor?
+
+Problems with MT semantics.
+
+1.  Just use the reals as the semantic object assigned to the type
+name Nat.  Then universal quantification catches reals; the model
+forces us to interpret forall n:Nat as forall n in R.  This is because
+we've mixed types (Nat) and sets (R), and this is probably unaviodable
+for MT semantics.
+
+2.  Same problem with e.g. Pi and Sigma types.  Anywhere we have a
+typed variable, say, x:Nat, we have the same problem: how do we know
+which element of R is assigned?
+
+The problem with the problem Bauer sees in our interpretation of
+induction is that he confuses induction and quantification.
+
+3.  Another way to see it: we're using quantification in a language
+that presupposes a discreet domain, but we're actually quantifying
+over a continuous domain.
+
+4.  There's another problem but I can't recall it.  Drat.
+
+5.  If you want HoTT to be a foundation framework, you cannot use some
+other foundation - i.e. set theory - to define HoTT.  But that is what
+HoTT does.  Well, some might dispute that, so let's refine the
+argument.  HoTT, as a model-theoretic enterprise, depends on or
+presupposes the same classic representational semantics/logic that
+classic set theory depends on.  So even if you can argue successfully
+that HoTT does not directly depend on set theory, it does presuppose
+all the "machinery" that set theory depends on.
+
+
+
+But do we need to prove that Unit proofs are unique?  Can't we just
+define them so?  E.g.
+
+    x : Unit(a) |- *a : Unit(a)
+
+So we can infer *a from any x:Unit(a).  This does not mean that every
+such x is the same as *a.
+
+Do we need an elimination rule for Unit?  I gues we have:
+
+    *a : Unit(a) |-  a:???
+
+or: *a : Unit(a) |-  * : Unit0
+
+** Interpretation.
+
+The concept of equality is based on the notion of a fair trade, which
+we make concrete in the form of a contract.  Suppose we want to trade
+a quantity of rice for a quantity of beans.  We sign a contract.  In
+addition to obliging each of us to deliver the goods, the contract
+serves as a concrete proof of the equal /value/ of those goods.  This
+is true even for barters that do not involve money; the mere fact of a
+contract agreed to by both parties means the trade is fair - an
+exchange of equal values.
+
+So we can informally interpret Unit2 as the type of such contracts:
+x:Unit a b is proof (in the form of a "contract") that a and b have
+the same exchange value (*a, *b:Unit a).
+
+The Unit type can be viewed as a kind of appraisal type: given a:A, *a
+represents the "exchange value" of a.
+
+
+****************
+In what follows, assume a domain space \(X\); e.g. \(a\) means \(a\in
+X\), \(\forall x\) means \(forall x\in X\).
+
+NB: the examples assume a two dimensional space, but the concepts
+apply to any n-dimensional space.  For example, a path between two
+points in the plane may be 1-dimensional: a "line".  A path between two
+points is 3-D space may be a line, but could also be 2-dimensional ...?
+
+
+1: what is a path?
+
+A \emph{path function} between two distinct points \(a\) and \(b\) in
+space \(X\) is a continuous function \(f\) over the unit interval
+\([0..1]\) into \(X\) with \(f(0)=a, f(1)=b\).
+
+We distinguish between path functions and their graphs.  We call the
+latter \emph{path graphs}.
+
+There are infinitely many path graphs between any two points \(a\) and
+\(b\).  A path may contain loops, dips, oscillations, etc.; it also
+may double back on itself.  It may contain its endpoints more than
+once; for example, imagine a straight line path that starts at \(a\)
+and ``yo-yos'' through its endpoints multiple times before coming to
+rest at \(b\).
+
+In other words, the \emph{graph} of a path function need not itself
+look like a function graph.
+
+For every path \emph{graph} except the canonical reflexive path (see
+below) there are infinitely many path \emph{functions}.  That is
+because, although each such function has the same graph, each may
+``draw'' that graph in a different way; that is, at different rates as
+we move from \(0\) to \(1\) in the domain.  To make this concrete,
+imagine a straight-line path across a campus from the bookstore to the
+saloon.  To go from books to booze you can walk at a steady pace, or
+you can start out running and then slow to a walk, or a crawl, or
+vice-versa - you can pace yourself in an infinite number of ways.
+
+A programmer can think of different path functions having the same
+path graph as disinct ``implementations'' of the graph.  Another way
+to think of it is in terms of ``easing'' functions for animation; see
+the examples at http://easings.net (Actually those examples are not
+quite right, because each draws a different path.  Another tool:
+http://matthewlein.com/ceaser/)
+
+Special case: in 2D at least, the linear path from a to b with
+constant rate of change.  We can call this the canonical path from a
+to b.
+
+We will see later that HoTT uses this concept of a path to express the
+notion of equality.
+
+2. reflexivity
+
+When both endpoints of the path are the same point \(a\), we call the
+path \emph{the reflexive path (function) at a}, or just the reflexive
+path.  There are infinitely many reflexive path functions for every
+point; each one can be thought of as a loop.
+
+As a special case, we have the \emph{constant path function at a},
+defined as above, except that both endpoints are \(a\) and \(f(x)=a\)
+for all x.  This path is doubly constant: both its rate of change and
+its graph are constant.
+
+We will see later that HoTT uses this kind of path to express the
+mathematical notion of reflexivity (which is why we call it a
+reflexive path).
+
+3: homotopy
+
+\begin{quote}
+
+A homotopy between a pair of continuous maps \(f : X1 → X2\) and \(g :
+X1 → X2) is a continuous map \(H : X1 × [0, 1] → X2\) satisfying
+\(H(x, 0) = f (x)\) and \(H(x, 1) = g(x)\).
+
+(HoTT Book p. 59)
+\end{quote}
+
+This is the general definition of homotopy, which applies to any
+functions, not just path functions.  A homotopy takes each point in
+the domain from its image under f to its image under g, as the
+"control pointer" moves across the unit interval from 0 to 1.  This
+has the effect of "sliding" the image of f onto the image of g,
+without interruption.  Keep in mind, this applies to spaces of any
+dimension.
+
+TODO: animated examples.
+
+\begin{quote}
+In the specific case of paths p and q from x to y, a homotopy is a
+continuous map H : [0,1] × [0,1] → X such that H(s,0) = p(s) and
+H(s,1) = q(s) for all s ∈ [0,1]. In this case we require also that
+H(0,t) = x and H(1,t) = y for all t ∈ [0,1], so that for each t the
+function H(–,t) is again a path from x to y; a homotopy of this sort
+is said to be endpoint-preserving or rel endpoints.  (HoTT Book p. 59)
+\end{quote}
+
+TODO: animations
+
+Note the parallel with product types!  Homotopy as product of paths;
+path as product of points.  Then note parallel to binary dependent
+type Unit - -.
+
+Homotopy as 2-D path between 1-d paths; path as 1-D path between 0-D
+points.
+
+Homotopy as continuous deformation: useful, but misleading.  The
+end-paths of a homotopy do not deform; nothing every changes in math.
+Instead we need to think about moving from dimension to dimension,
+ie. shifting frames of reference, and thus interpretation.  A path may
+be thought of as a 1-D object embedded in 2-D space.  But how can a
+2-D space contain anything other than 2-D objects?  Better to think of
+a path as a 1-D unifier of its 0-D endpoints, and a homotopy as a 2-D
+unifier of its 1-D endpaths.  In each case we can think of unifying as
+a sort of interpolation of points or paths in order to form a
+continuous unity. But notice that the original endpoints/endpaths are
+not truly unified; rather the unit formed is a new kind of thing, of a
+different order or dimension.  In a sense the end objects become
+lifted out of their isolation and into a new synthesis or unity.
+
+After all, in the beginning the endpoints of a path are not endpoints,
+they're just distinct points.  The endpoints of the path are something
+else again; a kind of translation of the original isolated points into
+parts of a whole.
+
+And in such unities, every part is "equal" to every other part, and to
+the whole.  Every part of a path is a path, etc.  So they are a
+special kind of unity: fractal.  Equality as self-similarity.  Which
+works for both the standard HoTT interpretation and my Unit interp.
+
+Leading naturally to the use of dependent Unit types to model equality.
+
+The fact that a path graph can be drawn in 2-D space does not make it
+a 2-D object - the graph, not the path is 2-D.  The path is just a
+(1-D) collection of points.
+
+Which suggests we should distinguish between a path graph (a 2-D
+object) and a path image (the set of points that is its range).  A
+path graph is an interpretation of a path image.
+
+We can think of a homotopy between paths as a function on the unit
+square.
+
+A path between a and b can also be expressed as a homotopy between
+reflexive paths at a and b; loosely, a homotopy between points.  It's
+not really between points, but between reflexive paths at points.
+
+
+
+
+
+4. equality
+
+Reflexivity, equality, and identity are distinct concepts.
+
+Reflexivity: a=a.  In homotopy theory, this means a path function from
+a to itself; we will call such a function a \emph{path function for
+reflexivity at a} or, for brevity, a reflexive path (function) at a.
+There are infinitely many such functions.
+
+
+The \emph{canonical path function for reflexivity at a} is the
+constant path function at \(a\): \(\forall x,\ f(x) = a\).  All other
+path functions for reflexivity at \(a\) are non-canonical; they are
+distinct from the canonical path function, but can be \emph{expressed}
+as the canonical function.  The mechanism for this is homotopy -
+continuous deformation of one non-canonical path function into another
+path function.  Later, we will see that HoTT interprets this as
+``equality'', but it is critical to see that two paths that we call
+equal in this sense are not identical; they remain distinct paths.  It
+is the interchangeability enabled by the homotopy that justifies
+calling this relation equality; if \(p\) and \(q\) are distinct paths,
+\(p=q\) is just another way of saying that they are homotopic.
+
+What gets deformed?  The path function or the path graph?  The path
+function - the graph is just a one-sided representation of the
+function.
+

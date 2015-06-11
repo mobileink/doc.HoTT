@@ -1,0 +1,25 @@
+My previous post suggests some stuff.
+
+Computation types: nat has ctype IND.  Id(A)(a,b) has ctype INV.  The
+pair type Nat x Nat has ctype IND x IND.  etc.
+
+What about function types?  There are infinitely many functions of
+type Nat -> Nat.  What kind of process constructs them?  It cannot be
+inductive; they do not depend on "function so far".  It cannot be
+involutive; each function token is a token-particular, but not a
+token-repeatable.  Spiral?
+
+
+Free types: an involutive process just cycles, without going anywhere.
+The tokens produced by such a process do not depend on previously
+produced tokens.  They are produced seriatum, just as inductive tokens
+are produced, but unlike inductively produced tokens they do not
+depend on what has been produced "so far"; in other words, they are
+ahistorical.
+
+But they do depend on the base case.  This seems like a pretty good
+"picture" of what "free" means: not dependent on anything except the
+base case.  So we can (maybe) call the types produced by an involutive
+process "free types".  I have no idea how closely this hews to the
+mathematical notion of "free whatsit", but it seems a reasonable use
+of English based on intuition.

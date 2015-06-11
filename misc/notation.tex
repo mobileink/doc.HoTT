@@ -1,0 +1,291 @@
+\documentclass{article}
+\usepackage[fleqn]{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{fontspec,xltxtra,xunicode}
+\usepackage{fontspec}
+\defaultfontfeatures{Scale=MatchLowercase}
+
+%% \setmainfont[Mapping=tex-text]{Times New Roman}
+%% \setromanfont[Mapping=tex-text]{Times New Roman}
+%% \setsansfont[Mapping=tex-text]{Arial}
+
+\setmainfont[Mapping=tex-text]{TeX Gyre Pagella}
+%% \setromanfont[Mapping=tex-text]{TeX Gyre Pagella}
+%% \setsansfont[Mapping=tex-text]{TeX Gyre Heros}
+
+\usepackage{tikz}
+%% \usepackage{pgfplots}
+%% \usepackage{pgfplotstable}
+%% %% Preamble:
+%% \pgfplotsset{width=7cm,compat=1.9}
+%% %% \pgfplotsset{xticklabel={\tick},scaled x ticks=false}
+%% %% \pgfplotsset{plot coordinates/math parser=false}
+
+\usetikzlibrary{arrows,shapes,patterns,backgrounds,spy}
+\usepackage{pgffor}
+
+%% \usepackage{animate}
+
+%% \usepackage{arrayjobx}
+%% \usepackage{multido}
+
+%% \usepackage{layouts}
+
+%% \usepackage{etoolbox}
+
+%% \newcounter{mylistcounter}
+
+\hypersetup{%
+  colorlinks=true,% hyperlinks will be coloured
+  urlcolor=blue,% hyperlink text will be green
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\title{HoTT Without Vars}
+\author{G. Reynolds}
+\maketitle
+\large
+
+\begin{abstract}
+  There are a few notational conveniences of the lambda calculus that
+  seem to be missing in the HoTT calculus. Here are some ideas about
+  how to add them.  First, a kind of "reverse lambda" operator that
+  allows us to refer to arbitrary elements of a type without using a
+  name, just like lambda does with functions.  Lambda abstracts;
+  reverse lambda specializes.  Second, an explicit type former for
+  enumerated types, that allows us to express such types without using
+  a name.  Then, a pipeline application operator that allows us to
+  string expressions together.  Finally, a ``universe operator'' that
+  allows us to refer to a type drawn from a universe in type family
+  expressions.
+
+  The online version of this is at
+  \href{http://blog.mobileink.com/2015/06/hott-without-vars.html}{HoTT
+    Without Vars}.
+
+  Revision 2.
+\end{abstract}
+
+\section{Type Specialization}
+
+The type formers of HoTT (\(\times, \to, \prod, \sum\) and the rest)
+are very similar to the lambda operator \(\lambda\).  Just as
+\(\lambda\) turns an open formula into the name of the associated
+function (\(\lambda x.x+1\) names the function associated with
+\(x+1\)), the type formers turn expressions into the names of types.
+For example, \(\times\) turns \(A, B\) into the type name \(A\times
+B\); \(\to\) turns \(A, B\) into the type name \(A\to B\), and so
+forth.
+
+Lambda expressions like \(\lambda x.x+1\) are called \emph{lambda
+  abstractions}; by extension, we can call type formation expressions
+\emph{type abstractions}.  To ``undo'' a lambda abstraction, we use
+\emph{application}: \(\lambda x.x+1(2) = 3\).  Since the opposite of
+abstraction is \emph{specialization}, it is tempting to think of
+application as a specialization; but application involves more than
+mere specialization.  If we think of a function (that is, a lambda
+abstraction) as a set of ordered pairs, then its specialization should
+be a particular ordered pair; but application does not deliver a pair,
+it projects the second element of a pair.  So application can be
+thought of as a combination of specialization and projection.
+
+Lambda abstractions are treated not only as the names of functions,
+but as function definitions.  That's what allows us to write, e.g. \[f
+= \lambda x.x+1\]
+
+There is no application operator for type abstractions.  We cannot
+undo \(A\to B\) by writing \((A\to B)(x)\), for example.  But we can
+\emph{specialize} type abstractions; that is just what expressions
+like \(a:A\) do.  One (classical) way to interpret such an expression
+is to say that \(a\) denotes an ``element'' of \(A\).  Such an
+interpretation presupposes a denotational semantics and thus
+implicates a notion of choice; a more detailed gloss would be to say
+that ``:'' chooses an element of \(A\) and assigns it to \(a\).  Under
+a pragmatic interpretation that eschews denotational semantics, we
+might simply stipulate that \(a:A\) means that \(a\) is a token of
+type \(A\) and leave it at that.  Either way, we have introduced a
+variable, \(a\), in the service of specializing a type abstraction.
+
+Now one of the great advantages of the lambda notation is that it
+allows us to dispense with function names.  In fact this notational
+convenience was Church's original motivation in introducing
+\(\lambda\); he did not realize until later that it formed the basis
+of a powerful computation/logical calculus.  Without the lambda
+operator we would have to define and name every function we need to
+use, so that we can later refer to it by name.  With the lambda
+calculus we can just write out the function definition wherever we
+need it.
+
+In principle we should be able to do the same thing -- that is,
+dispense with intermediate names -- with type abstractions and
+specializations.  But the HoTT notation does not currently support
+this; if you want to work with an arbitrary element of a type, you
+must name it using the ``:'' operator.  And enumerated types (e.g. the
+boolean type) cannot be specified without naming.
+
+To address this notational deficiency we propose a specialization
+operator for type abstractions, \(\reflectbox{\lambda}\) (reversed
+lambda).  Its meaning is exactly analogous to the lambda operator, but
+instead of abstracting it specializes.  \(\lambda\) turns a particular
+formula into an abstraction; \(\reflectbox{\lambda}\) turns a type
+abstraction into a particular.  Under a classical interpretation, the
+operator ``selects'' an element of the type to which it is applied;
+under a pragmatic interpretation, the combination of the operator
+symbol and a type symbol is a symbol of that type.
+
+Examples:
+
+\begin{align}
+&f:A\to B & \textit{f names an arbitrary function of type}\ A\to B \\
+&\reflectbox{\lambda}A\to B & \textit{\reflectbox{\lambda}A\to B : A\to B} \\
+&\reflectbox{\lambda}\mathbb{N} & \textit{an arbitrary natural number}
+\end{align}
+
+The usefulness of this becomes more evident with \(\prod\) and
+\(\sum\) types.  From the definition of path induction, p. 49:
+
+\begin{align}
+&C:\prod\limits_{x,y:A}(x=_Ay)\to \mathcal{U} & \textit{same as:}\ C:\equiv\reflectbox{\lambda}\prod\limits_{x,y:A}\reflectbox{\lambda}\big((x=_Ay)\to \mathcal{U}\big) \label{exp:pi1}\\
+&c:\prod\limits_{x:A}C(x,x,refl_x) & \textit{same as:}\ c:\equiv\reflectbox{\lambda}\prod\limits_{x:A}\reflectbox{\lambda}C(x,x,refl_x) \label{exp:pi2}
+\end{align}
+
+These may be rewritten as follows using the pipeline application operator
+``|'' described below; briefly, \(x|f = f(x)\) :
+
+%% &C :\equiv\reflectbox{\lambda}\prod\limits_{x,y:A}(x=_Ay)\to \mathcal{U} & \textit{} \\
+\begin{align}
+&c :\equiv\reflectbox{\lambda}\prod\limits_{x:A}x\to\reflectbox{\lambda}\bigg(\reflectbox{\lambda}\sum\limits_{x,x:A}(x=_Ax)\rvert\reflectbox{\lambda}\prod\limits_{x,y:A}(x=_Ay)\to \mathcal{U}\bigg) & \textit{} \label{exp:c1} \\
+&c :\equiv\reflectbox{\lambda}\prod\limits_{x:A}x\to\reflectbox{\lambda}\bigg(\reflectbox{\lambda}\sum\limits_{x:A}\big(\sum\limits_{x:A}(x=_Ax)\Big)\rvert\reflectbox{\lambda}\prod\limits_{x,y:A}(x=_Ay)\to \mathcal{U}\bigg) & \textit{} \label{exp:c2}
+\end{align}
+
+These are equivalent (I think); (\ref{exp:c2}) is just more explicit than
+(\ref{exp:c1}).  They are slightly different than (\ref{exp:pi1}) and
+(\ref{exp:pi2}) in that they do not use \(refl_x\).  In both cases,
+the entire meaning can be read off the one expression, just as in the
+case of a lambda definition; it can be glossed in order: \(c\) is an
+element of a function type that takes any \(x:A\), produces a
+dependent triple of the form \((x,x,p)\), where \(p\) is \emph{any}
+proof that \(x=x\), and feeds that into a function that maps such
+triples to a new type.
+
+This notation seems to make it possible to render structure more
+explicitly; whether or not this is a better way to write this is beside
+the point; the \(\reflectbox{\lambda}\) operator at least makes it
+\emph{possible}.
+
+\bigskip
+(Of course, the symbol is arbitrary but motivated - it's a reverse
+lambda.  We may find a better symbol than this; e.g. upside down
+lambda: \(\raisebox{8pt}{\rotatebox{180}{\lambda}}\)  or the like).
+
+\textbf{Caveat:} You cannot just replace named elements with
+\(\reflectbox{\lambda}\) expressions willy-nilly, since the latter pick out
+\emph{arbitrary} elements.  Where a name occurs multiple times in a
+context it must mean the same thing each time; e.g. in the formula for
+\(\textsf{ind}=_A\) on p. 49. (reproduced below).
+
+\section{Definition: implicit v. explicit}
+
+A specialization like \(a:A\) says that \(a\) is an \emph{arbitrary}
+token of type \(A\).  But arbitrary does not mean indefinite; if we
+adopt the classical perspective and treat \(a:A\) as meaning that
+\(a\) denotes an arbitrary element of \(A\) we have not said that
+\(a\) is \emph{undefined}.  On the contrary, if it is to denote at
+all, it must denote something definite.  So we might say that \(a\)
+denotes a definite but \emph{unknown} element of \(A\).  Since it is
+definite, we can say that \(a\) is \emph{implicitly defined}.  If we
+then offer a ``defining equation'' for \(a\), it becomes
+\emph{explicitly defined}.
+
+In other words, typing judgments of the form \(a:A\) implicitly define
+their token component.
+
+The difference is clear in the case of function types:
+
+\begin{align}
+  &f : \mathbb{N}\to \mathbb{N} \label{exp:fimplicit} \\
+  &f :\equiv\lambda x:\mathbb{N}.x+1 \label{exp:fexplicit}
+\end{align}
+
+Expression (\ref{exp:fimplicit}) implicitly defines \(f\) by giving its
+type explicitly and ``judging'' that f has that type; that is, by
+assigning \(f\) to a specialization of its type.
+
+Expression (\ref{exp:fexplicit}) then makes that definition explicit.
+
+Since the term ``definition'' thus has two meanings, we will generally
+use the term ``specification'' and leave it to the reader to determine
+from context which kind of definition is involved.  For example, we
+might say ``Given the specification \(a:A\)'', meaning that \(a:A\)
+specifies that \(a\) names an implicitly defined element of \(A\).
+
+\section{An Explicit Operator for Enumerated Types}
+
+Enumerated types like \(\mathbf{2}\) do not have an explicit
+abstraction operator.
+
+We propose \(\Lambda\).  This allows us to specify ``anonymous''
+enumerated types, e.g.
+
+\[\Lambda\{\textit{Mon, Tues, Wed, Thu, Fri, Sat, Sun\}}\]
+
+names a ``Day'' type without naming it.  To name it we can write:
+
+\[\textit{Day} :\equiv\Lambda\{\textit{Mon, Tues, Wed, Thu, Fri, Sat, Sun\}}\]
+
+\section{Pipeline Application}
+
+\begin{align}
+\reflectbox{\lambda}\sum\limits_{x,y:A}(x=_Ay)  \raisebox{-4pt}{\(\biggr\rvert\)} \reflectbox{\lambda}\prod\limits_{x,y:A} (x =_A y) \to \mathcal{U}
+\end{align}
+
+meaning, apply an element of the \(\Pi\) type to an element of the
+\(\Sigma\) type, or feed the latter into the former.  In this case we
+can safely omit the specialization operators since they can be inferred
+from the context:
+
+\begin{align}
+  \sum\limits_{x,y:A}(x=_Ay) \raisebox{-4pt}{\(\biggr\rvert\)} \prod\limits_{x,y:A} (x =_A y) \to \mathcal{U} \label{exp:feed}
+\end{align}
+
+Using names, these two expressions are equivalent to the pair of expressions:
+
+\begin{align}
+  &C:\prod\limits_{x,y:A} (x =_A y) \to \mathcal{U} &\\
+  &C(a,b,p) & \textit{where}\ a,b:A\ \textit{and}\ p:(a=_Ab)
+\end{align}
+
+\section{Universe Operator}
+
+The standard way to express a family is \(B:A\to U\).  This is fine if
+B and A are relatively simple; \(B(a)\) is a type.  But if B and/or A
+are complex this can be awkward.  Sometimes we may want a name to
+refer to members of a type family, if only for expository purposes;
+e.g. \(B(a) :\equiv \mathcal{P}\).  The prosposal here is that we
+introduce a new operator that allows us to name an element of
+\(\mathcal{U}\): \(\mathcal{P}^{\mathcal{U}}\).  Read this as
+``\(\mathcal{P}\) is an element drawn from \(\mathcal{U}\)''.
+
+This allows us to say e.g. \[B:A\to \mathcal{P}^{\mathcal{U}}\]
+
+This is to be interpreted as ``\(B\) takes each element of \(A\) to an
+element of \(\mathcal{U}\), which we name \(\mathcal{P}\)''; it does
+\emph{not} mean ``\(B\) takes each element of \(A\) to and element of
+\(\mathcal{P}\)''.
+
+\section{Examples}
+
+Path induction (p. 49):
+
+\begin{align}
+  &C:\prod\limits_{x,y:A} (x =_A y) \to \mathcal{U} &\\
+  &ind=_A: \prod_{C:\prod_{x,y:A}(x=_Ay)\to\mathcal{U}}\Big(\Pi_{(x:A)}C(x,x,refl_x)\Big)\to \prod_{(x,y:A)}\prod_{(p:x=_Ay)} C(x,y,p)
+\end{align}
+
+Task: rewrite this without C.  Without any names.
+
+
+
+\end{document}

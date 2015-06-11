@@ -1,0 +1,376 @@
+\documentclass{article}
+\usepackage[fleqn]{amsmath}
+\usepackage{amssymb}
+\usepackage{fontspec,xltxtra,xunicode}
+\usepackage{fontspec}
+\defaultfontfeatures{Scale=MatchLowercase}
+
+%% \setmainfont[Mapping=tex-text]{Times New Roman}
+%% \setromanfont[Mapping=tex-text]{Times New Roman}
+%% \setsansfont[Mapping=tex-text]{Arial}
+
+\setmainfont[Mapping=tex-text]{TeX Gyre Pagella}
+%% \setromanfont[Mapping=tex-text]{TeX Gyre Pagella}
+%% \setsansfont[Mapping=tex-text]{TeX Gyre Heros}
+
+\usepackage{tikz}
+%% \usepackage{pgfplots}
+%% \usepackage{pgfplotstable}
+%% %% Preamble:
+%% \pgfplotsset{width=7cm,compat=1.9}
+%% %% \pgfplotsset{xticklabel={\tick},scaled x ticks=false}
+%% %% \pgfplotsset{plot coordinates/math parser=false}
+
+\usetikzlibrary{arrows,shapes,patterns,backgrounds,spy}
+\usepackage{pgffor}
+
+%% \usepackage{animate}
+
+%% \usepackage{arrayjobx}
+%% \usepackage{multido}
+
+%% \usepackage{layouts}
+
+%% \usepackage{etoolbox}
+
+%% \newcounter{mylistcounter}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\large
+
+\section{Exploring the Notation}
+
+
+\section{Asymmetry of Inductive Definition and Proof}
+
+Standard inductive definition: defines all canonical elements; does
+not \emph{define} non-standard elements.  That would not make
+intuitive sense.  Why do we think it works for standard elements?  The
+reason must be axiomatic - we cannot hope to \emph{prove} directly
+that every element of an infinity is in canonical form.  But the
+inference from base case and inductive hypothesis to all canonicals is
+intuitive and compelling.
+
+Standard inductive proof: proving base and inductive steps suffices as
+proof for all canonical elements.  Standard inductive proof is
+justified by standard inductive definition.  But it does not extend to
+non-canonical elements.  There is no intuitive basis for that idea.
+
+Non-standard inductive definition:  doesn't make sense.
+
+Non-standard inductive proof: a standard inductive proof on canonical
+elements suffices as proof for all non-canonical elements.  This must
+involve an additional axiom, just like standard inductive definition.
+But it doesn't seem very intuitive.  So if non-standard proof makes
+sense, why not non-standard definition?
+
+\section{Truth Considered Harmful}
+
+In type theory we do not prove that propositions are true; we prove propositions.
+
+Proof that a proposition is true makes truth look like a property; it
+would amount to proof that T(P).  We don't do that.
+
+The proven proposition is the last step in a proof.  That's what it
+means to prove a proposition.  We take that to mean the proposition is true.
+
+This perspective is essential if we are to make sense of the fact that
+in TT we can prove propositions without proving they are true.  What
+we prove is that P is a proposition.
+
+In traditional logic, we assume truth (and assertion).  An inference
+schema like \&-into is taken to mean ``if A true and B true, then A\&B
+true''.  But with TT we must split proposition and truth; we should
+thus say ``if (A prop and A true) and (B prop and B true), then (A\&B
+prop and A\&B true).''  But we use sequents instead of isolated
+propositions: ``if a:A and b:B then (a,b):AxB''.  So such rules
+involve moving from sequent to sequent.  This allows us to express the
+idea that a construction can be proven to be a proposition without
+saying anything about its truth; we just write ``P:U'' or ``A->U'' or
+the like.  This is something we cannot do in classic FOL. (?)
+
+That bears repeating: TT allows us to say things that we cannot even
+express in FOL.  Which means it is inherently higher-order.  (Which
+means the HoTT book's account of logic needs revision; its account of
+FOL depends on 2nd order logic, since it involves working with
+propositions as objects.
+
+ML's distinction  between proposition and judgment  does not withstand
+critical scrutiny.  It depends on  an untenable notion of the relation
+between propositional content and  illocutionary force.  The latter is
+something  we do,  not something  that  is an  essential component  of
+propositions.
+
+ML's schematic diagram of ``A is true'': A is a proposition, A is true
+is a judgment.  Nonsense; both are propositions.  Also silly:
+obviously ``A is true'' can only be a judgment if it is judge to be
+true: ``'A is true' is true''.  Hello, infinite regress.
+
+ML: the premises and conclusion of an inference are judgments, not
+propositions.  Nonsense.  The conclusion of a good inference follows
+from the premises (and the inference rule), no matter what deontic
+attitude observers may care to adopt.  If P is the conclusion of an
+inference, it does not matter whether anybody asserts it - it remains
+the conclusion either way.
+
+Positive outcome: treat a:A as an inference schema.  This is closer to
+actual practice: A is the conclusion.  We can treat a:A as a sequent.
+
+Thinking in HoTT requires that we move from a denotational perspective
+to an inferential one.
+
+Under an inferential semantics, the notion of a model retains its
+mathematical usefulness as a device for studying classes of
+mathematical structures, but it loses its semantic role.  Models have
+no explanatory significance; they are replaced by the notion of
+inference as the primitive explanatory device.
+
+Example: \&-intro.  Per ML, the conclusion is a ``judgment'':
+(a,b):AxB.  Problem 1: illocutionary force is irrelevant; if there is
+any judgment involve, it is the judgment that the conclusion follows
+from the premises, not the judgment that the conclusion is true.  But
+that kind of judgment we call inference, or maybe judgment as to the
+validity of inference.  Either way, the conclusion does not involve
+force.  Problem 2: informally we want to prove propositions like AxB,
+not inferences like (a,b):AxB.  So we have two ways of reading
+``conclusion''.  If we treat our calculus as a sequent calculus, then
+the conclusion is the sequent (a,b):AxB.  If we treat it as a
+propositional calculus (nat deduction), then the conclusion is AxB.
+
+But type theoretic inference \emph{must} be treated as a sequent
+calculus?
+
+The four forms of judgment become inference schemata.
+
+Truth is harmful insofar as it beguiles us into thinking that proof of
+propositions involves a truth property.  At least for beginners, this
+obscures the ``true'' nature of reasoning in type theory.
+
+\section{Relation Types}
+
+Assume type \(A\), i.e. read \(x=y\) as \(x=_Ay\), and
+e.g. \(\prod\limits_{x,y}\) as \(\prod\limits_{x,y:A}\).
+
+\begin{align}
+  &\prod\limits_{x,y}\mathcal{P}^{\mathcal{U}} & \textit{function type of families}\ (A\to A\to\mathcal{U}) \\
+  &\circ:\prod\limits_{x,y}\mathcal{P}^{\mathcal{U}} & \textit{arbitrary function (element) of family type} \\
+  &a\circ b:\mathcal{P}^{\mathcal{U}} & a\circ b\ \textit{is a}\ \textsf{relation type} \\
+  &a\circ a:\mathcal{P}^{\mathcal{U}} & a\circ b\ \textit{is a}\ \textsf{reflexive}\ \textit{relation type} \\
+  &\diamond:\prod\limits_x (x\circ x) & \textit{constructor for reflexive relations} \\
+  &\diamond x:(x\circ x) & \textit{canonical element of reflexive relation}\ \textsf{at}\ x \\
+  &a:(x\circ x) & \textit{(arbitrary) element of reflexive relation}\ \textsf{at}\ x \\
+  &\reflectbox{\lambda}(x\circ x) & \textit{(arbitrary) element of reflexive relation}\ \textsf{at}\ x 
+\end{align}
+
+\begin{align}
+&\prod\limits_{p:x\circ x}\mathcal{P}^{\mathcal{U}} & \textit{family type built on reflexive relation} \\
+&C\colon\!\prod\limits_{p:x\circ x}\mathcal{P}^{\mathcal{U}};\ C(\diamond x) & C(\diamond x)\ \textit{is a type} \\
+&\diamond x\rvert\prod\limits_{p:x\circ x}\mathcal{P}^{\mathcal{U}} & \textit{same as prev}
+\end{align}
+
+\begin{align}
+  &C\colon\prod\limits_{x,y}(x\circ y)\to\mathcal{P}^{\mathcal{U}} & \textit{2nd order family of families} \\
+  &C\colon\prod\limits_{x,y}\prod\limits_{p:x\circ y}\mathcal{P}^{\mathcal{U}} & \textit{ditto} \\
+  &C(a,b)\colon(a\circ b)\to\mathcal{P}^{\mathcal{U}} & \textit{family of implications over reln proofs} \\
+  &C(a,b)\colon\prod\limits_{p:a\circ b}\mathcal{P}^{\mathcal{U}} & \textit{ditto} \\
+  &C(a,a)\colon(a\circ a)\to\mathcal{P}^{\mathcal{U}} & \textit{family of implications over refl proofs} \\
+  &C(a,a)\colon\prod\limits_{p:a\circ a}\mathcal{P}^{\mathcal{U}} & \textit{ditto} \\
+  &\diamond a\colon a\circ a & \diamond a \ \textit{is a reflexivity proof} \\
+  &C(a,a)(p):\mathcal{P}^{\mathcal{U}} & \textit{one type per proof}\ p\ \textit{of}\ a\circ a \\
+\intertext{\(C(a,a,p)\) is an inference type expressing \textit{modus ponens}: if \(a\circ a\) then \(P\); but \(p\) proves \(a\circ a\); hence \(P\).}
+  &C(a,a)(\diamond a):\mathcal{P}^{\mathcal{U}} & \textit{canonical case:}\ \diamond a\colon a\circ a \\
+  &C(a,a,\diamond a):\mathcal{P}^{\mathcal{U}} & \textit{ditto} \\
+&x:C(a,a,\diamond a) & \textit{arbitrary proof of}\ C(a,a,\diamond a) \\
+\intertext{Logically, \(x\) validates the inference \(C(a,a,\diamond a)\).}
+\end{align}
+
+%% &\reflectbox{\lambda}A\to B & \textit{\reflectbox{\lambda}A\to B : A\to B} \\
+%% &\reflectbox{\lambda}\mathbb{N} & \textit{an arbitrary natural number}
+
+\section{Equality}
+
+For any type \(A\) and \(x,y:A\), we can specify
+
+\begin{align}
+  &\prod\limits_{a:A}A
+\end{align}
+
+Interpreted computationally (functionally), this expresses
+the type of functions that take an element of a type as input and
+yield an element of the same type as output.
+
+Interpreted logically, it expresses the type of implications that say:
+
+\begin{quote}
+\textit{for any proof of a proposition we can produce a proof of the proposition}
+\end{quote}
+
+On either interpretation, this type seems trivial; it looks like the
+Identity type.  But that's not the right interpretation.  It's neither
+the Identity function, nor the Identity implication; it does not
+merely return the same element it is given, nor does it give the
+premise as the conclusion of an implication.  Rather, as a function it
+takes a particular element of \(A\) and yields \emph{some} (possibly
+other) element of \(A\).  As an implication, it says precisely that
+given a \emph{particular} proof of a proposition, we can find some
+\emph{arbitrary} proof of the proposition - which may be a different
+proof.  In other words under either interpretation it expresses a kind
+of move from the particular to the general.
+
+\textbf{FIXME:} what should we call this kind of type?  It's neither
+an Identity type nor an Equality type, but is related to both.  A
+``proof equality type''?
+
+Now consider:
+
+\begin{align}
+  &\prod\limits_{a:A}A\to\mathcal{U} & \textit{read:}\ \prod\limits_{a:A}(A\to\mathcal{U})
+\end{align}
+
+This type expresses the notion of a \emph{family of types}.  It is the
+type of such type families; an element of this type is a ``type
+family'', which is just a function that produces types.  Any given
+element of this type, such as
+\(C\colon\prod\limits_{a:A}A\to\mathcal{U}\), will take an element
+(proof) of a type, and yield (imply) not another element but another
+type - one that is dependent of the element used to produce it.  So if we
+have \(b\colon A\), then \(C(b)\colon\mathcal{U}\), meaning \(C(b)\)
+is a type dependent on \(b\).
+
+\begin{quote}
+Note that we can treat \(C(b)\) as an inference type expressing modus
+ponens: \(A\to\mathcal{P}^{\mathcal{U}}\); but \(a:A\); therefore \(\mathcal{P}^{\mathcal{U}}\).
+\end{quote}
+
+This simple type pattern is surprisingly important in the HoTT
+presentation of equality.  Compare:
+
+\begin{align}
+  &\prod\limits_{x,y:A}\mathcal{P}^{\mathcal{U}} & \textrm{same as}\ A\to A\to\mathcal{U} \label{pi:id} \\
+  &\prod\limits_{x,y:A}(x=_Ay) &\textit{fns returning a proof for a pair} \label{pi:idp} \\
+  &\prod\limits_{x,y:A}(x=_Ay)\to\mathcal{U} & \textit{fns returning a fn on proofs for a pair} \label{pi:idppfam} \\
+  &\prod\limits_{p:x=_Ay}(x=_Ay) \label{pi:idpp} & \textit{fns returning a proof for a proof} \\
+  &\prod\limits_{p:x=_Ay}(x=_Ay)\to\mathcal{U} & \textit{fns returning a fn on proofs for a proof} \label{pi:idfam}
+\end{align}
+
+Here (\ref{pi:id}) is the type of the family of Equality (Identity)
+types in HoTT, which sets \(Id:A\to A\to\mathcal{U}\).
+
+
+
+\section{Inferences as Types}
+Type theory subsumes classical (traditional?) logic in its entirety -
+not just propositions as types, but terms, propositions, and
+inferences as types.  This also means that the truth of a proposition
+is equivalent to the validity of an inference.
+
+\subsection{Examples}
+Assume \(\mathcal{P:U}\).
+\medskip
+
+\noindent Extensional glosses:
+
+\begin{flalign}
+&(x=_Ay) & x=y \\
+&(x=_Ay)\to\mathcal{P} & \textit{if}\ x=y \ \textit{then}\ \mathcal{P}\ \textit{is a proposition} \\
+&\prod\limits_{x,y:A} (x =_A y) \to \mathcal{P} & \forall x,y, \textit{if x=y then}\ \mathcal{P}\ \textit{is a proposition} \label{eq:univ} \\
+&C:\prod\limits_{x,y:A} (x =_A y) \to \mathcal{P}  & C\ \textit{proves proposition 3} \\
+&C(a,b) & \textit{if } (a=_Ab)\ \textit{then }\ \mathcal{P}\ \textit{is a proposition} \label{eq:inst} \\
+&b,a\raisebox{-4pt}{\(\biggr\rvert\)}\prod\limits_{x,y:A} (x =_A y) \to \mathcal{P} & \textit{same as proposition 5} \\
+&p:(a=_Ab) & \textit{p proves}\ a=_Ab \\
+&p\big\rvert(a=_Ab)\to\mathcal{P} & (a=_Ab)\to\mathcal{P};\ \textit{but}\ p;\ \textit{therefore}\ \mathcal{P} \label{eq:pab}\\
+&C(a,b)(p) & \mathcal{P}\ \textit{is a proposition}\label{eq:cabp} \\
+&p,b,a\raisebox{-4pt}{\(\biggr\rvert\)}\prod\limits_{x,y:A} (x =_A y) \to \mathcal{P} & \textit{same as (\ref{eq:cabp})}\label{eq:inference}
+\end{flalign}
+
+\noindent Intensional gloss: equation (\ref{eq:pab}) may be glossed as follows:
+
+\begin{quote}
+if \(a=b\) is proved, then \(\mathcal{P}\); but \(p\) proves \(a=b\), therefore \(\mathcal{P}\).
+\end{quote}
+
+\noindent (\ref{eq:inference}) can be similarly glossed, but to make it fully and hideously explicit, we would have to add clauses expressing the inference from the universal closure expressed by (\ref{eq:univ}) and its instantiation expressed by (\ref{eq:inst}).  That tedious exercise is left to the reader.
+
+
+
+%% \begin{flalign}
+%% &(x=_Ay) & x=y \\
+%% &(x=_Ay)\to\mathcal{P} & \textit{if}\ x=y \ \textit{then}\ \mathcal{P}\ \textit{is a proposition} \\
+%% &\prod\limits_{x,y:A} (x =_A y) \to \mathcal{P} & \forall x,y, \textit{if x=y then}\ \mathcal{P}\ \textit{is a proposition} \\
+%% &C:\prod\limits_{x,y:A} (x =_A y) \to \mathcal{P}  & C\ \textit{proves proposition 3} \\
+%% &C(a,b) & \textit{if } (a=_Ab)\ \textit{then }\ \mathcal{P}\ \textit{is a proposition} \\
+%% &b,a|\prod\limits_{x,y:A} (x =_A y) \to \mathcal{P} & \textit{same as proposition 5} \\
+%% &p:(a=_Ab) & \textit{p proves}\ a=_Ab \\
+%% &C(a,b)(p) & \mathcal{P}\ \textit{is a proposition} \\
+%% &p,b,a|\prod\limits_{x,y:A} (x =_A y) \to \mathcal{P} & \textit{same as proposition 8}
+%% \end{flalign}
+
+
+Note: 8 and 10 use an unorthodox notation that I'm calling the
+"tokenization operator".  The idea is that for any type A, "|" picks
+out an element of the type, and we then use prefix notation to
+indicate application. (We might also split out a tokenization
+operator, e.g. Λ and define a "pipeline" application operator.)  This
+allows us to dispense with (some) intermediate variables, just like
+the lambda operator allows us to dispense with function names.  In
+8, \(|(a=b)\to\mathcal{P}\) picks out an element of the function type,
+and prefixing p to it indicates application of that element to p.  So
+8 is a (nearly) variable-free version of:
+
+    \[C:(a=b)\to\mathcal{P}; C(p)\]
+
+Note that 10 could be written more explicitly:
+
+\[a,b:A, p:(a=b), p\rvert b,a\raisebox{-4pt}{\(\biggr\rvert\)}\prod\limits_{x,y:A}(x=Ay)\to\mathcal{P}\]
+
+
+which should be read "outward": feed a then b then a proof of a=b to the \(\Pi\) function.
+
+The glosses for 8-10 here ignore information in the formulae; the gloss only applies to the "result" of the type formation operation.  They can also be glossed intensionally as instances of modus ponens
+(\(A\to B; but A, therefore B\)):
+
+\begin{quote}
+    If a=b is proven, then P; but p proves a=b, therefore P.
+\end{quote}
+
+Here I think the advantage of having a tokenization operator like "|" is evident; it makes it easier to read the intensional sense of 8 and 10 directly off the formula.  Well, not entirely; we still use vars a, b, and p.   They could be eliminated using the tokenization operator with a \(\Sigma\) type, but that's a topic for another post.
+
+What this is intended to show is that Curry-Howard is not limited to propositions.  Types may encode terms, propositions, or inferences.   Those that express inferences may also be construed as expressing propositions (namely, the concluding proposition of the inference); those that express propositions may be construed as expressing terms.  The latter corresponds to the fact that embedded propositions function as terms: in "if P then Q", both P and Q are propositional variables but they act as terms within the conditional.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Z for set theory}
+
+Example from section 1.6 Dependent Pair types (Σ-types), p. 30:
+
+\begin{quote}
+``The way to construct elements of a dependent pair type is by
+pairing: we have \((a,b) : ∑(x:A) B(x)\) given \(a : A\) and \(b :
+B(a)\).''
+\end{quote}
+
+In Z: \[ {(a,b) | a\in A \land b\in P(a)} \]
+
+The critical point being that Z makes the ``such that'' explicit.
+
+ML, ``An intuitionistic theory of types'' p. 4:
+\begin{quote}
+``A third function of \((\sum x\in A)B(x)\) is to represent `the type
+of all objects \(a\) of type \(A\) \emph{such that} \(B(a)\)...''
+\end{quote}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Meaning Explanation}
+
+\begin{quote}
+``What we do here is meant to be closer to ordinary mathematical practice. We will avoid keeping form and meaning (content) apart. Instead we will at the same time display certain forms of judgement and inference that are used in mathematical proofs and explain them semantically.'' ML, Intuitionistic Type Theory p. 2
+\end{quote}
+
+Note: explain them \emph{semantically}; this is ambiguous.  Does it
+mean explain them in representational terms, or does it mean give a
+meaning explanation?
+
+TODO:  Dummett quote
+
+
+\end{document}

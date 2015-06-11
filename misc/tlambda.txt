@@ -1,0 +1,128 @@
+Big lambda:  given a type family B: A->U, L(B) is the type of the elements of B:
+
+    a:A, B(a):U |- B(a) : L(B)
+
+This allows us to construct types that depend on dependent types
+rather than the elements of dependent types.
+
+    B : A -> U
+    C : B(x) -> U
+
+C takes elements of B(x) to U.  Given b:B(a), we have C(b):U.  We
+cannot write C:B->U, since B is a function, not a type.  Compare
+
+    C : Pi(x:A).B(x) -> U
+
+This takes a to a function.  Given a:A, we have C(a) : (B(a) -> U), so
+to get a "simple" type dependent on B(a) we need another arg: C(a)(b)
+: U, where b:B(a).  The problem is that a Pi type gives us more than
+just the type family it "contains".
+
+So how can we express the idea that type family C depends on type
+family B?  We want something like C : B -> U, but that won't fly,
+since B is a function, not a type; the types of the family, B(x), do
+not have type B.  We need another operator that signifies the type
+family associated with the function B:A->U.  That is, the type of the
+results of applying B.
+
+A type family C dependent on elements of B(a):
+
+    B:A->U, a:A, b:B(a) |- C : B(a) -> U
+    b:B(a), C: B(a) -> U |- C(b) : U
+
+
+A type family C' dependent on the types of family B:
+
+    B:A->U |-  L(B) : U
+
+Here L is "big lamba"; it takes a type family function to its
+associated higher type; L(B) is the type whose elements are B(a),
+B(b), ...  So we can write
+
+    C' : L(B) -> U
+    C'(B(a)) : U
+
+No idea what this would be good for, but it seems natural given the
+mechanism of dependent types.
+
+**** old:
+Dependent type theory's missing constructor: Bar
+
+By analogy with X-bar theory in linguistics.  Given a:A, we have a^:U.
+
+The HoTT book presents type families in terms of functions, e.g. B:A -> U.
+
+The reasoning is that B(x) is defined for each x:A.  This just means
+that a type is associated with every token of type A.  The bar
+constructor allows us to name those types.  We do not need a function
+to express this; we just need a type constructor.
+
+The bar constructor is analogous to lambda.  Lambda turns an open
+sentence into the name of a function (often called - incorrectly - an
+anonymous function); the bar constructor turns a token into the name
+of a type.  The critical difference is that the bar constructor is not
+a function; it is a primitive type constructor, just like x, ->, +,
+etc.
+
+With type family functions, B(x) is a dependent type.  The bar
+constructor does the same; x^ names the same type.
+
+A problem with using type family functions is that they may suggest to
+the unwary that there is more than one type family for a given type.
+Given A:U, we can define B:A->U, C:A->U, etc.  Then the question
+naturally arises: do we have B=C?  As far as typing is concerned, B
+and C obviously have the same type, A->U.  But do we have B(x) = C(x)?
+Both B(x) and C(x) are types; are they different types?  How would we
+know?  Their witness won't tell us; a single type can have different
+witnesses.
+
+I think the answer must be no.  First off, note that B and C are not
+really functions; they may be mappings, but they have no computational
+content.  They do not construct the types of their co-domains.  The
+bar constructor makes this explicit: B:A->U just means "for all a:A,
+B(a) = a^".
+
+So B(x), C(x), etc. all name the same type; the values of that type
+may of course be different for B, C, etc.  Even if B(x) = C(x) we
+cannot infer y:C(x) from y:B(x), nor vice-versa.
+
+Dependent types are defined by their constructors, which are also dependent.
+
+But "dependent type" is misleading.  A bar type x^ (= B(x)) is just a
+type; the type itself need not be construed as depending on x.  x^ and
+B(x) are just names; they, but not the types they name, depend on x.
+
+Compare lambda abstractions.  We do not normally say that e.g. \x.x+1
+depends on x, nor that same applied to a depends on a.  We could, of
+course; each co-domain value f(x) of a function f depends on the
+domain value x.  But we don't normally think of function values as
+"dependent values".
+
+Similarly, there is no intrinsic reason why we should feel compelled
+to treat types like B(x) as dependent.  They're just types, like AxB,
+A->B, etc.
+
+To go along with the bar constructor for tokens, we have a bar
+constructor for types, which gives us a family of types as a primitive
+construction rather than a function.  So if A:U, we have A^:U, and for
+every a:A, we have a^:A^.
+
+With the bar constructor we can have "improper" dependent products A x A^.
+With proper Sigma types, the type of the second element is dependent
+on the first element.  With bar construction, we can have pairs whose
+second element has a type that is dependent on some other value.
+
+    proper:  a:A, b:B(a) |-  (a,b) : Sigma(a:x), B(a)
+
+    improper: a:A, x:A, b:x^ |- (a,b) : A x A^
+
+since x^:A^.  So this is the type of pairs whose second element
+depends on /some/ element of the type of the first element.
+
+We can think of them as "lifting" an independent pair from (a,b):AxA
+to (a,b^):AxA^.
+
+Note that this is a bottom up design, in contrast to the top-down
+design of functions.  We get a^ from a (types from tokens) rather than
+the other way around.  We also get the type of type families, which
+the functional approach does not accomodate.

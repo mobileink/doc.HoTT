@@ -1,0 +1,11 @@
+
+HoTT Book Insufficiently Radical.  Argument: too much implicit
+reliance on representational semantics and attendant metaphysican
+commitments.
+
+
+Tau:  the Missing Type Constructor
+
+
+Constructors and Co-constructors.
+

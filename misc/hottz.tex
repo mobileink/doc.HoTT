@@ -1,0 +1,105 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{fontspec,xltxtra,xunicode}
+\usepackage{fontspec}
+\defaultfontfeatures{Scale=MatchLowercase}
+
+%% \setmainfont[Mapping=tex-text]{Times New Roman}
+%% \setromanfont[Mapping=tex-text]{Times New Roman}
+%% \setsansfont[Mapping=tex-text]{Arial}
+
+\setmainfont[Mapping=tex-text]{TeX Gyre Pagella}
+%% \setromanfont[Mapping=tex-text]{TeX Gyre Pagella}
+%% \setsansfont[Mapping=tex-text]{TeX Gyre Heros}
+
+\usepackage{tikz}
+%% \usepackage{pgfplots}
+%% \usepackage{pgfplotstable}
+%% %% Preamble:
+%% \pgfplotsset{width=7cm,compat=1.9}
+%% %% \pgfplotsset{xticklabel={\tick},scaled x ticks=false}
+%% %% \pgfplotsset{plot coordinates/math parser=false}
+
+\usetikzlibrary{arrows,shapes,patterns,backgrounds,spy}
+\usepackage{pgffor}
+
+%% \usepackage{animate}
+
+%% \usepackage{arrayjobx}
+%% \usepackage{multido}
+
+%% \usepackage{layouts}
+
+%% \usepackage{etoolbox}
+
+%% \newcounter{mylistcounter}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\large
+
+\section{Path Induction}
+
+\noindent Here is the presentation from the HoTT book p. 49:
+
+Given a family
+\begin{equation}C:\prod_{x,y:A}(x=_Ay)\to\mathcal{U}\end{equation}
+
+and a function
+\begin{equation}
+  c:\prod_{x:A}C(x,x,refl_x)
+\end{equation}
+
+there is a function
+\begin{equation}
+  f:\prod_{(x,y:A)}\prod_{(p:x=_Ay)}C(x,y,p)
+\end{equation}
+
+such that
+\begin{equation}
+  f(x,x,refl_x) :\equiv c(x)
+\end{equation}
+
+\noindent We rewrite this as follows:
+\medskip
+
+Given functions \(\prod_{x,y:A}(x=_Ay)\to\mathcal{U}\) and
+\(\prod\limits_{x:A}refl_x\big\rvert(x=_Ax)\to\mathcal{P}\) we can
+specify a family of types together with its family of constructors:
+
+\begin{align}
+  &C:\prod_{x,y:A}(x=_Ay)\to\mathcal{P:U} \\
+  &C(a,b):\prod\limits_{(p:a=_Ab)}p\to\mathcal{P:U} \\
+  &C(a,a):\prod\limits_{(p:a=_Aa)}p\to\mathcal{P:U} \\
+  &C(a,a)(refl_x):\mathcal{P} \\
+  &c:\prod_{x:A}C(x,x)(refl_x) \\
+  &c:\prod\limits_{x:A}refl_x\big\rvert(x=_Ax)\to\mathcal{P:U} \\
+  &c(a):C(a,a)(refl_a) \\
+  &c(a):\mathcal{P}
+\end{align}
+
+\(C\) is a family of type families; apply it to \(a,b\) and you get a
+type family \(\prod_{p:a=_Ab}p\to\mathcal{P}\) parameterized by proofs
+that \((x=_Ay)\).  So \(C(x,x)\) is a member of that family, so it is
+a type family; \(C(x,x)(refl_x)\) is a new type built from \(C(x,x)\)
+together with a proof that \(x=_Ax\), and \(c(x)\) is
+\(C(x,x)(refl_x)\).  Now we can specify a function
+
+\begin{align}
+  &f:\prod_{(x,y:A)}\prod_{(p:x=_Ay)}C(x,y,p) \\
+  &f(a,a):\prod_{(p:a=_Aa)}C(a,a,p) \\
+  &f(a,a)(refl_x):C(a,a,refl_x) \\
+  &f(a,a)(refl_x):\mathcal{P}
+\end{align}
+
+such that
+\begin{equation}
+  f(x,x,refl_x) :\equiv c(x)
+\end{equation}
+
+Note that this leaves \(f\) undefined for any arguments except \(x,x,refl_x\).
+
+\[ind=_A: \prod_{C:\prod_{x,y:A}(x=_Ay)\to\mathcal{U}}\Big(\Pi_{(x:A)}C(x,x,refl_x)\Big)\to \prod_{(x,y:A)}\prod_{(p:x=_Ay)} C(x,y,p)\]
+
+
+\end{document}

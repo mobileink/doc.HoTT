@@ -1,0 +1,716 @@
+\documentclass{article}
+
+\usepackage{fontspec,xltxtra,xunicode}
+\usepackage{fontspec}
+\defaultfontfeatures{Scale=MatchLowercase}
+
+%% \setmainfont[Mapping=tex-text]{Times New Roman}
+%% \setromanfont[Mapping=tex-text]{Times New Roman}
+%% \setsansfont[Mapping=tex-text]{Arial}
+
+\setmainfont[Mapping=tex-text]{TeX Gyre Pagella}
+%% \setromanfont[Mapping=tex-text]{TeX Gyre Pagella}
+%% \setsansfont[Mapping=tex-text]{TeX Gyre Heros}
+
+\usepackage{tikz}
+%% \usepackage{pgfplots}
+%% \usepackage{pgfplotstable}
+%% %% Preamble:
+%% \pgfplotsset{width=7cm,compat=1.9}
+%% %% \pgfplotsset{xticklabel={\tick},scaled x ticks=false}
+%% %% \pgfplotsset{plot coordinates/math parser=false}
+
+\usetikzlibrary{arrows,shapes,patterns,backgrounds,spy}
+\usepackage{pgffor}
+
+%% \usepackage{animate}
+
+%% \usepackage{arrayjobx}
+%% \usepackage{multido}
+
+%% \usepackage{layouts}
+
+%% \usepackage{etoolbox}
+
+%% \newcounter{mylistcounter}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\large
+
+
+The task is to capture our ordinary intuitions about equality, just
+like Turing captured our intuitions about effective procedures.
+Similar: logical consequence.  So far nobody has managed to do for
+logical consequence what Turing did for effective procedure: provide
+something formal that captures our ordinary intuitions.  Ditto for
+equality.  (TODO: quotes about problems with equality)
+
+Paradigm: fiat currency.  Each dollar bill is "equal" to each other.
+But each is also different, as a physical particular.  What makes them
+equal is exchange value, which is socially instituted.  So equality is
+a social institution.
+
+Equality as exchange value depends on token recognition, so the
+ability to recognize that a particular is a token of a type - this
+thing is a \$1 bill - is more primitive than equality, but also enables
+equality.  This dependency can be made explicit by writing a =\$ b
+instead of a = b, meaning that a and b are equal under the
+\$-denominated currency regime - that is, under a particular
+perspective.  So equality is always perspectival, which translates
+into equality-as-type in HoTT.
+
+Proof of equality: type theories like HoTT need a "proof" for each
+equality type; usually this is defined as refl.  But the formal
+structure of such definitions in a type theory does not capture our
+ordinary intuitions about equality.  We can replace the (arbitrary)
+symbols "=" and "refl" with any others without changing the meaning;
+in particular we could use "Unit" and "*", respectively, giving "*a :
+Unit a a instead of "refl(a): a = a" (leaving type A implicit).  So
+the formal definitions have no conceptual content except what is
+instituted by the introduction and elimination rules.  We cannot rely
+on antecedent notions of equality and reflexivity; the latter in any
+case is a specifically mathematical concept, relatively remote from
+our ordinary intuitions, and so cannot be counted as primitive.
+
+What counts as "proof" for our ordinary notion of equality, the one
+involving exchange value?  We cannot count on merely "knowing that a
+and b are the same" (HoTT p. 47 "The basic way to construct an element
+of a = b is to know that a and b are the same.")  That approach runs
+straight into Hume's problem.  Recall that Hume pointed out that we
+cannot observe causality.  We can observe event a, and event b, and we
+can observe that b invariably follows a; but we cannot observe a
+causal connection between the two, and so we have no iron-clad
+guaranteed that b will always follow a in the future; we cannot "know"
+that a causes b.  Similarly, we can observe that a is a \$1 bill, and
+that b is a \$1 bill, but we cannot observe a relation of equality
+between them; we cannot "know" by observation that they are equal.  Of
+course we can know that they are both \$1 bills - tokens of the same
+type - but that does not count as knowing that they are equal.  (Or
+does it?  We might also say that we can know that they are equally
+tokens of the same type but that gives us no means of demonstrating
+that knowledge - there is no "type of knowing that two things are
+equal".  Then again, knowing that a and b are tokens of a type is
+knowledge of a "vertical" relation between token and type; the
+"horizontal" relation of equality between such tokens is a different
+thing.) As mentioned above, equality is a social institution, not an
+observable, "objective" property.  The only way to demonstrate
+("prove") that a and b are equal is to actually exchange them and have
+both parties to the exchange come away thinking the exchange was fair.
+So we could simply define "refl" to mean "act of exchange"; but that
+doesn't seem very mathematical, since actions are dynamic and
+mathematical objects are not.  What we need is an actual physical
+token that counts as proof of the equality in the same way that a \$1
+bill (or coin) counts as "proof" of \$1.
+
+Demonstration as proof: note that the notion of proof in HoTT and
+similar extends our ordinary notion of proof.  We don't ordinarily go
+around saying that, e.g. 2 proves Nat, but in type theory that is
+exactly what "2:Nat" means (or at least it is one accepted gloss of
+the notation.)  But if we change "proves" to "demonstrates" we have
+something a little less odd: SS0 (=2) demonstrates Nat just because on
+inspection we can see that it is composed solely of the constructors
+that define Nat, assembled according to the rules of the type theory;
+it "shows" Nat in action, so to speak.  Note the close connection
+between compositionality and demonstration (proof); it's not
+accidental.  Similarly it makes sense to say that a \$1 bill or coins
+demonstrates the concept of \$1, and that fair exchange of dollar bills
+demonstrates their equality.
+
+So what physical token would count as demonstrating the equality of
+two \$1 bills?  Here again we rely on a social institution: a contract.
+Instead of actually exchanging dollar bills, the parties can agree to
+such an exchange, and certify their agreement by writing and signing a
+contract that obliges them to make the actual exchange some time in
+the future.  The contract then serves as a physical demonstration of
+the equality of the goods to be exchanged.
+
+Notice that this does not really count as "proving" anything in the
+traditional sense of exhibiting justification.  Indeed, in light of
+the fact that equality is a social institution, it doesn't even make
+sense to try to prove that one \$1 bill is equal to another.  That
+would make it sound like there is some kind of equality property or
+relation that we can discover and exhibit, or that there is some fact
+of the matter that we can expose.  But there is no fact of the matter,
+nor is there any "objective" equality relation to be "proved":
+equality is social and perpectival.  Things are equal only because we
+agree to treat them as equal, and this applies as much to mathematics
+as to medium sized dry goods.  To social instutions of mathematics may
+be complex, but they remain social institutions.
+
+To put it another way: proof of equality /institutes/ equality; fair
+exchange of a pair of 1\$ bills is just what makes them equal.
+
+(But: isn't that always the case?  Proof of P institutes P?  Not
+classically; there, propositions and proofs are ontologically
+distinct.  Classical proofs justify (assertion of) propositions;
+intuitionistic/inferential proofs institute propositions.  A
+proposition demonstrated cannot be ontologically severed from its
+demonstration.)
+
+So we can view "refl" as a kind of contractual certification of
+equality.  On this view, it has nothing to do conceptually with the
+notion of reflexivity - it does not mean that a thing stands in a
+binary relation of reflexivity to itself; it means that two distinct
+things have equal exchange value.
+
+The critical observation here is that the "reflexive" formula "a = a"
+contains not one but two distinct 'a' tokens.  They are not "the
+same", any more than two distinct \$1 bills are the same.  But they do
+have the same exchange value, which is the same exchange value that
+all such 'a' tokens have.  So we can take "a = a" as an inference
+rule, one that licenses exchange of 'a' tokens.  Then "refl(a) : a = a"
+reifies that license, so to speak, in the form of token "refl" whose
+role is to certify that such exchanges are fair.
+
+Key point being that this avoids the notion of reflexivity as a binary
+relation of a thing to itself.  We could make this more perspicuous by
+replacing "refl" with something like "exch", or even some variation on
+the "=" symbol, e.g.  "a=a! : a = a", meaning "a=a!" certifies that
+all 'a' tokens have equal exchange value.
+
+Another critical point: we derived "exchange value" from ordinary
+practices, but we can also derive it solely from type theory
+primitives by means of a notion of token repeatables, or maybe even
+token reflexivity.  Token repeatables are always interchangeable.
+Each token, qua symbol, "gives rise" to the type of its token
+repeatables.  E.g. we have 3:Nat; but we also have the type of such
+3-tokens (token repeatables), so every "occurence" of the symbol '3'
+is a token of that type.  To make this explicit we probably need a new
+type former that turns tokens into token-repeatable types.  Then we
+can say e.g. 3:T(3), where T(3) names the type of all 3-tokens.  By
+definition, every token of a T-type is interchangeable with every
+other token of that type.
+
+Normally we do not actually exchange such tokens, instead we just
+write down fresh copies and count that as using the same token.  But
+we could physically exchange them; we could cut the tokens out of our
+piece of paper and shuffle them around.  So for a = a, we could
+actually cut out those 'a' tokens and paste either of them in place
+wherever we need an a-token in our proof.
+
+No constants and no vars - the distinction presupposes denotational
+semantics.  But in type theory we only have tokens and types.  When we
+write \(x:A\) what we mean is that the inference from the particular
+token \(x\) (which is token-repeatable) to type \(A\) is
+\emph{assumed}, not that \(x\) is a variable of type \(A\) waiting for
+assignment.
+
+E.g. x:Nat, x = 1+1.  The latter does not mean ``assign the value of
+1+1 to symbol x''; nor does it mean something like ``(it is true that)
+the values of x and 1+1 are equal''.  It just means that we are
+licensed to exchange x tokens and 2 tokens.
+
+
+
+**************** old:
+
+
+Goal is to explain type theory
+
+    * in terms of the ordinary intuitions of lived experience
+
+    * without relying on representational vocabulary like "refers", "denotes", etc.
+
+    * without metaphysics or psychologism
+
+The approach draws on Brandom:
+
+    * normative pragmatics
+
+    * inferential semantics
+
+    * logical expressivism
+
+Surprising results:
+
+    *  the Unit type is incoherent
+
+    * identity types (aka token-repeatable types) are primitive, all
+       others derivative (in the order of explanation); this is
+       because tokens are always repeatable, which gives rise to a
+       type (token-repeatable type)
+
+    * constructors are not functions; the former are primitive, the
+       latter derivative
+
+The starting point is the type-token distinction.  We show how this
+relation can be explained in terms of practical norms instituting the
+treatment of particulars as tokens of a type.
+
+What is a type?  A type is an institution.  What is a token?  A token
+is a particular in a functional role.
+
+
+Token-particulars and perspectivism.  The only way a particular can
+function as (play the role of) a token of a type is for us to treat it
+as such.  We move from particular to token-particular - that is, from
+particular to particular-as-token.  This is an inferential move, from
+to particular to category.  It's inferential because categories
+(concepts) are inferentialy articulated.  What Sellars called a
+language-entry move.  But this move does not require language.  Or
+rather categorization does not, though conceptualization does.  Even
+primitive life forms categorize; in fact inanimate things categorize
+(Brandom's example of a chunk of iron, rusting.)  But since we're
+talking about human practices, it is proper to view the move from
+particular to token-particular as an inferential move; let's call it a
+token inferencing.
+
+Token inferencing is a two-fold move: from particular to token of
+type, i.e. inference to both type and functional role. (?)
+
+
+A good "intuition pump" for illustrating the pragmatic basis of type
+theory is the practice of tallying.  Before we can even begin to tally
+- e.g. by dropping pebbles into a pouch, notching a stick, etc. - we
+must have mastered the inferential practices involved in recognizing
+particulars as tokens of a type.  We must have the practical ability
+to treat distinct pebbles as indistinguishable tokens of a type - call
+it Counter.  And this is a matter of practical norms - we treat
+countings using pebbles as correct or incorrect, and that's about as
+far as explanation can go.  It would be fruitless to try to explain
+why or how we manage to recognize that a particular object is a
+pebble; the best we can say is that treating it as a pebble just like
+all the others is the correct thing to do.
+
+So token inferencing is a primitive practice that precedes more
+sophisticated token/type practices like tallying; the latter depends
+on the former.  Neither depends on language; both are essentially
+normative, practical skills.
+
+The critical point here is that (the practice of) this sort of
+inferential skill (token inferencing) is what institutes concepts.
+Creatures can treat particular pebbles as tokens of a (nameless) type
+even if they have no language; in fact, they do not even need an
+antecendently available concept of type (or of "concept").  But once
+they have instituted such normative practices they can say what they
+otherwise can only do by expanding their vocabulary.  They can invent
+words like ``that'' and ``pebble'', and go around point at things and
+declaring "that pebble"!  Doing so makes explicit the normative
+practice of treating things as pebbles; it makes the language-entrance
+move explicit as a correct move.  The village idiot can go around
+pointing at cows and exlaiming ``that pebble!'', but the other
+villagers will treat him as linguistically incompetent.  ``That
+pebble!'' as a kind of rule, which can be applied correctly or
+incorrectly.
+
+This is just what the standard type-theoretic notation "a : A" does.
+Most expositions of type theory gloss this as "a has type A", or "a is
+proof/witness/inhabitant of A", etc.  The proposal here is that we
+should read this expression as exactly analogous to a propositional
+implication like A -> B.  But only analogous; A -> B is a schema
+licensing inference from proposition to proposition, whereas we treat
+"a : A" as a schema licensing inference from particular to
+token-particular.  We gloss it "from a infer A" or "from particular a
+infer type A", or "infer that particular a is a token-particular of
+type A".  It's also stipulative, not empirical; remember 'a' is a
+token, not a symbol.
+
+Note that token inferencing is perspectival; particulars only come to
+play the role of tokens (i.e. are correctly treated as tokens) within
+the context of particular purposes or "language games".  So it might
+be better to gloss "a : A" as "treat particular a as a token of type
+A, for the purpose at hand."  (Remembering that inferencing is
+something we do that involves /treating/ things in correct ways, so to
+treat a as a token of type A is to make a practical inference from
+particular to token-particular.)
+
+[Constants: 3:Nat is a rule licensing use of 3-tokens according to the
+  rules of Nat.]
+
+
+[FIXME: Now there is a (very) subtle but critical point here that is
+  obscured by our very use of language.  We naturally tend to
+  abstraction; most of us will treat the "a" in "a : A" not as a
+  particular but as either a constant symbol that denotes a particular
+  or a variable symbol that ranges over a collection of particulars,
+  or maybe even an "unknown".  In any case, before it is any of that
+  it is indeed a particular - a particular bit of ink on paper, or
+  illumination on a screen.  And remember we have ruled out any appeal
+  to denotation, so we cannot take the tokens in our expressions as
+  refering to anything.]
+
+But if "a : A" is an inference license (or: an inference that
+institutes a license, i.e. a rule), don't we need to already know what
+"a" is to proceed with the inference?  Only under denotational
+semantics.  [Cmp. Platonic anamnesis] It can't mean "treat any old
+thing as an A-token".  But if it just means "an A-token is an A-token"
+then it does not involve inference.  The point is that a:A does not
+express some relation or between or ``true'' fact about a and A that
+we have discovered.  It makes no sense to say ``a:A'' is true, because
+it is not a proposition, it is an inference (rule) that does not
+depend no denotation .
+
+The issue comes out more clearly if we go back to tallying practices
+using pebbles.  It should be obvious that the pebbles involved in the
+practice of tallying do not denote anything; in fact they are not even
+symbols.  They are particulars; distinct entities located in space and
+time.  Particulars are distinct by definition; to say that one two
+particulars are "identical" is nonsensical, and to say that one
+particular is identical to itself is vacous (Wittgenstein said
+something like this, I believe.)  To move from particular to
+token-particular means to ignore the particularities (the identity) of
+the particular.  And it is by doing this that the notion of type
+emerges (is instituted).  The Platonist might say that a particular is
+a token of type A because it somehow (mysteriously) "participates" in
+ideal A; the Aristotelean, that we somehow (mysteriously) derive the
+abstract A from particulars.  The pragmatic perpective eliminates the
+mystery: it is only by virtue of our treating particulars as A-tokens
+that the type A and the role of A-token are instituted.
+
+This has two subtle consequences that are not generally noticed in
+type theories.  One is that the notion of a Unit type, with only a
+single "element", is conceptually incoherent.  A type with only one
+element would not be a generalization; the notion of type essentially
+involves a plurality of tokens.  But can we not just stipulate that
+type Unit has only one token?  We can try, but it won't work, since
+that token is itself "repeatable".  In HoTT terms, if we have * :
+Unit, we can create as many * tokens as we please.  The critical point
+is just that these iterated tokenings are precisely *not* the same, or
+identical, or equal: they are particulars.  We /treat/ them as the
+same; but just think about it: that means we treat them as "identical
+instances" of the one Tau type T(*).  And this illustrates the second
+subtlety: it means that we are treating our one token itself as a
+(proxy for a) type.  In fact every token of every type gives rise to
+this sort of type, which we can call something like a token-repeatable
+type.  People familiar with HoTT may recognize this as none other than
+the Identity or Equality type of HoTT.
+
+In other words, token-particulars have an inherently dual character.
+On the one hand they are particulars; on the other hand, they are
+/treated/ as indistinguishable tokens.
+
+For example, we have 3 : Nat, glossed as "3 has type Nat".  But 3 also
+is a type, namely the type of all 3-tokens.
+
+Here's a more vivid example.  Using the standard inductive definition
+of Nat, with Z and S as base case and successor, respectively:
+
+    S S Z = S S Z
+
+which says that 2 = 2.  The traditional way to explain this is in
+denotational terms: the right and left hand sides of this equation
+denote the same thing, which obviously must be the case since they
+have the same form.
+
+But the right and left sides of the equation are \emph{not} equal;
+they are distinct particulars; they are not the same thing.  And since
+we cannot appeal to denotation, we cannot say that they are the same
+by virtue of denoting the same ``value''.  One way to explain the
+meaning of this equation is to treat the two subexpressions as
+distinct tokens of type T(2), which yields the following reading:
+
+  "S S Z = S S Z" means that each "S S Z" token has type T(S S Z).
+
+[BUT: what justifies this?  Only our exchange practices.  Go back to
+pebbles, where each token is clearly a distinct physical particular,
+and emphasize that every S and Z we write down is just as particular.
+It is only our practice of treating such particulars (and their
+accumulations) as interchangeable that institutes the idea of
+equality.]
+
+This is why it makes sense to say that a and b can be equal in more
+than one way.  It just means that they are token repeatables.  And it
+is always possible to ``create'' a new token, e.g. strike a new tally
+mark or pick up a new pebble.
+
+[FIXME: so we have two ideas we need to disentangle.  Once is
+token-inferencing, the other exchangeability.  Plus the idea of a constructor.]
+
+
+[We can treat token repeatables as ``the same'' effortlessly, without
+  explicit rules; but this is precisely what machines cannot do, and
+  that is why we need equality types in formal languages.]
+
+In other words, the pragmatic perspective, emphasizing normative
+inferential practices and particulars, leads directly the HoTT notion
+of equality types.  But it explains that concept, not in terms of
+equality of identification of tokens, but in terms of inference from
+particular to token-particular - that is, to token-repeatable type.
+
+And ultimately this is grounded in norms governing exchange or trade.
+
+Concrete illustration: counting to two using two particular pebbles
+can be done in two ways.
+
+Also, treat e.g. S S Z as exactly like dropping pebbles - the S tokens
+are particulars; they are every bit as particular as particular real
+pebbles.
+
+So every Nat "element" is a token-repeatable type.  E.g. any
+particular 3 token has both type 3 and type Nat.
+
+Constructors: in tallying our pebbles are constructors.  They are not
+functions.  Ditto for S and Z: SSZ does not denote a number as result
+of a function, it just /is/ a token from which we can infer Nat:
+
+    SSZ : Nat
+
+That is, SSZ is a particular (containing three particulars) that we
+treat as a 3-token, which we treat as a Nat-token.  For this to be
+intelligible we have no need of a function concept.  This is obvious
+in the case of Z, which is analogous to our empty pouch.
+
+More precisely: SSZ functions as (has the role of) a Nat in our game,
+and S and Z function as tokens in that game; we can use tokens to
+construct other tokens (e.g. adding an S token to SZ); but tokens are
+not functions.  They don't do anything, although they /have/ a
+function: they can be used (by rule) to construct new tokens.
+
+Calling a ctor a function that constructs values of a type is like
+calling a brick a function that builds walls.
+
+Actions as types and tokens: concrete act of dropping a pebble as
+token of type Tally (or TallyAction).  Then equality becomes
+equivalence of action.
+
+Reflexivity: a=a as a type is just the token-repeatability type of a,
+and every a has this type; refl just means that each token of this type
+is a token of this type.  Its a relation of token to type rather than
+token to itself.
+
+Tau types: every token is (naturally?) associated with a type, the
+type of its token-repeatables.  The tau operator is analogous to
+Church's lambda operator: just as lambda turns an open formula into a
+name of its associated function, the tau operator turns a
+token-particular into the name of its associated token-repeatable
+type.  For example, T(2) names the type of all 2 tokens.
+
+Now every token of a tau type is substitutable for any other token of
+the same type; that's just what token-repeatable means.  (Particulars
+are not repeatable, but token-particulars, that is tokens, are.)
+
+Recall that "a : A" means that the inference from a to A is good.  So
+e.g. a : Tau(2) means that the inference from a to Tau(2) is good.
+What a : Tau(2) does not mean is that a is itself a 2-token.  So an
+expression like 1+1 : Tau(2) is intelligible; it just means that from
+the token 1+1 we can infer Tau(2).  And it makes sense in practice,
+because we can (by the rules of the system) convert "1+1" to "2", and
+we have 2 : Tau(2) by definition.  And notice that it works just as
+well the other way around: 2 : Tau(1+1).  To make the inference, we
+just rewrite 2 to obtain a "1+1" token.
+
+Equality is closely related to tau types.  "a = b" means that a and b
+are substitutable.  But we interpret substitution as an inference: "a
+= b" means that the inference from any expression involving a to the
+same expression with b replacing a is a good one.  So the equality
+operator "=" is best thought of as an inference op.  To make this more
+conspicuous we'll write "==>" instead of "=".
+
+Caveat: a ==> b does not mean "from a infer b"; it means rather
+something like "from any expression containing a, e.g. SEXP[a], infer
+SEXP[b/a]".
+
+How to relate tau types and this inferential interpretation of
+equality?  How should we interpret e.g. "1+1 = 2"?  And what would
+count as a "proof" of it?
+
+First, a substitution inference rule is a schema; that means that the
+rule a ==> b is not about the particulars embedded in the rule.
+Rather, it relies on the implicit tau types T(a) and T(b); the
+explicit formulation should be a:T(a) ==> b:T(a).
+
+[NB: problem with the HoTT definition that given a:A and b:A, form
+type \(a =_A b\).  This allows us to form e.g. 2 = 3.]
+
+But (in HoTT at least) "a = b" just another way of expressing the Id
+type: Id(a,b) (We're omitting the type sym A.), whose canonical
+element is refl(a).  And this looks suspiciously like Tau(a).
+
+The problem with the HoTT book is that it does not explain this, it
+just glosses it with the very improbably "[t]he basic way to construct
+an element of a = b is to know that a and be are the same".  There are
+two problems with this gloss.  One is that "the way to construct... is
+to know" makes no sense; constructing and knowing are not the same
+thing.  The second and more basic problem is that the text offers no
+explanation of what it is to know that a and b are "the same".  The
+whole discussion is circular.  Equality, identity, sameness, and
+related terms come out as unexplained explainers.
+
+By focussing on normative practices of treating particulars as tokens,
+treating token exchanges as correct, etc., we can offer a genuine and
+non-mysterious explanation of the vocabulary of equality.  Terms like
+equals, identification, etc. come out as explicitation devices that
+allow us to say explicitly what we can otherwise only do in practice:
+treat particulars as tokens, and treat one token as substitutable for
+another for a particular purpose.  By foregrounding inference,
+equality naturally emerges as a rule of (substitution) inference, and
+since rules institute types, exchange practices institute equality
+types, which the terminology of equality makes explicit.
+
+Under this perspective the equality or identity types come out as
+primitives - that is, primitive inference rules.
+
+What about tau types?  There doesn't seem to be anything like a tau
+type in the HoTT book.  But a tau type really just is the HoTT Id type
+under a different perspective.  But there are differences.  In HoTT,
+equality types are expressed in terms of two tokens of a single type:
+given a:A and b:A, form the type \(Id_A(a,b)\) (equivalently, (\(a =_A b\)))
+with canonical witness refl(a).  As noted above this does not rule out
+things like "2 = 3" with witness refl(2).  Also, HoTT does not really
+address the distinctions we've made between particulars,
+token-particulars, token-repeatables, etc.  (I suspect that is because
+the authors have a tendency to continue to think in
+representationalist terms, which is not surprising since its a very
+natural tendency).
+
+So a question is: can we recover HoTT's Id types with their refl
+witness just from our tau types and substitution-inference rules?
+
+
+Token indiscernability: to treat a particular as a token-particular
+(that is, as a particular that "has" some type) is just to treat it as
+indiscernable from other token-particulars of the same type (for the
+purpose at hand).  But "indiscernability" is an arcane philosophical
+concept.  The practical basis for it is the normative practice of
+substitutability or exchangeability.  It is only because we treat
+particulars as tokens, and further because we treat tokens of the same
+type as interchangeable, that we can speak of indiscernability.  We
+don't need the philosophical apparatus of properties, satisfaction,
+etc. to make sense of this.
+
+(Compare chess pieces: distinct as particulars, but treated as
+indiscernable - it doesn't matter which rook you put on the right or
+left, though which rook you move does matter.  But even then you move
+right or left rook, not this or that particular.  It's the position on
+the board that makes them discernable not their properties as
+individuals.)
+
+So substitutability and token inferencing (or "tokenization"?) seem to
+be equally primitive.  You cannot go treat a particular as a
+token-particular unless you can also treat particulars as
+substitutable "under the type".  Alternatively: it is not possible to
+play the game of tokens and types if you cannot also play the
+substitution game.  And vice-versa.
+
+In more formal terms: tau types are primitive.  They are an
+explicitation of the norms of both tokenization and substition
+practices.
+
+Natural types v. fiat types: the counter or pebble types in our
+examples count as natural types.  They are instituted by our practices
+but do not involve explicit rules.  The types of type theories like
+HoTT are fiat types: they are instituted by explicitly articulated
+rules.  Nevertheless the meaning of those rules is to be
+explained in terms of normative practices.
+
+Types as institutions, literally.
+
+refl as token of type Tau(a).  What would count as a physical token of
+equality in our tallying game?  In HoTT terms: to prove something for
+all T(a) tokens, it suffices to prove it for ... T(a) itself?  Or any
+T(a) token?  With the concept of T(a) we loose the notion of canonical
+constructor.  Unless we want to treat Tau itself as the canonical
+ctor.
+
+But: tokens are not physical, particulars are.  Tokens (and types) are
+(functional) roles, rules in the game.  So even our pebbles are not,
+strictly speaking, physical tokens.  So a better question to ask is:
+what plays the role of an equality token (i.e. a "proof" of equality)?
+Answer: tau types?  A tau type T(a) is just the role that particulars
+may play, as a-tokens.
+
+Primary v. secondary identity.  Particulars have identities; this is
+primary identity.  Token-particulars play roles: this is secondary
+identity.  Each red checker piece has an identity as a particular; no
+two pieces are identical in this sense.  But qua game pieces, they
+play "the same" role; they are all "identical" in this derived sense.
+And what is identical is not the pieces themselves, but the role they
+play, since there is only one such role: red game piece.  Not the
+pieces but their roles are "the same".  Every token-particular has two
+identities in this sense, one primary (or primitive) and the other
+secondary (or derived).  Derived from both primary identity and the
+rules of the game.  The rules of the game institute the derived
+identity, but the play that role, a game piece must (antecedently)
+have primary identity, i.e. be a particular.
+
+Inferential Type Semantics.  Or, Type-Inferential Semantics.
+
+\section{Refl and Path Induction}
+
+We don't need refl; it's an artifact of denotational semantics.  We
+write ``a=a'' so we want to interpret this as a binary relation
+between a thing and itself.  Which is (according to some,
+e.g. Wittgenstein) nonsense.
+
+Using Unit instead of Id, and ** (or ``exch'' or whatever) instead of
+refl eliminates this conceptual wart from our system.  Then instead of
+treating refl as the canonical constructor, and interpreting it to
+mean that all a=b are ``freely generated'' by refl (nonsense), we
+interpret our constructor \(**a: Unit_A a a\) as certification that
+every token of type T[a] is exchangeable with every other such token.
+We do not need a concept of reflexivity.
+
+But: \(Unit_A a a\) and \(Unit_A a b\) are different types.  How can
+one constructor work for both?  But are they really different types,
+if a = b?  No; they only look like different types, since tokens 'a'
+and 'b' look different.  But they are both tokens of the same Tau
+type.  There is only one type \(Unit_A a \_\) for any give a.  Or,
+there is only one type \(Unit_A \_ \_\) for every a:A - it doesn't
+matter what the arguments to \(Unit_A\) are - fix either one and the
+other must be equal to it for the type to be inhabited.
+
+Why can't we say e.g. \(refl_2 : (2 = 3)\)?  In HoTT, refl is only
+defined for (a=a), so we cannot write \(refl_a : (a = b)\).  But then
+how can we prove a=b?  HoTT says that refl suffices for this, and the
+reasoning is that paths a-b are ``freely generated'' by the constant
+path at a.  Which implies that \(refl_a\) denotes the constant path at
+a, although the HoTT book does not explicitly invoke denotation; it
+just says ``We regard \(refl_a\) as being the constant path at the
+point \(a\).'' (p. 48) The problem is that this principal of path
+induction depends on a denotational interpretation; it can't be a mere
+informal gloss.  Freely generated paths at \(a\) cannot count as
+proofs of (a=b) unless we transfer this notion of free generation from
+the semantic domain back to the type language; that is, we just
+stipulate that any \(x:(a-b\) denotes one of the paths freely
+generated by the constant path at a.  I.e. the proof tokens
+\(x:(a=b)\) are ``freely generated'' by the canonical token
+\(refl_a\), in the same way that paths a-b are freely generated by the
+constant path at a.  Same concept, different domain.  The problem is
+that ``free generation of tokens'' is not a concept of type theory,
+since it is non-constructive.  Without (non-constructive) denotational
+assignment we have no justification for treating \(refl_a\) as
+sufficient for proving \((a=b)\), or for thinking that free generation
+of paths justifies free generation of tokens (proofs).
+
+(On the other hand: since we can freely create new tokens, it might
+make sense to introduce an idea of ``free construction of tokens'' to
+correspond to free generation of structures.)
+
+So the HoTT book's account of path induction is understandable and
+useful, but it is not genuinely constructive; it does not explain
+equality types.
+
+One possible reponse to this objection is that path induction
+is actually defined by the Pi expressions in the book at page 49, not
+by the ``informal'' explanation of equality in terms of freely
+generated paths.  But what do those expressions really mean?  As far
+as I can see, all they do is give two different ways of expressing
+reflexivity, two ways of constructing a witness to a type built from
+\(x, x, refl_x\).  Specifically, they build a new type from equality
+types and refl, and provide two constructors (c and f) for that type;
+that's all.  They specifically do not explain how refl can be counted
+as sufficient for a=b.
+
+In other words, the formal definition of path induction begs the
+question; it does not explain how refl suffices, it just takes it for
+granted that it does.
+
+What's the heart of the problem?  Just that we can have multiple
+``proofs'' of equality, i.e. a and b can be equal in a plurality of
+ways.  The HoTT strategy for dealing with this is to privileged one
+way of being equal (i.e. the constant path, the refl constructor), and
+treat all the other ways as derivative (freely generated by the
+privileged one).  We propose an alternative that does not privilege
+any particular ``way of being equal'', in which reflexivity plays no
+role.  Note that ``constant path at a'' presupposes that a path is a
+function, which is not consistent with the notion that HoTT leaves out
+the topology.  It would be more consistent to call it a null path, one
+that goes nowhere, is not really a path.  On our approach, which
+eschews the path interpretation, this corresponds to trivial notion
+that every token has identity, which is a predicate rather than a
+(reflexive) relation.
+
+Better: free tokenization.  tau-types are ``freely tokenized''.
+
+\end{document}
