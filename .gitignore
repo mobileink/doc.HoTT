@@ -9,6 +9,7 @@
 *.glg
 *.glo
 *.gls
+*.html
 *.idx
 *.ilg
 *.ind
@@ -22,6 +23,7 @@
 *.nav
 *.nlo
 *.out
+*.pdf
 *.pdfsync
 *.ps
 *.snm
