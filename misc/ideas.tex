@@ -79,6 +79,31 @@ This perspective is essential if we are to make sense of the fact that
 in TT we can prove propositions without proving they are true.  What
 we prove is that P is a proposition.
 
+Two disciplines, two perspectives.  On the one hand, we have
+mathematics and logic; on the other, the classical and the
+anti-classical perspectives.  Under the classical perspective,
+denotation is the semantic primitive, and logic is truth-conditional.
+Under anti-classical perspectives, inference is the semantic
+primitive, and logic is expressive.  I use the umbrella term
+``anti-classical'' because a variety of more-or-less distinct
+approaches - intuitionism, constructivism, etc. - count as
+anti-classical: what they all have in common is rejection (with
+varying degrees of strength) of denotational semantics and
+truth-conditional logic (among other things).
+
+HoTT is presented as a new foundations of mathematics; it can with
+equal justice be considered a new foundations of logic.  The HoTT book
+takes a primarily mathematical perspective; in this it follows
+Martin-Löff, whose motivation in inventing ITT was to find an
+intuitionistic foundation for mathematics.  That explains why his
+papers sometimes invoke classical reasoning, for example when he
+glosses \(a:A\) as meaning that \(a\) denotes an element of \(A\).  It
+also explains why he compares the ``:'' operator to the set membership
+operator \(\in\).  He could have compared it instead with the
+inference operator \(\vdash\).  The two perspectives are not
+incompatible, they just represent mathematical and logical
+perspectives on type calculii, as we might expect given Curry-Howard.
+
 In traditional logic, we assume truth (and assertion).  An inference
 schema like \&-into is taken to mean ``if A true and B true, then A\&B
 true''.  But with TT we must split proposition and truth; we should
@@ -94,7 +119,7 @@ That bears repeating: TT allows us to say things that we cannot even
 express in FOL.  Which means it is inherently higher-order.  (Which
 means the HoTT book's account of logic needs revision; its account of
 FOL depends on 2nd order logic, since it involves working with
-propositions as objects.
+propositions as objects.)
 
 ML's distinction  between proposition and judgment  does not withstand
 critical scrutiny.  It depends on  an untenable notion of the relation
@@ -142,6 +167,24 @@ But type theoretic inference \emph{must} be treated as a sequent
 calculus?
 
 The four forms of judgment become inference schemata.
+
+Definitional equality ``judgments'': \(a\equiv b:A\).  This is a
+sequent, but its antecedent clause looks funny.  The key point to
+remember is that \(\equiv\) (the ``coreference operator''), is like
+``:'': both are operators of the metalanguage, not the language.  So
+\(a\equiv b:A\) just means that \(a\) and \(b\) are co-referential
+(classical perspective), or mutually substitutable (inferential
+perspective): both \(a:A\) and \(b:B\) hold.  We really should not
+call \(\equiv\) an equality operator, since we want to reserve that
+term for the type-forming operator \(=\).  We could call it the
+co-reference operator, but that smuggles in the notion of reference.
+Howsabout ``substitution'' operator?  On the other hand, we can think
+of \(a\equiv b\) as expressing an inference rule just like \(a:A\)
+expresses an inference rule.  So maybe we should call it the
+``substitution inference operator''.  Then \(a\equiv b:A\) comes out
+as a complex sequent, one whose antecedent clause is a substitution
+inference rule.  A special case: \(a\) and \(b\) are mutually
+substitutable, and \(A\) is inferable either.
 
 Truth is harmful insofar as it beguiles us into thinking that proof of
 propositions involves a truth property.  At least for beginners, this
