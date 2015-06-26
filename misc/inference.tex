@@ -1,0 +1,763 @@
+\documentclass{article}
+
+\usepackage{hottmacros}
+%% \usepackage{prftree.sty}
+
+\usepackage{bussproofs}
+
+\usepackage{fontspec,xltxtra,xunicode}
+\usepackage{fontspec}
+\defaultfontfeatures{Scale=MatchLowercase}
+
+%% \setmainfont[Mapping=tex-text]{Times New Roman}
+%% \setromanfont[Mapping=tex-text]{Times New Roman}
+%% \setsansfont[Mapping=tex-text]{Arial}
+
+\setmainfont[Mapping=tex-text]{TeX Gyre Pagella}
+%% \setromanfont[Mapping=tex-text]{TeX Gyre Pagella}
+%% \setsansfont[Mapping=tex-text]{TeX Gyre Heros}
+
+\usepackage{tikz}
+
+\usetikzlibrary{arrows,shapes,patterns,backgrounds,spy}
+\usepackage{pgffor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\title{Inference}
+\maketitle
+\large
+
+\tableofcontents
+
+\section{Preliminaries}
+
+\subsection{Induction}
+
+http://planetmath.org/wellfoundedinduction
+
+\section{Varieties of Inference}
+
+\begin{itemize}
+\item \(a{:}A\) \quad Type inference: from token \(a\) infer type \(A\)
+
+  Language entry move?
+\item \(A\vdash B\) \quad Warrant:  \(A\) warrants inference to \(B\) (indirect proof)
+
+  This is a sequent; \(A\) is a structure, \(B\) is a formula (proposition).
+\item \(X\models Y\) \quad Proof:  \(X\) proves \(Y\)
+
+  Here \(X\) and \(Y\) must be sequents?
+\end{itemize}
+
+\begin{remark}
+  If we treat : as an inference op, then we must treat a and A as
+  propositions.  So we can read a:A two ways: a proves A
+  (proposition), and a entails A (inference).  But treating a:A as a
+  proposition won't work because then we would have (a:A):U.  But
+  treating it as an inference means we need a way to construe a as a
+  proposition.  No stranger than treating A as a proposition in the
+  end.  If we go with type instead of proposition, we treat a as a
+  type, which is maybe ok if we mean by that the ``natural type'' of
+  tokens a.  Either way, the idea that a:A is a ``judgment'' is
+  unintelligible.
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Logical Constants}
+
+At least, at most.
+
+We can treat \(\lor\) as ``at least''.
+
+Restall p. 34:
+
+\begin{prooftree}
+  \AxiomC{\(Y(A)\vdash C\)}
+  \AxiomC{\(Y(B)\vdash C\)}
+  \AxiomC{\(X\vdash A\lor B\)}
+  \RightLabel{\(\lor\)-\textsc{e}}
+  \TrinaryInfC{\(Y(X)\vdash C\)}
+\end{prooftree}
+
+Restall, p. 106:
+
+\begin{prooftree}
+  \AxiomC{\(X(A)\vdash C\)}
+  \AxiomC{|}
+  \AxiomC{\(X(B)\vdash C\)}
+  \RightLabel{\(\lor\)-\textsc{l}}
+  \TrinaryInfC{\(X(A\lor B)\vdash C\)}
+\end{prooftree}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Proof}
+
+Proof subsumes warrant:  \(X\models Y\) implies \(X\vdash Y\), but not vice-versa.
+
+Direct proof subsumes indirect proof; or, a direct proof is always
+also an indirect proof.  Which means that it is always possible to
+dilute a direct proof by inserting unneccessary steps, but it is not
+always possible to reduce an indirect proof to a direct proof.
+
+Canonical proofs always end in a direct proof; that is, the last step
+must be canonical.
+
+In other words we need to make a distinction between the direct proofs
+of one step - these are just the instances of canonical intro rules -
+and canonical proofs that may have many steps but end in a canonical
+step.  Or something like that.
+
+Canonical inferences (i.e. intro rules) have a dual character;
+\(P;Q\models P\land Q\) implies \(P;Q\vdash P\land Q\), but also the
+other way around.  This is because the inference rule \emph{defines}
+\(P\land Q\).
+
+\begin{remark}
+  We need to make a distinction here between natural deduction and the
+  sequent calculus, and make sure the mapping between horizontal and
+  vertical presentations is clear.
+\end{remark}
+
+\subsection{The Subformula Principle}
+
+
+\section{Classical Logic}
+
+\subsection{Truth Tables}
+
+\section{Natural Deduction}
+
+
+\begin{tikzpicture}[
+    edge from parent path={
+        (\tikzparentnode\tikzparentanchor)
+        +(0pt,.5\tikzleveldistance)
+        -- (0pt,-.5\tikzleveldistance -| \tikzchildnode\tikzchildanchor)
+        -- +(0.25cm,0pt)
+        -- +(-0.25cm,0pt)
+    },
+    grow'=up,
+    level distance=4ex,
+    level/.style={sibling distance=3em/#1}]
+  \node (Concl) {P\land Q}
+    child { node (Major) {P} }
+    child { node (Minor) {Q} } ;
+
+\end{tikzpicture}
+
+\bigskip
+
+\begin{tikzpicture}[
+    edge from parent path={
+        (\tikzparentnode\tikzparentanchor)
+        +(0pt,.5\tikzleveldistance)
+        -- (0pt,-.5\tikzleveldistance -| \tikzchildnode\tikzchildanchor)
+        -- +(0.25cm,0pt)
+        -- +(-0.25cm,0pt)
+    },
+    grow'=up,level distance=4ex,
+    level/.style={sibling distance=10em/#1}]
+  \node (A) {A}
+    child { node (B) {B}
+      child { node (D) {D} }
+      child { node (E) {E} } }
+    child { node (C) {C}
+      child { node (F) {F} }
+      child { node (G) {G}
+              child { node (H) {H} }
+              child { node (I) {I} }
+              child { node (J) {J} } } } ;
+
+\end{tikzpicture}
+
+
+\section{Sequent Calculus}
+
+The conclusion of a proof is a consecution, of the form \(X\vdash Y\).
+What this means, in effect, is that by virtue of the subformula
+property, the \(\vdash\) in the conclusion serves as a kind of
+syntactic sugar for the fully expanded proof.
+
+In other words, we can think of ``prove \(X\vdash Y\)'' as an
+instruction to expand the \(\vdash\) into a complete proof tree.
+
+\subsection{Substructural Logics}
+
+\begin{remark}
+  Can we do substructural logics without sequents?  Presumably yes,
+  but the sequent calculus is convenient.
+\end{remark}
+
+\begin{remark}
+  Punctuation.  In \(P;Q\vdash P\land Q\), the punctuation mark ``;''
+  corresponds to the logical constant \(\land\), but is not itself a
+  logical constant.  It would commonly be glossed as the ``and'' of
+  ordinary English, but ``together with'' is probably better
+  (following Restall).  The critical point is that this rule of
+  \(\land\)-\textsc{intro}, we must not presuppose what the rule is
+  intended to explain, namely logical \emph{and}.  So we cannot treat
+  ``:'' as having that meaning.  On the other hand, a sequent is a
+  formal object, so we need a meaning for ``;''.  The trick is to see
+  that this rule serves as a meaning explanation for \emph{both} ``;''
+  and \(\land\).  Restall puts it this way (for ``left conditional''):
+  \(\to\) is the conditional \emph{for} the punctuation mark ``;''.
+\end{remark}
+
+\begin{remark}
+  Alas, it's more complicated than that.  Restall does not use
+  \(P;Q\vdash P\land Q\); instead he has \(X\vdash A\quad X\vdash
+  B\models X\vdash A\land B\), written in vertical form with no
+  punctuation between the premises.  That seems a little off; surely
+  there must be an implicit punctuation mark.
+
+  He says that an inference is a pair consisting of a set of
+  consecutions (premises) and a single consecution (conclusion).  But
+  that presupposes a notion of set, and leaves open the relation
+  between members of that set.  It looks like a ``set of
+  consecutions'' is just like a structure, only on a higher level.
+  Structures (and thus their punctuation marks) only appear as
+  antecedents within consecutions.
+
+  The problem here is that in chapter 1 his ``consecution'' calculus
+  is not a full Gentzen sequent calculus; that comes in chapter 6.
+  Chapter 1 is basically a formulation of natural deduction using
+  consecutions; drop the antecedents and \(\vdash\) and you get
+  standard natural deduction.  The justification for using
+  consecutions is that they make the assumptions explicit at every
+  step - the subformula property.  (So structural rules are really
+  about assumptions?)
+\end{remark}
+
+So what is the relation between the implicit punctuation mark between
+premised consecutions and the explicit structural marks ``;'' and
+``,'' in the antecedents of a consecution?
+
+Consider the fusion introduction rule:
+
+\begin{prooftree}
+  \AxiomC{\(X\vdash A\)}
+  \AxiomC{\(Y\vdash B\)}
+  \RightLabel{\(\circ\)-\textsc{intro}}
+  \BinaryInfC{\(X;Y\vdash X\circ Y\)}
+\end{prooftree}
+
+which he explains as ``[t]he connective \(\circ\) is a \emph{fusion}
+for the punctuation mark `;'\ldots''.  But what is `;'?  Could we not
+say with equal justification that `;' is the punctuation mark for
+\(\circ\)?  Both of them together serve as the meaning explanation for
+what we may do when we have \(X\vdash A\) ``together with'' \(Y\vdash
+B\), as premises: gather the antecedents into a structure \(X;Y\), and
+combine the succedents into a formula \(X\circ Y\).  So let's make
+the implicit combinator in the premise explicit:
+
+\begin{prooftree}
+  \AxiomC{\(X\vdash A\)}
+  \AxiomC{\(\odot\)}
+  \AxiomC{\(Y\vdash B\)}
+  \RightLabel{\(\circ\)-\textsc{intro}}
+  \TrinaryInfC{\(X;Y\vdash X\circ Y\)}
+\end{prooftree}
+
+So we actually have three combinators, and this rule shows how they
+are related, thus serving as a meaning explanation for \(\circ\) (and
+for `;').  We might think of this rule as showing how the premises may
+be dissassembled and then reassembled.  We can also think of this as
+an elimination rule for \(\odot\) rather than an intro rule for
+\(\circ\).
+
+\begin{remark}
+  Suggesting a more general principle: every intro rule may be
+  construed as an elimination rule, and vice-versa.  Even in the case
+  of Gentzen's original introduction rules, which contain an implicit
+  premise combinator (\(\odot\)).  This is more obvious in the case of
+  \emph{modus ponens}, where we have an implicit ``application''
+  operator.  Using \(\odot\) just makes this explicit.  Modus ponens
+  thus involves a double elimination: it removes both \(\odot\) and
+  \(\to\).  Actually triple elimination, since it also removes \(A\).
+  Construed as a (co-)introduction rule, modus ponens introduces `;'
+  and \(B\) (since \(B\) is a subformula in the major premise).
+\end{remark}
+
+\begin{remark}
+  Suggesting that the so-called intro and elim rules may be viewed as
+  restructuring (as opposed to rearrangment) rules; that is, rules for
+  taking apart (a gathering of) premises and restructuring the pieces
+  to form a conclusion.  Extract raw materials from premises, build
+  something new from them - but ``new'' only in the sense of
+  ``different form''.  On this view it is the harmony/symmetry between
+  the paired restructuring rules that matters, rather than the
+  distinction between intro and elim.  In other words ``intro'' and
+  ``elim'' are not primitive concepts.  The harmonious restructuring
+  rules together provide meaning explanations, regardless of
+  intro/elim concepts.
+\end{remark}
+
+We might also think of this as swapping: out with the old, in with the
+new.  E.g. for \(\land\)-\textsc{intro} we swap out \(\odot\) for
+\(\land\); for \(\land\)-\textsc{elim}, we swap out \(A\land B\) for
+one of its components, \(A\) (or \(B\)).  For fusion intro, we swap
+out \(\odot\) for `;` and \(\circ\).  Etc.
+
+Another key point: the conclusion is not merely the same as the
+premises, only rearranged.  It adds something new, i.e. new knowledge?
+See Prawitz, Epistemic Significance of Valid Inference.
+
+If we add the structural rules, then we can also add, subtract, and
+rearrange components.
+
+When we get to the full Gentzen sequent calculus things get more
+complicated, since we can replace components by others that entail
+them; e.g. for \(\land\textsf{L}_1\) we go from \(X(A)\vdash C\) to
+\(X(A\land B)\vdash C\).  This is related to the fact that we have
+introduced another var, \(C\), not directly involved in the meaning of
+\(\land\).  Note that this sort of move amounts to going backwards in
+a proof, inferring that since we have \(X(A)\) we must or may have had
+\(X(A\land B)\).
+
+So we can make three sorts of moves: restructuring of (sets of)
+premise sequents, restructuring of sequent components (add, delete,
+rearrange), and ``retreating'' (moving backwards).
+
+\section{Inferential Typed Calculus}
+
+\section{Calculi}
+
+\subsection{Prawitz}
+
+\subsubsection{Natural Deduction}
+
+P. 20:
+
+\medskip
+
+%% AND
+  \AxiomC{\(A\)}
+  \AxiomC{\(B\)}
+  \LeftLabel{\(\&\)I)}
+  \BinaryInfC{\(A\& B\)}
+\DisplayProof
+\quad\quad
+  \AxiomC{\(A\&B\)}
+  \LeftLabel{\(\&\)E)}
+  \UnaryInfC{\(A\)}
+\DisplayProof
+\quad
+  \AxiomC{\(A\&B\)}
+  \UnaryInfC{\(B\)}
+\DisplayProof
+
+\bigskip
+
+%%  OR
+\bottomAlignProof
+  \LeftLabel{\(\lor\)I)}
+  \AxiomC{\(A\)}
+  \UnaryInfC{\(A\lor B\)}
+\DisplayProof
+\quad
+\bottomAlignProof
+  \AxiomC{\(B\)}
+  \UnaryInfC{\(A\lor B\)}
+\DisplayProof
+\quad\quad
+\bottomAlignProof
+\AxiomC{\(A\lor B\)}
+\AxiomC{(\(A\))}
+\noLine
+\UnaryInfC{\(C\)}
+\AxiomC{(\(B\))}
+\noLine
+\UnaryInfC{\(C\)}
+\LeftLabel{\(\lor\)E)}
+\TrinaryInfC{\(C\)}
+\DisplayProof
+
+\bigskip
+%%  Implication
+\bottomAlignProof
+  \AxiomC{\((A)\)}
+  \noLine
+  \UnaryInfC{\(B\)}
+  \LeftLabel{\(\supset\)I)}
+  \UnaryInfC{\(A\supset B\)}
+\DisplayProof
+\quad\quad
+\bottomAlignProof
+\AxiomC{\(A\)}
+\AxiomC{\(A\to B\)}
+\LeftLabel{\(\supset\)E)}
+\BinaryInfC{\(B\)}
+\DisplayProof
+
+\bigskip
+%%  Universal Quant
+\bottomAlignProof
+  \AxiomC{\(A\)}
+  \LeftLabel{\(\forall\)I)}
+  \UnaryInfC{\(\forall x A_x^a\)}
+\DisplayProof
+\quad\quad
+\bottomAlignProof
+\AxiomC{\(\forall x A\)}
+\LeftLabel{\(\forall\)E)}
+\UnaryInfC{\(A_t^x\)}
+\DisplayProof
+
+\bigskip
+%%  Existential Quant
+\bottomAlignProof
+  \AxiomC{\(A_t^x\)}
+  \LeftLabel{\(\exists\)I)}
+  \UnaryInfC{\(\exists x A\)}
+\DisplayProof
+\quad\quad
+\bottomAlignProof
+\AxiomC{\(\exists x A\)}
+\AxiomC{\((A_a^x)\)}
+\noLine
+\UnaryInfC{B}
+\LeftLabel{\(\exists\)E)}
+\BinaryInfC{\(B\)}
+\DisplayProof
+
+\bigskip
+%%  False
+\def\labelSpacing{12pt}
+\bottomAlignProof
+  \AxiomC{\rotatebox{90}{\(\succ\)}}
+  \LeftLabel{\rotatebox{90}{\(\succ\)}\(_i\))}
+  \UnaryInfC{\(A\)}
+\DisplayProof
+\quad\quad
+\bottomAlignProof
+\AxiomC{\((\sim A)\)}
+\noLine
+\UnaryInfC{\rotatebox{90}{\(\succ\)}}
+\LeftLabel{\rotatebox{90}{\(\succ\)}\(_c\)}
+\UnaryInfC{\(A\)}
+\DisplayProof
+\def\labelSpacing{3pt}
+
+\subsubsection{Sequent Calculus}
+
+P. 89:
+
+\bigskip
+%%  AND
+\bottomAlignProof
+  \AxiomC{\(\Gamma\to\Delta,A\)}
+  \AxiomC{\(\Gamma\to\Delta,B\)}
+  \LeftLabel{\(\to\&\))}
+  \BinaryInfC{\(\Gamma\to\Delta,A\& B\)}
+\DisplayProof
+\quad\quad
+\bottomAlignProof
+\AxiomC{\(A,\Gamma\to\Delta\)}
+\LeftLabel{\(\&\to\))}
+\UnaryInfC{\(A\&B,\Gamma\to\Delta\)}
+\DisplayProof
+\quad
+\bottomAlignProof
+\AxiomC{\(B,\Gamma\to\Delta\)}
+\UnaryInfC{\(A\&B,\Gamma\to\Delta\)}
+\DisplayProof
+
+\bigskip
+%%  OR
+\bottomAlignProof
+  \AxiomC{\(\Gamma\to\Delta,A\)}
+  \LeftLabel{\(\to\lor\))}
+  \UnaryInfC{\(\Gamma\to\Delta,A\lor B\)}
+\DisplayProof
+\quad
+\bottomAlignProof
+  \AxiomC{\(\Gamma\to\Delta,B\)}
+  \UnaryInfC{\(\Gamma\to\Delta,A\lor B\)}
+\DisplayProof
+\quad\quad
+\bottomAlignProof
+\AxiomC{\(A,\Gamma\to\Delta\)}
+\AxiomC{\(B,\Gamma\to\Delta\)}
+\LeftLabel{\(\lor\to\))}
+\BinaryInfC{\(A\lor B,\Gamma\to\Delta\)}
+\DisplayProof
+
+\bigskip
+%%  Implication
+\bottomAlignProof
+  \AxiomC{\(A,\Gamma\to\Delta,B\)}
+  \LeftLabel{\(\to\supset\))}
+  \UnaryInfC{\(\Gamma\to\Delta,A\supset B\)}
+\DisplayProof
+\quad\quad
+\bottomAlignProof
+\AxiomC{\(\Gamma\to\Delta_1,A\)}
+\AxiomC{\(B,\Gamma\to\Delta_2\)}
+\LeftLabel{\(\supset\to\))}
+\BinaryInfC{\(A\supset B,\Gamma\to\Delta_1\cup\Delta_2\)}
+\DisplayProof
+
+\bigskip
+%%  Universal Quant
+\bottomAlignProof
+  \AxiomC{\(\Gamma\to\Delta,A\)}
+  \LeftLabel{\(\to\forall\))}
+  \UnaryInfC{\(\Gamma\to\Delta,\forall x A_x^a\)}
+\DisplayProof
+\quad\quad
+\bottomAlignProof
+\AxiomC{\(A_t^x,\Gamma\to\Delta\)}
+\LeftLabel{\(\forall\to\))}
+\UnaryInfC{\(\forall x A,\Gamma\to\Delta\)}
+\DisplayProof
+
+\bigskip
+%%  Existential Quant
+\bottomAlignProof
+  \AxiomC{\(\Gamma\to\Delta,A_t^x\)}
+  \LeftLabel{\(\to\exists\))}
+  \UnaryInfC{\(\Gamma\to\Delta,\exists x A\)}
+\DisplayProof
+\quad\quad
+\bottomAlignProof
+\AxiomC{\(A,\Gamma\to\Delta\)}
+\LeftLabel{\(\exists\to\))}
+\UnaryInfC{\(\exists x A_x^a,\Gamma\to\Delta\)}
+\DisplayProof
+
+\bigskip
+%%  False
+\def\labelSpacing{12pt}
+\bottomAlignProof
+  \AxiomC{\(\Gamma\to\Delta\),\ \rotatebox{90}{\(\succ\)}}
+  \LeftLabel{\rotatebox{90}{\(\succ\)})}
+  \UnaryInfC{\(\Gamma\to\Delta,A\)}
+\DisplayProof
+\def\labelSpacing{3pt}
+
+\bigskip
+
+Prawitz excludes \(\sim\) as a primitive.  To facilitate comparison with
+natural deduction, omit \rotatebox{90}{\(\succ\)} and add:
+
+\bigskip
+%%  Neg
+\bottomAlignProof
+  \AxiomC{\(A,\Gamma\to\Delta\)}
+  \LeftLabel{\(\to\sim\))}
+  \UnaryInfC{\(\Gamma\to\Delta,\sim A\)}
+\DisplayProof
+\quad\quad
+\bottomAlignProof
+\AxiomC{\(\Gamma\to\Delta,A\)}
+\LeftLabel{\(\sim\to\))}
+\UnaryInfC{\(\sim A,\Gamma\to\Delta\)}
+\DisplayProof
+
+\bigskip
+%%  Neg
+\bottomAlignProof
+  \AxiomC{\(\Gamma\to\)}
+  \RightLabel{(\textit{thinning})}
+  \UnaryInfC{\(\Gamma\to\ A\)}
+\DisplayProof
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Takeuti}
+
+P. 9-11
+
+\subsubsection{Structural Rules}
+
+\bigskip
+1.1  \emph{Weakening}
+\medskip
+
+\begin{center}
+\bottomAlignProof
+  \AxiomC{\(\Gamma\to\Delta\)}
+  \LeftLabel{left:}
+  \UnaryInfC{\(D,\Gamma\to\Delta\)}
+\DisplayProof
+\quad\quad
+\bottomAlignProof
+\AxiomC{\(\Gamma\to\Delta\)}
+\LeftLabel{right:}
+\UnaryInfC{\(\Gamma\to\Delta,D\)}
+\DisplayProof
+\end{center}
+
+\bigskip\noindent
+1.2) \emph{Contraction}
+\medskip
+
+\begin{center}
+\bottomAlignProof
+  \AxiomC{\(D,D,\Gamma\to\Delta\)}
+  \LeftLabel{left:}
+  \UnaryInfC{\(D,\Gamma\to\Delta\)}
+\DisplayProof
+\quad\quad
+\bottomAlignProof
+\AxiomC{\(\Gamma\to\Delta,D,D\)}
+\LeftLabel{right:}
+\UnaryInfC{\(\Gamma\to\Delta,D\)}
+\DisplayProof
+\end{center}
+
+\bigskip\noindent
+1.3) \emph{Exchange}
+\medskip
+
+\begin{center}
+\bottomAlignProof
+  \AxiomC{\(\Gamma,C,D,\Pi\to\Delta\)}
+  \LeftLabel{left:}
+  \UnaryInfC{\(\Gamma,D,C,\Pi\to\Delta\)}
+\DisplayProof
+\quad\quad
+\bottomAlignProof
+\AxiomC{\(\Gamma\to\Delta,C,D,\Lambda\)}
+\LeftLabel{right:}
+\UnaryInfC{\(\Gamma\to\Delta,D,C,\Lambda\)}
+\DisplayProof
+\end{center}
+
+\bigskip\noindent
+1.4) \emph{Cut}
+\medskip
+
+\begin{center}
+\bottomAlignProof
+  \AxiomC{\(\Gamma\to\Delta,D\)}
+  \AxiomC{\(D,\Pi\to\Lambda\)}
+  \BinaryInfC{\(\Gamma,\Pi\to\Delta,\Lambda\)}
+\DisplayProof
+\end{center}
+
+\subsubsection{Logical Rules}
+
+\bigskip\noindent
+2.1) \(\neg\)
+\medskip
+
+
+\bigskip\noindent
+2.2) \(\land\)
+\medskip
+
+\bottomAlignProof
+  \AxiomC{\(C,\Gamma\to\Delta\)}
+  \LeftLabel{\(\land\)L:}
+  \UnaryInfC{\(C\land D,\Gamma\to\Delta\)}
+\DisplayProof
+\quad
+\bottomAlignProof
+  \AxiomC{\(D,\Gamma\to\Delta\)}
+  \UnaryInfC{\(C\land D,\Gamma\to\Delta\)}
+  \DisplayProof
+\quad\quad
+\bottomAlignProof
+\AxiomC{\(\Gamma\to\Delta,C\)}
+\AxiomC{\(\Gamma\to\Delta,D\)}
+\LeftLabel{\(\land\)R:}
+\BinaryInfC{\(\Gamma\to\Delta,C\land D\)}
+\DisplayProof
+
+\bigskip\noindent
+2.3) \(\lor\)
+\medskip
+
+\bottomAlignProof
+  \AxiomC{\(C,\Gamma\to\Delta\)}
+  \AxiomC{\(D,\Gamma\to\Delta\)}
+  \LeftLabel{\(\lor\)L:}
+  \BinaryInfC{\(C\lor D,\Gamma\to\Delta\)}
+\DisplayProof
+\quad\quad
+\bottomAlignProof
+\AxiomC{\(\Gamma\to\Delta,C\)}
+\LeftLabel{\(\lor\)R:}
+\UnaryInfC{\(\Gamma\to\Delta,C\lor D\)}
+\DisplayProof
+\quad
+\bottomAlignProof
+\AxiomC{\(\Gamma\to\Delta,D\)}
+\UnaryInfC{\(\Gamma\to\Delta,C\lor D\)}
+\DisplayProof
+
+\bigskip\noindent
+2.4) \(\supset\) %%  Implication
+\medskip
+
+\bottomAlignProof
+  \AxiomC{\(\Gamma\to\Delta,C\)}
+  \AxiomC{\(D,\Pi\to\Lambda\)}
+  \LeftLabel{\(\supset\)L:}
+  \BinaryInfC{\(C\supset D,\Gamma,\Pi\to\Delta,\Lambda\)}
+\DisplayProof
+\quad\quad
+\bottomAlignProof
+\AxiomC{\(C,\Gamma\to\Delta,D\)}
+\LeftLabel{\(\supset\)R:}
+\UnaryInfC{\(\Gamma\to\Delta,C\supset D\)}
+\DisplayProof
+
+\bigskip\noindent
+2.5) \(\forall\) %%  Universal Quant
+\medskip
+
+\bottomAlignProof
+  \AxiomC{\(F(t),\Gamma\to\Delta\)}
+  \LeftLabel{\(\forall\)L:}
+  \UnaryInfC{\(\forall x F(x),\Gamma\to\Delta\)}
+\DisplayProof
+\quad\quad
+\bottomAlignProof
+\AxiomC{\(\Gamma\to\Delta,F(a)\)}
+\LeftLabel{\(\forall\):R:}
+\UnaryInfC{\(\Gamma\to\Delta,\forall x F(x),\)}
+\DisplayProof
+
+\medskip
+where \(t\) is an arbitrary term and \(a\) does not occur in the lower
+sequent... The \(a\) in \(\forall\)R is called the
+\emph{eigenvariable} of this inference.
+
+\bigskip\noindent
+2.6) \(\exists\)
+\medskip
+
+%%  Existential Quant
+\bottomAlignProof
+  \AxiomC{\(F(a),\Gamma\to\Delta\)}
+  \LeftLabel{\(\exists\)L:}
+  \UnaryInfC{\(\exists x F(x),\Gamma\to\Delta\)}
+\DisplayProof
+\quad\quad
+\bottomAlignProof
+\AxiomC{\(\Gamma\to\Delta,F(t)\)}
+\LeftLabel{\(\exists\)R:}
+\UnaryInfC{\(\Gamma\to\Delta,\exists x F(x),\)}
+\DisplayProof
+
+\medskip
+where \(a\) does not occur in the lower sequent and \(t\) is an
+arbitrary term.  The \(a\) in \(\exists\)L is called the
+\emph{eigenvariable} of this inference.
+
+\bigskip
+%%  False
+\def\labelSpacing{12pt}
+\bottomAlignProof
+  \AxiomC{\(\Gamma\to\Delta\),\ \rotatebox{90}{\(\succ\)}}
+  \LeftLabel{\rotatebox{90}{\(\succ\)})}
+  \UnaryInfC{\(\Gamma\to\Delta,A\)}
+\DisplayProof
+\def\labelSpacing{3pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Restall}
+
+\end{document}

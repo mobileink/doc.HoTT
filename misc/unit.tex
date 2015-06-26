@@ -1,3 +1,34 @@
+\documentclass{article}
+
+\usepackage{hottmacros}
+
+\usepackage{fontspec,xltxtra,xunicode}
+\usepackage{fontspec}
+\defaultfontfeatures{Scale=MatchLowercase}
+
+%% \setmainfont[Mapping=tex-text]{Times New Roman}
+%% \setromanfont[Mapping=tex-text]{Times New Roman}
+%% \setsansfont[Mapping=tex-text]{Arial}
+
+\setmainfont[Mapping=tex-text]{TeX Gyre Pagella}
+%% \setromanfont[Mapping=tex-text]{TeX Gyre Pagella}
+%% \setsansfont[Mapping=tex-text]{TeX Gyre Heros}
+
+\usepackage{tikz}
+%% \usetikzlibrary{arrows,shapes,patterns,backgrounds,spy}
+%% \usepackage{pgffor}
+
+%% \usepackage{animate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\title{Unit Type Families}
+\maketitle
+\tableofcontents
+\vfill
+\large
+
+
 HoTT without Equality
 
 or: Equality/Identity type as a generalization of Unit type.
@@ -96,30 +127,38 @@ Summary:
 
 We have:
 
-    *    : Unit0
-    *a   : Unit1 a
-    **a  : Unit2 a a
+*    : Unit0
 
-    a,b:A, *a, *b : Unit1 a |- a=b : Unit2 a b
+*a   : Unit1 a
 
-    ***a : Unit3 a a a
-    etc.
+**a  : Unit2 a a
+
+a,b:A, *a, *b : Unit1 a |- a=b : Unit2 a b
+
+***a : Unit3 a a a
+
+etc.
 
 
 
 We add some eliminators; for now we'll restrict our attention to
 Unit and Unit2.  Expressed as inference rules:
 
-    x : Unit3 a b c |-  **a : Unit2 a a
-    x : Unit3 a b c |-  **b : Unit2 a a
-    x : Unit3 a b c |-  **c : Unit2 a a
+x : Unit3 a b c |-  **a : Unit2 a a
 
-    x : Unit2 a b |-  *a : Unit1 a
-    x : Unit2 a b |-  *b : Unit1 a
-    x : Unit1 a   |-  *  : Unit0
-    x : Unit0     |-  ???
+x : Unit3 a b c |-  **b : Unit2 a a
 
-** Explanation.
+x : Unit3 a b c |-  **c : Unit2 a a
+
+x : Unit2 a b |-  *a : Unit1 a
+
+x : Unit2 a b |-  *b : Unit1 a
+
+x : Unit1 a   |-  *  : Unit0
+
+x : Unit0     |-  ???
+
+\section{Explanation}
 
 Like HoTT's 1 type, each Unit type has only a single constructor, so
 every element is "equal" to that constructor.  This is the source of
@@ -139,7 +178,8 @@ Aside: the notion that we need to prove such a thing is an artifact of
 model-theoretic semantics.  See Bauer's blog at
 http://math.andrej.com/2013/08/28/the-elements-of-an-inductive-type/
 
-HoTT, p. 171 (https://books.google.com/books?id=LkDUKMv3yp0C&lpg=PP1&pg=PA171#v=onepage&q&f=false):
+HoTT, p. 171
+%% (https://books.google.com/books?id=LkDUKMv3yp0C&lpg=PP1&pg=PA171#v=onepage&q&f=false):
 
 "The view of identity types as inductive types has historically caused
 some confusion, because of the intuition mentioned in §5.1 that all
@@ -159,7 +199,7 @@ among other things that you can always use the elimination rules.)
 
 Example of and element that is not a constructor?
 
-Problems with MT semantics.
+\section{Problems with MT semantics}
 
 1.  Just use the reals as the semantic object assigned to the type
 name Nat.  Then universal quantification catches reals; the model
@@ -194,7 +234,9 @@ all the "machinery" that set theory depends on.
 But do we need to prove that Unit proofs are unique?  Can't we just
 define them so?  E.g.
 
-    x : Unit(a) |- *a : Unit(a)
+\begin{align}
+  x{:}\,Unit(a) \vdash\ *a{:}\,Unit(a)
+\end{align}
 
 So we can infer *a from any x:Unit(a).  This does not mean that every
 such x is the same as *a.
@@ -205,7 +247,7 @@ Do we need an elimination rule for Unit?  I gues we have:
 
 or: *a : Unit(a) |-  * : Unit0
 
-** Interpretation.
+\section{Interpretation}
 
 The concept of equality is based on the notion of a fair trade, which
 we make concrete in the form of a contract.  Suppose we want to trade
@@ -217,14 +259,17 @@ contract agreed to by both parties means the trade is fair - an
 exchange of equal values.
 
 So we can informally interpret Unit2 as the type of such contracts:
-x:Unit a b is proof (in the form of a "contract") that a and b have
-the same exchange value (*a, *b:Unit a).
+\(p{:}\Unit(a,b)\) is proof (in the form of a "contract") that \(a\)
+and \(b\) have the same exchange value (i.e. \(*a, *b{:}\Unit(x)\) for
+that \(x\) - for p?  i.e. \(p{:}\Unit(a,b)\vdash\ *a, *b{:}\Unit(p)\)).
 
-The Unit type can be viewed as a kind of appraisal type: given a:A, *a
-represents the "exchange value" of a.
+The Unit type can be viewed as a kind of appraisal type: given
+\(a{:}A\), \(*a\) represents the ``exchange value'' of \(a\) ``under''
+\(\Unit(a)\).
 
 
-****************
+\section{Paths, Graphs, etc.}
+
 In what follows, assume a domain space \(X\); e.g. \(a\) means \(a\in
 X\), \(\forall x\) means \(forall x\in X\).
 
@@ -234,7 +279,7 @@ points in the plane may be 1-dimensional: a "line".  A path between two
 points is 3-D space may be a line, but could also be 2-dimensional ...?
 
 
-1: what is a path?
+\subsection{What is a path?}
 
 A \emph{path function} between two distinct points \(a\) and \(b\) in
 space \(X\) is a continuous function \(f\) over the unit interval
@@ -277,7 +322,7 @@ to b.
 We will see later that HoTT uses this concept of a path to express the
 notion of equality.
 
-2. reflexivity
+\section{Reflexivity}
 
 When both endpoints of the path are the same point \(a\), we call the
 path \emph{the reflexive path (function) at a}, or just the reflexive
@@ -293,12 +338,12 @@ We will see later that HoTT uses this kind of path to express the
 mathematical notion of reflexivity (which is why we call it a
 reflexive path).
 
-3: homotopy
+\section{Homotopy}
 
 \begin{quote}
 
 A homotopy between a pair of continuous maps \(f : X1 → X2\) and \(g :
-X1 → X2) is a continuous map \(H : X1 × [0, 1] → X2\) satisfying
+X1 → X2\) is a continuous map \(H : X1 × [0, 1] → X2\) satisfying
 \(H(x, 0) = f (x)\) and \(H(x, 1) = g(x)\).
 
 (HoTT Book p. 59)
@@ -377,7 +422,7 @@ not really between points, but between reflexive paths at points.
 
 
 
-4. equality
+\section{Equality}
 
 Reflexivity, equality, and identity are distinct concepts.
 
@@ -404,3 +449,4 @@ What gets deformed?  The path function or the path graph?  The path
 function - the graph is just a one-sided representation of the
 function.
 
+\end{document}

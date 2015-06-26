@@ -1,0 +1,119 @@
+\ProvidesPackage{mymacros}[2011/02/23 v1.0 My own macros]
+
+\usepackage[fleqn]{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\usepackage{titlesec}
+\usepackage[linktoc=all]{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=blue,
+    urlcolor=blue
+}
+
+\newcommand{\Univ}{\mathcal{U}}
+\newcommand{\PU}{\mathcal{P:U}}
+
+\newcommand{\Pixy}{\prod\limits_{(x,y:A)}}
+\newcommand{\Pipxy}{\prod\limits_{(p:x=_Ay)}}
+
+\newcommand{\Cxyp}{C\colon\prod\limits_{(x,y:A)}(x=_Ay)\to\Univ}
+\newcommand{\cxyp}{C\colon\Pi_{(x,y:A)}(x=_Ay)\to\PU}
+\newcommand{\Cxyu}{C{:}\prod\limits_{(x,y:A)}(x=_Ay)\to\Univ}
+\newcommand{\cxyu}{C{:}\Pi_{(x,y:A)}(x=_Ay)\to\Univ}
+
+\newcommand{\SXYPT}{S^{\circ_A}\colon\prod\limits_{(x,y:A)}\prod\limits_{p{:}(x\circ_Ay)}{:}\,\Univ}
+\newcommand{\SXY}{S^{x\circ_Ay}\prod\limits_{p{:}(x\circ_Ay)}{:}\,\Univ}
+\newcommand{\SXYP}{S^{x\circ_Ay}(p){:}\,\Univ}
+\newcommand{\SXX}{S^{x\circ_Ax}\prod\limits_{p{:}(x\circ_Ax)}{:}\,\Univ}
+\newcommand{\SXXP}{S^{x\circ_Ax}(p){:}\,\Univ}
+
+\newcommand{\RXXP}{R^{x\circ_Ax}(p) :\equiv (x\circ_Ax)}
+
+
+\newcommand{\Xyu}{\prod\limits_{(x,y:A)}(x\circ_Ay)\to\Univ}
+\newcommand{\xyu}{\Pi_{(x,y:A)}(x\circ_Ay)\to\Univ}
+\newcommand{\Xyueq}{\prod\limits_{(x,y:A)}(x=_Ay)\to\Univ}
+\newcommand{\xyueq}{\Pi_{(x,y:A)}(x=_Ay)\to\Univ}
+
+\newcommand{\Unit}{\textsf{Unit}}
+\newcommand{\UnitA}{\textsf{Unit}^A}
+
+\newcommand{\refl}[1]{\textsf{refl}^#1}
+%% \newcommand{\reflA}{\textsf{refl}^A}
+
+\newcommand{\reflA}{\textsf{refl}^A}
+\newcommand{\reflAx}{\textsf{refl}^A(x)}
+\newcommand{\reflAa}{\textsf{refl}^A(a)}
+\newcommand{\reflAb}{\textsf{refl}^A(b)}
+\newcommand{\reflx}{\textsf{refl}_x}
+%% \newcommand{\reflAa}{(a\circ^A a)}
+
+\newcommand{\reln}[3]{(#2\circ^#1 #3)}
+
+\newcommand{\reflAaa}{(a\circ^A a)}
+\newcommand{\reflAab}{(a\circ^A b)}
+\newcommand{\reflAbb}{(b\circ^A b)}
+\newcommand{\reflAxy}{(x\circ^A y)}
+\newcommand{\reflTAx}{(x\circ^A x)}
+\newcommand{\preflAa}{p{:}(a\circ^A a)}
+\newcommand{\preflAxy}{p{:}(x\circ^A y)}
+
+\newcommand{\reflTa}{(a\circ a)}
+\newcommand{\preflTa}{p{:}(a\circ a)}
+
+\newcommand{\reflTx}{(x\circ x)}
+\newcommand{\preflTx}{p{:}(x\circ x)}
+
+\newcommand{\reflfam}{\prod\limits_{a:A}(a=_Aa)}
+\newcommand{\reflfamU}{\prod\limits_{A{:}\,\Univ}\prod\limits_{a{:}A}(a=_Aa)}
+
+\newcommand{\rA}{\bullet^A}
+\newcommand{\rAx}{\bullet^A(x)}
+\newcommand{\rfama}{\prod\limits_{a:A}(a\circ_Aa)}
+\newcommand{\rfamx}{\prod\limits_{x:A}(x\circ_Ax)}
+\newcommand{\rfamU}{\prod\limits_{A{:}\,\Univ}\prod\limits_{a{:}A}(a\circ_Aa)}
+
+
+\newcommand{\cxxreflx}{c\colon\prod\limits_{(x:A)}C(x,x,refl_x)}
+
+\newcommand{\fxyp}{f\colon\prod\limits_{(x,y:A)}\prod\limits_{(p:x=_Ay)}C(x,y,p)}
+\newcommand{\Piau}{\Pi_{(a:A)}}
+
+\newcommand{\SuccT}{\prod\limits_{(a:A)}\Univ}
+\newcommand{\succt}{\Pi_{(a:A)}\Univ}
+
+%% dependent successor families
+\newcommand{\DsuccT}{\prod\limits_{(x,y:A)}\Univ}
+\newcommand{\DDsuccT}{\prod\limits_{(x:A)}\prod\limits_{(y:A)}\Univ}
+\newcommand{\dsucct}{\Pi_{(x,y:A)}\Univ}
+
+%% relations
+{\newcommand{\relA}{\circ_A}
+\newcommand{\relAdef}{\relA{:}\prod\limits_{(a,b:A)}\Univ}
+{\newcommand{\relrelA}{\circ_{(x\circ_Ay)}}
+{\newcommand{\relrelAdef}{\circ_{(x\circ_Ay)}{:}\prod\limits_{p,q{:}(x\circ_Ay)}\Univ}
+%% {\newcommand{\relrelAdef}{\circ_{(a\circ_Ab)}{:}\prod\limits_{(x,y:A)}\prod\limits_{p,q{:}(x\circ_Ay)}\Univ}
+{\newcommand{\xrely}{\((x\circ_Ay)\)}
+{\newcommand{\yrelx}{\((y\circ_Ax)\)}
+
+\newcommand{\aA}{\(a{:}A\)}
+\newcommand{\pP}{\(p\colon\!P\)}
+\newcommand{\PropP}{\(P\)}
+\newcommand{\Poofp}{\(p\)}
+
+\newcommand{\abAB}{\((a,b):A\times B\)}
+
+\newcommand{\rlambda}{\reflectbox{\lambda}}
+
+\newcommand{\Nat}{\mathbb{N}}
+
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}

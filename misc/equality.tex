@@ -1,5 +1,7 @@
 \documentclass{article}
 
+\usepackage{hottmacros}
+
 \usepackage{fontspec,xltxtra,xunicode}
 \usepackage{fontspec}
 \defaultfontfeatures{Scale=MatchLowercase}
@@ -13,36 +15,1218 @@
 %% \setsansfont[Mapping=tex-text]{TeX Gyre Heros}
 
 \usepackage{tikz}
-%% \usepackage{pgfplots}
-%% \usepackage{pgfplotstable}
-%% %% Preamble:
-%% \pgfplotsset{width=7cm,compat=1.9}
-%% %% \pgfplotsset{xticklabel={\tick},scaled x ticks=false}
-%% %% \pgfplotsset{plot coordinates/math parser=false}
-
-\usetikzlibrary{arrows,shapes,patterns,backgrounds,spy}
-\usepackage{pgffor}
+%% \usetikzlibrary{arrows,shapes,patterns,backgrounds,spy}
+%% \usepackage{pgffor}
 
 %% \usepackage{animate}
 
-%% \usepackage{arrayjobx}
-%% \usepackage{multido}
-
-%% \usepackage{layouts}
-
-%% \usepackage{etoolbox}
-
-%% \newcounter{mylistcounter}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
+\title{HoTT without Equality}
+\maketitle
+\tableofcontents
+\vfill
 \large
 
+Often said that what's distinctive about HoTT is its treatment of
+equality.  But equality is an optional concept.  We offer two other
+ways to get the same thing, without mentioning equality: unit
+families, and successor families.
+
+Actually we could do three: units, successors, and relations.  All
+have the same structure but distinct symbols and intuitive
+interpretations.  None depend on a concept of equality.
+
+Equality emerges as a special case in the ordinary economy of types
+and tokens.  Or rather one case; there's nothing special about it.
+
+The real innovation is the introduction of a novel concept of
+``induction'', which is motivated by problems that arise from the
+possibility of non-canonical tokens.
+
+Whether ``induction'' is the appropriate term is another matter.
+
+\section{Unit Types}
+
+This perspective is suggested by the observation that the equality
+type in HoTT looks a lot like a Unit type, in that it has a single
+constructor.
+
+\subsection{Atomic Units}
+
+\begin{align}
+  & \UnitA{:}\,\SuccT & \textit{family of unit types from}\ A \\
+  & a{:}A,\ \UnitA(a):\Univ & \textit{unit type at a from A} \\
+  & p{:}\,\UnitA(a) & \textit{proof of unit type at a} \\
+  & S_{\UnitA(a)}\prod\limits_{x{:}S_{A(a)}}\Univ & \textit{family of unit types at elts of unit type at a} \\
+  & q{:}\,\UnitA(a) & \textit{proof of unit at a} \\
+  & S_{\UnitA(a)}(q):\Univ & \textit{unit at q from unit at a from A}
+\end{align}
+
+\subsection{Dependent Unit Types}
+
+\begin{align}
+  & \prod\limits_{X:\Univ}\prod\limits_{(x,y:X)}\Univ & \textit{type of \(3^{\circ}\) family of unit-types} \\
+  %% && \prod\limits_{X:\Univ}\prod\limits_{(x,y:X)}\Univ:\equiv\ \prod\limits_{X:\Univ}\prod\limits_{(x:X)}\prod\limits_{(y:X)}\Univ \notag \\
+  & \textsf{Unit}{:}\prod\limits_{X:\Univ}\prod\limits_{(x,y:X)}\Univ & \textit{arbitrary \(3^{\circ}\) family of unit-types} \\
+  & \UnitA{:}\DsuccT & \textit{arbitrary \(2^{\circ}\) family of unit-types from A}\\
+  & \UnitA(a){:}\prod\limits_{(y:A)}\Univ & \textit{\(1^{\circ}\) family of unit-types at a from A} \\
+  & \UnitA(a)(b){:}\,\Univ & \textit{unit type at b for a from A} \\
+\end{align}
+
+We can think of \(\UnitA(a,b)\) as expressing the unification of \(a\)
+and \(b\), rather than their equality: together they form a binary
+unit, or something like that.
+
+As usual, we will drop the type symbol when the context makes it
+clear, writing \(\Unit(a,b)\) instead of \(\UnitA(a,b)\).
+
+\subsection{Unit Proofs}
+
+What's the intuition for unit proofs?  Reflexivity is out-of-bounds.
+
+
+\subsubsection{Canonical Constructors}
+
+Since the concept of reflexivity depends essentially on a concept of
+equality, we need a different concept here.  Actually we do not need a
+concept, we just need a constructor.  Users can conceptualize it in
+whichever way they please:
+
+\begin{align}
+  &\star{:}\prod\limits_{X{:}\Univ}\prod\limits_{(a:X)}\Unit^X(a,a) \\
+  &\star^A{:}\,\prod\limits_{(a:A)}\UnitA(a,a) \\
+  &\star^A(a){:}\,\UnitA(a,a) & \star a{:}\,\Unit(a,a)
+\end{align}
+
+So \(\star a\) has type \(\Unit(a,a)\); that is all.  No further
+meaning is to be read into it; in particular, it has nothing to do
+with reflexivity or equality.
+
+\subsection{Unit Induction}
+
+Following the definition of path induction: the principle of unit
+induction says that to prove something for all \(p{:}\,\Unit(x,y)\),
+it is sufficient to prove \(\star{:}\,\Unit(x,x)\).
+
+The intuitive justification for this principle is that ...?
+
+
+\section{Successor Types}
+
+For any type \(A\) we may form \(\succt\); this is the type of
+\emph{families of successor types from \(A\) at \(a\)}.  Given
+\(a{:}A\), we can specify a successor family \(S^A\) for \(A\) by
+writing, \(S^A{:}\succt\); then \(S^A(a){:}\Univ\) is a
+\emph{successor type at \(a\) from \(A\)} or just \emph{successor type
+  at \(a\)} if the base type is evident.  There are as many successor
+families for \(A\) as there are elements of \(\succt\), and for each
+one, as many successor types at \(a\) as there are elements of \(A\).
+
+The motivation for calling these successor families and types is that
+\(\succt\) takes an element from one level to the next in the type
+hierarchy.  Given \aA, if \(A\) is level \(n\), then \(a\) is at level
+\(n-1\), so \(S^A(a)\) is at \(n\), the same level as \(A\).
+
+We can make this explicit and general by treating each type \(A\) as a
+universe, writing \(\Univ_{n+}\) instead of \(A\).  Then to designate a
+family of successor types for \(A\) we will write \(S^A\), which we
+can express this formally using a \Pi\ type:
+
+\begin{remark}
+  We can write \(a{:}A\succ S^A(a)\) or the like to express
+  successorship quasi-formally.
+\end{remark}
+
+\begin{align}
+  & S{:}\prod\limits_{A{:}\Univ_{n+1}}\prod\limits_{(a:A)}\Univ_{n+1}
+\end{align}
+
+Then we can expose the inductive structure:
+
+\begin{align}
+  & S^A{:}\prod\limits_{(a:U_{n})}\Univ_{n+1} \\
+  & a{:}U_{n} \\
+  & S^A(a){:}U_{n+1} & (a\succ S^A(a))
+\end{align}
+
+Thus for any element \(a\) of any universe \(\Univ_n\) we can find a
+family of successor types \(S^{\Univ_n}\) such that
+\(S^{\Univ_n}(a){:}\Univ_{n+1}\).
+
+Since every type may be treated as a proposition, this means that
+every element of every type is associated with a proposition.
+
+\subsection{Successor Iteration}
+
+We can iterate successors for atomic types.
+
+\begin{align}
+  & S_A{:}\,\SuccT & \textit{family of successor types from}\ A \\
+  & a{:}A,\ S_A(a):\Univ & \textit{successor type at a from A} \\
+  & p{:}\,S_A(a) & \textit{proof of successor type at a} \\
+  & S_{S_A(a)}\prod\limits_{x{:}S_{A(a)}}\Univ & \textit{family of succ types at elts of succ type at a} \\
+  & q{:}\,S_A(a) & \textit{proof of proposition at a} \\
+  & S_{S_A(a)}(q):\Univ & \textit{successor at q from successor at a from A}
+\end{align}
+
+and so on, \emph{ad infinitum}.
+
+
+\subsection{Dependent Successor Types}
+
+Same as relation types?  Conceptually, not so much?
+
+We can also form ``complex'' successor types.  For example, we can
+express relation types as dependent successor types.  Note that in the
+following each \(\Pi\) operator corresponds to a family; e.g. a
+\(3^{\circ}\) (third order) family is a family of families of families.
+
+NB: in what follows we will try to follow the following terminological
+regime: successor type \emph{at} element a \emph{for} element b
+(meaning dependent on element b) \emph{from} type.
+
+\begin{remark}
+  FIXME: for successor types use \(S^A\) instead of \(\circ^A\)?
+  Reserve the latter for relation types?  Do we then need distinct
+  \(S\) symbols for unary, binary etc. successor families, or can we
+  overload \(S\)?
+\end{remark}
+
+\begin{align}
+  & \prod\limits_{X:\Univ}\prod\limits_{(x,y:X)}\Univ & \textit{type of \(3^{\circ}\) family of successor-types} \\
+  && \prod\limits_{X:\Univ}\prod\limits_{(x,y:X)}\Univ:\equiv\ \prod\limits_{X:\Univ}\prod\limits_{(x:X)}\prod\limits_{(y:X)}\Univ \notag \\
+  & S{:}\prod\limits_{X:\Univ}\prod\limits_{(x,y:X)}\Univ & \textit{arbitrary \(3^{\circ}\) family of successor-types} \\
+  & S^A{:}\DsuccT & \textit{arbitrary \(2^{\circ}\) family of successor-types from A}\\
+  & S^A(a){:}\prod\limits_{(y:A)}\Univ & \textit{\(1^{\circ}\) family of successor-types at a from A} \\
+  & S^A(a, b){:}\,\Univ & \textit{successor type at b for a from A} \\
+  %% & &  (a\circ_A b) :\equiv \circ_A(a)(b) :\equiv ((a\circ_A)b) \notag
+\end{align}
+
+Note the regimented vocabulary: \(S^A(a,b)\) is \emph{a} successor
+(type) \emph{at} b \emph{for} a \emph{from} A, where \emph{for a}
+means dependent on \(a\), and \emph{from A} means that \(A\) is the
+base type from which the elements are drawn.
+
+\begin{remark}
+  Two kinds of ``forward motion'': from element \(a\) to ``next''
+  element \(b\), and from element \(b\) to ``next'' type \(S^A(a,b)\).
+\end{remark}
+
+\begin{remark}
+  Since \(S^A(a,b)\) goes from element to type we can think of it as a
+  kind of ``next'' that crosses type levels.  But since \(S^A(a,b)\)
+  is at the same level as \(A\), we can also think of it as a kind of
+  next after \(A\) at that level, i.e. inductively generated by \(A\).
+\end{remark}
+
+Structurally this presentation is exactly the same as the Unit
+presentation; the sole difference is in how we choose to interpret
+things intuitively.
+
+\subsection{Successor Proofs}
+
+What's the intuition for successor proofs?  Reflexivity is out-of-bounds.
+
+\subsubsection{Canonical Constructors}
+Canonical constructor for dependent successor types?  Why not Latex'
+``succ'' symbol: \(\succ\)?
+
+For that matter, why not write \((b\succ a)\) instead of \(S(a,b)\)?
+Because that symbol is for succession within a domain, whereas our
+\(S\) is for crossing domain boundary.  Besides, it would be
+intuitively incompatible with equality.
+
+But we could write \(b\succ S(a,b)\) or the like.
+
+\subsection{Dependent Successor Iteration}
+
+From \(p,q{:}\,S(a,b)\) to \(S^{S(a,b)}(p,q)\), to \(S^{S^{S(a,b)}(p,q)}(r,s)\), etc.
+etc.
+
+\subsection{Successor Induction}
+
+To prove something for all \(p{:}\,S(a,b)\) it suffices to prove it for \(\succ{:}\,S(a,a)\).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Relation Types}
+
+\begin{remark}
+  Here again we have the same structure with different symbols and a different interpretation.
+\end{remark}
+
+\begin{align}
+  & \circ{:}\prod\limits_{X:\Univ}\prod\limits_{(x,y:X)}\Univ & \textit{arbitrary \(3^{\circ}\) family of relation-types} \\
+  & \circ^A{:}\DsuccT & \textit{arbitrary \(2^{\circ}\) family of relation-types from A}\\
+  %% & \circ^A(a){:}\prod\limits_{(y:A)}\Univ & \textit{\(1^{\circ}\) family of relation-types at a from A} \\
+  & (a\circ^A b){:}\,\Univ & \textit{type of relation (pair) (a, b)} \\
+  %% & &  (a\circ^A b) :\equiv \circ^A(a)(b) :\equiv ((a\circ^A)b) \notag
+\end{align}
+
+\begin{remark}
+  Think of \(\circ\) as a relation on pairs (i.e. \(A\times B\))?
+\end{remark}
+
+Classically, a binary relation is a relation between two elements of a
+set; in type-theoretic terms we can think of this as a relation
+between two elements of the same type.  But if we treat binary
+relation types as dependent successor types the nature of the relation
+changes.  Instead of a ``horizontal'' relation between two elements at
+the same level (so to speak), a binary relation is a ``vertical''
+relation between elements of different types, one constructed from the
+other.  The critical point is that \(a\circ b\) is a \emph{type}; not
+as a ``horizontal'' relation between \(a\) and \(b\) within \(A\), but
+as a successor type that is ``vertically' related to \(b\) (for
+``previous'' element \(a\)).  At the same time, \((a\circ b)\) is
+``horizontally'' related to \(A\) itself, since \((a\circ b)\) is a type at
+the same level as \(A\).
+
+We can iterate successor types for relations just as we did for atoms.
+Given \((a\circ_A b)\), then for any element \(p\) of that type --
+i.e. proof of the relation -- we can form a successor family \(\circ_{(a\circ b)}\):
+
+%%  is a successor type from \(\circ_A\) at \(b\) for
+%% (dependent on) \(a\),
+
+\begin{align}
+  & \relAdef &  2^{\circ}\textit{family of relation-types from A} \\
+  & \relrelAdef & \\
+\intertext{\hfill\(\relrelA\) \textit{= family of reln types for successor type at y for x of}\ \(A\)} \\
+  %% & a{:}A, b{:}A \\
+  %% & \circ_{(x\circ_A y)}(a,b){:}\prod\limits_{p,q{:}(x\circ_Ay)}\Univ \\
+  %% & p{:}(a\circ_A b), q{:}\,(b\circ_A a) \\
+  %% & \relrelA(a,b,p,q):\Univ \\
+  %% & (p\relrelA q) :\equiv \relrelA(a,b,p,q).
+  & (p\relrelA q){:}\,\Univ & \textit{successor type at q for p, from type}\ (x\circ_A y)
+  %% \intertext{\textit{\hfill ---successor type for dependent successor type \((a\circ_A b)\) at \(p{:}(a\circ_Ab)\)}}
+\end{align}
+
+Normally we will write \((p\relrelA q)\) instead of
+\(\relrelA(a,b,p,q)\), or just \((p\circ q)\) if the parameters are
+evident from the context.  Then we will say that \((p\relrelA q)\) is
+``a successor type of \(\relA\) at \(q\) for \(p\)''.
+
+NB: if we really wanted to, we could also iterate \(\circ_A\) itself,
+since it is an element of a function type.  Giving
+\(\circ_{\circ_A}\); I'm not sure what it means.
+
+%% and we
+%% can go from \(p{:}(a\circ b)\) to a successor type \(S_{(a\circ b)}(p):\Univ\).
+
+
+
+\subsection{Reflexivity Types}
+
+The types of relation type families can be partitioned into two classes:
+
+\begin{itemize}
+\item \textit{reflexivity relation types} of the form \((a\circ_A a)\)
+\item non-reflexiivty types of the form \((a\circ_A b)\)
+\end{itemize}
+
+\begin{remark}
+Every relation type family has reflexivity types; we'll call these the
+reflexivities of the family.  Not all reflexivities are inhabited
+(e.g. \(a < a\)), but for a given family, if one is they all are(?).
+We'll call any family whose reflexivities are inhabited a reflexivity
+family.
+
+All equality families are reflexivity families, but not all
+reflexivity families are equality families (e.g. \(a \leq a\)).  To
+get equality types, we need to add \(\reflA\) constructors to
+relation types, to make sure their reflexivity types are inhabited.
+In addition, ...
+\end{remark}
+
+Reflexivity successor types are self-dependent: successor at x for x.
+
+\subsubsection{Constructors for Reflexivities}
+
+Instead of \(\reflA\) we use the more general \(\rA\):
+
+\begin{align}
+  &\bullet{:}\,\rfamU \\
+  &\rA{:}\, \rfama \\
+  &\rA(x){:}\, \reflTAx & \bullet x{:}\,\reflTx
+\end{align}
+
+\(\rA\) works for both canonical and non-canonical tokens of the base type.
+
+We the type is clear from the context we will drop the annotation and
+write just \(\bullet x{:}\,\reflTx\).
+
+\subsection{Symmetry Types}
+
+The HoTT book ``proves'' symmetry by working with a function type
+\((x=_Ay)\to (y=_Ax)\).
+
+Here, we stick to successor and relation types and show how to
+construct symmetry.  In any relation family, some will be symmetric
+and some won't.  The task is to explain what it is to be symmetric,
+i.e. what are the \emph{defining constructions} for symmetry.
+
+The types of every successor type family \(\relA\) may be partitioned
+into classes:
+
+\begin{itemize}
+\item Reflexivity types: types of the form \(a\circ_A a\)
+\item Symmetry types: pairs of types of the form \((a\circ_A b), (b\circ_A a)\)
+\end{itemize}
+
+These types may or may not be inhabited for any given dependent
+successor type family.  If the reflexivity types are inhabited
+\emph{for all a}, we say the (relation) family is reflexive.
+
+The rule for symmetry is a little bit different.  For any given
+family, some symmetric pairs may be inhabited and some may not be
+inhabited.  Or one member of the pair may be inhabited and the
+other not (so we have four possibilities.)  To count as symmetric,
+either both members of a symmetric pair must be inhabited or neither
+member can be inhabited.  In other words, if we can find a symmetric
+pair only one of whose members is inhabited then it is not a symmetric
+relation family.
+
+For example, the relation \(\neq\) is symmetric for \(\Nat\), but
+\(\leq\) is not.
+
+\begin{remark}
+  TODO: Give example from HoTT of relation where some symmetric pairs
+  are inhabited and some are not.  Equality works since we have
+  \(a\neq b\) and \(b\neq a\) for lots of pairs, but we also have \(a=
+  b\) and \(b=a\) for lots of pairs, just because there are multiple
+  ways to have equality etc. But it would be nice to have an example
+  other than equality.
+\end{remark}
+
+For every \(a,b{:}A\) and dependent successor type family \(\circ_A\)
+we have the dependent successor type \(a\circ_A b\); and for every
+proof of that type \(p{:}(a\circ_A b)\) we can form a family of
+(\(2^{nd}\)-order) successor types, which we can call \(\circ_{(a\circ_A b)}\):
+
+\begin{align}
+  %% &\prod\limits_{(p,p^{-1}:x\circ_Ay)}\Univ & \prod\limits_{(p:x\circ_Ay)}\prod\limits_{(p^{-1}:y\circ_Ax)}\Univ \\
+  &\circ_{(a\circ_A b)}{:}\prod\limits_{(p,q:a\circ_Ab)}\Univ & \textit{for all a,b}
+%% \intertext{\textit{\hfill ---family of successor types for type \((a\circ_A b)\)}}
+  %% &\circ_{(a\circ_A b)}{:}\prod\limits_{(p,q:x\circ_Ay)}\Univ
+\end{align}
+
+
+Then given \(p{:}(x\circ_A y)\) and \(q{:}(y\circ_A x)\), we have
+\((p\circ_{x\circ_A y} q){:}\,\Univ\) --- the dependent successor type
+at \(q\) for (i.e. that depends on) \(p\) (from type \(\relrelA\)).
+
+Note:
+
+\begin{itemize}
+  \item \xrely\ is the successor type at \(y\)\ dependent on \(x\)
+  \item \yrelx\ is the successor type at \(x\)\ dependent on \(y\)
+\end{itemize}
+
+So not only are they different types, they are successor types of
+different elements.  Proof of one cannot count as proof of the other,
+so we need a proof for each.  But if we do have both proofs, we can
+iterate, constructing successors of these successors.  So proving that
+either \((p\circ_{x\circ_A y} q)\) or \((q\circ_{x\circ_A y} p)\) is a
+proposition shows that the components have proofs, which in turn is
+defined as what it means for the base family of relation types
+\(\relA\) to be symmetric.
+
+ \begin{align}
+   (a\ &\circ_A b){:}\,\Univ & \textit{---given \(a,b:A\)} \\
+   (p\ &\circ_{(x\circ_Ay)} p^{-1}){:}\,\Univ & \textit{---given \(p{:}(a\circ_A b),\  p^{-1}{:}(b\circ_A a)\)}
+\end{align}
+
+The problem here is that \(p\) and \(p^{-1}\) prove different types, and
+\(\circ_{(x\circ_Ay)}\) is only defined for types \(x\circ_A y\). ???
+
+We should view \(\relrelA\) as the successor to \(\relA\).
+
+\(\relA\) applies only to elements of \(A\).  Its successor
+\(\relrelA\) applies to elements of different types.  But each such
+type is the successor to an element of \(A\), so in a sense
+\(\relrelA\) does indirectly apply to elements of \(A\).
+
+\begin{remark}
+All of which suggests we should view a type family as a genuine type,
+whose elements are the types in the family.  Then \(\relrelA\) will
+apply to elements of the same (family) type.  This suggests in turn
+that we should make this explicit, so that we can refer to the
+elements of a family (rather than the function that generates them).
+E.g. \(\Lambda(\relA)\) names the family of types generated by
+\(\relA\), giving e.g. \((a\relA b){:}\Lambda(\relA)\).  At the very
+least this would make exposition easier.
+\end{remark}
+
+
+\begin{remark}
+The goal is to explain that symmetric relations are those whose
+symmetries are inhabited.  And they are ``natural'', just as
+reflexivities are natural.  To wit, we picked out types \(a\circ a\)
+to talk about reflexivities; to talk about symmetries, we pick out
+symmetric pairs of types \((a\circ b)\) and \((b\circ a)\).  Every
+non-trivial relation type will have such pairs.  If both types in the
+pair are inhabited, then we have a symmetry type, full stop.  What it
+means for both to be inhabited is that the higher order relation
+\((p\circ p^{-1})\) between inhabitants of the types can be
+constructed.  Not inhabited; you can only construct it if you have
+both proofs, so that's enough.  So to show symmetry we only need to
+show that \(p\circ p^{-1}\) is a proposition, not that it is true.  To
+construct an element of such symmetry pair, we need a constructor,
+just as we needed refl to construct an element of\(a\circ a\).
+Contrast this with the functional approach of the HoTT book.
+\end{remark}
+
+\subsubsection{Summary}
+
+For symmetry we need to do what we did with reflexivity, that is for
+particular families provide a constructive means.  For reflexivity we
+provided a constructor refl that can be associated with any relation
+family.  For symmetry we cannot do this so directly since it may be
+the case that some symmetry pairs are uninhabited; we cannot have a
+symm constructor like refl.
+
+Or can we?  Why not something like \(sym{:}(a=_A b)\)?  Because it
+would be useless for e.g. \(\Nat\) since it would prove e.g. \(2=3\).
+
+The only thing we have to go on is induction: the notion that proof
+for refl:a=a is as good as proof for all p:a=b.
+
+
+
+We form successors, then we use path induction.
+
+\vfill
+
+\subsection{Transitivity Types}
+
+\subsection{Equality Types}
+
+\section{Inductions}
+
+The Hott book calls this path induction, in acknowledgement of the
+role of homotopy theory in HoTT.  But what is at issue is purely a
+matter of type theory, for which homotopy theory is irrelevant, so we
+use ``Equality Induction'' instead.
+
+The HoTT book also gives the impression that equality is a kind of
+primitive in HoTT, and is one of the major ideas that sets it apart
+from other approaches.  I think this is not quite right.  In HoTT, the
+Id/= type (actually family) is not primitive, nor is it the only
+possible such family; it is one of many.  The critical notion is not
+equality but equality (``path'') induction.
+
+What's the point of induction?  Or rather, what problem does a
+principle of induction solve?
+
+The basic problem is infinity.  To prove something over an infinity we
+cannot inspect each element; instead we need a (finite) \emph{method}
+of proof that makes it \emph{possible} for us to prove an arbitrary
+case.  Contrast this with the classical approach, where proof is
+always \emph{alethic} and does not involve (formal) proof methods.
+Classical proof for infinities depends on quantification over their
+elements, and offers an alethic conclusion: either the proposition is
+true for all elements, or not.  There is no notion of possibility, or
+of method of proof.  (Of course there are informal \emph{strategies}
+for discovering a proof, but they are external to mathematics proper.)
+
+  Where the infinity is inductively constructed, as in the case
+of \(\Nat\), we can rely on the inductive structure of the type to
+support proof by (mathematical, structural, etc.) induction.  That's
+intuitively satisfying, since we can see that the structure of proof
+corresponds to the structure of the type; we know (or are convinced)
+that we can ``reach'' any element of the infinity in a finite number
+of steps, so we can apply our proof method in a finite number of
+steps.
+
+The secondary problem is that a type may ``contain'' elements that are
+not canonically (that is, inductively) constructed.  This is obviously
+the case for equality types, but it may also be the case for types
+like \(\Nat\).  The problem here is that such ``exotic'' elements are
+not reachable by construction in the way that canonical (inductively
+defined) elements are reachable from the base case.
+
+There are two basic strategies to solve this problem.  One is to show
+that a canonical element can be inferred from every non-canonical
+element; the other is to show that, given propositions dependent on
+elements of the type, if we can prove those dependent canonical
+elements, then we can (construct a method to) prove those dependent on
+non-canonical elements.  Note that this is very different from
+standard induction.
+
+Both forms of induction involve an unjustifiable but intuitively
+obvious assumption.  In the case of traditional mathematical
+induction, the assumption is that proving the base case and the
+inductive hypothesis justifies inference to the general case that P is
+true for all elements.  But this assumption cannot be proven.  This is
+almost always expressed in the form of a deductive inference, but in
+fact it is not a deduction but an induction.  We are \emph{confident}
+that P is true for all n if we are \emph{certain} that it is true for
+the base case and inductive hypothesis.  But we do not have
+\emph{certain} knowledge that P is true for all n; that would require
+inspection of every case, which we cannot do.
+
+Compare Church-Turing: we are all very confident that the various
+models of computation are equivalent, but we cannot (so far) prove it,
+so we cannot be certain.  Proof by induction is similar: we cannot
+prove that such proofs are valid, but we are confident that they are,
+so we call them proofs.
+
+In the case of finite types...
+
+In the case of constructors, we do have certainty, just because they
+are constructors.  There is no question of proving that a constructor
+constructs.  Compare e.g. the introduction rule for product types: in
+this case, we can be absolutely certain that \((a,b){:}\,A\times B\)
+if we are certain that \(a{:}A\) and that \(b{:}B\), because that is
+just what the rule for pairs means.  And we are certain that this is
+the case for \emph{every} element of \(A\) and element of \(B\),
+because it is in effect a definition.
+
+So the first kind of induction involves inference to all
+canonically-formed elements of an infinity.  The second kind involves
+inference to all elements, including non-canonical elements.  The
+legitimacy of this inference is much more tenuous.  For the first kind
+of induction, the inference to infinity is justified by the inductive
+structure of the elements; for the second kind, there is no such
+inductive structure for the non-canonical elements, so it is harder to
+see why we should be confident that proving the base case
+etc. justifies inference to the general case.
+
+Now HoTT says that the equality types \((a=_Ab)\) are inductively
+defined by their canonical constructors \(\reflA\).  This makes some
+sense, since it is always the case that types are (in a sense) defined
+by their constructors.  (They are also defined by eliminators, etc.)
+On the other hand, the constructors only serve to define reflexivity
+types \((a=_Aa)\); non-reflexive types \((a=_Ab)\) have \emph{no}
+constructors, and so no canonical elements.  But then why should we
+believe that \emph{these} types are inductively defined by the
+constructors of \emph{other} types?  There seems to be some magic
+going on here.
+
+Notice also that this says nothing about the structure of the elements
+of equality types.  In particular, it does not say that the elements
+of an equality type have inductive structure.  The canonical elements
+of \((a=_Aa)\) are obviously inductively defined by \(\reflA\); but we
+should we be convinced that the non-canonical elements of \((a=_Aa)\)
+are thereby defined, let alone the elements of \((a=_Ab)\)?  There is
+no intuitive support for this concept, as far as I can see.  But
+that's okay, since the HoTT book does no claim this.
+
+So the problem is twofold: first, how do we get to \((a=_Ab)\) when
+all we have to go on is \(\reflA(a){:}(a=_Aa)\)?  We might express
+this by asking how we can get from canonical equality types
+(i.e. reflexivities) to non-canonical equality types
+(i.e. non-reflexivities).  Second, how do we get from canonical to
+non-canonical elements of equality types?
+
+On the other hand, we do have the obvious intuition that it is always
+the case that (\(a=_Aa)\), so that if it is also the case that
+\((a=_Ab)\), those two propositions are in some sense ``the same'', so
+proof of \((a=_Aa)\) should count as proof of \((a=_Ab)\), and
+vice-versa.  We also have the intuition that if \(a\) and \(b\) are in
+fact equal, then any one proof of that fact is as good as any other.
+These intuitions are based directly in the very idea of equality.
+
+Etymonline: ``As a term in logic (early 15c.) it [induction] is from
+Cicero's use of inductio to translate Greek epagoge "leading to" in
+Aristotle. Induction starts with known instances and arrives at
+generalizations; deduction starts from the general principle and
+arrives at some individual fact.''
+
+This sense of ``leading to'' is what is missing in path induction.
+This also shows why mathematical induction cannot be deemed deductive,
+because it moves from specific to general.
+
+A better term might be \emph{transduction}.  Etymonline: from Latin
+transducere/traducere "lead across, transfer, carry over," from trans-
+"across" + ducere "to lead"
+
+\begin{remark}
+  Note that there is a big difference between definition by induction
+  and proof by induction.
+\end{remark}
+
+\subsection{Varieties of Induction}
+
+There are three well-known and widely accepted principles of induction:
+
+\begin{itemize}
+\item Mathematical induction (a/k/a \(\Nat\)-induction)
+\item Structural induction
+\item Transfinite induction
+\item Well-founded induction (http://planetmath.org/wellfoundedinduction)
+  ``As an example of application of this principle, we mention the proof of the fundamental theorem of arithmetic : every natural number has a unique factorization into prime numbers. The proof goes by well-founded induction in the set ℕ ordered by division.''
+  a/k/a Noetherian induction?
+  WFI is basic; the others are specializations.
+\item Rule induction (computer science?)
+\item Epsilon induction https://en.wikipedia.org/wiki/Epsilon-induction
+\end{itemize}
+
+What all these have in common is some notion of ``forward progress'':
+a ``successor'' operation that moves from one place or element to the
+``next'' place or element.
+
+Equality induction does not involve this kind of movement.  For any
+equality type we may have multiple distinct inhabitants, but they are
+all ``at the same level'', so to speak; they cannot be arranged in a
+sequence involving next or preceding elements.
+
+\subsection{Well-Founded Induction}
+
+ Most accounts of WFI are classical.  You start with a well-founded
+ set \(X\) and relation \(\preceq\).  Here's one way to state WFI (from
+ Andreas Klappenecker's notes on Noetherian Induction):
+
+ \begin{theorem}
+   (The Principle of Noetherian Induction). Let \((A,\preceq)\) be a well-
+   founded set. To prove that a property \(P(x)\) is true for all
+   elements \(x\) in \(A\) it is sufficient to prove the following two
+   properties:
+   \begin{enumerate}
+   \item Induction basis: \(P(x)\) is true for all minimal elements of \(A\).
+   \item Induction step: For each non-minimal \(x\) in \(A\), if
+     \(P(y)\) is true for all \(y\prec x\), then \(P(x)\) is true.
+   \end{enumerate}
+\end{theorem}
+
+The conclusion is then that \(\forall x P(x)\).
+
+This is fine, but it's non-constructive.  In order for it to work
+constructively, the relation must be constructive; that is, \(y\prec
+x\) must mean that \(x\) can be constructed from \(y\).
+
+We don't have that in path induction.  There is no relation of
+construction between the base case \(\reflAx{:}\,\reflTa\) and any
+other \(p\) where \(\preflTa\).  So WFI (classical) cannot underwrite
+path induction.
+
+\bigskip
+
+The HoTT book says this:
+
+``The basic way to construct an element of \(a = b\) is to know that
+\(a\) and \(b\) are the same. Thus, the introduction rule is a
+dependent function
+
+\begin{align}
+  \textsf{refl}{:}\,\reflfam
+\end{align}
+
+called \textbf{reflexivity}, which says that every element of A is
+equal to itself (in a specified way).'' (p. 47-8)
+
+The formal definition given in appendix A.2.10 says:
+
+\medskip
+
+\begin{tikzpicture}[
+    edge from parent path={
+        (\tikzparentnode\tikzparentanchor)
+        +(0pt,.5\tikzleveldistance)
+        -- (0pt,-.5\tikzleveldistance -| \tikzchildnode\tikzchildanchor)
+        -- +(0.75cm,0pt)
+        -- +(-0.75cm,0pt)
+    },
+    grow'=up,
+    level distance=4ex,
+    level/.style={sibling distance=5em/#1}]
+  \draw (2.75cm,.35cm) node {=-\textsc{intro}};
+  \node (Concl) {\(\Gamma\vdash \textsf{refl}_a{:}\,a=_Aa\)}
+    child { node (Major) {\(\Gamma\vdash A{:}\Univ\)} }
+    child { node (Minor) {\(\Gamma\vdash a{:}A\)} } ;
+\end{tikzpicture}
+
+(Note that this is called the =-\textsc{intro} rule rather than
+the \(\reflA\)-\textsc{intro} rule.)
+
+\medskip
+
+This means that we can always infer \(\reflAa{:}\,\reflAaa\) from just
+\(a{:}A\); but it says nothing about any other proof of \(\reflAaa\),
+nor about proof of \(\reflAxy\) for any other \(x,y{:}A\).  So even if
+we have \(\reflAa\prec p\) for all \(\preflAxy\), we cannot invoke WFI,
+since there is no constructive path from the former to the latter.
+
+There is another problem with the informal explanation offered by the
+HoTT book: it relies on a notion of induction as explanatory.  This
+violates the general principle that types are explained by their
+inference rules.  ``Path induction'' is explained by the ind-intro
+(aka =-elim) rule, which has nothing to do with any antecedent notion
+of induction.  It just lays down what it means to be an equality
+proof.  We can call this induction, but then we're just labelling an
+elimination rule -- misleadingly, since the elimination rule does not
+involve and is not justified by any concept of induction.
+
+On the other hand, one could argue that the formal rule captures some
+intuitive notion of induction, just as the \&-intro rule captures our
+informal notion of conjunction.  But the problem with that is, as
+explained above, we do not seem to have an intuitive notion of
+induction that corresponds to the =-elim rule.  On the other hand, we
+do have intuitions about equality, but they do not depend on
+intuitions about induction; they seem to depend mostly on practices of
+exchange.
+
+What we do with equalities seems to be fundamentally different from
+what we do with inductive stuff.  Induction takes us from the
+particular to the general; equality seems to be already general.  We
+don't need to prove that one pebble is as good as any other for
+tallying; it's built-in to the notion of tallying.  No induction is
+needed; it doesn't make sense to try to ``test'' new pebbles to see if
+they really work, or to prove that they do.  Using induction to
+justify our ways with equality makes no sense.
+
+\bigskip
+
+\noindent
+A possible way out is to reinterpret reflexivity as something that
+follows from equality generally.  Then we can define a different
+introduction rule for \(\reflA\).
+
+\medskip
+
+\begin{tikzpicture}[
+    edge from parent path={
+        (\tikzparentnode\tikzparentanchor)
+        +(0pt,.5\tikzleveldistance)
+        -- (0pt,-.5\tikzleveldistance -| \tikzchildnode\tikzchildanchor)
+        -- +(1.5cm,0pt)
+        -- +(-1cm,0pt)
+    },
+    grow'=up,
+    level distance=4ex,
+    level/.style={sibling distance=6em/#1}]
+  \draw (5.25cm,.5cm) node {\(\textsf{refl}^1-\)\textsc{intro}};
+  \node (Concl) {\(\Gamma\vdash \textsf{refl}^Aa\,{:}\,\reflAaa\)}
+    child { node (Major) {\(\Gamma\vdash A{:}\Univ\)} }
+    child { node (Minor) {\(\Gamma\vdash a,b{:}A\)} }
+    child { node (Minor) {\(\Gamma,p\vdash \reflAab\)} } ;
+\end{tikzpicture}
+
+\medskip
+
+\begin{tikzpicture}[
+    edge from parent path={
+        (\tikzparentnode\tikzparentanchor)
+        +(0pt,.5\tikzleveldistance)
+        -- (0pt,-.5\tikzleveldistance -| \tikzchildnode\tikzchildanchor)
+        -- +(1.5cm,0pt)
+        -- +(-1cm,0pt)
+    },
+    grow'=up,
+    level distance=4ex,
+    level/.style={sibling distance=6em/#1}]
+  \draw (5.25cm,.5cm) node {\(\textsf{refl}^2-\)\textsc{intro}};
+  \node (Concl) {\(\Gamma\vdash \textsf{refl}^Ab\,{:}\,\reflAbb\)}
+    child { node (Major) {\(\Gamma\vdash A{:}\Univ\)} }
+    child { node (Minor) {\(\Gamma\vdash a,b{:}A\)} }
+    child { node (Minor) {\(\Gamma,p\vdash \reflAab\)} } ;
+\end{tikzpicture}
+
+\medskip
+
+The idea is that, instead of inferring \textsf{refl} directly from
+\(a{:}A\), we can infer it from \emph{any} proof of \(\reflAab\).
+This corresponds more closely to treating reflexivity as a binary
+relation, rather than a unary predicate.  Reflexivity itself does not
+\emph{introduce} equality, as the HoTT definition suggests; after all,
+we can specify equality types without also introducing their proofs.
+
+Rather, reflexivity is just the canonical form of proof of reflexivity
+types, not of equality types generally.
+
+This suggests another revision to the HoTT definition, this one a refinement:
+
+\medskip
+
+\begin{tikzpicture}[
+    edge from parent path={
+        (\tikzparentnode\tikzparentanchor)
+        +(0pt,.5\tikzleveldistance)
+        -- (0pt,-.5\tikzleveldistance -| \tikzchildnode\tikzchildanchor)
+        -- +(0.75cm,0pt)
+        -- +(-0.75cm,0pt)
+    },
+    grow'=up,
+    level distance=4ex,
+    level/.style={sibling distance=5em/#1}]
+  \draw (2.75cm,.35cm) node {=-\textsc{intro}};
+  \node (Concl) {\(\Gamma\vdash (a=_Ab){:}\,\Univ\)}
+    child { node (Major) {\(\Gamma\vdash A{:}\Univ\)} }
+    child { node (Minor) {\(\Gamma\vdash a,b{:}A\)} } ;
+\end{tikzpicture}
+
+\noindent which just says that given \(a,b{:}A\) we can form the
+\emph{type} \(\reflAab\), independently of whether we can find a proof
+of that type.  The introduction rules \(\refl{1}\) and \(\refl{2}\)
+then just say that, given any proof \(p\) of \(\reln{A}{a}{b}\), we
+can introduce the canonical proofs \(\refl{A}a{:}\reln{A}{a}{a}\) and
+\(\refl{A}b{:}\reln{A}{b}{b}\).
+
+\medskip
+
+What would this mean for constructive WFI?  The core idea of WFI for
+proofs on equalities is that to prove something for any equality proof
+for any pair (of type \(A\)), it suffices to prove it for the
+\(\refl{A}\) proof for reflexivity pairs; the justification is based
+on well-founded structure.
+
+With our revisions, any equality proof can be reduced to \(\refl{A}\),
+which is more in line with the notion of canonical form as normal
+form.  The intro rules do not mean that other proofs are constructed
+inductively from the canonical proofs; but as they are indeed
+introduction rules they set the meaning of \(\refl{A}\).  Instead of
+proof by induction, we prove by normalization -- which in turn is a
+kind of induction.  Normalization has well-founded structure; it
+always bottoms out at canonical forms.
+
+So it still suffices to prove the base case \(\refl{A}\).  Not
+directly because of inductive construction, nor because of (classical)
+well-founded structure, but because of an (axiomatic) principle of
+normalization.  (?)
+
+\begin{remark}
+  In other words, if our intro rules allow us to infer canonical form
+  from non-canonical form -- by fiat or axiom, as it were -- this is
+  just as good as having an inductive constructor that builds other
+  canonical forms from the base case.  For example, for \(\Nat\) we
+  use \(S\) to build from \(Z\); but for =, we reverse this, saying in
+  effect that non-canonical forms can be ``deconstructed'' and the
+  canonical form pulled out.  We might be able to think of our
+  \(\refl{A}\) intro rules as implicit elimination rules or
+  co-constructors: they say that for any proof of equality we can
+  extract the base case that must have been used to construct the
+  proof, even if we do not have an explicit \(S\)-like constructor
+  showing exactly how the proof was built up from the base case.
+\end{remark}
+
+\begin{remark}
+  Or, there are two ways for WFI to work constructively, one based on
+  inductive construction, and one based on inductive co-construction,
+  so to speak.  The former method establishes a well-founded relation
+  by construction; the latter by co-construction.  In the former case,
+  you can always construct the ``next'' element; in the latter, you
+  can always co-construct the base element.  Is this co-induction?  So
+  equality proofs are codata?
+\end{remark}
+
+\medskip
+
+Consider what the idea would look like for \(\Nat\):
+
+\medskip
+
+\begin{tikzpicture}[
+    edge from parent path={
+      (\tikzparentnode\tikzparentanchor)
+      +(0pt,.5\tikzleveldistance)
+      -- (0pt,-.5\tikzleveldistance -| \tikzchildnode\tikzchildanchor)
+      -- +(1.5cm,0pt)
+      -- +(-1cm,0pt)
+    },
+    grow'=up,
+    level distance=4ex,
+    level/.style={sibling distance=6em/#1}]
+  %% \draw (5.25cm,.5cm) node {\(0{:}\,\Nat} ;
+  \node (Concl) {\(\Gamma\vdash S(n){:}\,\Nat\)}
+  child { node (Major) {\(\Gamma\vdash n{:}\Nat\)} } ;
+\end{tikzpicture}
+\begin{tikzpicture}[
+    edge from parent path={
+      (\tikzparentnode\tikzparentanchor)
+      +(0pt,.5\tikzleveldistance)
+      -- (0pt,-.5\tikzleveldistance -| \tikzchildnode\tikzchildanchor)
+      -- +(1.5cm,0pt)
+      -- +(-1cm,0pt)
+    },
+    grow'=up,
+    level distance=4ex,
+    level/.style={sibling distance=6em/#1}]
+  %% \draw (5.25cm,.5cm) node {\(0{:}\,\Nat} ;
+  \node (Concl) {\(\Gamma\vdash n{:}\,\Nat\)}
+  child { node (Major) {\(\Gamma\vdash S(n){:}\Nat\)} } ;
+\end{tikzpicture}
+\begin{tikzpicture}[
+    edge from parent path={
+      (\tikzparentnode\tikzparentanchor)
+      +(0pt,.5\tikzleveldistance)
+      -- (0pt,-.5\tikzleveldistance -| \tikzchildnode\tikzchildanchor)
+      -- +(1.5cm,0pt)
+      -- +(-1cm,0pt)
+    },
+    grow'=up,
+    level distance=4ex,
+    level/.style={sibling distance=6em/#1}]
+  %% \draw (5.25cm,.5cm) node {\(0{:}\,\Nat} ;
+  \node (Concl) {\(\Gamma\vdash 0{:}\,\Nat\)}
+  child { node (Major) {\(\Gamma\vdash n{:}\Nat\)} } ;
+\end{tikzpicture}
+
+\medskip
+
+\noindent Here the rule on the left just expresses the definition of
+\(S\) for \(\Nat\).  The rule on the right expresses a kind of
+elimination rule - we know any \(n{:}\Nat\) must have the form
+\(S(S(...S(0)))\), so it expresses the idea that all of the \(S\)s
+could be eliminated.  We could prove this, since any \(n{:}\,\Nat\) is
+inductively constructed.  But were that not the case, we could simply
+stipulate it as part of the definition of what it is to be of type
+\(\Nat\).  And that's what we do for equality types and \(\refl{A}\).
+
+\subsection{Coinduction}
+
+
+
+\subsection{Reflexivity Induction}
+
+For any reflexivity type \(\reflAa\) we may have infinitely many proofs
+\(\preflAa\).  The HoTT book singles out just one such proof per type
+and designates it as the canonical constructor for the type:
+
+\begin{align}
+  &\textsf{refl}{:}\,\reflfam &  \textsf{HoTT p. 48} \\
+  \intertext{(which should be:)}
+  &\textsf{refl}{:}\,\reflfamU \\
+  \intertext{giving}
+  &\reflA(x):\,(x\circ_A x)
+\end{align}
+
+Which makes \(\reflA\) a family of ``provers'' of reflexivity types:
+give it an \(x\) and you get a (canonical) proof of \(\reflTAx\).
+
+Since we may have non-canonical proofs \(x{:}\reflAa\), we are
+confronted with the task of showing that if a predicate on proofs of
+\(\reflAa\) can be satisfied by one such proof it can be satisfied by
+any such proof.  This is what path induction is for (although it
+extends beyond reflexivity types to all \(x\circ_Ay\) types).
+
+A predicate on proofs of \(\reflAa\) looks like this in the HoTT book:
+
+\begin{align}
+  & \Cxyp & \textsf{HoTT p. 49} \\
+  \intertext{giving}
+  & C(x,x,\reflx){:}\,\Univ
+\end{align}
+
+\noindent We rewrite this as:
+
+\begin{align}
+  & \SXYPT \\
+  \intertext{giving:}
+  & \SXX \\
+  & \SXXP
+  \intertext{and we set}
+  & S^{x\circ_Ax}(p) :\equiv \reflTAx
+\end{align}
+
+We use \(\circ\) instead of \(=\) for generality, and we use
+\(S^{\circ_A}\) intead of \(C\) in order to highlight that fact that
+we treat it as a (not ``the''!) successor type family drawn from
+\(\circ_A\) types, so \(\SXXP\) is \emph{a} successor type at \(p\)
+from type \(\reflTAx\) -- which in turn we treat as \emph{a} successor
+type at \(x\) for \(x\) from \(A\).
+
+Note that for any \(\preflTx\) we have \(p{:}\,S^{x\circ_Ax}(p)\):
+every proof of \(\reflTAx\) is proof of its own successor type.  Or: if
+p proves a successor type at x for x, the it also proves its own
+successor drawn from that successor type at x for x.  Reflexivity all the way
+up!
+
+
+\medskip
+
+Now the HoTT book bases path induction on \(\reflAx\), which is an
+element of \(\reflTAx\); informally, the path induction principle for
+reflexive types can be expressed by saying that a proof of a predicate
+on \(\reflAx{:}\,\reflTAx\) suffices as proof on all \(\preflTx\).
+
+\bigskip
+
+The approach adopted here is a little different.  First, we don't
+single out a canonical constructor.  Intuitively, the idea is that
+since all proofs of \(\reflTAx\) are ``equivalent'', it should be
+enough to prove the predication for any such proof; there is no call
+to single out a canonical one.
+
+\begin{remark}
+I suspect that introducing a canonical element for reflexivity
+types was motivated by the example of the inductive definition of
+\(\Nat\), which has two canonical constructors.  And it is the
+inductive structure of those constructors that makes proof by
+mathematical induction work.  But the elements/proofs of equality
+types are not constructed in this way; there is no sequential
+structure to them.  But this suggests that we do not really need a
+canonical constructor.
+\end{remark}
+
+\begin{remark}
+  Note that mathematical induction is a little ambiguous.  Once you've
+  proven for base case and inductive hypothesis, you drawn the
+  conclusion to ``all n''.  But the justification for this inference
+  is the intuition that ``all n'' are in fact constructed using the
+  canonical constructors, so ``all n'' really means ``all canonical
+  n''.  There is no good intuition (for me, at least) leading from
+  ``all canonical n'' to ``all n including non-canonical/exotic n''.
+  But that reading is essential to HoTT induction, and I suspect it is
+  the real innovation.
+\end{remark}
+
+\bigskip
+
+The basic idea is that we replace the notion of a canonical element
+\(\reflAx\) with the notion of a canonical successor function.  This
+gives us a genuine kind of induction: starting with any \(\preflTx\)
+we get a ``next'' object, namely the successor type at \(p\).  There
+are infinitely many successor families, and thus successor types at
+\(p\); the intuition behind ``reflexivity induction'' is that proving
+the canonical successor type for some \(\preflTx\) suffices as proof
+for all such \(p\), for all successor types.  In other words, if you
+can prove the canonical successor proposition \emph{at p} for some
+\(\preflTx\), you can prove any successor proposition \emph{at p} for
+any such \(p\).
+
+So what our approach boils down to is moving from elements/proofs of
+reflexivities to their successor types/propositions, which are what we
+want to prove.  This gives us an inductive structure, analogous to the
+structure of \(\Nat\), that the HoTT approach, based on canonical
+elements, lacks.  Well, it's not so much that it goes missing as that
+it goes unremarked.  What I sketch here is implicit in the HoTT book.
+
+In other words, it is not the case that all elements of \(\reflTAx\)
+are inductively constructed from canonical constructors, but it is the
+case that the successor type of every such element is inductively
+constructed by a successor function.  In contrast to e.g. \(\Nat\),
+whose structure can be thought of as ``vertical'', the inductive
+structure of reflexivity proofs combines ``horizontal'' and
+``vertical'' aspects.  The successor types are all at the same level,
+one level ``up''from the elements to which they are successors;
+neither can be ordered.  But nonetheless each pair of element and
+successor type has inductive structure, from n to n+1.
+
+A critical point is that we do not need a canonical element to do
+this; we need not define \emph{any} constructors for reflexivity
+types.
+
+Once this structure is clear it also becomes clear that the inductive
+principle required to make this work is clearly not like the inductive
+principles involved in the three basic kinds of induction.  The
+proposal here is that it is this induction principle that is
+distinctive, rather than the Id/= type family specified in the HoTT
+book.
+
+The implicit reasoning: we prove that if something is true for
+arbitrary \(n\) (i.e. for any \(\preflTx\)) then it is true for
+\(n+1\) (i.e. \(p{:}S^{x\circ_Ax}(p)\)).  We then infer that it is
+true, not for all \(n\) (there are only two levels, \(n\) and \(n+1\),
+and we've already shown the equivalent of \(P(n)\to P(n+1)\) for
+arbitrary n) but for all successor types (propositions) in the family
+\(\prod\limits_{(x,y:A)}\prod\limits_{p{:}(x\circ_Ay)}{:}\,\Univ\).
+
+In other words, mathematical induction goes from \(P(n)\to P(n+1)\)
+for arbitary n to \(P(n)\) for all n; we go from \(P(n)\to P(n+1)\)
+for arbitary n to \(Q(n)\) for all \(Q, n\).
+
+Hmm, that can't be right.  Some successor props may not be
+satisfiable.  We have to do the inductive proof for each successor
+type.
+
+Since we don't use a canonical element, there is no move from ``true
+for canonical'' to ``true for everything''.  We don't even need to
+move to ``true for everything'', since we prove the inductive step for
+arbitrary n?  No, proof for arbitrary n is not same as proof for all;
+you have to make the inductive inference to get from the former to the
+latter.  So we need it too.
+
+What's our base case?  Refl?  Hmm, that would suggest that path
+induction is wrong, its missing the inductive step that we have
+articulated.
+
+Writers on HoTT (Ladyman?) say that the inductive step goes missing in
+path induction; we go straight from base case to generalization.  That
+makes no sense to me.
+
+The formal definition of HoTT weasels out of this be defining ind= as
+a primitive elimination rule.  But that sticks in my craw too; it just
+seems wrong to encode induction as an inference rule the way HoTT does
+it.  It should be structured just like the traditional inductions:
+base case, then inductive hypothesis, then generalization:
+
+\begin{itemize}
+\item Base case:  \(\reflAx{:}\,\reflTAx\to \reflAx{:}\,S^{x\circ_Ax}(\reflAx)\)
+\item Inductive hypothesis:  \(\preflTx\to p{:}\,R^{x\circ_Ax}(p)\) for arbitrary \(p\)
+\item Generalization:  \(\preflTx\to p{:}\,S^{x\circ_Ax}(p)\) for arbitrary \(p\)
+  %% \(S^{x\circ_Ax}(p)\) for all \(\preflTx\) and for all \(S\)
+\end{itemize}
+
+Critical move: defining \(S^{x\circ_Ax}(p) :\equiv (x\circ_Ax)\).  Is
+that kosher for all successors?  No, the successor type at p can be
+anything.  We need canonical reflexive successor:  \(\RXXP\).
+
+The problem is we have two variables: proofs of x=x, and successor
+types at those proofs.  To generalize over the latter we must use
+conditionals.
+
+Goal is to show that for arbitrary successor S, if S(p) for some
+p:x=x, then S(p) for all p:x=x.
+
+\begin{itemize}
+\item Base case:  \(\preflTx\to p{:}\,R^{x\circ_Ax}(p)\) for arbitrary \(p\)
+\item Inductive hypothesis: function from S(p) to ?? for some p?
+\item Generalization: function from S(p) to ?? for all p?
+  %% \(S^{x\circ_Ax}(p)\) for all \(\preflTx\) and for all \(S\)
+\end{itemize}
+
+
+\subsection{Recursion}
+
+%% https://en.wikipedia.org/wiki/Course-of-values_recursion
+
+\section{Construction and Co-construction}
+
+The standard presentation of intuisionistic/constructive mathematics
+says, in so many words, that you must be able to construct stuff.
+This means that if we think we have something but no means of
+constructing it, we're in trouble.  Case in point: equality proofs in
+HoTT.
+
+But the concepts of coinduction and bisimilarity suggest a more
+refined notion.  Construction builds up; co-construction builds down.
+If you can start at the base case and build your object using
+canonical constructors, you have a construction.  If you start at your
+object and ``build'' - that is, co-construct - a base case, then you
+have a co-construction.
+
+In other words, it is sufficient for constructivity to be able to get
+(co-) constructively from your object to a base case.  If you can do
+that, then you are working (co-)constructively, even if you have no
+method of constructing your object from the base case.
+
+This corresponds to the idea of ``hidden'' stuff addressed by
+bisimilarity.  In this case, the constructive form of the object is
+hidden; but since we can co-construct downwards we can infer that the
+object is indeed a construction even though we cannot ``see'' the
+construction.
+
+\begin{remark}
+  What I'm calling co-construction seems to be called ``observation''
+  by some authors.  Suggesting that we might think of elimination
+  rules as observational rules.  This makes sense; if we have
+  arbitrary \(x{:}\,A\), the elim rules tell us how it behaves, not
+  how it is constructed.
+\end{remark}
+
+\subsection{State Space v. Construction Space}
+
+Can we think of vars like \(x{:}\,A\) in terms of a (hidden) state
+space, by analogy with bisimulation?  We don't know how \(x\) was
+constructed, but we can ``observe'' it by using eliminators, etc.
+Instead of hidden state, hidden construction (structure).
+
+\section{Grounding Equality: Pragmatics of Fair Exchange}
 
 The task is to capture our ordinary intuitions about equality, just
 like Turing captured our intuitions about effective procedures.
 Similar: logical consequence.  So far nobody has managed to do for
-logical consequence what Turing did for effective procedure: provide
+logical consequence what Turing did for effective procedure:provide
 something formal that captures our ordinary intuitions.  Ditto for
 equality.  (TODO: quotes about problems with equality)
 
@@ -712,5 +1896,78 @@ that every token has identity, which is a predicate rather than a
 (reflexive) relation.
 
 Better: free tokenization.  tau-types are ``freely tokenized''.
+
+\section{Notes}
+
+The HoTT book seems to treat its Id/= type as special.  But there's
+nothing special about it; its one of infinitely many equality types
+whose properties derive entirely from the structure of the type
+theory, in particular the inductive structure of elements and
+successor types.
+
+``The key new idea of the homotopy interpretation is that the logical notion of identity a = b of two objects a, b : A of the same type A can be understood as the existence of a path... `` p. 3
+
+`` In type theory, for every type A there is a (formerly somewhat
+mysterious) type \(Id_A\) of identifications of two objects of A; ...''
+p. 4 I think this is not right; there is no special type Id.  There
+are families of relational types etc. and criteria for deciding when
+to call something reflexive, symmetric, etc.  So there are lots of
+equality types.
+
+Just as every relation has reflexivity types \(a\circ_A a\) which may
+or may not be inhabited, so they all have symmetry types \(p
+\circ_{\circ_A} q\) which may or may not be inhabited.  No, because we
+may not p and q.  We always have the types for which they are proofs,
+however; maybe we should try relating those.
+
+%% (p\ &\circ_{(x\circ_Ay)} p^{-1}){:}\,\Univ & \textit{---given \(p{:}(a\circ_A b),\  p^{-1}{:}(b\circ_A 
+
+\subsection{Inductions}
+
+Three kinds: mathematical, structural, transfinite.  What all have in
+common is forward progress.  Which is missing from path induction.
+Can we use successor induction to recover a notion of forward/upward
+progress for path induction?  We need a way to construe \(p{:}x\circ_A
+y\) as successor to \(\textsf{refl}_A(x){:}\,x\circ_A x\).
+
+Both refl and p have successor types.  Need to prove conditional: if
+tsucc(refl) then tsucc(p).  No way to do that, hence appeal to induction
+principle.
+
+Put it another way: if reflexivity types are inhabited, then so are
+symmetry pairs.  So symmetry pairs together ``look like'' reflexivity
+types.  Maybe their proofs are reflexive?
+
+But how to avoid circularity?  If reflexivity types are inhabited,
+then so are symmetry pairs -- but only for those symmetry pairs that
+are inhabited, not all of them.  Not 2=3 and 3=2, for example, but 2=x
+for all x equal to 2.
+
+Note refl works for both canonical and non-canonical x:A.
+
+\section{ST/FOL=}
+
+``ST/FOL='' = Set Theory/First Order Logic with Equality
+
+\subsection{Relations}
+
+In ST/FOL=, a binary relation is a subset of \(A\times B\), where
+\(A\) and \(B\) are sets.
+
+Given set \(X\) and binary relation \(\circ\) on \(X\times X\):
+
+\begin{itemize}
+\item \textit{Reflexivity:}\quad \(\forall x\in X\ x\circ x\)
+\item \textit{Symmetry:}\quad \(\forall x,y\in X\  (x\circ y)\leftrightarrow (y\circ x)\)
+
+  E.g. both \(\neq\) and \(=\) are symmetric, but only the latter is also reflexive and transitive.
+\item \textit{Transitivity:}\quad \(\forall x,y,z\in X\  (x\circ y)\land(y\circ z)\to (x\circ z)\)
+\item \textit{Equality:}\quad a binary relation is an equality ``='' iff it satisfies reflexivity, symmetry, and transitivity
+\item \textit{Anti-symmetry:}\quad \(\forall x,y\in X\  (x\circ y)\land(y\circ x)\to x=y\)
+
+  E.g. \(\leq\) is anti-symmetric.
+\end{itemize}
+
+\subsection{Axioms of Set Theory}
 
 \end{document}
