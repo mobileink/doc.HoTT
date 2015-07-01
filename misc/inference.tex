@@ -90,6 +90,322 @@ Restall, p. 106:
   \TrinaryInfC{\(X(A\lor B)\vdash C\)}
 \end{prooftree}
 
+\subsection{Construction and Coconstruction}
+
+Construction: start from nothing and build up.
+
+Coconstruction: start from something and build down?
+
+Every type has constructors (intro rules) and coconstructors (elim rules).
+
+For infinite streams: a constructor will look like (n, next), where
+next is a function such that next(n) \(\succ\) n.  Then head(n,next) =
+n, and tail(n,next) = (next(n), next).
+
+\begin{remark}
+FIXME: this is wrong.  For nat streams, we
+have \[\textsf{next}(\langle 2,3,\ldots\rangle) = \langle
+3,\ldots\rangle\] so by set inclusion: \(\langle
+2,3\ldots\rangle\succ\textsf{next}(\langle 2,3,\ldots\rangle)\).
+Which is exactly what we have for next on n:Nat when recurring down.
+\end{remark}
+
+\begin{remark}
+  Terminology: we have ``initial segment'', and if \(n\le m\) then the
+  initial segment at \(n\) is contained in (precedes) the initial
+  segment at \(m\).  The stream starting at \(n\) we will call the
+  ``co-initial segment at \(n\)'', and if \(n\le m\) then the
+  co-initial segment at \(n\) contains (succeeds) the co-initial
+  segment at \(m\), so the ordering is reversed.  In other words,
+  initial and co-initial segments are dual.
+\end{remark}
+
+For finite objects, e.g. naturals, we can do the same thing using a
+decreasing next, such that next(n) \(\prec\) n.  In this case, head(n,
+next) = n and tail(n, next) = (next(n), next) = (n-1, next).  (Of
+course we have to deal with the base case but that's a detail.)
+
+Thus the types Nat and Stream Nat are structurally the same for elim,
+the difference is in the meaning of the ``next'' function.  Which
+makes them dual?
+
+For construction, same duality.  For any n:Nat, we have S(n):Nat, with
+\(n\prec S(n)\); for any n:Stream Nat, we have tail(n):Stream Nat,
+with \(n\succ tail(n)\).  So tail is to Streams as S is for Nats.  In
+the latter case, we call S a constructor, in the former, we call tail
+a co-constructor; in both cases, we build something ``new'' from
+something we already have.
+
+Co-construction is sometimes construed as ``observation'', or better,
+experimentation: apply the ``stimulus'' tail to the sample s:Stream
+Nat and observe the result: tail(s):Stream Nat.  Of course we could
+also construe construction in the same way: treat S as the stimulus,
+apply it to a sample n:Nat, and observe the result: S(n):Nat.  In
+other words, the distinction between construction and observation that
+is often cited in writings on coinduction and bisimulation is not very
+revealing: construction can be construed as experimentation
+(stimulate-and-observe), and so can coconstruction.  It's really a
+matter of perspective.  Or perhaps the key distinction is where you
+start out and where you end up: with construction we start from
+nothing and build up indefinitely from a base case, or we start from
+something and build down to base case; with coconstruction we start
+with nothing and cobuild once from any seed (e.g (0,+1):Stream Nat),
+or we start from something and cobuild up indefinitely using the
+constructive method of the base case.
+
+Which implies that cobuilding starts with infinitely many base cases
+(``seeds'' and ``next'' functions), in contrast to building, which
+starts with finitely many base cases. (is this true?)  Which would
+make building a special case of cobuilding, with constant seeds and
+next functions.
+
+In any case, there are three basic aspects to induction/coinduction:
+
+\begin{itemize}
+\item Where you start out - ``base'' cases (finite v. infinite?)
+\item Where you end up - convergence (terminating proc) or divergence
+  (non-terminating proc)
+\item How you proceed - advancing (next(n) \(\succ\) n) or receding
+  (next(n) \(\prec\) n)
+\end{itemize}
+
+Different configurations of these three elements give different
+``principles''.  Induction: finite base cases, terminating proc,
+advancing constructor, receding recursor.  Coinduction: infinite base
+cases (?), non-terminating proc(?), etc.???
+
+\begin{remark}
+  Is tail for streams advancing or receding?  Do we have n\(\prec\)
+  tail(n) for streams?  Shouldn't it be the other way around?  The
+  stream at 2 contains the stream at 3, so it should be greater even
+  though it ``comes first''.  We have \(2\prec 3\), but (using
+  \(\langle a,\ldots\rangle\) to indicate the stream at \(a\)):
+  \(\langle 2,3,\ldots\rangle\succ\langle 3,\ldots\rangle\).
+  Conversely, the initial segment at \(2\) is contained in the initial
+  segment at \(3\).  Giving:
+\end{remark}
+
+\begin{itemize}
+\item \(\langle 0,1,2\rangle \subset \langle 0,1,2,3\rangle \to\langle 0,1,2\rangle\prec\langle 0,1,2,3\rangle\)
+\item \(\langle 2,3,\ldots\rangle\supset\langle 3,\ldots\rangle\to\langle 2,3,\ldots\rangle\succ\langle 3,\ldots\rangle\).
+\end{itemize}
+
+which implies that using tail on streams counts as ``building down'':
+even though the result is always another infinite object, next(s) is
+``less than'' s, since it is contained in it.  In other words, order
+is not based on cardinality but on ordinality (set inclusion).  This
+allows us to order infinities like streams.  (If \(\Nat\) qua ordinal
+is \(\omega\), then can we use the latter as the type of streams of
+Nats?)
+
+\begin{remark}
+  Does this really work?  Types involve both induction and
+  coinduction; either may advance or recede, etc.
+\end{remark}
+
+Recursion and corecursion are different from induction and
+coinduction.  Recursion uses decreasing ``tail'' and ends up at the
+base case; corecursion uses increasing tail and never terminates.
+That's the key difference, not construction v. observation.
+
+This means that so-called infinite objects like streams are
+constructive, they are implemented using a ``next'' function that
+allows is to construct the head of the stream as we go along.
+
+Just as Succ allows us to construct any n:Nat by running through any
+initial segment, constructing each element as we go, Tail allows us to
+(co-)construct the tail of any initial segment by running through
+initial segments, removing each element as we go, thus co-constructing
+as we go.
+
+Infinite data structures are special cases of coinduction.  In other
+words, coinduction works for finite as well as infinite data, just
+like induction does.
+
+\subsection{Introduction and Elimination rules as Translation}
+
+\begin{remark}
+  This really only works for sequent calculi.
+\end{remark}
+
+Example:
+
+\AxiomC{\(A\enspace\textvisiblespace\enspace B\)}
+\RightLabel{\(\land\)-\textsc{trans}\(\uparrow\)}
+\UnaryInfC{\(A\land B\)}
+\DisplayProof
+
+\medskip
+Here the \(\land\)-\textsc{trans} rule translates \textvisiblespace\ to
+\(\land\).  Informally, it takes \(A\) and \(B\) separately (read
+\(A\textvisiblespace B\) as ``\(A\) together with \(B\)'') and
+combines them into a unity \(A\land B\).
+
+
+\bigskip
+\quad\quad
+\AxiomC{\(A\land B\)}
+\RightLabel{\(\land\)-\textsc{trans}\(\downarrow^1\)}
+\UnaryInfC{\(A\)}
+\DisplayProof
+\quad
+\AxiomC{\(A\land B\)}
+\RightLabel{\(\land\)-\textsc{trans}\(\downarrow^2\)}
+\UnaryInfC{\(B\)}
+\DisplayProof
+
+\medskip
+It is less clear why we should treat elimination rules as involving
+translation.  In each case, what is eliminated is not only \(\land\)
+but also one of the conjuncts.  We can make this more explicit:
+
+\bigskip
+\quad\quad
+\AxiomC{\(A\land B\)}
+\RightLabel{\(\land\)-\textsc{trans}\(\downarrow^1\)}
+\UnaryInfC{\(A\enspace\textvisiblespace\enspace \_\)}
+\DisplayProof
+\quad
+\AxiomC{\(A\land B\)}
+\RightLabel{\(\land\)-\textsc{trans}\(\downarrow^2\)}
+\UnaryInfC{\(\_\enspace\textvisiblespace\enspace B\)}
+\DisplayProof
+
+\bigskip
+
+In the case of \(\to\)-\textsc{intro}, we can treat \(\to\)
+as the translation of the implicit inference from assumed \(A\) to
+\(B\).  Introducing \(A\to B\) ``discharges'' the assumption \(A\),
+but not the proof (inference) from that assumption to \(B\): the
+proposition \(A\to B\) remains dependent on that proof.
+
+In the case of \(\to\)-\textsc{elim} (\emph{modus ponens}), the
+translational interpretation is even more obscure.  The conclusion is
+simply \(B\):
+
+\medskip
+\AxiomC{\(A\to B\enspace\textvisiblespace\enspace A\)}
+\RightLabel{\(\to\)-\textsc{trans}\(\downarrow\)}
+\UnaryInfC{\(B\)}
+\DisplayProof
+
+\medskip
+A possible reading, using [\ldots] to indicate implicit stuff:
+
+\bigskip
+\AxiomC{\(A\to B\enspace\textvisiblespace\enspace A\)}
+\RightLabel{\(\to\)-\textsc{trans}\(\downarrow\)}
+\UnaryInfC{\([\_;A\vdash] B\)}
+\DisplayProof
+
+\medskip
+Here \(\to\) translates to \(\vdash\), and the pair of premises
+translates to an implicit structure (indicated by \(\_;A\)).
+
+Ok, that's a bit of a stretch.  Modus ponens is a little special:
+implicitly, at least, it involves a kind of interaction between the
+\(\to\) embedded in the major premise and the minor premise.  In other
+words, the major premise is not opaque in the way that the premises of
+say \(\land\)-\textsf{intro} are.
+
+Maybe we should say that \(\to\) and \textvisiblespace\ anihilate each
+other:
+
+\bigskip
+\AxiomC{\(A\enspace\textvisiblespace\enspace A\to B\)}
+\RightLabel{\(\to\)-\textsc{trans}\(\downarrow\)}
+\UnaryInfC{\([A\enspace\textvisiblespace\enspace A\to]\ B\)}
+\DisplayProof
+
+\subsection{Logical Constants as Inference Markers}
+
+Frapolli and Assimakaopoulus claim (based on relevance logics) that
+conjunction ``loses'' the conjuncts: ``propositions connected by a
+conjunction stop being independent pieces of information and become a
+single complex piece...the presence of `and' specifically excludes any
+interpretation in which the two conjoined propositions can be said to
+stand in any kind of relation.  Therefore, a fortiori, `and' cannot be
+seen as marking any kind of transition between the conjuncts, let
+alone a truth-preserving one.'' p. 636
+
+Two problems with this.  One is that it is easy to see the conjoints
+as standing in a relation of mutual material implication.  If we have
+\(P\land Q\), then we have \(P\leftrightarrow Q\).  The other problem
+is that there is no principled way to restrict this sort of
+interpretation to conjunction only.  The same considerations ought to
+apply to any binary operator, in particular to \(\to\).
+
+F and A give the following as an example backing up their claim about
+conjunction:
+
+\begin{enumerate}
+\item John fell.  He slipped on the we pavement.
+\item John fell and he slipped on the we pavement.
+\end{enumerate}
+
+The argument is that in 1) the second sentence is ``naturally''
+interpreted as an ``explanation'' of the first, but in 2) the second
+conjunct cannot be interpreted in that way.  This is obviously a very
+contestable interpretation of these sentences, but even if we let it
+stand, we can do the same with implication.  Using one of Brandom's
+favorite examples:
+
+\begin{enumerate}
+\item Pittsburgh is west of Princeton.  Princeton is east of Pittsburgh.
+\item If Pittsburgh is west of Princeton, then Princeton is east of Pittsburgh.
+\end{enumerate}
+
+In 1), the second sentence is ``naturally'' interpreted as following
+from the first, but in 2) it cannot be interpreted that way, since 2)
+is a hypothetical in which both propositions are embedded and neither
+is asserted.  Strictly speaking an implication does not contain a
+premise and a conclusion; it is a proposition, not an inference, so
+the second clause cannot be interpreted as a consequence of the first,
+\emph{unless} the first happens to be true.  That only happens under
+modus ponens.  So we can treat implication just as F and A treat
+conjunction, as a''single complex piece'' of information in which the
+embedded clauses cannot be separated so \(\to\) cannot be seen as a
+link between them.
+
+\begin{remark}
+  Most people would probably say that the second clause follows from
+  the first in the conditional sentence.  But that only works if you
+  first separate those clauses and make them independent sentences.
+  We might want to read the conditional as \emph{saying that} the
+  second clause \emph{would} follow from the first \emph{if} they were
+  both separated and the first asserted; but we would not want to read
+  it as \emph{showing} that, or as \emph{saying} (asserting) either
+  clause.  Therefore \(\to\) cannot be read as marking an inferential
+  link between actual (asserted) sentences.  On the other hand it
+  clearly seems to indicate a relation of some kind.  Maybe as marking
+  a schematic inferential license between sentence \emph{types}?
+\end{remark}
+
+\begin{remark}
+  Can we read conjunction as involving embedded sentences, and thus
+  explainable as a (bi-)conditional?  The natural way to read \(P\land
+  Q\) is probably to take it as asserting both \(P\) and \(Q\); but
+  strictly speaking this is not the case: what it asserts is the
+  \(\land\)-combination of \(P\) and \(Q\); it does not assert the
+  conjuncts separately.  That's what \(\land\)-elimination is for.
+\end{remark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Consequence, Implication, Inference}
+
+Logical v. material.
+
+\(P\models Q\) :  logical consequence.  Q follows P of logical necessity.
+
+\(P\to Q\) : material implication.  Q follows P of material (local) necessity.
+
+Material implication is so-called because it depends on particular
+interpretations?  You must derive material implication by assuming P
+and then proving Q, so the implication depends in each case on what P
+and Q mean.  Logical consequence is not derived, at least not
+model-theoretic logical consequence, and it does not matter what P and
+Q are.  In other words we do not infer logical consequence.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Proof}
 
