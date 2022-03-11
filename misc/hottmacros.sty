@@ -1,8 +1,9 @@
-\ProvidesPackage{mymacros}[2011/02/23 v1.0 My own macros]
+\ProvidesPackage{hottmacros}[2011/02/23 v1.0 My own macros]
 
 \usepackage[fleqn]{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{stackengine}
 
 \usepackage{titlesec}
 \usepackage[linktoc=all]{hyperref}
@@ -14,15 +15,84 @@
     urlcolor=blue
 }
 
+\newcommand{\ML}{Martin-Löf}
+
 \newcommand{\Univ}{\mathcal{U}}
 \newcommand{\PU}{\mathcal{P:U}}
+
+%% Vernacular structure connectors
+\newcommand{\structor}{\ensuremath{\reflectbox{;}}\,}
+\newcommand{\choice}{\ensuremath{\epsilon}}
+%% russel's reverse iota
+\newcommand{\riota}{\ensuremath{\iota}}
+%% \newcommand{\riota}{\ensuremath{\rotatebox[origin=c]{180}{\iota}}}
+
+%% Inference types
+% type inference
+\newcommand{\tso}{\ensuremath{\vdash_{\tau}}}
+% sequent inference
+\newcommand{\sso}{\ensuremath{\vdash_{\sigma}}}
+% proof inference
+\newcommand{\pso}{\ensuremath{\vdash_{\pi}}}
+
+%% Sequent connectors
+\newcommand{\seqso}{\ensuremath{\vdash}}
+\newcommand{\seqand}{\ensuremath{\scriptscriptstyle\barwedge\ }}
+\newcommand{\seqor}{\ensuremath{\scriptscriptstyle\veebar\ }}
+%% \newcommand{\seqand}{\ensuremath{\filledtriangleup\ }}
+%% \newcommand{\seqor}{\ensuremath{\filledtriangledown\ }}
+
+%% LK
+\newcommand{\lkand}{\ensuremath{\land}}
+\newcommand{\lkor}{\ensuremath{\lor}}
+\newcommand{\lkso}{\ensuremath{\rightarrow}}
+\newcommand{\lkneg}{\ensuremath{\neg}}
+
+%% LL
+\newcommand{\llnil}[1]{\ensuremath{#1^{\bot}}}
+
+\newcommand{\nil}[1]{\ensuremath{#1^{\bot}}}
+\newcommand{\Nil}{\ensuremath{(\cdot)^{\bot}}}
+\newcommand{\nilnil}[1]{\ensuremath{#1^{\bot\bot}}}
+\newcommand{\lollipop}{\ensuremath{\multimap}}
+
+\newcommand{\ofcourse}{\ensuremath{!}}
+\newcommand{\whynot}{\ensuremath{?}}
+
+\newcommand{\xand}{\ensuremath{\barwedge}}
+\newcommand{\addand}{\ensuremath{\barwedge}}
+
+\newcommand{\xor}{\ensuremath{\veebar}}
+\newcommand{\addor}{\ensuremath{\veebar}}
+
+
+\newcommand{\fission}{\ensurestackMath{\stackon[-2.5pt]{\lor}{.}}}
+\newcommand{\fusion}{\ensurestackMath{\stackon[-6.5pt]{\land}{.}}}
+%% {%
+%%   \ensurestackMath{\stackon[-7pt]{\wedge}{\scriptscriptstyle\wedge}}}
+
+\newcommand{\Vect}{\ensuremath{\mathsf{Vec}}}
+\newcommand{\ContextG}{\ensuremath{\Gamma\ }}
+\newcommand{\ContextD}{\ensuremath{\Delta\ }}
+\newcommand{\ContextL}{\ensuremath{\Lambda\ }}
+\newcommand{\ContextP}{\ensuremath{\Pi\ }}
+\newcommand{\ContextS}{\ensuremath{\Sigma\ }}
+\newcommand{\ContextT}{\ensuremath{\Theta\ }}
+
+%% TODO: need \ruleor to merge rules
+
+\newcommand{\semantic}[1]{\ensuremath{\llbracket #1\rrbracket}}
+
+\newcommand{\PinfQ}{\ensuremath{P\vdash Q\ }}
+\newcommand{\PimplQ}{\ensuremath{P\rightarrow Q\ }}
+
 
 \newcommand{\Pixy}{\prod\limits_{(x,y:A)}}
 \newcommand{\Pipxy}{\prod\limits_{(p:x=_Ay)}}
 
 \newcommand{\Cxyp}{C\colon\prod\limits_{(x,y:A)}(x=_Ay)\to\Univ}
 \newcommand{\cxyp}{C\colon\Pi_{(x,y:A)}(x=_Ay)\to\PU}
-\newcommand{\Cxyu}{C{:}\prod\limits_{(x,y:A)}(x=_Ay)\to\Univ}
+\newcommand{\Cxydu}{C{:}\prod\limits_{(x,y:A)}(x=_Ay)\to\Univ}
 \newcommand{\cxyu}{C{:}\Pi_{(x,y:A)}(x=_Ay)\to\Univ}
 
 \newcommand{\SXYPT}{S^{\circ_A}\colon\prod\limits_{(x,y:A)}\prod\limits_{p{:}(x\circ_Ay)}{:}\,\Univ}
@@ -42,9 +112,7 @@
 \newcommand{\Unit}{\textsf{Unit}}
 \newcommand{\UnitA}{\textsf{Unit}^A}
 
-\newcommand{\refl}[1]{\textsf{refl}^#1}
-%% \newcommand{\reflA}{\textsf{refl}^A}
-
+\newcommand{\refl}[1]{\textsf{refl}_#1}
 \newcommand{\reflA}{\textsf{refl}^A}
 \newcommand{\reflAx}{\textsf{refl}^A(x)}
 \newcommand{\reflAa}{\textsf{refl}^A(a)}
@@ -110,7 +178,8 @@
 \newcommand{\rlambda}{\reflectbox{\lambda}}
 
 \newcommand{\Nat}{\mathbb{N}}
-
+\newcommand{\Id}[3]{\mathsf{Id}_{#1}(#2,#3)}
+\newcommand{\Eq}[3]{#2=_{#1}#3}
 
 \theoremstyle{remark}
 \newtheorem{remark}{Remark}
