@@ -3329,7 +3329,7 @@ If ? is (De Morgan) dual !, what does ``not(usage but not consumption)'' mean?
   \textit{actualizing} this potentiality [i.e. of \nil{A}] : erasing
   (weakening), making a single copy (dereliction), duplicate ... the
   machine (contraction).}
-\section{Equality \& Identity}
+\section{Definition, Identity, \& Equality}
 
 \paragraph{Plan of attack \\}
 
@@ -3406,8 +3406,94 @@ Our technical ``equality'' need not correspond to ordinary equality,
 and may even be very different. But the former should at least subsume
 the latter, if only to justify use of the same word.
 
-\subsection{Identity}
+\subsection{Definition}
 
+In formal languages, definitions express binding, not equality.
+
+Definitions do not express propositions. Since equations express
+propositions, it follows that definitions cannot express equations,
+and so cannot express equality.
+
+Propositions may be asserted. Linguistically, assertion is in the
+indicative mood. This is true even for ``modal'' propositions
+expressing necessity or possibility.
+
+Definitions cannot be asserted. The functional role of definitions is
+to set the rules of the game, and in doing so they express a kind of
+\textit{deontic conditional}\footnote{Note that ``deontic'' already
+implies a kind of conditionality; obigation is always conditional on
+obligee's willingness to accept the obligation.}: \textit{if} you want
+to play the game, \textit{then} you are \textit{obligated} follow the
+rules. If you don't follow the rules, then - by definition - whatever
+it is you do do will not count as playing the game.
+
+Thus definitions can only be uttered in the \textit{deontic mood},
+expressing a normative rule. Definitions may have grammatical form of
+other kinds of utterance:
+
+\begin{itemize}
+\item Imperative: ``Define f = sqrt''
+\item Optative: ``Let  f = sqrt''
+\item Indicative: ``By definition, f = sqrt''
+\end{itemize}
+
+But grammatical form is notoriously deceiving. What all three of these
+forms express is a rule that players are obligated to follow if they
+want to be counted as playing the game.
+
+Definitions often do include equational forms, as in the examples
+above; they may even be expressed \textit{as} equations. For example,
+a paper might have a section entitled ``Definitions'', containing a
+list of equations (statements). But that is mere convention, an
+(acceptable) abuse of notation. What the definitions express in spite
+of their form are deontic conditionals: rules of the game.
+
+Aside from this argument from grammatical mood, there is a more
+substantial argument from semantics against definition-as-equation (at
+least in formal languages). The \textit{definiendum} of a definition
+has no free-standing denotation; indeed the very purpose of the
+definition is to give it such a denotation. But in order for an
+equation to be meaningful the symbols on both sides of the equals sign
+must denote. The proposition \(x = sqrt(2)\) is meaningless if \(x\)
+is free. It follows that \textit{defining} x by writing \(x :=
+sqrt(2)\) does not involve finding a proof that \(x = sqrt(7)\). We
+may \textit{read} it that way, e.g. ``Let x be defined by the equation
+\(x = sqrt(7)\)''; but what that really means is ``Let x be bound to a
+value such that \(x = sqrt(7)\) is true'', which in turn entails(?)
+that \(x\) \textit{should} be bound to whatever \(sqrt(7)\) is bound
+to.
+
+\subsubsection{The Doctrine of Judgmental Equality}
+
+And it is a doctrine, not a theory or definition.
+
+It follows that ``judgmental equality'' as defined by Martin-Löf is
+incoherent. If \(a=b:A\) expresses a judgment, then it cannot also
+express an equality; if it expresses an equality, then it cannot be a
+definition.
+
+What it expresses can be stated clearly in terms of binding. \(a=b:A\)
+expresses a rule of the (local) game, that \(a:A\) and \(b:A\) must be
+bound to the same value in the game (of reasoning or programming)
+under way; and that in turn expresses an obligation that players of
+the game (such as compilers) must agree to. If you do not want to bind
+yourself to that obligation, then you are not playing the game, and
+you have no right to complain if things do not turn out the way you
+expect. If you decide to bind \(a\) and \(b\) to different values (or
+different types), your program may break, and if it does it will be
+your fault.
+
+This means that sentences in the HoTT book containing ``judgmental
+equality'' or ``definitional equality'' are effectively meaningless.
+Those expressions are not just misleading, or even wrong; they are
+meaningless. So to restore meaning, we need to reinterpret these
+expressions.
+
+``Judgmental'' must be discarded; definitions are not judgments.
+
+Definitional binding?
+
+\subsection{Identity}
 Every thing has an identity, and every thing is identical to itself.
 
 Identicality is a relation. Reflexivity is the identicality relation
@@ -3453,16 +3539,92 @@ Dyadic types (like all types) are individuated by their introduction
 and elimination rules: token constructors for inductively defined
 types, and co-constructors for co-inductively defined types. Since we
 want an inductive definition of our \(\textsf{Id}\) types, the next
-task is to define constructors. The first constructor for equality is
-easy: since every value is equal to itself, we define a constructor to
-express reflexivity:
+task is to define constructors.
+
+The first constructor for equality is easy: since every value is equal
+to itself, we define a constructor to express reflexivity:
 
 \begin{align}
   & a:A\vdash\textsf{refl}_a: a=_Ab
 \end{align}
 
+That gives us a definition for a subset of the \(\textsf{Id}\) family,
+types of the form \(a=_A a\). This is analogous to defining
+\(\textsf{Z}: \Nat\) for the natural numbers. For \(\Nat\), our next
+task would be to define the remaining numbers, which we would do by
+defining the successor constructor, \(n:\Nat\vdash \textsf{S}n:\Nat\).
+But for equality we have a unique type for each pair \(a,b\), so we
+need to define a constructor for each such type. Note that we need a unique
+type for each pair of tokens, whether we use induction or coinduction.
+[We are not defining a generic equality type; we're not treating
+  equalities like \(a=b\) as proofs of a global equality type. TODO:
+  why not?]
+
+So our next step, following the example of \(\Nat\), is to define the
+analog to the successor constructor. This is the pattern for all
+inductive definitions: start by defining the \textit{base case(s)}
+(here, \(\textsf{refl}_a\)), and then define the \textit{inductive
+  step} (sometimes call the \textit{inductive hypothesis} or similar).
+The inductive step always involves an assumption (or ``hypothesis'') -
+e.g. ``assume \(n\) has type \(\Nat\)'' - and then derives (infers,
+constructs) a new value from that assumed value: ``then it follows
+that \(\textsf{S}n\) has type \(\Nat\)''.\footnote{Note that the
+inductive step may be expressed logically, as an inference rule, or
+mathematically, as a function.}
+
+The problem is it is not possible to define an inductive step for
+equality. It does not make much sense intuitively; there does not seem
+to be any kind of order on the \textsf{Id} family of types, so there's
+no \textit{formal} way to express a relation from one to another. In
+other words, there is no way to express \(p:a=_A b\) as a function of
+an assumed \(q:x=y\). We do have \(\textsf{refl}_a:a=_A a\), which
+looks like a base case, but there is no analog to the successor
+operation that is characteristic of mathematical induction.
+
+The HoTT Book addresses this by arguing that ``path induction'' is a
+genuine form of induction. The core argument is expressed in terms of
+sufficiency: the base case is ``sufficient'' for path induction, so
+the inductive step is not needed. We will argue below that this
+argument is unconvincing, but for now let's assume that it is valid.
+We can ignore the technical details and just assume that path
+induction gives us a constructed inhabitant of each \(a=_A b\) type.
+More specifically, path induction constructs each \(p:a=_A b\) by
+induction from the base case \(\textsf{refl}_a:a=_A a\). That's the
+claim.\footnote{On the other hand: \textquote[\cite{hottbook} 80q]{It
+  is important to note that not all identity types can be “determined”
+  by induction over the construction of types.}}
+
+So with \(\textsf{refl}_a\) and path induction we have a constructed
+witness for each type in the \textsf{Id} family. That serves to
+individuate the members of the family, but it is not sufficient to
+capture the semantics of equality. So far the \textsf{Id} types are
+just like any other dyadic types that have a single constructor.
+
+In fact, we can define as many type families of this form as we like.
+For example, just change \(\textsf{Id}\) to \textsf{Foo}, and change
+\(\textsf{refl}_a\) to \(\textsf{bar}_a\). This gives us a
+\textsf{Foo} family that is indisinguishable from the \textsf{Id}
+family except for their (arbitrary) names. But that is enough to make
+them distinct types, and we do not (so far) have any reason to think
+they are the same, that is, to think that the \textsf{Id} family is
+unique.
+
+\textquote[\cite{hottbook} 154]{If we have an inductively defined type \(W\), say, and some other type \(W′\) which satisfies the same induction principle as \(W\), then it follows that \(W ≃ W′\), and hence \(W = W\)}
+
+Is this enough to show that \textsf{Id} is unique? I don't think so.
+Univalence is about types, \textsf{Id} is a family of types. So the
+question becomes whether \(\textsf{Id}(A,a,b)\) and
+\(\textsf{Foo}(A,a,b)\) satisfy the same induction principle. But the
+more basic problem is that equalities are not inductively defined,
+they're codefined by co-induction.
+
+ We have reflexivity, but we have
+neither symmetry nor transitivity.
+
+\paragraph{Summary}
 An inductive definition of equality would entail the following
 debatable propositions:
+
 
 \begin{enumerate}
 \item Symmetry and Transitivity are theorems. This clashes with the
@@ -3470,7 +3632,7 @@ debatable propositions:
 \item The equality relation is not unique.
 \end{enumerate}
 
-\subsubsection{HoTT Equality}
+\subsubsection{HoTT Equality - Critique}
 
 The HoTT book argues that HoTT equality is defined by induction. This
 is wrong. The family of equality types is defined inductively, but the
@@ -3504,6 +3666,10 @@ the form \(f(x,y,p\) where \(p:x=y\). And you cannot give a total
 definition of a function by specifying only ``what the value should be
 when'' for a subset of its domain.
 
+Problem is that definition is not a species of equality. We use the
+equals sign to express definitions, but that does not mean that
+equality is involved. It could just be an abuse of notation.
+
 The HoTT book tries to finess this by appealing to the ``path
 induction'' principle. But that suffers from exactly the same defect:
 it merely \textit{declares} that a partial definition of a function is
@@ -3526,6 +3692,61 @@ misses the mark. That does not mean that HoTT is broken, though. It
 still works, because coinduction (which is can explain equality, see
 \ref{codef_eq}) works, and the HoTT machinery gets the right results.
 The problem is in the explanation offered by the HoTT book.
+
+But:
+
+\textquote[\cite{hottbook} 102]{[O]ur identity types are those that
+  belong to intensional type theory, rather than extensional type
+  theory. In general, a notion of equality is said to be “intensional”
+  if it distinguishes objects based on their particular definitions,
+  and “extensional” if it does not distinguish between objects that
+  have the same “extension” or “observable behavior”. In the
+  terminology of Frege, an intensional equality compares sense, while
+  an extensional one compares only reference.}
+
+Two problems. ``Intensional'' and ``definition'' don't really match,
+and Equating ``extension'' and ``observable behavior'' seems so very
+wrong.  This passage is not wrong so much as weak.
+
+\textquote[\cite{hottbook} 102]{Intensional type theory is so named
+  because its judgmental equality, \(x ≡ y\), is a very intensional
+  equality: it says essentially that \(x\) and \(y\) “have the same
+  definition”, after we expand the defining equations of functions. By
+  contrast, the propositional equality type \(x = y\) is more
+  extensional, even in the axiom-free intensional type theory of
+  Chapter 1: for instance, we can prove by induction that \(n + m = m
+  + n\) for all \(m\), \(n : \Nat\), but we cannot say that \(n + m ≡
+  m + n\) for all \(m, n : \Nat\), since the definition of addition
+  treats its arguments asymmetrically.}
+
+So we cannot infer \(x ≡ y\) from \(x = y\). that makes sense.
+
+I don't think intensional equality is captured by the idea ``same
+definition''. There is no definition involved in observing that
+\(1+4\) and \(2+3\) are intensionally distinct (not identical). Seems
+better to say that definitional equality expresses synonymy. Not that
+two distinct things have the same definition, but that two distinct
+names have the same denotation. Or are inter-substitutional.
+
+Some of the confusion arises from the conflation of equality and
+identity.
+
+\textquote[\cite{hottbook} 103]{As mentioned before, extensional type
+  theory includes also a “reflection rule” saying that if \(p : x =
+  y\), then in fact \(x ≡ y\). Thus extensional type theory is so
+  named because it does not admit any purely intensional equality: the
+  reflection rule forces the judgmental equality to coincide with
+  the more extensional identity type. Moreover, from the reflection
+  rule one may deduce function extensionality (at least in the
+  presence of a judgmental uniqueness principle for functions).
+  However, the reflection rule also implies that all the higher
+  groupoid structure collapses (see Exercise 2.14), and hence is
+  inconsistent with the univalence axiom (see Example 3.1.9).
+  Therefore, regarding univalence as an extensionality property, one
+  may say that intensional type theory permits identity types that are
+  “more extensional” than extensional type theory does.}
+
+Agree with this.
 
 \subsection{Helical Equality}
 
