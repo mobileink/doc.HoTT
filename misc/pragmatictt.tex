@@ -2,6 +2,12 @@
 
 \usepackage{hottmacros}
 
+%% load fonts before fontspec
+\usepackage{MnSymbol}
+\usepackage{stmaryrd}
+\usepackage{unicode-math}
+\usepackage{cmll}
+
 %% \usepackage{xltxtra,xunicode}
 \usepackage{fontspec}
 \defaultfontfeatures{Scale=MatchLowercase}
@@ -16,16 +22,13 @@
 %% \setromanfont[Mapping=tex-text]{TeX Gyre Pagella}
 %% \setsansfont[Mapping=tex-text]{TeX Gyre Heros}
 
+%% \setoperatorfont{rmfamily}
+
 \newfontfamily\greekfont[Scale=MatchLowercase]{Lucida Grande}
 
 \usepackage{polyglossia}
 \setmainlanguage{english}
 \setotherlanguage{greek}
-
-\usepackage{MnSymbol}
-\usepackage{stmaryrd}
-\usepackage{unicode-math}
-\usepackage{cmll}
 
 \usepackage[
 bibstyle=authoryear,
@@ -60,7 +63,7 @@ hyperref,bibencoding=utf8,backref=true,backend=biber]{biblatex}
 }
 
 \usepackage{pgfplots,tikz}
-\usetikzlibrary{decorations.markings,arrows,backgrounds}
+\usetikzlibrary{decorations.markings,arrows.meta,backgrounds}
 %% \usetikzlibrary{arrows,shapes,patterns,backgrounds,spy}
 \pgfplotsset{compat=newest}
 \usepackage{amsmath}
@@ -71,17 +74,25 @@ hyperref,bibencoding=utf8,backref=true,backend=biber]{biblatex}
 \setlength\epigraphwidth{.5\textwidth}
 
 \usepackage{csquotes}
+\newenvironment*{smallquote}
+  {\quote\sffamily\slshape}
+  {\endquote}
+\SetBlockEnvironment{smallquote}
+
 %% \setquotestyle
 \usepackage{titlesec}
 \usepackage{bussproofs}
+%% \usepackage[]{prftree}
 \usepackage{turnstile}
 \usepackage{changepage}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{float}
 
-\floatstyle{boxed}
-\restylefloat{figure}
+%% \floatstyle{boxed}
+%% \restylefloat{figure}
+
+\renewcommand{\mktextquote}[6]{#1\sffamily\slshape #2#4#3#6#5}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -131,11 +142,11 @@ TODO: use \(\supset\) for implication, \(\rightarrow\) for function.
   to semantic structure.
 \item Corner quotes: \(\ulcorner a\urcorner\) to disambiguate
   reference to syntax.
-\item Syntactic entailment: \(\vdash\)
-\item Particular entailment: \(\vdash_\alpha\) or
+\item Syntactic entailment: \(\linfer\)
+\item Particular entailment: \(\linfer_\alpha\) or
   \(\sststile{\alpha}{}\). E.g. \(A;B\sststile{\land}{}{A\land B}\).
   Another example: \(\Gamma\sststile{(a,b)}{=}{p:A\times B}\) for
-  \(\Gamma\vdash p=(a,b):A\times B\).
+  \(\Gamma\linfer p=(a,b):A\times B\).
 \item Semantic entailment: \(\models\), \(\sdtstile{}{}\) (Ebbinghaus also uses this for the satisfaction relation)
 \end{itemize}
 
@@ -148,7 +159,7 @@ knowledge.
 And, when the relation between judgement, or assertion, if you prefer,
 and knowledge is understood in this way, \textbf{logic itself is
   naturally understood as the theory of knowledge}, that is, of
-demonstrative knowledge, Aristotle’s \textgreek{ἐπιστὴμη ἀποδειχτιχή}.
+demonstrative knowledge, Aristotle’s {\greekfont{ἐπιστὴμη ἀποδειχτιχή}}.
 Thus logic studies, from an objective point of view, our pieces of
 knowledge as they are organized in demonstrative science, or, if you
 think about it from the act point of view, it studies our acts of
@@ -235,19 +246,19 @@ agent.
 And from ``appropriate response'' we can move to ``logical
 implication''.
 
-For ``appropriate response'', use \(\vdash\); for conditionality,
+For ``appropriate response'', use \(\linfer\); for conditionality,
 \(\rightarrow\).
 
 Hmm, conditionality is already there in appropriateness? Compare
 
 \begin{align}
- & \text{B \textit{is responsive to} A}\hskip2em A\vdash B \\
+ & \text{B \textit{is responsive to} A}\hskip2em A\linfer B \\
  & \text{\textit{if} A, \textit{then} B}\hskip2em A\rightarrow B
 \end{align}
 
 Take ``is responsive'' as ``responds appropriately''.
 
-Read \(A\vdash B\) as ``The claim B is responsive to the claim A''.
+Read \(A\linfer B\) as ``The claim B is responsive to the claim A''.
 That is, responsivity here is about assertion. But conditionals do not
 assert their components, so the move from responsivity to inference is
 the move from actual appropriate assertion to conditionally
@@ -276,7 +287,7 @@ did we get to the concept of inference in the first place? Answer: we
 can respond appropriately even before we have a concept of inference.
 
 
-We're using \(\vdash\) as the inference operator. Or we could call it
+We're using \(\linfer\) as the inference operator. Or we could call it
 the consequence or entailment etc. op. In every presentation of logic
 I've ever seen, the same symbol is used for all inferences. In
 particular, for the intro rules of standard set of logical operators.
@@ -298,9 +309,11 @@ E.g. \(\sststile{\land}{}\), \(\sststile{\lor}{}\),
 additional functionality (``modality''?) to the consequence symbol.
 For example, compositionality would have it that \(\land\) contributes
 a ``mode of combining'' or similar to the composite \(A\land B\). But
-if we have \AxiomC{$\ContextG\vdash a:A$} \AxiomC{$;$}
-\AxiomC{$\ContextG\vdash b:B$} \TrinaryInfC{$\ContextG\vdash(a,b):
-  A\times B$} \DisplayProof then we are not compelled to think the
+if we have
+%% \AxiomC{$\ContextG\linfer a:A$} \AxiomC{$;$}
+%% \AxiomC{$\ContextG\linfer b:B$} \TrinaryInfC{$\ContextG\linfer(a,b):
+%%   A\times B$} \DisplayProof
+then we are not compelled to think the
 conclusion is a composite of a:A and a:B. Precisely, \(\llbracket
 (a,b): A\times B\rrbracket\) need not be a composite just because
 \(\ulcorner (a,b): A\times B\urcorner\) is. Even it it is composite,
@@ -311,12 +324,12 @@ do not need to produce a:A and b:B from the context as intermediates.
 
 So we can write
 
-\begin{prooftree}
-\AxiomC{$\Gamma\vdash a:A$}
-\AxiomC{$;$}
-\AxiomC{$\Gamma\vdash b:B$}
-\TrinaryInfC{$\Gamma\vdash p=(a,b): A\times B$}
-\end{prooftree}
+%% \begin{prooftree}
+%% \AxiomC{$\Gamma\linfer a:A$}
+%% \AxiomC{$;$}
+%% \AxiomC{$\Gamma\linfer b:B$}
+%% \TrinaryInfC{$\Gamma\linfer p=(a,b): A\times B$}
+%% \end{prooftree}
 
 and our inference is not merely to \((a,b):A\times B\), but to
 something equal to that. Which means that that conclusion cannot be
@@ -341,12 +354,12 @@ gives a lambda expression for a function type.
 
 Or:
 
-\begin{prooftree}
-\AxiomC{$\Gamma\sststile{\alpha}{}a:A$}
-\AxiomC{$;$}
-\AxiomC{$\Gamma\sststile{\beta}{}b:B$}
-\TrinaryInfC{$\Gamma\sststile{\alpha,\beta}{} p=(a,b): A\times B$}
-\end{prooftree}
+%% \begin{prooftree}
+%% \AxiomC{$\Gamma\sststile{\alpha}{}a:A$}
+%% \AxiomC{$;$}
+%% \AxiomC{$\Gamma\sststile{\beta}{}b:B$}
+%% \TrinaryInfC{$\Gamma\sststile{\alpha,\beta}{} p=(a,b): A\times B$}
+%% \end{prooftree}
 
 This is intended to capture the notion that, if we want to produce
 output equal to (a,b) we will still need the inputs that would produce
@@ -468,7 +481,7 @@ Smokey mountains, then we can get to ``A is west of B, so B is east of
 A''. That's a material inference \textit{rule}, in that it depends on the
 meanings of ``east'' and ``west''.
 
-But we cannot take the next step, to fully general logical \(A\vdash
+But we cannot take the next step, to fully general logical \(A\linfer
 B\). Material inference does not give us logical implication, because
 the former is not equivalent to ``not A or B''. So material inference
 can only give us genuine material implication, where B follows from A
@@ -490,7 +503,7 @@ moving beyond material inference. It would need a way to make
 practical sense of inferring B from A in the absence of a content-based
 material relation between the two.
 
-Once the propriety of ``if A, then B'' (\(A\vdash B\)) is in place, we can replace ``so''
+Once the propriety of ``if A, then B'' (\(A\linfer B\)) is in place, we can replace ``so''
 with ``if...then''. Of course there would be not point in doing so if
 we could not also generalize:
 
@@ -736,29 +749,29 @@ inference entitles one to a commitment to the conclusion, provided
 commitment to the premises. To assert X is valid (where X is an
 inference) is to endorse the inference (vouch for its validity).
 
-Is \(P\vdash Q\) a proposition? A logical proposition? It looks like
+Is \(P\linfer Q\) a proposition? A logical proposition? It looks like
 the answer must be ``no'' in both cases. What it expresses is an
 inference, and an inference is not a proposition. Remember that ``P is
 true'' (where P is a proposition) expresses (and asserts) the
 proposition P, but ``X is good'' (where X is an inference) does not
 express X as a proposition.
 
-But wait. We can gloss \(P\vdash Q\) as ``\(P\) entails \(Q\)'', which
+But wait. We can gloss \(P\linfer Q\) as ``\(P\) entails \(Q\)'', which
 is a proposition, and it makes sense to say that it is true. What's
 the difference between it and \(P\rightarrow Q\)? That the latter is a
-conditional and the former is unconditional? \(P\vdash Q\) expresses
+conditional and the former is unconditional? \(P\linfer Q\) expresses
 as actual inference, whereas \(P\rightarrow Q\) expresses an inference
 license. That's not very convincing.
 
 And if we insist that \(P\rightarrow Q\) expresses the material
-inference from P to Q, and that \(P\vdash Q\) expresses that material
+inference from P to Q, and that \(P\linfer Q\) expresses that material
 inference? We do not want to say they are equal, surely. They must be
 different ``modes'' of expression?
 
 The essential difference must be that \(P\rightarrow Q\) does not in
 fact express an inference; it must rather express something else, such
 as goodness of inference, or license to infer, or endorsement of the
-inference, or something. That \(P\vdash Q\) expresses inference OTOH
+inference, or something. That \(P\linfer Q\) expresses inference OTOH
 seems unproblematic.
 
 The solution: \textbf{implication expresses not inference, but
@@ -767,16 +780,16 @@ not just that it is true, but that the inference \PinfQ is good.
 So the \textbf{logic-entry inference from material inference to
   material implication is justified not just by the inference but by
   its goodness} ``preserves'' validity by converting it to truth: if
-\(P\vdash Q\) is valid, then \(P\rightarrow Q\) is true. Asserting
-\(P\rightarrow Q\) converts its truth back to validity of \(P\vdash
+\(P\linfer Q\) is valid, then \(P\rightarrow Q\) is true. Asserting
+\(P\rightarrow Q\) converts its truth back to validity of \(P\linfer
 Q\).
 
 (This looks like a restatement of the Deduction Theorem, but since it
 precedes the formal statement of the theorem, it's a justification
 rather than a restatement of it.)
 
-Then we also need the idea that \(P\vdash Q\) expresses not just the
-inference but its goodness? Which would suggest that \(\vdash\)
+Then we also need the idea that \(P\linfer Q\) expresses not just the
+inference but its goodness? Which would suggest that \(\linfer\)
 expresses not mere inference but good inference. What makes a material
 inference good is at base a matter of normative practice. So formally
 ``valid inference'' is redundant, but prelogically it is not, since we
@@ -786,7 +799,7 @@ inference'', since we can mistakes and misunderstand concepts.
 
 later: goodness of material inference => validity of logical inference
 
-If \(P\rightarrow Q\) is just another way of saying \(P\vdash Q\),
+If \(P\rightarrow Q\) is just another way of saying \(P\linfer Q\),
 then why bother? We cannot express anything with it that we cannot
 express without it, so what is the point of introducing it? I think
 the answer is practical: we don't need it, but we want it because it
@@ -798,11 +811,11 @@ asserting that \PimplQ is true.
 (The facile answer is that we already have a complete logical language
 that includes \(\rightarrow\), so we need to account for it. But that
 begs the question. If we did not already have such a language, why
-would we introduce \(\rightarrow\) once we've introduced \(\vdash\)?
+would we introduce \(\rightarrow\) once we've introduced \(\linfer\)?
 What problems does it solve?)
 
 We could elaborate a different logical language that includes
-\(\vdash\) but excludes \(\rightarrow\). What would that look like?
+\(\linfer\) but excludes \(\rightarrow\). What would that look like?
 Presumably \(\rightarrow\) would make it easier to express some
 things.
 
@@ -816,14 +829,14 @@ single \textit{logical} proposition. Then we can say that \PimplQ is
 true (which means that \PinfQ is valid). This also allows us to use it with
 propositional variables; for example, A could stand for a proposition
 that uses any number of \(\rightarrow\) instances; then we can say
-simple ``A is true''. We cannot do this with \(\vdash\), since
-expressions like \(P\vdash Q\) are not (logical) propositions. (They
+simple ``A is true''. We cannot do this with \(\linfer\), since
+expressions like \(P\linfer Q\) are not (logical) propositions. (They
 are, however, meta-logical propositions). That's just due to the way
 we have designed our logical language(s).
 
 Furthermore: we have an introduction rule for \(\rightarrow\) but not
-for \(\vdash\). So we can introduce \(\rightarrow\) by starting with
-other logical propositions be we cannot do that with \(\vdash\), since
+for \(\linfer\). So we can introduce \(\rightarrow\) by starting with
+other logical propositions be we cannot do that with \(\linfer\), since
 it is not a logical operator. [TODO: flesh this out]
 
 \subsection{Notation}
@@ -912,19 +925,19 @@ inference to logical material implication - explicit, we need a way to
 make its premise explicit; that is, we need a way of directly
 expressing material inference, a way that furthermore does not rely on
 inference. Fortunately this is straightforward. We can use the
-traditional symbol \(\vdash\) as follows:
+traditional symbol \(\linfer\) as follows:
 
-\[\ulcorner p1\vdash p2\urcorner\ \text{expresses
+\[\ulcorner p1\linfer p2\urcorner\ \text{expresses
 material inference from}\ p_1 \text{to}\ p_2\].
 
-Is \(p_1\vdash p_2\) a proposition? A logical proposition? It looks like
+Is \(p_1\linfer p_2\) a proposition? A logical proposition? It looks like
 the answer must be ``no'' in both cases. What it expresses is an
 inference, and an inference is not a proposition. Remember that ``P is
 true'' (where P is a proposition) expresses (and asserts) the
 proposition P, but ``X is good'' (where X is an inference) does not
 express X as a proposition.
 
-OTOH, if \(\ulcorner p1\vdash p2\urcorner\) is not a proposition, then
+OTOH, if \(\ulcorner p1\linfer p2\urcorner\) is not a proposition, then
 how can it have an inferential role? Traditionally the premises and
 conclusion of an inference must be propositions. But modern logic
 supports reasoning from inference to inference; that's what sequent
@@ -954,7 +967,7 @@ has no logical connectives in its conclusion.
 \section{Calculi}
 
 \begin{itemize}
-\item Logical calculi: natural deduction, sequent calculus
+\item Logical calculi: natural deduction, sequent calculus, tableaux, fitch trees, lemmon
 \item Function calculi: lambda calculus, combinatory logic (misnamed, its
 about functions, combinatory function calculus). Differs from logical
 calculi by having a definite intended interpretation, the world of
@@ -968,12 +981,12 @@ intended domain of interpretation.
 
 \subsection{Natural Deduction}
 
-\begin{prooftree}
-\AxiomC{$A$}
-\AxiomC{$;$}
-\AxiomC{$B$}
-\TrinaryInfC{$A\land B$}
-\end{prooftree}
+%% \begin{prooftree}
+%% \AxiomC{$A$}
+%% \AxiomC{$;$}
+%% \AxiomC{$B$}
+%% \TrinaryInfC{$A\land B$}
+%% \end{prooftree}
 
 \subsection{Sequent Calculus}
 
@@ -987,7 +1000,7 @@ than natural deduction, although they are logically equivalent.
 
 In the sequent calculus, sequents express (goodness of) prelogical
 inferences. They move from a prelogical conjunction on the left to a
-prelogical disjunction on the right. The symbol \(\vdash\) expresses
+prelogical disjunction on the right. The symbol \(\linfer\) expresses
 validity; since validity only applies to inference, validity
 automatically means ``validity of inference''. It is the composition
 that is prelogical; the components of the pre-conjunction and
@@ -1012,7 +1025,7 @@ synthesis of A and B. So it does not express one composite thing.
 Since sequents are themselves composed of such expressions, it follows
 that sequences do not denote.
 
-Does \(\vdash\) denote? It may, but it does not seem useful to think
+Does \(\linfer\) denote? It may, but it does not seem useful to think
 so. It's hard to see how ``validity of inference'' could be something
 that could be denoted.
 
@@ -1055,32 +1068,32 @@ the rules are or-ed, we pick which ones to use. This gives us a
 structural or (used in consequents), rule or, and the logical ors.
 
 
-\begin{prooftree}
-\AxiomC{$X\vdash A$}
-\AxiomC{$;$}
-\AxiomC{$X\vdash B$}
-\TrinaryInfC{$X\vdash A\land B$}
-\end{prooftree}
+%% \begin{prooftree}
+%% \AxiomC{$X\linfer A$}
+%% \AxiomC{$;$}
+%% \AxiomC{$X\linfer B$}
+%% \TrinaryInfC{$X\linfer A\land B$}
+%% \end{prooftree}
 
-\begin{prooftree}
-\AxiomC{$\Gamma,A\land B \vdash \Delta$}
-\UnaryInfC{$\Gamma,A,B\vdash \Delta$}
-\end{prooftree}
+%% \begin{prooftree}
+%% \AxiomC{$\Gamma,A\land B \linfer \Delta$}
+%% \UnaryInfC{$\Gamma,A,B\linfer \Delta$}
+%% \end{prooftree}
 
-\begin{prooftree}
-\AxiomC{$\Gamma\vdash A,\Delta$}
-\AxiomC{$\Sigma\vdash B,\Pi$}
-\RightLabel{R$\land$}
-\BinaryInfC{$\Gamma,\Sigma\vdash A\land B, \Delta,\Pi$}
-\end{prooftree}
+%% \begin{prooftree}
+%% \AxiomC{$\Gamma\linfer A,\Delta$}
+%% \AxiomC{$\Sigma\linfer B,\Pi$}
+%% \RightLabel{R$\land$}
+%% \BinaryInfC{$\Gamma,\Sigma\linfer A\land B, \Delta,\Pi$}
+%% \end{prooftree}
 
 Same thing, merging the two premise sequents into one sequent:
 
-\begin{prooftree}
-\AxiomC{$\Gamma,\Sigma\vdash A,B,\Delta,\Pi$}
-\RightLabel{$\vdash\land$}
-\UnaryInfC{$\Gamma,\Sigma\vdash A\land B, \Delta,\Pi$}
-\end{prooftree}
+%% \begin{prooftree}
+%% \AxiomC{$\Gamma,\Sigma\linfer A,B,\Delta,\Pi$}
+%% \RightLabel{$\linfer\land$}
+%% \UnaryInfC{$\Gamma,\Sigma\linfer A\land B, \Delta,\Pi$}
+%% \end{prooftree}
 
 Oops, that won't work, since the RHS comma means ``or''. The calculus
 does not allow us to infer ``and also, independently'' as a conclusion.
@@ -1097,22 +1110,22 @@ inference, one for propositions and one for sequents.
 On the other hand, we can have ``and also'' premises, from which we
 can infer a ``both and'' premise.
 
-\begin{prooftree}
-\AxiomC{$\Gamma,A,B\vdash\Delta$}
-\RightLabel{$\land\vdash$}
-\UnaryInfC{$\Gamma,A\land B\vdash\Delta$}
-\end{prooftree}
+%% \begin{prooftree}
+%% \AxiomC{$\Gamma,A,B\linfer\Delta$}
+%% \RightLabel{$\land\linfer$}
+%% \UnaryInfC{$\Gamma,A\land B\linfer\Delta$}
+%% \end{prooftree}
 
 And we can express this using separate sequents instead of separate
 propositions:
 
-\begin{prooftree}
-\AxiomC{$\Gamma,A\vdash\Delta$}
-\AxiomC{$;$}
-\AxiomC{$\Sigma,B\vdash\Delta$}
-\RightLabel{$\land\vdash$}
-\TrinaryInfC{$\Gamma,\Sigma,A\land B\vdash\Delta$}
-\end{prooftree}
+%% \begin{prooftree}
+%% \AxiomC{$\Gamma,A\linfer\Delta$}
+%% \AxiomC{$;$}
+%% \AxiomC{$\Sigma,B\linfer\Delta$}
+%% \RightLabel{$\land\linfer$}
+%% \TrinaryInfC{$\Gamma,\Sigma,A\land B\linfer\Delta$}
+%% \end{prooftree}
 
 Left-intro rules hold the RHS fixed and vary the LHS. Well not quite. RHS has no logical constants.  Right-intro rules omit logical constants from LHS.
 
@@ -1175,7 +1188,7 @@ then \textit{necessarily} it follows that it is (also)
 This is hard to express symbolically, since possiblity and necessity
 are already implied by the symbols we use.
 
-Glosses for \(\Gamma\vdash B\):
+Glosses for \(\Gamma\linfer B\):
 
 \begin{itemize}
 \item \Gamma\ suffices for B
@@ -1188,7 +1201,7 @@ They key idea is that using this (or any sentence) as premise of an
 inference rule automatically endows it with the modality of
 \textit{possibility}.
 
-Put differently: in \(A\rightarrow B\) (and \(A\vdash B\) the
+Put differently: in \(A\rightarrow B\) (and \(A\linfer B\) the
 component propositions A and B are not \textit{asserted}. To
 \textit{assert that} A we just write \(A\) as a standalone sentence.
 To assert that something follows from A, we embed it in a composite
@@ -1206,45 +1219,45 @@ judgments.
 Symbolically, using \( \Diamond \) for \textit{possibly}, \(\Box\)
 for \textit{necessarily}, and \(\models\) for ``actually produces'':
 
-\begin{prooftree}
-\AxiomC{$\Diamond\Gamma\models a:A$}
-\AxiomC{$;$}
-\AxiomC{$\Diamond\Gamma\models b:B$}
-\LeftLabel{$\Box$}
-\TrinaryInfC{$\Diamond\Gamma\models (a,b): A\times B$}
-\end{prooftree}
+%% \begin{prooftree}
+%% \AxiomC{$\Diamond\Gamma\models a:A$}
+%% \AxiomC{$;$}
+%% \AxiomC{$\Diamond\Gamma\models b:B$}
+%% \LeftLabel{$\Box$}
+%% \TrinaryInfC{$\Diamond\Gamma\models (a,b): A\times B$}
+%% \end{prooftree}
 
 (Here the necessity symbol is just a reminder that consequences are
 always necessary.)
 
-Important: the inference symbol \(\vdash\) does \textit{not} mean that
+Important: the inference symbol \(\linfer\) does \textit{not} mean that
 the context \textit{does in fact} produce something; it expresses
 validity of inference, so it just means that it is \textit{sufficient}
 to do so, that it is \textit{possible} to do so (because the inference
 is valid). In other words, the modality is built-in; adding the modal
 symbol \(\Diamond\) is intended to make this (redundantly) explicit.
-Under a strictly reading, \(\Diamond\Gamma\vdash B\) would mean ``it
+Under a strictly reading, \(\Diamond\Gamma\linfer B\) would mean ``it
 is possible that (it is possible that \Gamma\ produces B)'', which is
 not the intended reading. To make the modality explicit, we need
-another symbol \(\models\) to complement \(\vdash\); we gloss
+another symbol \(\models\) to complement \(\linfer\); we gloss
 \(\models\) as ``actually produces'' rather than ``suffices for''
 (thus it is not an inference symbol).
 
 Note the difference between rules with and without contexts:
 
-\begin{prooftree}
-\AxiomC{$a:A$}
-\AxiomC{$;$}
-\AxiomC{$b:B$}
-\TrinaryInfC{$(a,b): A\times B$}
-\end{prooftree}
+%% \begin{prooftree}
+%% \AxiomC{$a:A$}
+%% \AxiomC{$;$}
+%% \AxiomC{$b:B$}
+%% \TrinaryInfC{$(a,b): A\times B$}
+%% \end{prooftree}
 
-\begin{prooftree}
-\AxiomC{$\Gamma\vdash a:A$}
-\AxiomC{$;$}
-\AxiomC{$\Gamma\vdash b:B$}
-\TrinaryInfC{$\Gamma\vdash (a,b): A\times B$}
-\end{prooftree}
+%% \begin{prooftree}
+%% \AxiomC{$\Gamma\linfer a:A$}
+%% \AxiomC{$;$}
+%% \AxiomC{$\Gamma\linfer b:B$}
+%% \TrinaryInfC{$\Gamma\linfer (a,b): A\times B$}
+%% \end{prooftree}
 
 The former involves ``if \textit{something} then ..''; it expresses
 inference from ``judgment'' to ``judgment''. The latter involves ``if
@@ -1266,16 +1279,18 @@ from context, not from consequents (conclusions of a sequent). We get
 A\&B not from A and B, but from the context that suffices for them:
 
 
-\begin{prooftree}
-\AxiomC{$\Gamma\vdash a:A$}
-\AxiomC{$\medtriangleup$}
-\AxiomC{$\Gamma\vdash b:B$}
-\TrinaryInfC{$\Gamma\vdash (a,b): A\times B$}
-\end{prooftree}
+%% \begin{prooftree}
+%% \AxiomC{$\Gamma\linfer a:A$}
+%% \AxiomC{$\medtriangleup$}
+%% \AxiomC{$\Gamma\linfer b:B$}
+%% \TrinaryInfC{$\Gamma\linfer (a,b): A\times B$}
+%% \end{prooftree}
 
 If we write this as a natural deduction, without sequents and thus
-without context \ContextG , we get \AxiomC{$a:A$} \AxiomC{$\medtriangleup$}
-\AxiomC{$b:B$} \TrinaryInfC{$(a,b): A\times B$} \DisplayProof , which
+without context \ContextG , we get
+%% \AxiomC{$a:A$} \AxiomC{$\medtriangleup$}
+%% \AxiomC{$b:B$} \TrinaryInfC{$(a,b): A\times B$} \DisplayProof ,
+which
 makes it look like the conclusion is constructed directly from the
 pieces of the premises. But with sequents and antecedents it becomes
 clear that it is built from the context, so long as the context is
@@ -1302,12 +1317,12 @@ equality. We can say that the context is sufficient for producing
 Principle of Semantic Compositionality we use a notion of equality. We
 can make this explicit:
 
-\begin{prooftree}
-\AxiomC{$\Gamma\vdash a:A$}
-\AxiomC{\(\medtriangledown\)}
-\AxiomC{$\Gamma\vdash b:B$}
-\TrinaryInfC{$\Gamma\vdash p=(a,b): A\times B$}
-\end{prooftree}
+%% \begin{prooftree}
+%% \AxiomC{$\Gamma\linfer a:A$}
+%% \AxiomC{\(\medtriangledown\)}
+%% \AxiomC{$\Gamma\linfer b:B$}
+%% \TrinaryInfC{$\Gamma\linfer p=(a,b): A\times B$}
+%% \end{prooftree}
 
 Intuition pump: colors. Set the context to the primary colors \(\Gamma
 = R,G,B\), and make A and B mixed colors. Then A\&B is a mix of mixes,
@@ -1326,19 +1341,143 @@ inference as the central notion and make the context explicit using
 the sequent calculus. This does involve inference (obviously) but not
 proof.
 
+\section{Inference Types}
+
+Reasoning with types involves three distinct kinds of inference:
+
+\begin{enumerate}
+\item type inferences (\(\tinfer\)) go from tokens to types; e.g. \(a\tinfer
+  A (= \mbox{\tj{a}{A}})\). The proposition ``a has type A'' is underwritten by the
+  (material) inference from particular a to general A.
+\item sequent inferences (\(\sso\)) go from type inference to type inference.  E.g. \(a:A\sso b:B\)
+\item proof inferences (\(\pso\) or \(\Vdash\) or  \(\Vert\)) go
+  from sequent inferences to sequent inferences. The horizontal line
+  in proofs.
+\end{enumerate}
+
+To these we might add a four kind, for dealing with equality:
+
+\begin{itemize}
+\item equality inferences ...??? what kind of inference is \(a=b:B\)?
+  Note this is token equality. In a sense all tokens of a type are
+  equal, for example tokens of the word type ``the'' on this page are
+  equally tokens of the type, even if they are distinct individuals.
+  In HoTT different paths can be equal. Different proofs of the same
+  proposition serve equally \textit{as} proofs. So evidently equals
+  need not mean ``same particular''.
+\end{itemize}
+
+Whether or not these are all species of the same genus is a
+philosophical question. Here it suffices to observe that in the
+sequent calculus inferences adhere to a type discipline that
+constrains what can serve as premises and conclusion for each type of
+inference. This is compatible with the notion that the same kind of
+inference is used in every case, but used in three different ways.
+
+A more substantial argument in favor of inferential pluralism would
+start by arguing that each type of inference presupposes a different
+set of practical skills. Type inference presupposes the ability to
+subsume particulars under general concepts. The ability to go from
+``Rover'' to ``Rover is a dog'', for example.
+
+\subsection{Type Inference}
+
+The standard symbol for type inference is the colon \(\ulcorner :\urcorner\).
+
+Alternatively, we can use a turnstile to emphasize commonality across inference types: \(\linfer_{\tau}\).
+
+To emphasize another kind of equivalence (power?) we can use a horizontal line, possibly annotated to indicate inference type:
+%% \AxiomC{$a$}
+%% \RightLabel{$\scriptstyle\linfer_{\tau}$}
+%% \UnaryInfC{$A$}
+%% \DisplayProof
+
+Instead of a turnstile annotation, we could use a box:
+%% \fbox{
+%% \AxiomC{$a$}
+%% \UnaryInfC{$A$}
+%% \DisplayProof
+%% }
+
+Example: \(\land\text{-intro}\):
+
+%% \begin{displaymath}
+%%   \prftree[r]{$\scriptstyle\supset\mathrm{I}$}
+%%           {\prftree[r]{$\scriptstyle\supset\mathrm{I}$}
+%%             {\prftree[r]{$\scriptstyle\supset\mathrm{E}$}
+%%               {\prfboundedassumption{A}}
+%%               {\prfboundedassumption{\neg A}}
+%%               {\bot}}
+%%             {\neg\neg A}}
+%%           {A \supset \neg\neg A}
+%% \end{displaymath}
+
+
+%% \begin{prfenv}
+  %% \prftree[r]{$\supset\mathrm{I}_{\prfref<assum:A>}$}
+  %%         {\prftree[r]{$\supset\mathrm{I}_{\prfref<assum:not_A>}$}
+  %%           {\prftree[r]{$\supset$E}
+  %%             {\prfboundedassumption<assum:A>{A}}
+  %%             {\prfboundedassumption<assum:not_A>{\neg A}}
+  %%             {\bot}}
+  %%           {\neg\neg A}}
+  %%         {A \supset \neg\neg A}
+%% \end{prfenv}
+
+\subsection{Sequent Inference}
+Sequent inference presupposes the ability to combine such
+generalizations to form new generalizations, e.g. that ``Rover is a
+dog \textit{and} Mittens is a cat''. That is, the ability to master
+the practices involving the introduction and elimination of the
+``logical'' constants.
+
+\subsection{Proof Inference}
+Finally, proof inference presupposes the ability to operate at a higher
+level of sequent inference management. A detailed argument would show
+how each level presupposes the previous level but adds new skills.
+
+Both sequent and proof inference presuppose the ability to draw an
+inference to a disjunction, to conclude that premises warrant the
+assertion of one or more conclusions. So those two are clearly
+substantially different than type inference.
+
+
+All of Martin-Löf's ``forms of judgment'' are type inferences. There
+is no need to add another level of inference types, by saying for
+example that \mbox{\(a:A\)} and \mbox{\(a=b:A\)} are distinct
+\textit{kinds} of inference. It suffices to say that they are both
+type inferences. So we can dispense with ``forms of judgment''.
+
+[In fairness, \(a=b:A\) clearly seems to involve more than mere type
+  inference. At first glance the inference from \(a=b\) to ``type A''
+  seems a bit off. So maybe we do need to make a distinction between
+  primitive type inference (\(a:A\)) and typed equality inferences.]
+
+
+The forms according to \citetitle{martin1984intuitionistic} \parencite{martin1984intuitionistic}:
+
+\begin{itemize}
+\item A is a set
+\item A and B are equal sets
+\item a is an element of the set A  (\(a:A\))
+\item a and b are equal elements of the set A (\(a=b:A\))
+\end{itemize}
+
+Elsewhere he gives \(A \text{prop}\) and \(A \text{true}\).
+
 \section{Type Systems}
 
 \subsection{Typing ``judgments''}
 
-The standard way to express ``a has type A'' is \(a:A\). But that is
+The standard way to express ``a has type A'' is \(\tj{a}{A}\). But that is
 not the only way. Some authors write the type symbol as a superscript:
 \(a^A\). Another way would be to harmonize with the sequent calculus
-and write \(A\seqso a\).
+and write \(a\linfer A\).
 
-We could just define \(a:A\eqdef A\seqso a\). Then what would our
+We could just define \(\tj{a}{A}\eqdef a\linfer A\). Then what would our
 rules look like?
 
-\AxiomC{$A\seqso a$}\AxiomC{$B\seqso b$}\BinaryInfC{$A,B\seqso (a,b)$} \DisplayProof
+%% \AxiomC{$A\seqso a$}\AxiomC{$B\seqso b$}\BinaryInfC{$A,B\seqso (a,b)$} \DisplayProof
 
 One problem is we would need one structure connector on the LHS for
 each logical connector. In this case \(A,B\) would have to be read
@@ -1347,19 +1486,23 @@ other words our structures would have to be replaced with types. I'm
 not so sure that would work, but it might. From context of a
 conjunction of propositions to a product of types?
 
-\AxiomC{$A\seqso a$}\AxiomC{$B\seqso b$}\BinaryInfC{$A\times B\seqso (a,b)$} \DisplayProof
+%% \AxiomC{$A\seqso a$}\AxiomC{$B\seqso b$}\BinaryInfC{$A\times B\seqso (a,b)$} \DisplayProof
 
 If this works out, we would get a notation that is dual to the
 standard one. If so it should be easy.
 
-The problem with \(A\seqso a\) is that it severs the link between type
+The problem with \(a\linfer A\) is that it severs the link between type
 and token. If we have multiple types and tokens, it would be
 impossible to see which tokens have which types.
 
-But as an explanatory device \(A\seqso a\eqdef a:A\) works rather
+But as an explanatory device \(a\lso A\eqdef \tj{a}{A}\) works rather
 well. Then reasoning from premises of that form to conclusion that
 form looks like sequent reasoning. So if our conclusion is
-\((a,b):A\times B\), we get \(A\times B\seqso (a,b)\).
+\((a,b):A\times B\), we get \( (a,b)\lso A\times B\).
+
+Even better: \(a\lso A\pso\tj{a}{A}\) or \(a\lso A\Vdash\tj{a}{A}\) or
+\(a\lso A\,\Vert\,\tj{a}{A}\). Here the second inference op corresponds
+the the horizontal rule in a sequent proof.
 
 \subsection{Propositions: free-standing and embedded}
 
@@ -1581,7 +1724,7 @@ doxastic). Brandom makes it out to be deontic.
 
 This paper goes off the rails almost immediately, when it claims that
 the introduction rule for logical conjuction,
-\AxiomC{$A$}\AxiomC{$B$}\BinaryInfC{$A\& B$} \DisplayProof
+%% \AxiomC{$A$}\AxiomC{$B$}\BinaryInfC{$A\& B$} \DisplayProof
 ``...takes us from the affirmation of \(A\) and the affirmation of \(B\) to
 the affirmation of \(A\&B\)...''. He later hedges a bit, using
 ``assertion'' or ``judgment'' instead of ``affirmation''. But the
@@ -1599,7 +1742,7 @@ category mistake to affirm or assert a propositional variable; we can
 only assert propositions, and a variable is not a proposition. If
 we replace the propositional variables in a rule with particular
 propositions, we get a particular proposition, not a rule. Going from
-\(A; B \vdash A\land B\) to ``Snow is white and also roses are red, so
+\(A; B \linfer A\land B\) to ``Snow is white and also roses are red, so
 both snow is white and roses are red'' is a proposition; to assert it
 is \textit{ipso facto} to assert its component subpropositions. But it
 is not a rule.  Nor is it a conditional.
@@ -1885,9 +2028,9 @@ reasonings presuppose inductive reasoning. Maybe our inference rules
 do too, since they express ``general truths''.
 
 So our question translates to: once we have instituted \(\rightarrow\)
-or \(\vdash\) for particular cases (like Pittsburgh-Princeton), how do
+or \(\linfer\) for particular cases (like Pittsburgh-Princeton), how do
 we get to a general rule, e.g. \(P\rightarrow Q\) where P and Q are
-metavariables? \(P_{\alpha}\vdash Q_{\beta}\) is the
+metavariables? \(P_{\alpha}\linfer Q_{\beta}\) is the
 \textit{vernacular} expression of the correctness of a
 \textit{particular} inference; \(P\rightarrow Q\) is the
 \textit{logical} expression of the correctness of a \textit{general}
@@ -2185,77 +2328,32 @@ prove such propositional formulae by ...
 Then \(2+3=3+2\) would be a token (proof?) of the type. But that's the
 kind of particular that we can prove.
 
-\section{Inference Types}
+\section{Proof}
 
-Reasoning with types involves three distinct kinds of inference:
+\subsection{Detachment}
 
-\begin{enumerate}
-\item type inferences (\(\tso\)) go from tokens to types; e.g. \(a\tso
-  A (= a:A)\). The proposition ``a has type A'' is underwritten by the
-  (material) inference from particular a to general A.
-\item equality inferences ...??? what kind of inference is \(a=b:B\)?
-  Note this is token equality. In a sense all tokens of a type are
-  equal, for example tokens of the word type ``the'' on this page are
-  equally tokens of the type, even if they are distinct individuals.
-  In HoTT different paths can be equal. Different proofs of the same
-  proposition serve equally \textit{as} proofs. So evidently equals
-  need not mean ``same particular''.
-\item sequent inferences (\(\sso\)) go from type inference to type inference.  E.g. \(a:A\sso b:B\)
-\item proof inferences (\(\pso\)) go from sequent inferences to sequent
-  inferences. The horizontal line in proofs.
-\end{enumerate}
+Modus ponens is sometimes called ``detachment''. The justification for
+this is that a modus ponens inference allows us to detach the
+conclusion of an implication and assert it as a free-standing
+proposition. It is what allows us to go from \(P\rightarrow Q\) to
+\(Q\).
 
-Whether or not these are all species of the same genus is a
-philosophical question. Here it suffices to observe that in the
-sequent calculus inferences adhere to a type discipline that
-constrains what can serve as premises and conclusion for each type of
-inference. This is compatible with the notion that the same kind of
-inference is used in every case, but used in three different ways.
+A proof proves a proposition; it licenses assertion of its conclusion
+as a free-standing proposition. But within the proof itself the
+conclusion is glued to the preceding inferences. Therefore to go from
+proof to free-standing proposition we need a Rule of Detachment. Modus
+ponens for proofs.
 
-A more substantial argument in favor of inferential pluralism would
-start by arguing that each type of inference presupposes a different
-set of practical skills. Type inference presupposes the ability to
-subsume particulars under general concepts. The ability to go from
-``Rover'' to ``Rover is a dog'', for example.
+Is modus ponens for implication different in kind from modus ponens
+for proofs? Formally it certainly is. Implication is a propositional
+connector, binding a single premise to a single conclusion, both
+propositions. By contrast, the inferential operator in a proof, which
+is usually represented by a horizontal line, binds the conclusion to
+one or more premises.
 
-Sequent inference presupposes the ability to combine such
-generalizations to form new generalizations, e.g. that ``Rover is a
-dog \textit{and} Mittens is a cat''. That is, the ability to master
-the practices involving the introduction and elimination of the
-``logical'' constants.
-
-Finally, proof inference presupposes the ability to operate at a higher
-level of sequent inference management. A detailed argument would show
-how each level presupposes the previous level but adds new skills.
-
-Both sequent and proof inference presuppose the ability to draw an
-inference to a disjunction, to conclude that premises warrant the
-assertion of one or more conclusions. So those two are clearly
-substantially different than type inference.
-
-
-All of Martin-Löf's ``forms of judgment'' are type inferences. There
-is no need to add another level of inference types, by saying for
-example that \mbox{\(a:A\)} and \mbox{\(a=b:A\)} are distinct
-\textit{kinds} of inference. It suffices to say that they are both
-type inferences. So we can dispense with ``forms of judgment''.
-
-[In fairness, \(a=b:A\) clearly seems to involve more than mere type
-  inference. At first glance the inference from \(a=b\) to ``type A''
-  seems a bit off. So maybe we do need to make a distinction between
-  primitive type inference (\(a:A\)) and typed equality inferences.]
-
-
-The forms according to \citetitle{martin1984intuitionistic} \parencite{martin1984intuitionistic}:
-
-\begin{itemize}
-\item A is a set
-\item A and B are equal sets
-\item a is an element of the set A  (\(a:A\))
-\item a and b are equal elements of the set A (\(a=b:A\))
-\end{itemize}
-
-Elsewhere he gives \(A \text{prop}\) and \(A \text{true}\).
+For implication, the rule of modus ponents is easy to express; it's
+usually called the eliminator rule for implication
+(\(\rightarrow\text{-elim}\)).
 
 \section{Logical Constants}
 
@@ -2345,9 +2443,9 @@ you can consume A or B and you get to choose, and \(A\oplus B\) means
 you get only one, but you don't get to choose.''
 
 Or we get half-stories like the manifestly absurd interpretation of
-\(A\vdash B\&C\) as ``for A (qty of money) I can buy whichever I
+\(A\linfer B\&C\) as ``for A (qty of money) I can buy whichever I
 choose of B and C''; while that may contain some technical truth, it
-offers no clue as to why a conjunction (\(A\vdash B\&C\)) should
+offers no clue as to why a conjunction (\(A\linfer B\&C\)) should
 behave like a disjunction (``whichever I choose'').
 
 But LL is is a \textit{logic}, and it traffics in the same stuff as
@@ -2423,10 +2521,10 @@ parts and a whole composed of those parts.
 
 Assuming ``A and also B, independently'', we can infer ``Both A and B,
 together''. The \(\&\)-introduction rule makes this inference
-explicit. Formally: \(A ; B \vdash A \& B\). Logical \(\&\)
+explicit. Formally: \(A ; B \linfer A \& B\). Logical \(\&\)
 expresses the notion ``both and, together''; it follows from
 structural \(;\), which in turn formally expresses the prelogical
-notion ``and also, independently''. The \(\vdash\) expresses the inference
+notion ``and also, independently''. The \(\linfer\) expresses the inference
 from the latter to the former.
 
 \paragraph{Notes\\}
@@ -2520,13 +2618,13 @@ Conjunction and disjunction are dual.
 
 The left-intro rule for \(\lor\) demonstrates (half of) the duality:
 
-\begin{prooftree}
-\AxiomC{$A,\Gamma\vdash C\kern-1.2em$}
-\AxiomC{$\medtriangleup\kern-1.2em$}
-\AxiomC{$B,\Gamma\vdash C$}
-\RightLabel{$\lor\vdash$}
-\TrinaryInfC{$A\lor B,\Gamma\vdash C$}
-\end{prooftree}
+%% \begin{prooftree}
+%% \AxiomC{$A,\Gamma\linfer C\kern-1.2em$}
+%% \AxiomC{$\medtriangleup\kern-1.2em$}
+%% \AxiomC{$B,\Gamma\linfer C$}
+%% \RightLabel{$\lor\linfer$}
+%% \TrinaryInfC{$A\lor B,\Gamma\linfer C$}
+%% \end{prooftree}
 
 Gloss: if A suffices for C, and independently B suffices for C,
 then \(A\lor B\) suffices for C. Informally: both A \textit{and} B
@@ -2538,53 +2636,53 @@ suffice.
 
 For conjunction \(\land\) we have two left-intro rules:
 
-\begin{center}
-\AxiomC{$A,\Gamma\vdash C\kern-1.2em$}
-\RightLabel{$\land\vdash_1$}
-\UnaryInfC{$A\land B,\Gamma,\vdash C$}
-\DisplayProof
-\hskip 1.5em
-\AxiomC{$B,\Gamma\vdash C$}
-\RightLabel{$\land\vdash_2$}
-\UnaryInfC{$A\land B,\Gamma,\vdash C$}
-\DisplayProof
-\end{center}
+%% \begin{center}
+%% \AxiomC{$A,\Gamma\linfer C\kern-1.2em$}
+%% \RightLabel{$\land\linfer_1$}
+%% \UnaryInfC{$A\land B,\Gamma,\linfer C$}
+%% \DisplayProof
+%% \hskip 1.5em
+%% \AxiomC{$B,\Gamma\linfer C$}
+%% \RightLabel{$\land\linfer_2$}
+%% \UnaryInfC{$A\land B,\Gamma,\linfer C$}
+%% \DisplayProof
+%% \end{center}
 
 These rules say that \(A\land B\) suffices for C wherever either A
 (alone) suffices \textit{or} B (alone) suffices. In other words, each
 is independently sufficient for C, so we can chose either rule to get
-\(A\land B\). If we choose \(\land\vdash_1\), then we know that the
+\(A\land B\). If we choose \(\land\linfer_1\), then we know that the
 inference to C ``uses'' the A part of \(A\land B\) (so to speak) to
 get to C. This is how it corresponds to the elimination rule of
 natural deduction: implicitly, it dismantles \(A\land B\) to obtain A,
 then uses it to get C.
 
-Note also that it does not follow from rule \(\land\vdash_1\) that B
+Note also that it does not follow from rule \(\land\linfer_1\) that B
 suffices for C. It may or may not, but we're not using it so we don't
-care. Similarly for \(\land\vdash_2\); if we use it, then A may or may
+care. Similarly for \(\land\linfer_2\); if we use it, then A may or may
 not suffice for C, and we don't care either way, because we only need
 B to get C.
 
-Notice that the premises for \(\land\vdash_1\) and \(\land\vdash_2\)
-together are the same as those for \(\lor\vdash\), but they're split
+Notice that the premises for \(\land\linfer_1\) and \(\land\linfer_2\)
+together are the same as those for \(\lor\linfer\), but they're split
 into two rules. We can bring out the symmetry more conspicuously by
 combining them. To do this we need another symbol to express the
 \textit{or}ing of the top sequents. We'll use \(\medtriangledown\):
 
-\begin{prooftree}
-\AxiomC{$A,\Gamma\vdash C\kern-1.2em$}
-\AxiomC{$\medtriangledown\kern-1.2em$}
-\AxiomC{$B,\Gamma\vdash C$}
-\RightLabel{$\land\vdash$}
-\TrinaryInfC{$A\land B,\Gamma\vdash C$}
-\end{prooftree}
+%% \begin{prooftree}
+%% \AxiomC{$A,\Gamma\linfer C\kern-1.2em$}
+%% \AxiomC{$\medtriangledown\kern-1.2em$}
+%% \AxiomC{$B,\Gamma\linfer C$}
+%% \RightLabel{$\land\linfer$}
+%% \TrinaryInfC{$A\land B,\Gamma\linfer C$}
+%% \end{prooftree}
 
 The intention here is that this one rule expresses exactly what the
-two rules \(\land\vdash_1\) and \(\land\vdash_2\) express together in
+two rules \(\land\linfer_1\) and \(\land\linfer_2\) express together in
 disjunction. It shows more clearly the duality of sequent disjunction
 (\(\medtriangledown\) on the top) and propositional conjunction
 (\(\land\) on the bottom). Except for the connectives, it has the same
-structure as \(\lor\vdash\), which shows the duality in the other
+structure as \(\lor\linfer\), which shows the duality in the other
 direction - sequent conjunction (\(\medtriangleup\)) on top, and
 propositional disjunction (\(\lor\)) on the bottom.
 
@@ -2631,32 +2729,33 @@ is easy to see with conjunction. A typical presentation of
 propositional conjunction using Natural Deduction looks like this:
 
 %% Logical And
-\begin{center}
-\AxiomC{$A\kern-1.2em$}
-\AxiomC{$B$}
-\RightLabel{$\scriptstyle{[\land\text{-intro}]}$}
-\BinaryInfC{$A\land B$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$A\land B$}
-\RightLabel{$\scriptstyle{[\land\text{-exit}_{\text{L}}]}$}
-\UnaryInfC{$A$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$A\land B$}
-\RightLabel{$\scriptstyle{[\land\text{-exit}_{\text{R}}]}$}
-\UnaryInfC{$B$}
-\DisplayProof
-\end{center}
+%% \begin{center}
+%% \AxiomC{$A\kern-1.2em$}
+%% \AxiomC{$B$}
+%% \RightLabel{$\scriptstyle{[\land\text{-intro}]}$}
+%% \BinaryInfC{$A\land B$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$A\land B$}
+%% \RightLabel{$\scriptstyle{[\land\text{-exit}_{\text{L}}]}$}
+%% \UnaryInfC{$A$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$A\land B$}
+%% \RightLabel{$\scriptstyle{[\land\text{-exit}_{\text{R}}]}$}
+%% \UnaryInfC{$B$}
+%% \DisplayProof
+%% \end{center}
 
 What is left implicit in such expressions:
 
 \begin{itemize}
-\item The premise of the intro rule conjoins \(A\) and \(B\) in a single expression \mbox{%%
-\AxiomC{$A\kern-1.2em$}
-\AxiomC{$B$}
-\BinaryInfC{$A\land B$}
-}
+\item The premise of the intro rule conjoins \(A\) and \(B\) in a single expression
+%%   \mbox{%%
+%% \AxiomC{$A\kern-1.2em$}
+%% \AxiomC{$B$}
+%% \BinaryInfC{$A\land B$}
+%% }
   with an unstated \textit{and}.
   \item The exit rules are implicitly conjoined by an unstated
     \textit{or}: given a conjunction \(A\land B\), you can extract
@@ -2665,11 +2764,11 @@ What is left implicit in such expressions:
     \textit{or both}: given \(A\land B\), you can extract \(A\) or
     \(B\) or both. Standard natural deduction calculus provides no way
     to make this option explicit. We could try%%
-{\small
-\AxiomC{$A\land B$}
-\RightLabel{$\scriptstyle{[\land\text{-exit}_{\text{LR}}]}$}
-\UnaryInfC{$A\hspace{1.5em}B$}
-\DisplayProof},
+%% {\small
+%% \AxiomC{$A\land B$}
+%% \RightLabel{$\scriptstyle{[\land\text{-exit}_{\text{LR}}]}$}
+%% \UnaryInfC{$A\hspace{1.5em}B$}
+%% \DisplayProof},
 but that would violate the rule of the calculus stating that
 conclusions may have only a single proposition. The best we can do
 with it is show that we can reconstitute \(A\land B\) by extracting
@@ -2807,19 +2906,19 @@ If we want to be able to construct and use implications we need inference
 rules for it:
 
 %% Implication rules
-\begin{center}
-\AxiomC{$\Gamma;A\vdash B\structor\Delta\kern-1.2em$}
-\RightLabel{$\vdash\lollipop$}
-\UnaryInfC{$\Gamma\vdash A\lollipop B\structor\Delta$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma\vdash A\structor\Delta\kern-1.2em$}
-\AxiomC{$\seqand\kern-1.2em$}
-\AxiomC{$\Theta; B\vdash \Lambda$}
-\RightLabel{$\lollipop\vdash$}
-\TrinaryInfC{$\Gamma;\Theta;A\lollipop B\vdash\Delta\structor\Lambda$}
-\DisplayProof
-\end{center}
+%% \begin{center}
+%% \AxiomC{$\Gamma;A\linfer B\structor\Delta\kern-1.2em$}
+%% \RightLabel{$\linfer\lollipop$}
+%% \UnaryInfC{$\Gamma\linfer A\lollipop B\structor\Delta$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma\linfer A\structor\Delta\kern-1.2em$}
+%% \AxiomC{$\seqand\kern-1.2em$}
+%% \AxiomC{$\Theta; B\linfer \Lambda$}
+%% \RightLabel{$\lollipop\linfer$}
+%% \TrinaryInfC{$\Gamma;\Theta;A\lollipop B\linfer\Delta\structor\Lambda$}
+%% \DisplayProof
+%% \end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Negation}
@@ -2840,17 +2939,17 @@ Name: ``nil''.  Symbol: \((\cdot)^{\bot}\)
 \subsubsection{Rules}
 
 %% Negation rules
-\begin{center}
-\AxiomC{$\Gamma,B\vdash\Delta\kern-1.2em$}
-\RightLabel{$\vdash\ (\cdot)^{\bot}$}
-\UnaryInfC{$\Delta\vdash B^{\bot}\structor\Delta$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma\vdash B,\Delta\kern-1.2em$}
-\RightLabel{$(\cdot)^{\bot}\ \vdash$}
-\UnaryInfC{$\Gamma;B^{\bot}\vdash\Delta$}
-\DisplayProof
-\end{center}
+%% \begin{center}
+%% \AxiomC{$\Gamma,B\linfer\Delta\kern-1.2em$}
+%% \RightLabel{$\linfer\ (\cdot)^{\bot}$}
+%% \UnaryInfC{$\Delta\linfer B^{\bot}\structor\Delta$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma\linfer B,\Delta\kern-1.2em$}
+%% \RightLabel{$(\cdot)^{\bot}\ \linfer$}
+%% \UnaryInfC{$\Gamma;B^{\bot}\linfer\Delta$}
+%% \DisplayProof
+%% \end{center}
 
 \subsubsection{Defining Equations}
 
@@ -2894,12 +2993,12 @@ language, since a conclusion can only be a single proposition. The
 elim rule for \(\circ\) suggests that we can only use it to provide A
 and B in a premise structure, not in a logical formula:
 
-\begin{prooftree}
-\AxiomC{$\Gamma\vdash A\circ B$}
-\AxiomC{$\Delta,\langle A\rangle,\langle B\rangle\vdash C$}
-\RightLabel{$\circ\ \text{elim}$}
-\BinaryInfC{$\Gamma,\Delta\vdash C$}
-\end{prooftree}
+%% \begin{prooftree}
+%% \AxiomC{$\Gamma\linfer A\circ B$}
+%% \AxiomC{$\Delta,\langle A\rangle,\langle B\rangle\linfer C$}
+%% \RightLabel{$\circ\ \text{elim}$}
+%% \BinaryInfC{$\Gamma,\Delta\linfer C$}
+%% \end{prooftree}
 
 NB: this is Wadler's (based on natural deduction). In the sequent calc
 it looks different.
@@ -2926,11 +3025,11 @@ An alternative left (elim) rule showing more conspicuously the
 relation between meta-symbol ',' and \(\circ\), or between antecedent
 structure \(A,B\) and logical formula \(A\circ B\):
 
-\begin{prooftree}
-\AxiomC{$A,B,\Gamma\vdash \Delta$}
-\RightLabel{$\circ\vdash$}
-\UnaryInfC{$A\circ B,\Gamma\vdash\Delta$}
-\end{prooftree}
+%% \begin{prooftree}
+%% \AxiomC{$A,B,\Gamma\linfer \Delta$}
+%% \RightLabel{$\circ\linfer$}
+%% \UnaryInfC{$A\circ B,\Gamma\linfer\Delta$}
+%% \end{prooftree}
 
 TODO: compare different variants of intro/elim rules. Wadler, which
 I've been using, is really natural deduction (it has elim rules). The
@@ -2940,19 +3039,19 @@ rules make more sense, the are rules of use rather than elimination.
 \paragraph{Rules} Conjunction (``fusion'')
 
 %% Fusion (multiplicative conjunction) rules
-\begin{center}
-\AxiomC{$\Gamma\vdash A\structor\Delta\kern-1.2em$}
-\AxiomC{$\seqand\kern-1.2em$}
-\AxiomC{$\Theta\vdash B\structor\Lambda$}
-\RightLabel{$\fusion\vdash$}
-\TrinaryInfC{$\Gamma;\Theta\vdash A\fusion B\structor\Delta\structor\Lambda$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma;A;B\vdash\Delta$}
-\RightLabel{$\vdash\fusion$}
-\UnaryInfC{$\Gamma;A\fusion B\vdash\Delta$}
-\DisplayProof
-\end{center}
+%% \begin{center}
+%% \AxiomC{$\Gamma\linfer A\structor\Delta\kern-1.2em$}
+%% \AxiomC{$\seqand\kern-1.2em$}
+%% \AxiomC{$\Theta\linfer B\structor\Lambda$}
+%% \RightLabel{$\fusion\linfer$}
+%% \TrinaryInfC{$\Gamma;\Theta\linfer A\fusion B\structor\Delta\structor\Lambda$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma;A;B\linfer\Delta$}
+%% \RightLabel{$\linfer\fusion$}
+%% \UnaryInfC{$\Gamma;A\fusion B\linfer\Delta$}
+%% \DisplayProof
+%% \end{center}
 
 \subsubsection{Disjunction: both or either (fission)}
 
@@ -3007,22 +3106,22 @@ or both in the box.
 \paragraph{Rules} multiplicative disjunction
 
 %% Fission (multiplicative disjunction) rules
-\begin{center}
-\AxiomC{$\Gamma\vdash A\structor B\structor\Delta$}
-\RightLabel{$\vdash\fission$}
-\UnaryInfC{$\Gamma\vdash A\fission B\structor\Delta$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma,A\vdash \Delta\kern-1.2em$}
-\AxiomC{$\seqand\kern-1.2em$}
-\AxiomC{$\Theta, B\vdash \Lambda$}
-\RightLabel{$\fission\vdash$}
-\TrinaryInfC{$\Gamma;\Theta;A\fission B\vdash \Delta\structor\Lambda$}
-\DisplayProof
-\end{center}
+%% \begin{center}
+%% \AxiomC{$\Gamma\linfer A\structor B\structor\Delta$}
+%% \RightLabel{$\linfer\fission$}
+%% \UnaryInfC{$\Gamma\linfer A\fission B\structor\Delta$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma,A\linfer \Delta\kern-1.2em$}
+%% \AxiomC{$\seqand\kern-1.2em$}
+%% \AxiomC{$\Theta, B\linfer \Lambda$}
+%% \RightLabel{$\fission\linfer$}
+%% \TrinaryInfC{$\Gamma;\Theta;A\fission B\linfer \Delta\structor\Lambda$}
+%% \DisplayProof
+%% \end{center}
 
 Note that consequent part of a sequent is a disjunction; we use a
-mirrored semicolon to suggest this. So in rule \(\vdash\fission\) the
+mirrored semicolon to suggest this. So in rule \(\linfer\fission\) the
 consequent \(A\structor B\structor\Delta\) means \(A\) \textit{or}
 \(B\) \textit{or} \(\Delta\).
 
@@ -3102,9 +3201,11 @@ binary function (taking an exclusive conjunction) or a unary arg
 taking a pair (inclusive conjunction).
 
 The meaning of exclusive and can easily be seen in terms of
-dependencies. Consider \AxiomC{$A\vdash \Delta\kern-1.2em$}
-\AxiomC{$\seqand\kern-1.2em$} \AxiomC{$B\vdash \Delta$} \TrinaryInfC{}
-\DisplayProof. This means that each of A and B afford (or suffice for)
+dependencies. Consider
+%% \AxiomC{$A\linfer \Delta\kern-1.2em$}
+%% \AxiomC{$\seqand\kern-1.2em$} \AxiomC{$B\linfer \Delta$} \TrinaryInfC{}
+%% \DisplayProof.
+This means that each of A and B afford (or suffice for)
 \ContextD. It does \textit{not} say that \textit{both together}
 suffice. This does not mean that both together would fail to suffice
 for \ContextD; rather it says that \ContextD does not \textit{depend}
@@ -3113,21 +3214,21 @@ on both together.
 Exclusive conjunction allows us to express exclusive disjunction in a
 consequent. Compare the following:
 
-\begin{center}
-  \AxiomC{$\Gamma\vdash A\kern-1.2em$}
-  \AxiomC{$\seqand\kern-1.2em$}
-  \AxiomC{$\Gamma\vdash B$}
-  \TrinaryInfC{}
-  \DisplayProof
-  \hskip 1.5em
-  \AxiomC{$\Gamma\vdash A\structor B$}
-  \UnaryInfC{}
-  \DisplayProof
-  \hskip 1.5em
-  \AxiomC{$\Gamma\vdash A\xor B$}
-  \UnaryInfC{}
-  \DisplayProof
-\end{center}
+%% \begin{center}
+%%   \AxiomC{$\Gamma\linfer A\kern-1.2em$}
+%%   \AxiomC{$\seqand\kern-1.2em$}
+%%   \AxiomC{$\Gamma\linfer B$}
+%%   \TrinaryInfC{}
+%%   \DisplayProof
+%%   \hskip 1.5em
+%%   \AxiomC{$\Gamma\linfer A\structor B$}
+%%   \UnaryInfC{}
+%%   \DisplayProof
+%%   \hskip 1.5em
+%%   \AxiomC{$\Gamma\linfer A\xor B$}
+%%   \UnaryInfC{}
+%%   \DisplayProof
+%% \end{center}
 
 On the left we have two sequents merged into one expression by the
 prelogical symbol \(\seqand\). It says that \ContextG affords each of
@@ -3163,21 +3264,21 @@ travel by both together.
 \paragraph{Rules} additive conjunction
 
 %% (additive conjunction) rules
-\begin{center}
-\AxiomC{$\Gamma\vdash A\structor\Delta\kern-1.2em$}
-\AxiomC{$\seqand\kern-1.2em$}
-\AxiomC{$\Gamma\vdash B\structor\Delta$}
-\RightLabel{$\vdash\addand$}
-\TrinaryInfC{$\Gamma\vdash A\addand B\structor\Delta$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma; A\vdash \Delta\kern-1.2em$}
-\AxiomC{$\seqor\kern-1.2em$}
-\AxiomC{$\Gamma; B\vdash \Delta$}
-\RightLabel{$\addand\vdash$}
-\TrinaryInfC{$\Gamma;A\addand B\vdash\Delta$}
-\DisplayProof
-\end{center}
+%% \begin{center}
+%% \AxiomC{$\Gamma\linfer A\structor\Delta\kern-1.2em$}
+%% \AxiomC{$\seqand\kern-1.2em$}
+%% \AxiomC{$\Gamma\linfer B\structor\Delta$}
+%% \RightLabel{$\linfer\addand$}
+%% \TrinaryInfC{$\Gamma\linfer A\addand B\structor\Delta$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma; A\linfer \Delta\kern-1.2em$}
+%% \AxiomC{$\seqor\kern-1.2em$}
+%% \AxiomC{$\Gamma; B\linfer \Delta$}
+%% \RightLabel{$\addand\linfer$}
+%% \TrinaryInfC{$\Gamma;A\addand B\linfer\Delta$}
+%% \DisplayProof
+%% \end{center}
 
 \subsubsection[Disjunction: either but not both]{Disjunction: \(\addor\)}
 
@@ -3196,21 +3297,21 @@ the same thing, you can instead use \(A\addor B\) to produce it.
 \paragraph{Rules} additive disjunction
 
 %% (additive disjunction) rules
-\begin{center}
-\AxiomC{$\Gamma\vdash A\structor\Delta\kern-1.2em$}
-\AxiomC{$\seqor\kern-1.2em$}
-\AxiomC{$\Gamma\vdash B\structor\Delta$}
-\RightLabel{$\vdash\addor$}
-\TrinaryInfC{$\Gamma\vdash A\addor B\structor\Delta$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma; A\vdash \Delta\kern-1.2em$}
-\AxiomC{$\seqand\kern-1.2em$}
-\AxiomC{$\Gamma; B\vdash \Delta$}
-\RightLabel{$\addor\vdash$}
-\TrinaryInfC{$\Gamma;A\addor B\vdash\Delta$}
-\DisplayProof
-\end{center}
+%% \begin{center}
+%% \AxiomC{$\Gamma\linfer A\structor\Delta\kern-1.2em$}
+%% \AxiomC{$\seqor\kern-1.2em$}
+%% \AxiomC{$\Gamma\linfer B\structor\Delta$}
+%% \RightLabel{$\linfer\addor$}
+%% \TrinaryInfC{$\Gamma\linfer A\addor B\structor\Delta$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma; A\linfer \Delta\kern-1.2em$}
+%% \AxiomC{$\seqand\kern-1.2em$}
+%% \AxiomC{$\Gamma; B\linfer \Delta$}
+%% \RightLabel{$\addor\linfer$}
+%% \TrinaryInfC{$\Gamma;A\addor B\linfer\Delta$}
+%% \DisplayProof
+%% \end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Quantifiers}
@@ -3273,7 +3374,7 @@ which set it came from, e.g. \({(a, 0), (b, 0), (a, 1)}\). We can
 treat \(n\) copies of \(b\) as a disjoint union by using \(n\) unique
 tags. We can also use exponential notation for this.
 
-So what does \(\ulcorner\Gamma\vdash A,?B,C\urcorner\) mean? Here
+So what does \(\ulcorner\Gamma\linfer A,?B,C\urcorner\) mean? Here
 \(\ulcorner A,?B,C\urcorner\) is a disjunction. But \(\ulcorner
 ?B\urcorner\) is a multiset or disjoint sum. How do we interpret that
 in a disjunction? Is it a disjunction within a conjunction? I think
@@ -3283,7 +3384,7 @@ disjunct. E.g. \({a,b^n,c}\) means \(a\lor b_0\lor b_1\lor ... \lor
 c\), with the caveat that the subscripts do not indicate order; they
 need only be unique identifiers.
 
-So \(\vdash ?A\) would mean the conclusion is the \textit{inclusive
+So \(\linfer ?A\) would mean the conclusion is the \textit{inclusive
   or} of the copies of A, as in ``this A or that A or both''; that is, any number of the As, separately (independently).
 
 This could be used for example to express the idea that a process
@@ -3406,7 +3507,11 @@ Our technical ``equality'' need not correspond to ordinary equality,
 and may even be very different. But the former should at least subsume
 the latter, if only to justify use of the same word.
 
-\subsection{Definition}
+\section{Proposition}
+
+
+
+\section{Definition}
 
 In formal languages, definitions express binding, not equality.
 
@@ -3463,7 +3568,7 @@ value such that \(x = sqrt(7)\) is true'', which in turn entails(?)
 that \(x\) \textit{should} be bound to whatever \(sqrt(7)\) is bound
 to.
 
-\subsubsection{The Doctrine of Judgmental Equality}
+\subsection{The Doctrine of Judgmental Equality}
 
 And it is a doctrine, not a theory or definition.
 
@@ -3493,7 +3598,20 @@ expressions.
 
 Definitional binding?
 
-\subsection{Identity}
+Once we see that ``judgmental equality'' really means ``definitional
+binding'', it becomes easy to see why the former cannot be synonymous
+with propositional equality (which is the only kind there is).
+
+It also means we can discard the doctrine of Two Equalities
+(propositional and judgmental). There is only one equality.
+
+Side-effect: removing ``judgmental equality'' simplifies the text
+considerably.
+
+Effect on the text:
+
+
+\section{Identity}
 Every thing has an identity, and every thing is identical to itself.
 
 Identicality is a relation. Reflexivity is the identicality relation
@@ -3513,7 +3631,420 @@ Then the principle of Identity of Indiscernables would not hold. Two
 indiscernable things could yet have distinct identities, since
 identity cannot be discerned.
 
-\subsection{Inductive Equality}
+\subsection{Frege}
+
+\textquote[\cite{May2001-MAYFOI-2}, p.1-2]{ But the presence of this
+  [identity] symbol raised a problem that still perplexes us today. On
+  the one hand, identity statements play a logical role, licensing
+  substitutivity; but yet they also express substantive propositions,
+  to be proved or established. Is the identity symbol to be a logical
+  or non-logical symbol?... To achieve this generality, Frege
+  understood that not only must this symbol appear in propositions
+  that can be true or false, it must also be a logical symbol; the
+  truth of a statement of identity allows for a transition between
+  propositions by substitution in the course of proof.}
+
+I.e. \(\fregeq\) must play a role in inference, not just reference.
+
+\textquote[Frege, cited in \cite{May2001-MAYFOI-2} p. 8]{Identity of content differs from conditionality and
+negation by relating to names, not to contents.}
+
+p. 56: Frege does not explicitly state that it is
+firmly establishing this point, and definitively refuting the formalists
+argument against equality understood as identity, that is the goal of the
+essay.
+
+\textquote[sinn bed final para]{When we found ‘a=a’ and ‘a=b’ to have
+  different cognitive values, the explanation is that for the purpose
+  of knowledge, the sense of the sentence, viz., the thought expressed
+  by it, is no less relevant than its reference, i.e. its truth value.
+  If now a=b, then indeed the reference of ‘b’ is the same as that of
+  ‘a,’ and hence the truth value of ‘a=b’ is the same as ‘a=a.’ In
+  spite of this, the sense of ‘b’ may differ from that of ‘a’, and
+  thereby the thought expressed in ‘a=b’ differs from that of ‘a=a.’
+  In that case the two sentences do not have the same cognitive value.
+  If we understand by ‘judgment’ the advance from the thought to its
+  truth value, as in the above paper, we can also say that the
+  judgments are different... There is only one possible meaning of
+  equality, according to Frege, that can restore the peace: identity.}
+
+
+\begin{displayquote}[
+\cite{Geach1952-GEATFT} p. 12, cited in \cite{May2001-MAYFOI-2} p. 8
+]
+  Now, let
+  \[\vlongdash (A\fregeq B)\]
+
+  mean: the symbol \(A\) and the symbol \(B\) have the same conceptual
+  content, so that \(A\) can always be replaced by \(B\) and conversely.
+
+\end{displayquote}
+
+\textquote[\cite{May2001-MAYFOI-2}, p. 8]{What Frege maintains here is that identity statements can
+  play the logical role they do just because the conceptual content of
+  the symbols to be substituted one for another is the same.}
+
+\begin{displayquote}
+In the case of substitution, if it is to be licensed by a
+statement of identity, then that statement must carry the pertinent
+information about the symbols such that they can be substituted one for
+another. If we have a judgement that says of symbols that they have the
+same content, e.g. “\(c\fregeq d\),” then we can move in a proof from the judgement:
+\[\vlongdash P(c)\]
+%% |––— P(c)
+
+to the judgement:
+\[\vlongdash P(d)\]
+%% |––— P(d).
+
+Frege characterizes such inferences by proposition (52):
+\[\vlongdash (c \fregeq d) \supset (f(c) \supset f(d))\]
+%% |––— (c / d) e (f(c) e f(d)),
+glossed with the remark that it “says that we may replace \(c\) everywhere
+by \(d\), if \(c \fregeq d\)” (Begriffsschrift, p. 162).
+\end{displayquote}
+
+``Judgments of identity of content'' - makes sense for English words,
+we can judge whether or not Hesperus is identical to Phosphorus. But
+in a logical calculus the same considerations do not apply. Once we've
+defined things we do not have to make judgments of identity.
+
+textquote[p. 11]{Although the symbols that occur in the judgements
+  that are inferentially related are, as Frege puts it,
+  “representatives of their contents,” what are substituted in the
+  conceptual notation are symbols, so we must be able to recognize
+  that it is the symbol “b” that is being substituted for the symbol
+  “a.” “Thus,” Frege says, “with the introduction of a symbol for
+  identity of content, a bifurcation is necessarily introduced into
+  the meaning of every symbol, the same symbols standing at times for
+  their contents, at times for themselves.” (Begriffsschrift, p.
+  124).}
+
+\textquote[p.12]{But notice that if symbols are no longer bifurcated,
+  then there is no longer any place for an identity of content symbol;
+  identity will have to be otherwise defined.}
+
+\textquote[\cite{May2001-MAYFOI-2} p. 54]{But identity of reference is
+  not the same as identity of conceptual content. This is because only
+  the latter relation is one that holds between expressions qua how
+  their contribution to propositional content is determined by their
+  associated modes of determination.}
+
+\section{Equality}
+
+Equality is non-logical. That's why writers distinguish between logics
+and logics with equality.
+
+Why? Because logic is about inference, and equality does not involve
+inference? Not quite. The essential problem is we do not have a well-understood, widely-shared prelogical notion of equality.
+
+Logical inference is underwritten by ordinary, extra-logical
+intuition. For example, the inference to logical \(A\lkand B\) is
+underwritten by our intuitions about ordinary, nonlogical ``A and B''.
+Similarly for the other logical constants, and the reason this works
+is because the background intuitions are uncontroversial.
+
+With equality things are a little different. We can easily write an
+inference rule to introduce a logical equality operator in the same
+way we introduce operators like \(\lkand\): from ``A is equal to B''
+infer logical \(A=B\). The problem is that this would only be widely
+accepted if we had a widely accepted and uncontroversial prelogical
+notion of what ``A is equal to B'' means. And while this \textit{may}
+be the case for ``medium sized dry goods'' (Austin), it is undeniably
+not the case for propositions. What is it for one proposition to be
+equal to another? We don't even have widespread agreement on the
+nature of propositions, so unsurprisingly we don't have agreement on
+equality of propositions. The same can be said for other logical
+concepts essential to type systems, such as proof.
+
+On the other hand, the \textit{properties} that characterize equality
+(once you have it) are uncontroversial. If we cannot agree on what it
+is that \textit{constitutes} equality, we can and do agree on some
+intuitions about the \textit{consequences} of equality. This gives us
+criteria of adequacy: any notion of equality must exhibit the
+following:
+
+\begin{itemize}
+\item Reflexivity: \(a=b\)
+\item Symmetry: \(a=b \dashVdash b=a\)
+\item Transitivity: \(a=b, b=c \vdash a=c\)
+\item Substitutability: equals may be substituted for equals in
+  expressions/propositions (Leibniz's law)
+\end{itemize}
+
+
+There are at least two possible ways of treating equality in type
+systems. One can derive an equality type for each base type that
+``contains'' all the pairs of equal elements of the base type; and one
+can define a type for each pair of equal elements, where the members
+of the type represent proof of the equality. For clarity, we call the
+former ``equality types'', and the latter ``equational types''.
+
+\subsection{Equality Types}
+
+An equality type \(\EQ_A\) is a type derived from a base type \(A\)
+whose tokens express equality of a pair of \(A\)-tokens.\footnote{This is our terminology, not necessarily used in the literature.}
+
+Let's try to define an equality type in our type system. Equality is a
+relation, and relations are expressed as products. So to start we'll
+define an abbreviation: \(\EQ_A\defn A\times A\). The problem with
+this is that it puts all A pairs in the equality relation, e.g.
+\(\pair(2,3):\EQ_{\Nat}\).
+
+We need a way to constrain the constructor, so that
+\(\pair(a,b):\EQ_A\) if and only if a equals b. The only way to
+express this in the type system is to define a new constructor. This
+is trivial for the special case of reflexivity; it's intuitively
+axiomatic that every thing is equal to itself, so we are justified in
+defining a reflexivity constructor: \(a\type A\linfer\refl(a):\EQ_A\).
+We will usually express this using a subscript, \(\refl_a:\EQ_A\).
+
+This only gets us half-way to the goal. The problem is that \(\EQ_A\)
+is still the (unconstrained) product \(A\times A\); we still have
+\(\pair(2,3):\EQ_{\Nat}\). All we've done is extend the definition of
+product type by adding a new constructor, \(\refl\). Which would be
+pointless, since we can already express the same thing by writing
+\(\pair(a,a)\).
+
+So we need to constrain the type, just as we constrained the
+constructor. Again the only way to do that is to define a new type
+that only admits equality pairs. Unfortunately there is no way to
+express such a type in our system.\footnote{We might be able to design
+a new type system in which it is possible, but that would be a
+different project.} If we try, we'll end up in a viscious circle. To
+see why, consider the ``base case'', a reflexive type
+\(\textsf{REFLEQ}_A\) whose only constructor is \(\refl\). That
+would be easy to define: \(A:\Univ\linfer \textsf{REFLEQ}_A:\Univ\),
+with \(\refl\) defined as above. But it would not be very useful; it
+is not enough to be able to express \(a=a\); we also need to be able
+to express \(a=b\), because we often need to prove such equalities.
+For example, for addition we need to prove \(a+b = b+a\), and we could
+not even express that if we were limited to the form \(a=a\).
+
+So we need to extend \(\textsf{REFLEQ}_A\) with a constructor that
+allows us to express membership of \(a=b\) in the type; and since that
+changes the type, we'll also rename it to \(\EQ_A\). The ordinary
+product type uses the generic constructor \(\pair(a,b)\); what we need
+is a constrained version, so we have to use a different syntax. Let's
+try \([\_=\_]_A\), giving \([a=b]_A:\EQ_A\). But that lands us right
+in the middle of a viscious circle. Membership in the equality type is
+limited to pairs of equal elements, but ``pair of equal elements'' is
+defined by membership in the equality type.
+
+The standard way to deal with such circularity is by recursion. And
+there are two varieties: recursion and corecursion, corresponding to
+induction and coinduction. We'll show below that induction does not
+work for defining equality, and that coinduction does. For now we want
+to focus on the type structure. In HoTT, equalities for a type \(A\)
+are not expressed as one type, but as a family of types, parameterized
+by the members of \(A\). We get one equality type (usually written
+\(a=_A b\)) for every pairing of \(a\type A\) and \(b\type A\). Why not
+have a single type \(\EQ_A\) that works for all pairs of equals?
+
+Suppose that such a type \(EQ_A\) were well-defined. We still could
+not use \([\_=\_]_A\) except for the reflexivity case, since we still
+would have no way of justifying it, except to ``know'' that the
+operands are equal. But if that were the case, then their pairing
+would ``already'' be in the type, and that would mean that they do not
+need to be and indeed \textit{cannot} be constructed.
+
+This is a critically important point. Constructors \textit{introduce}
+tokens into the type; they pour new wine into an old bottle. What is
+\textit{already} in the type \textit{cannot} be constructed, by
+definition. Constructed elements are new elements; if a newly
+constructed element were the same as an old element, how would we
+know? We would need again some notion of equality, and to use such a
+notion, we would need to somehow obtain the old token so we could see
+if it is the same as the new token.
+
+The notion that a type could be ``pre-inhabited'' may seem
+counter-intuitive, but we rely on such types all the time. The
+canonical example is the infinite list. We cannot construct an
+infinite list, but we can and do use them, by taking their
+\(\textsf{hd}\) and \(\textsf{tail}\). All of which presupposes that
+types like ``infinite list of \(\Nat\)'' are pre-inhabited. Such types
+may be \textit{codefined} by coinduction.
+
+HOWEVER, we can still have a reflexivity constructor. We can use the
+unary \textsf{refl} constructor or we can define \(a\type A\linfer
+[a=a]_A:A\) (effectively making \([\_=\_]\) a unary constructor). This makes
+  \(\EQ_A\) a hybrid type, partly defined and partly codefined.
+
+Now back to \(\EQ_A\). Let's assume it is pre-inhabited: it contains
+all pairs \((a,b)\) where \(a=b\). That means we can assume
+\(p\type\EQ_A\), but we cannot then infer that some or any expression
+constructs \(p\).
+
+ We cannot use a constructor like \([\_=\_]_A\) to introduce new
+ elements (except for \([a=a]_A\)). But we can \textit{use} the
+ elements it already contains. However -- another critical point --
+ all we know about such elements is that they are indeed elements of
+ the type. In particular, we do not know their internal structure. If
+ we have a unary repl constructor, we do not even know that they
+ combine two elements. But we do know that from such elements we can
+ project two elements of \(A\) (we will express this by rule below).
+ But we do not know \textit{how} they came to be combined - we know
+ nothing of the constructors, or even if there are constructors.
+
+ So the question becomes: what can we derive or infer, given
+ \(p\type\EQ_A\). One obvious thing we can do is just what we can do
+ with an ordinary pair, namely project its components: given
+ \(p\type\EQ_A\), we can infer \(\textsf{\slshape proj}_0(p)\type A\)
+ and \(\textsf{\slshape proj}_1(p)\type A\).
+
+[We said above that we cannot assume that elements of \(\EQ_A\) are
+  constructed. That means we cannot assume \([a=b]_A:\EQ_A\). But with
+  the projection operators codefined, we can use \([a=b]_A:\EQ_A\) as
+  a kind of abbreviation for \(\ulcorner p\type \EQ_A\linfer
+  [\textsf{proj}_0(p) = \textsf{proj}_1(p)]:\EQ_A\urcorner\).]
+
+\paragraph{Symmetry and Transitivity}
+If \(\EQ_A\) is an equality relation, it must exhibit symmetry and
+transitivity (satisfy the criteria of adequacy). The assumptions we've
+made so far are not sufficient to support this. We know by assumption
+that \((p,q)\) and \((q,p)\) are both in \(\EQ_A\); but we have no
+rule that tells us we can infer either from the other.
+
+Put differently, even if we know \(\EQ_A\) contains all pairs of
+equals, merely knowing that \((p,q)\) is such a pair does \textit{ipso
+  facto} entail that \((q,p)\) is also such a pair. That might be
+intuitively obvious, but that is not enough for a formal system. A
+principle of symmetry must be \textit{explicitly} expressed. There are
+two ways to do that, by definition or by proof. One can encode
+symmetry as a primitive by defining it in the construction rules, or
+one can prove it as a derived property. HoTT takes the latter
+strategy.
+
+Still: why a family of types?
+
+[TODO: finish this story]
+
+The upshot: equality types like this are unsuitable for HoTT because
+they do not acommodate the notion of proof of a particular equation.
+They also don't work for one of the most basic features of HoTT,
+namely the hierarchy of types.
+
+\paragraph{Definitional equality}
+
+Since definition is not equality, we need a bridge between definition
+and equality. If \(a\) is definitionally bound to \(b\), infer that
+\(a=b\) is inhabited. This must be made explicit if we want to be able
+to appeal to defined bindings in our logic. Something like:
+
+\[a\defn b:A \linfer\exists\,p\ |\ p : a=_A b\]
+
+We can eliminate the quantifier by following the standard pattern in
+sequent calculus, and show that if C can be proven by assuming
+\(p:a=_A b\), then it can be proven by \(a\defn b:A\). For this to
+work we must admit \(\defn\) as a structural operator in the logic.
+
+The problem is that the
+\(\textsf{refl}_A\) constructor is only defined for \(a=_A a\):
+
+\begin{displayquote}[\cite{hottbook} p.48; emph. added]
+    The basic \textbf{way to construct} an element of \(a=b\) is
+    \textbf{to know that} \(a\) and \(b\) are the same. Thus, the
+    introduction rule is a dependent function
+  \[\textsf{refl} : ∏_{a:A}(a=_A a)\]
+
+  called reflexivity, which says that every element of \(A\) is equal
+  to itself (in a specified way)...
+
+  In particular, this means that if \(a\) and \(b\) are judgmentally
+  equal {\upshape [definitionally bound]}, \(a\defn b\), then we also
+  have an element \(\textsf{refl}_a : a=_A b\). This is well-typed
+  because \(a\defn b\) means that also the type \(a=_A b\) is
+  judgmentally equal {\upshape [definitionally bound]} to \(a=_A a\),
+    which is the type of \(\textsf{refl}_a\).
+\end{displayquote}
+
+Note the dependency here on Martin-Löf's philosophical doctrine of
+epistemic logic. But ``the way to construct... is to know that...''
+makes no sense for a variety of reasons, the most obvious of which is
+that \textit{knowing that} is non-constructive.\footnote{Martin-Löf
+simply changes the meaning of ``to know'' in a way that conflates
+knowing that, knowing how, and making things so, so that his doctrine
+appears to work. But the only way to prove something is to prove it:
+to actually \textit{do} the deed.} Saying that the way to construct an
+element of equality type is to know that two elements are equal is
+exactly like saying that the way to construct an element of type
+\(A\times B\) is to know that two element of types \(A\) and \(B\) are
+a pair.
+
+In addition to the dubious justification, the problem is that HoTT
+does not provide an explicit inference rule to support this informal
+argument. The inference
+\[a\defn b \linfer (a=_A b) \defn (a=_A a)\]
+
+may be intuitively obvious, but it is not formally licensed.
+
+Here's a try. If \(a\defn_A b, p:a=_A b \linfer q:Q\), then \((a\defn_A b):Q\).
+
+%% \begin{displaymath}
+%%   \prftree[r]{$\linfer\,=$}
+%%           {\Gamma,}
+%%           {p\type a=_A b\linfer q\type Q,}
+%%           {a\defn b\type A}
+%%           %% {\Gamma,a\defn b\type A \linfer a\type Q}
+%%           {\Gamma\linfer p\type a=_A a,\ p\type b=_A b}
+%% \end{displaymath}
+
+Note that we cannot do this, in spite of what the HoTT Book says:
+\mbox{\(a\defn_A b\linfer\textsf{refl}_a:a=_A a\)}. For that we would
+need another rule saying that \(\textsf{refl}_a\) is unique.
+
+This is essentially modus ponens for definitions. Or maybe a
+distributive law, that p distributes over each of the two terms of a
+definition.
+
+Hey, I think explicit inference to both equalities is much more
+revealing than settling for just one.
+
+In effect what we need is a rule that says substition works for
+co-defined symbols.
+
+\subsection{Equational Types}
+
+The primary motivation for equational types is the Curry-Howard
+isomorphism, whose slogan is ``Formulae are types''.\footnote{Often
+also expressed as ``propositions-as-types'', meaning something like
+``propositional-formulae-as-types''. Obviously \textit{particular}
+propositions cannot be types, since types are general.} By defining a
+type for each equation (i.e. equational formula), we make it possible
+to express a proof of the equation as a token of the type.
+
+The equations we're talking about are actually equational formulae,
+not particular equations. For example, \(a+b=b+a\) is an equational
+formula, but \(2+3=3+2\) is a particular equation. We commonly call
+both ``proposition'', but it is critical to remember that the former
+expression is a kind of generalization and the latter is a particular.
+A formula is already a kind of type; a particular is never a type.
+
+
+And the only way to do that is to define a dependent product type. Our
+equality type must still be a product type (to express relationality),
+but
+
+We use the notation \(\EQN_A(a,b)\), or equivalently \(\EQN(A,a,b)\)
+for equational types.
+
+\[\EQN \defn \prod\limits_{\tjsmall{a,b}{A}}\Univ\]
+
+  %% \[\textsf{refl} : ∏_{a:A}(a=_A a)\]
+
+
+Informally, this dependent function takes two tokens of type A and
+produces a type that depends on them (so a different type is produced
+for each \(a,b\)).
+
+\subsubsection{Reflexive Types}
+
+We could define reflexive types as special cases of equational types.
+So instead of \( \tj{\refl_a}{\EQN_A(a,a)}\), we could have something like
+\(\tj{\refl_a}{\REQN_A(a)}\).
+
+
+\subsection{Defining Equality by Induction}
 
 Suppose we could define equality by induction. What would that look
 like?
@@ -3521,8 +4052,8 @@ like?
 We would start they way HoTT starts, by inductively defining a family
 of types: \textquote[\cite{hottbook} 47]{...\textbf{equality types} or
   \textbf{identity} types must be type families dependent on two
-  copies of A. We may write the family as \(\textsf{Id}_A : A → A →
-  U\)}. Following the HoTT book, we define
+  copies of A. We may write the family as \mbox{\(\textsf{Id}_A : A → A →
+  U\)}}. Following the HoTT book, we define
 \(a=_Ab\eqdef\textsf{Id}_A(a,b)\).
 
 This is already problematic, since equality does not entail identity,
@@ -3545,14 +4076,14 @@ The first constructor for equality is easy: since every value is equal
 to itself, we define a constructor to express reflexivity:
 
 \begin{align}
-  & a:A\vdash\textsf{refl}_a: a=_Ab
+  & a:A\linfer\textsf{refl}_a: a=_Ab
 \end{align}
 
 That gives us a definition for a subset of the \(\textsf{Id}\) family,
 types of the form \(a=_A a\). This is analogous to defining
 \(\textsf{Z}: \Nat\) for the natural numbers. For \(\Nat\), our next
 task would be to define the remaining numbers, which we would do by
-defining the successor constructor, \(n:\Nat\vdash \textsf{S}n:\Nat\).
+defining the successor constructor, \(n:\Nat\linfer \textsf{S}n:\Nat\).
 But for equality we have a unique type for each pair \(a,b\), so we
 need to define a constructor for each such type. Note that we need a unique
 type for each pair of tokens, whether we use induction or coinduction.
@@ -3632,7 +4163,104 @@ debatable propositions:
 \item The equality relation is not unique.
 \end{enumerate}
 
+\subsubsection{Counterexamples}
+
+We can construct proofs of reflexivity types for different numbers,
+e.g. \(\refl_2:\EQN_{\Nat}(2,2)\) and \(\refl_3:\EQN_{\Nat}(3,3)\).
+But we can also form the type \(\EQN_{\Nat}(2,3)\) expressing \(2=3\);
+this type is well-formed. We do not have constructors for any
+equational types beyond the reflexivity types \(\EQN_A(a,a)\), so
+there is no danger that we could deliberately construct a proof
+\(\tj{p}{\EQN_{\Nat}(2,3)}\). But nothing prevents us from
+\textit{assuming} \(\tj{p}{\EQN_{\Nat}(2,3)}\); and how do we know
+that such a \(p\) could not be derived?
+
+\textquote[\cite{hottbook}, p.61]{Informally, the induction principle
+  for identity types says that if we want to construct an object (or
+  prove a statement) which depends on an inhabitant \(\tj{p}{x=_A y}\)
+  of an identity type, then it suffices to perform the construction
+  (or the proof) in the special case when \(x\) and \(y\) are the same
+  (judgmentally) [by definition] and \(p\) is the reflexivity element
+  \(\tj{\refl_x}{x = x}\) (judgmentally) [by definition].}
+
+I believe what this is trying to say is that the rule follows the
+common pattern of defining the something indirectly, by setting out
+how it can be \textit{used} to do something, as opposed to exhibiting
+it structure via an elimination rule. For example, the elimination
+rule for \(\lkor\) may be expressed using this pattern:
+
+\begin{prooftree}
+\AxiomC{$A \lkor B$}
+\AxiomC{$[A]$}
+  \noLine
+  \UnaryInfC{$\vdots$}
+  \noLine
+  \UnaryInfC{$C$}
+\AxiomC{$[B]$}
+  \noLine
+  \UnaryInfC{$\vdots$}
+  \noLine
+  \UnaryInfC{$C$}
+    \TrinaryInfC{$C$}
+\end{prooftree}
+
+Compare this to the simpler version often found in introductory material:
+
+\begin{center}
+\AxiomC{$A \lkor B$}
+\UnaryInfC{$A$}
+\DisplayProof
+\hspace{1.5em}
+\AxiomC{$A \lkor B$}
+\UnaryInfC{$B$}
+\DisplayProof
+\end{center}
+
+Here's how the previous explanation might be expressed formally:
+
+\begin{prooftree}
+\AxiomC{$[\tj{p}{x=_Ay}]$}
+  \noLine
+  \UnaryInfC{$\vdots$}
+  \noLine
+  \UnaryInfC{$\tj{b}{B}$}
+\AxiomC{$\tj{\refl_x}{x=_A x}$}
+\BinaryInfC{$\tj{b}{B}$}
+\end{prooftree}
+
+Informally: if we can prove \(\tj{b}{B}\) by \textit{assuming} that
+\(p\) is a proof of \(a=_Ab\), and we have a proof \(\refl_x\) of
+\(x=x\), and then we can infer \(\tj{b}{B}\). In other words, this is
+a kind of weird \modus\ rule.
+
+\begin{prooftree}
+\AxiomC{$\Gamma$}
+\AxiomC{$x=_Ay\lkso B]$}
+\AxiomC{$\tj{\refl_x}{x=_A x}$}
+\TrinaryInfC{$\tj{b}{B}$}
+\end{prooftree}
+
 \subsubsection{HoTT Equality - Critique}
+
+Objection: substitutability is a consequence of ``the induction principle for identity types'' (i.e. path induction).  It should be primitive.
+
+Objection: symmetry and transitivity are theorems. Should be primitives.
+
+Objection: enthymemes. For example, on p. 48: \(a\defn_A
+b\linfer\textsf{refl}_a:a=_A a\) is not supported by an inference rule.
+
+Objection: says nothing about uniqueness of equality types.
+
+Objection: basic logical flaw. the claim is that refl:a=a suffices to
+define all a=b. even if that were the case, there's no reason to take
+these as equality proofs. Just because we call the types a=b does not
+mean they express equality. And just because refl generates a witness
+for eah type does not mean equality. They could have other tokens as
+well, and no reason to thing they are equal to refl. after all, every
+token of every type is equal to itself. having x=y types whose sole
+ctors are refl does not entail that they are equalities. For that
+matter, just because we call it refl does not mean anything. It's just
+a constructor.
 
 The HoTT book argues that HoTT equality is defined by induction. This
 is wrong. The family of equality types is defined inductively, but the
@@ -3653,7 +4281,7 @@ infinity'' is an oxymoron, as the etymologies of ``define'' and
 natural numbers; it does \textit{not} define an infinite sequence of
 natural numbers. This is elementary.
 
-The text goes on to say, in the same paragraph, \enquote{The rule
+The text goes on to say, in the same paragraph, \textquote{The rule
   (2.0.1) ... says that if we define an object \(f(p)\) for all \(p :
   x = y\) by specifying what the value should be when \(p\) is
   \(\textsf{refl}_x : x = x\), then the value we specified is in fact
@@ -3748,7 +4376,47 @@ identity.
 
 Agree with this.
 
-\subsection{Helical Equality}
+As path induction, symmetry and transitivity are theorems that must be
+proven.
+
+Substitutability?
+
+\subsection{Codefining Equality}\label{codef_eq}
+
+\begin{itemize}
+\item refl: \(x=y \rightarrow x=x\)
+\item sym:  \(x=y \rightarrow y=x\)
+\item trans: \(x=y, y=z \rightarrow x=z\)
+\item substitutability: equals may be substituted for equals in
+  expressions/propositions (Leibniz's law)
+\end{itemize}
+
+
+
+Refl is not enough. From any \(p:x=y\) we can derive \(refl:x=x\), but
+we have no way to obtain \(q:y=x\) from either, since we have no
+constructors for \(x=y\). So we need a co-constructor
+\(\mathsf{sym}(p): y=x\).
+
+Ditto for transitivity. We need \(\mathsf{trans}(p,q): x=z\) for
+\(p:x=y\) and \(q:y=z\).
+
+These three co-constructors suffice to codefine the entire family of
+equality types.
+
+\subsection{Interpreting Equality: The HoTT Helix}
+
+Interpreting equality in a calculus is like interpreting truth. The
+method is to provide not a meaning but a mapping from the language of
+the logic to some other language that serves as a semantic determiner.
+So for example, we might map \textsf{True} to \(1\) and \textsf{False}
+to 0. For equality, the symbol \(=\) will normally be mapped to a
+similar symbol in the semantic language.
+
+One of the distinctive features of HoTT is its interpretation of
+equality. It does not even use the symbol \(=\) (except, optionally,
+as an abbreviation). Instead it defines equalities as types, and maps
+\textit{proofs} of equality to paths in a space.
 
 Purpose of this section: give an intuitive account of HoTT's
 path-based equality. Problems with the HoTT Book's
@@ -3855,9 +4523,9 @@ by pointing to one of those loops.
 \centering
 %% \begin{subcaptiongroup}%%{.4\textwidth}
 %%   \subcaptionlistentry{Proof of a=b}
-\begin{tikzpicture}[scale=1.0,
-    background rectangle/.style={fill=olive!45},
-    show background rectangle
+\begin{tikzpicture}[scale=2.0,
+    %% background rectangle/.style={fill=olive!45},
+    %% show background rectangle
   ]
   \begin{axis}[
       view={-20}{-20},
@@ -3883,32 +4551,60 @@ by pointing to one of those loops.
     %%      {equality pencil} (0.45,-5.0);
 
     %% refl a
-    \addplot3[samples=30,smooth,variable=t,domain=0:360,ultra thick]
+    \addplot3[domain=0:360,samples=300,samples y=1,variable=t,
+      black,no marks,thick]
+      %% smooth,variable=t,ultra thick]
     ({cos(t)},{sin(t)},4.5);
-    %% \node [pos=.5,circle,fill]{};
-    \node at (-0.5,1.5) [black]{$\mathsf{\scriptstyle refl_a}$};
-    \node at (2.6,0) [black]{$\mathsf{refl_a}:a=_A a$};
-    \draw [<-] (-0.98,-5.2) -- (0,-5) node [right]
-          {\small equipoint pencil};
+    \node at (-0.8,0.05) [name=refl]{};
+    \node at (0,1.5)
+          [name=refllabel,black,label={[scale=0.5]center:$\tj{\refl_a}{a=_A a}$}]
+          {};
+    %% \draw [<-] (-1.0,-5.2) -- (-0.5,-5) node
+    %%       [label={[scale=0.5]east:equipoint pencil}]
+    %%       {};
+    %% \node at (1.1,-2.7)
+    %%       [black,label={[scale=0.6,distance=-4pt]
+    %%           center:{$\textcolor{red}{p}:a=_Ab$}}]
+    %%       {};
+    %% \node at (2.0,0)
+    %%       [black,label={[scale=0.6,distance=-4pt]
+    %%           center:{$\mathsf{refl_a}:a=_A a$}}]
+    %%       {};
+    \node at (-0.1,-0.35) [name=omphalos,black,circle,scale=0.2,draw]{};
+
     %%helix
     \addplot3+[domain=0.5:3*pi,samples=500,samples y=1,
       black,no marks]
     ({sin(deg(x))}, {cos(deg(x))}, {10*x/(pi)});
     %% p:a=b
     \addplot3+[domain=1.3:2.41*pi,samples=500,samples y=1,
-      shorten >= 3pt,
-      red,->,no marks,thick]
+      %% shorten >= 2pt,
+      red,
+      -{Latex[red,length=1.5mm,width=1.5mm]},no marks,thick]
     ({sin(deg(x))},{cos(deg(x))},{10*x/(pi)})%% NB: no semi-colon
     node [name=A,black,circle,scale=0.4,fill,pos=0,
-      label={[black,label distance=0pt]east:$a$}]{}
-    node [red,pos=0.7,label={north:$p$}]{}
+      label={[black,scale=0.6,distance=-4pt]south east:$a$}]{}
+    %% node [red,pos=0.7,label={north:$p$}]{}
+    coordinate [name=pab,pos=0.5]{}
+    node [name=pablabel,pos=0.4,
+      xshift=6pt, yshift=10pt,
+      label={[black,scale=0.6] %% ,distance=-18pt]
+        center:$\tj{\textcolor{red}{p}}{a=_A b}$}]{}
     node [name=B,black,circle,scale=0.4,fill,pos=1,
-      label={[black,label distance=0pt]east:$b$}]{};
+      label={[black,scale=0.6,distance=-4pt]south east:$b$}]{};
+      %% label={[black,label distance=0pt]east:$b$}]{};
     %% equality chord
     %%
     \draw[black,shorten >= -1cm, shorten <=-0.5cm] (A)--(B);
+    \draw[-{Latex[length=1mm,width=.7mm]},black,densely dotted]
+    (A)--(omphalos);
+    \draw[-{Latex[length=1mm,width=.7mm]},black,densely dotted]
+    (B)--(omphalos);
+    \draw[-{Latex[length=1mm,width=.7mm]},black]
+    ([xshift=-9pt]pablabel.west) to[out=180,in=90] (pab);
+    \draw[-{Latex[length=1mm,width=.7mm]},black]
+    ([xshift=-11pt]refllabel.west) to[out=180,in=-130] (refl);
 
-\node at (1.8,-2.7) {$\textcolor{red}{p}:a=_Ab$};
 \end{axis}
 \end{tikzpicture}
 \caption{Equality of two distinct values}
@@ -3918,11 +4614,21 @@ by pointing to one of those loops.
 \end{figure}
 
 Figure \ref{fig:aeqb} illustrates proof of equality of two distinct
-values. The vertical line (equipoints pencil) represents equality; all
-points on the line are equal. The segment joining \(a\) and \(b\)
-represents the type \(a=_A b\). The red curve joining \(a\) and \(b\)
-(``helical loop'') represents proof that \(a=b\). The black circle
-represents \(\textsf{refl}_a:a=a\).
+values. The geometric forms are to be read as semantic symbols: not
+symbols of geometric objects, but of whatever concepts we please. The
+vertical line (equipoints pencil) represents identity; all points on
+the line are identical. Meaning, we treat the points as coreferring
+symbols. The segment joining \(a\) and \(b\) represents the type
+\(a=_A b\). The red curve joining \(a\) and \(b\) (``helical loop'')
+represents proof that \(a=b\). The black circle represents
+\(\textsf{refl}_a:a=a\).
+
+[To represent the coreference, draw arrows from each point in the pencil to the center of the base refl circle.
+
+Per Frege: if a=b, then they must be coreferential, but may have
+different sense. So if our helix is to represent that, we have to
+treat the points a and b as coreferential, and separated in space only
+to emphasize the two different ``modes of presentation'' of a and b.
 
 Warning: the vertical equipoints pencil has no counterpart in HoTT; we
 just add it for illustrative purposes, to give a graphic
@@ -3993,11 +4699,11 @@ The equipoints pencil should be thought of as a kind of meta-line.
     %% equality pencil
     %%
     \draw[black,shorten >= -1cm, shorten <=-0.5cm] (A)--(C);
-
-    \addplot3+[domain=0:2.41*pi,samples=500,samples y=1,
-      shorten >= 3pt,
-      blue,->,no marks,thick]
-    ({sin(deg(x))},{cos(deg(x))},{-10*x/(pi)});
+    \draw[red,fill,circle,scale=0.6] (0,1);
+    \addplot3[domain=0.0:7.31*pi,samples=500,samples y=1,
+      %% shorten >= 3pt,
+      black,no marks,thin]
+    ({1*sin(deg(x))},{0.3-1*cos(deg(x))},{9.8*x/(pi)});
 
 \node at (1.8,-2.7) {$\textcolor{red}{p}:a=_Ab$};
 
@@ -4098,27 +4804,6 @@ already show reflexivity. To show symmetry, draw another helical loop
 between \(a\) and \(b\), with opposite chirality (polarity). To show
 transitivity, draw loops from a to b, and from b to c, and then from a
 to c.
-
-\subsection{Codefining Equality}\label{codef_eq}
-
-To codefine equality types, we need three co-constructors:
-
-\begin{itemize}
-\item refl: \(x=y \rightarrow x=x\)
-\item sym:  \(x=y \rightarrow y=x\)
-\item trans: \(x=y, y=z \rightarrow x=z\)
-\end{itemize}
-
-Refl is not enough. From any \(p:x=y\) we can derive \(refl:x=x\), but
-we have no way to obtain \(q:y=x\) from either, since we have no
-constructors for \(x=y\). So we need a co-constructor
-\(\mathsf{sym}(p): y=x\).
-
-Ditto for transitivity. We need \(\mathsf{trans}(p,q): x=z\) for
-\(p:x=y\) and \(q:y=z\).
-
-These three co-constructors suffice to codefine the entire family of
-equality types.
 
 \subsection{Euclidean Equality \\}
 
@@ -4229,7 +4914,6 @@ identity of indiscernables v. indiscernability of identicals
 \item \citetitle{10.2307/20016085} \parencite{10.2307/20016085}
 \end{itemize}
 
-\subsection{Frege}
 
 \subsection{Russell}
 
@@ -4262,7 +4946,24 @@ Roughly speaking: to say of two things that they are identical is
 nonsense, and to say of one thing that it is identical with itself is
 to say nothing. (Tractatus?)
 
+\section{Codefinition \& Coequality}
+
+Treat \(\defn\) as codefinition?
+
 \section{Notes}
+
+\subsection{Games}
+
+The games we're talking about are not the games of game theory. Those
+games have winners and losers. Our games are deontic: they involve a
+set of rules that players are obligated to follow if they want to
+count as playing the game at all. You cannot lose that kind of game;
+if you do not follow the rules, then you are not playing the game.
+
+You can push chess pieces around, but if you do not obey the rules of
+chess, then you are not playing chess. An invalid inference is not an
+inference; a program that fails to compile is not a program. A proof
+that does not obey the rules of inference is not a proof.
 
 \subsection{Logical Pluralism}
 
@@ -4330,6 +5031,13 @@ concept of consequence.
 
 \subsection{Residuation}
 
+Deduction theorem: inter-convertability between consequence and
+implication.
+
+Implication requires modus ponens to detach the conclusion.
+Consequence does not. So this is a kind of asymmetry between the two.
+
+
 Bimbó says that operators are residuals of operators, for example
 p. 120 says \(\lollipop\) is the residual of \(\circ\) in linear
 logic.
@@ -4337,13 +5045,13 @@ logic.
 But Restall makes it look like residuation is about operands, not
 operators.
 
-Must be that \(\vdash\) is the residual of \(→\), or vice versa?
+Must be that \(\linfer\) is the residual of \(→\), or vice versa?
 
 
 \textquote[\citetitle{sep-logic-substructural} \cite{sep-logic-substructural}]{
 Logic is about logical consequence. As a result, the conditional is a central notion in logic because of its intimate connection with logical consequence. This connection is neatly expressed in the residuation condition (also known as the deduction theorem):
 
-\[p,q\vdash r\ \text{if and only if}\ p\vdash q\rightarrow r\]
+\[p,q\linfer r\ \text{if and only if}\ p\linfer q\rightarrow r\]
 
 It says that \(r\) follows from \(p\) together with \(q\) just when \(q→r\)
 follows from p alone. The validity of the transition from \(q\) to \(r\)
@@ -4365,9 +5073,9 @@ reading in logic. It seems to be motivated by formal analogy:
   a+b &= c & \text{arithmetic sum equals c} \\
   a &= c - b & \text{arithmetic residual equals difference} \\
   b &= c - a \\
-  p,q &\vdash c & \text{sum entails c} \\
-  p &\vdash q→r & \text{residual p entails implication} \\
-  q &\vdash p→r
+  p,q &\linfer c & \text{sum entails c} \\
+  p &\linfer q→r & \text{residual p entails implication} \\
+  q &\linfer p→r
 \end{align}
 
 The formal analogy is clear, but it's hard to see how arithmetic
@@ -4412,7 +5120,7 @@ implication.
 In a real sense is it is a lack. Remove one of the conditions of
 production and the output lacks something.
 
-Treat \(p,q\vdash r\) as a binary function. If you want to convert it
+Treat \(p,q\linfer r\) as a binary function. If you want to convert it
 to a unary function, you remove one of the parameters, and you output
 another unary function that takes the removed parameter as its arg.
 
@@ -4441,8 +5149,8 @@ restore entailment, you must add implication.
 \begin{itemize}
 \item \(a + b = c\) the arithmetic sum of a and b equals c.
 \item \(a = c - b\) the residual a is what's left when you subtract b from c
-\item \(p,q\vdash r\) the logical sum of p and q entails r
-\item \(p\vdash q→r\): p is what is left when you ...?
+\item \(p,q\linfer r\) the logical sum of p and q entails r
+\item \(p\linfer q→r\): p is what is left when you ...?
 \end{itemize}
 
 Here ``logical sum'' does not mean ``logical conjunction''
@@ -4473,56 +5181,60 @@ above, but explicit.
 
 Examples:
 
-\begin{center}
-\AxiomC{$\Gamma$}
-\AxiomC{$[\phi]$}
-\noLine
-\UnaryInfC{$\vdots$}
-\noLine
-\UnaryInfC{$\psi$}
-\BinaryInfC{$\phi\rightarrow\psi$}
-\DisplayProof
-\hskip1em
-\rightarrow
-\AxiomC{$\Gamma$}
-\AxiomC{$\epsilon\phi$}
-\noLine
-\UnaryInfC{$\vdots$}
-\noLine
-\UnaryInfC{$\psi$}
-\BinaryInfC{$\phi\rightarrow\psi$}
-\DisplayProof
-\end{center}
+%% \begin{center}
+%% \AxiomC{$\Gamma$}
+%% \AxiomC{$[\phi]$}
+%% \noLine
+%% \UnaryInfC{$\vdots$}
+%% \noLine
+%% \UnaryInfC{$\psi$}
+%% \BinaryInfC{$\phi\rightarrow\psi$}
+%% \DisplayProof
+%% \hskip1em
+%% \rightarrow
+%% \AxiomC{$\Gamma$}
+%% \AxiomC{$\epsilon\phi$}
+%% \noLine
+%% \UnaryInfC{$\vdots$}
+%% \noLine
+%% \UnaryInfC{$\psi$}
+%% \BinaryInfC{$\phi\rightarrow\psi$}
+%% \DisplayProof
+%% \end{center}
 
 With types:
 
-\begin{center}
-\AxiomC{$\Gamma$}
-\AxiomC{$[\phi:A]$}
-\noLine
-\UnaryInfC{$\vdots$}
-\noLine
-\UnaryInfC{$\psi:B$}
-\BinaryInfC{$\phi\rightarrow\psi:$}
-\DisplayProof
-\hskip1em
-\rightarrow
-\AxiomC{$\Gamma$}
-\AxiomC{$\epsilon\phi$}
-\noLine
-\UnaryInfC{$\vdots$}
-\noLine
-\UnaryInfC{$\psi$}
-\BinaryInfC{$\phi\rightarrow\psi$}
-\DisplayProof
-\end{center}
+%% \begin{center}
+%% \AxiomC{$\Gamma$}
+%% \AxiomC{$[\phi:A]$}
+%% \noLine
+%% \UnaryInfC{$\vdots$}
+%% \noLine
+%% \UnaryInfC{$\psi:B$}
+%% \BinaryInfC{$\phi\rightarrow\psi:$}
+%% \DisplayProof
+%% \hskip1em
+%% \rightarrow
+%% \AxiomC{$\Gamma$}
+%% \AxiomC{$\epsilon\phi$}
+%% \noLine
+%% \UnaryInfC{$\vdots$}
+%% \noLine
+%% \UnaryInfC{$\psi$}
+%% \BinaryInfC{$\phi\rightarrow\psi$}
+%% \DisplayProof
+%% \end{center}
+
+\subsection{Strategies}
+
+A common technique is to define use of a connector indirectly.  Instead of showing what follows directly, use an intermediary.
 
 \subsection{Disjunction}
 
 We actually need a choice operator to make sense of disjunction, or
 more precisely, to make our calculus work for disjunction.
 
-To see why, start with conjunction: \(A, B\vdash A\lkand B\). The
+To see why, start with conjunction: \(A, B\linfer A\lkand B\). The
 usual way to gloss this is something like ``If A is true and B is
 true, then A\(\lkand\) B is true''. But we need to be more explicit.
 Implicit in the standard gloss is that A and B are
@@ -4531,7 +5243,7 @@ universal quantification; what we really mean is ``For all
 propositions A and B, if A is true and B is true, then A\(\lkand\) B
 is true''.
 
-Note that in \(A, B\vdash A\lkand B\) the only symbol in the
+Note that in \(A, B\linfer A\lkand B\) the only symbol in the
 conclusion that is not in the premises is \(\lkand\).
 
 To make the interpretation of such formulae fully explicit, we have
@@ -4670,24 +5382,24 @@ indeterminate way. But they do \textit{not} assume that is was
 constructed by an introduction rule.
 
 Take \(\land\) for example. Here is the way the rules are often
-presented, with the context and \(\vdash\) omitted for simplicity's
+presented, with the context and \(\linfer\) omitted for simplicity's
 sake:
 
 %% Logical And
-\begin{center}
-\AxiomC{$A$}
-\AxiomC{$B$}
-\BinaryInfC{$A\land B$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$A\land B$}
-\UnaryInfC{$A$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$A\land B$}
-\UnaryInfC{$B$}
-\DisplayProof
-\end{center}
+%% \begin{center}
+%% \AxiomC{$A$}
+%% \AxiomC{$B$}
+%% \BinaryInfC{$A\land B$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$A\land B$}
+%% \UnaryInfC{$A$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$A\land B$}
+%% \UnaryInfC{$B$}
+%% \DisplayProof
+%% \end{center}
 
 The rule on the left defines \(A\land B\): you build a conjunct
 \(A\land B\) from an A and a a B. The two on the right jointly
@@ -4699,29 +5411,29 @@ B\) suggests that the elimination rules operate by extracting A or B
 syntactically. That is not the case. We can make this more evident by
 rewriting the rules as follows to make the assumptions explicit:
 
-\begin{center}
-  \AxiomC{$P$}
-  \LeftLabel{$\scriptstyle\text{[P a \(\land\) conjunct]}$}
-  \UnaryInfC{$first(P)$}
-  \DisplayProof
-  \hskip 1.4em
-  \AxiomC{$P$}
-  \LeftLabel{$\scriptstyle\text{[P a conjunction]}$}
-  \UnaryInfC{$second(P)$}
-  \DisplayProof
-\end{center}
+%% \begin{center}
+%%   \AxiomC{$P$}
+%%   \LeftLabel{$\scriptstyle\text{[P a \(\land\) conjunct]}$}
+%%   \UnaryInfC{$first(P)$}
+%%   \DisplayProof
+%%   \hskip 1.4em
+%%   \AxiomC{$P$}
+%%   \LeftLabel{$\scriptstyle\text{[P a conjunction]}$}
+%%   \UnaryInfC{$second(P)$}
+%%   \DisplayProof
+%% \end{center}
 
 In type theories, conjunction corresponds to product types:
 
-\begin{center}
-  \AxiomC{$p:A\times B$}
-  \UnaryInfC{$first(p):A$}
-  \DisplayProof
-  \hskip 1.4em
-  \AxiomC{$p:A\times B$}
-  \UnaryInfC{$second(p):B$}
-  \DisplayProof
-\end{center}
+%% \begin{center}
+%%   \AxiomC{$p:A\times B$}
+%%   \UnaryInfC{$first(p):A$}
+%%   \DisplayProof
+%%   \hskip 1.4em
+%%   \AxiomC{$p:A\times B$}
+%%   \UnaryInfC{$second(p):B$}
+%%   \DisplayProof
+%% \end{center}
 
 In other words, the elimination rules tell us that we can extract a ``first'' element and a ``second'' element from any conjunct.
 
@@ -4761,23 +5473,23 @@ and tedious to write out.
 \subsection{Natural Deduction}
 
 %% Logical And
-\begin{center}
-\AxiomC{$A\kern-1.2em$}
-\AxiomC{$B$}
-\RightLabel{$\scriptstyle{[\land \textrm{-intro}]}$}
-\BinaryInfC{$A\land B$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$A\land B$}
-\RightLabel{$\scriptstyle{[\land\ \text{-exit}_{\text{L}}]}$}
-\UnaryInfC{$A$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$A\land B$}
-\RightLabel{$\scriptstyle{[\land\ \text{-exit}_{\text{R}}]}$}
-\UnaryInfC{$B$}
-\DisplayProof
-\end{center}
+%% \begin{center}
+%% \AxiomC{$A\kern-1.2em$}
+%% \AxiomC{$B$}
+%% \RightLabel{$\scriptstyle{[\land \textrm{-intro}]}$}
+%% \BinaryInfC{$A\land B$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$A\land B$}
+%% \RightLabel{$\scriptstyle{[\land\ \text{-exit}_{\text{L}}]}$}
+%% \UnaryInfC{$A$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$A\land B$}
+%% \RightLabel{$\scriptstyle{[\land\ \text{-exit}_{\text{R}}]}$}
+%% \UnaryInfC{$B$}
+%% \DisplayProof
+%% \end{center}
 
 %%%%%%%%%%%%%%%%
 \subsection{LK}
@@ -4786,11 +5498,11 @@ First some helpful vocabulary:
 
 \begin{description}
 \item[Sequent]
-  \item[Antecedent] The part of a sequent preceding \(\vdash\).
-  \item[Consequent] The part of a sequent following \(\vdash\).
+  \item[Antecedent] The part of a sequent preceding \(\linfer\).
+  \item[Consequent] The part of a sequent following \(\linfer\).
   \item[Principle formula] The (sub-)formula containing the logical
-    constant being defined. For example, in rule \(\land\vdash\), the
-    principle formula is \mbox{\(A\land B,\Gamma\vdash \Delta\)}.
+    constant being defined. For example, in rule \(\land\linfer\), the
+    principle formula is \mbox{\(A\land B,\Gamma\linfer \Delta\)}.
   \item[Structure] A sequence of formulae. Uppercase Greek letters
     \(\Gamma, \Delta, \Theta, \Sigma\), etc. are used as
     meta-variables to represent sequences of formulae, which may be
@@ -4816,7 +5528,7 @@ First some helpful vocabulary:
 By convention, rules are categorized as left or right, depending on 1)
 the location of the principle formula on the bottom; and 2) the
 location of the propositional variables in the sequents. For example,
-rule \(\land\vdash\) is the left rule for \(\land\).
+rule \(\land\linfer\) is the left rule for \(\land\).
 
 Left rules correspond to elimination rules, right rules, to
 introduction rules. We want the introduction rules on the left, since
@@ -4832,153 +5544,153 @@ kind of backward reasoning.
 \subsubsection{Axioms}
 
 %% Id, Cut
-\begin{center}
-\AxiomC{}
-\RightLabel{$\text{Id}$}
-\UnaryInfC{$A\land A$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma\vdash \Delta_1,C,\Delta_2\kern-1.2em$}
-\AxiomC{$\seqand\kern-1.2em$}
-\AxiomC{$\Theta_1,C,\Theta_2\vdash\Lambda$}
-\RightLabel{$\text{cut}$}
-\TrinaryInfC{$\Theta_1,\Gamma,\Theta_2\vdash \Delta_1,\Lambda,\Delta_2$}
-\DisplayProof
-\end{center}
+%% \begin{center}
+%% \AxiomC{}
+%% \RightLabel{$\text{Id}$}
+%% \UnaryInfC{$A\land A$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma\linfer \Delta_1,C,\Delta_2\kern-1.2em$}
+%% \AxiomC{$\seqand\kern-1.2em$}
+%% \AxiomC{$\Theta_1,C,\Theta_2\linfer\Lambda$}
+%% \RightLabel{$\text{cut}$}
+%% \TrinaryInfC{$\Theta_1,\Gamma,\Theta_2\linfer \Delta_1,\Lambda,\Delta_2$}
+%% \DisplayProof
+%% \end{center}
 
 \subsubsection{Logical Rules}
 
 Also called (by Bimbó) operational rules.
 
-%% Logical And
-\begin{center}
-\AxiomC{$\Gamma\vdash \Delta, A\kern-1.2em$}
-\AxiomC{$\seqand\kern-1.2em$}
-\AxiomC{$\Gamma\vdash \Delta, B$}
-\RightLabel{$\vdash\land$}
-\TrinaryInfC{$\Gamma\vdash \Delta, A\land B$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$A,\Gamma\vdash \Delta\kern-1.2em$}
-\AxiomC{$\seqor\kern-1.2em$}
-\AxiomC{$B,\Gamma\vdash \Delta$}
-\RightLabel{$\land\vdash$}
-\TrinaryInfC{$A\land B,\Gamma\vdash \Delta$}
-\DisplayProof
-\end{center}
+%% %% Logical And
+%% \begin{center}
+%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+%% \AxiomC{$\seqand\kern-1.2em$}
+%% \AxiomC{$\Gamma\linfer \Delta, B$}
+%% \RightLabel{$\linfer\land$}
+%% \TrinaryInfC{$\Gamma\linfer \Delta, A\land B$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+%% \AxiomC{$\seqor\kern-1.2em$}
+%% \AxiomC{$B,\Gamma\linfer \Delta$}
+%% \RightLabel{$\land\linfer$}
+%% \TrinaryInfC{$A\land B,\Gamma\linfer \Delta$}
+%% \DisplayProof
+%% \end{center}
 
-%% Logical Or
-\begin{center}
-\AxiomC{$\Gamma\vdash \Delta, A\kern-1.2em$}
-\AxiomC{$\seqor\kern-1.2em$}
-\AxiomC{$\Gamma\vdash \Delta, B$}
-\RightLabel{$\vdash\lor$}
-\TrinaryInfC{$\Gamma\vdash\Delta, A\lor B$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$A,\Gamma\vdash \Delta\kern-1.2em$}
-\AxiomC{$\seqand\kern-1.2em$}
-\AxiomC{$B,\Gamma\vdash \Delta$}
-\RightLabel{$\lor\vdash$}
-\TrinaryInfC{$A\lor B,\Gamma\vdash \Delta$}
-\DisplayProof
-\end{center}
+%% %% Logical Or
+%% \begin{center}
+%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+%% \AxiomC{$\seqor\kern-1.2em$}
+%% \AxiomC{$\Gamma\linfer \Delta, B$}
+%% \RightLabel{$\linfer\lor$}
+%% \TrinaryInfC{$\Gamma\linfer\Delta, A\lor B$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+%% \AxiomC{$\seqand\kern-1.2em$}
+%% \AxiomC{$B,\Gamma\linfer \Delta$}
+%% \RightLabel{$\lor\linfer$}
+%% \TrinaryInfC{$A\lor B,\Gamma\linfer \Delta$}
+%% \DisplayProof
+%% \end{center}
 
-%% Implication
-\begin{center}
-\AxiomC{$A,\Gamma\vdash \Delta,B\kern-1.2em$}
-\RightLabel{$\vdash\supset$}
-\UnaryInfC{$\Gamma\vdash \Delta,A\supset B$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma\vdash \Delta, A\kern-1.2em$}
-\AxiomC{$\seqand\kern-1.2em$}
-\AxiomC{$B,\Theta\vdash \Lambda$}
-\RightLabel{$\supset\vdash$}
-\TrinaryInfC{$A\supset B,\Gamma,\Theta\vdash\Delta,\Lambda$}
-\DisplayProof
-\end{center}
+%% %% Implication
+%% \begin{center}
+%% \AxiomC{$A,\Gamma\linfer \Delta,B\kern-1.2em$}
+%% \RightLabel{$\linfer\supset$}
+%% \UnaryInfC{$\Gamma\linfer \Delta,A\supset B$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+%% \AxiomC{$\seqand\kern-1.2em$}
+%% \AxiomC{$B,\Theta\linfer \Lambda$}
+%% \RightLabel{$\supset\linfer$}
+%% \TrinaryInfC{$A\supset B,\Gamma,\Theta\linfer\Delta,\Lambda$}
+%% \DisplayProof
+%% \end{center}
 
-%% Not
-\begin{center}
-\AxiomC{$A,\Gamma\vdash \Delta\kern-1.2em$}
-\RightLabel{$\vdash\neg$}
-\UnaryInfC{$\Gamma\vdash \Delta,\neg A$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma\vdash \Delta, A\kern-1.2em$}
-\RightLabel{$\neg\vdash$}
-\UnaryInfC{$\neg A,\Gamma\vdash\Delta$}
-\DisplayProof
-\end{center}
+%% %% Not
+%% \begin{center}
+%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+%% \RightLabel{$\linfer\neg$}
+%% \UnaryInfC{$\Gamma\linfer \Delta,\neg A$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+%% \RightLabel{$\neg\linfer$}
+%% \UnaryInfC{$\neg A,\Gamma\linfer\Delta$}
+%% \DisplayProof
+%% \end{center}
 
-%% Universal quantification
-\begin{center}
-\AxiomC{$A,\Gamma\vdash \Delta\kern-1.2em$}
-\RightLabel{$\vdash\forall$}
-\UnaryInfC{$\Gamma\vdash \Delta,\neg A$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma\vdash \Delta, A\kern-1.2em$}
-\RightLabel{$\forall\vdash$}
-\UnaryInfC{$\neg A,\Gamma\vdash\Delta$}
-\DisplayProof
-\end{center}
+%% %% Universal quantification
+%% \begin{center}
+%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+%% \RightLabel{$\linfer\forall$}
+%% \UnaryInfC{$\Gamma\linfer \Delta,\neg A$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+%% \RightLabel{$\forall\linfer$}
+%% \UnaryInfC{$\neg A,\Gamma\linfer\Delta$}
+%% \DisplayProof
+%% \end{center}
 
-%% Existential quantification
-\begin{center}
-\AxiomC{$A,\Gamma\vdash \Delta\kern-1.2em$}
-\RightLabel{$\vdash\exists$}
-\UnaryInfC{$\Gamma\vdash \Delta,\neg A$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma\vdash \Delta, A\kern-1.2em$}
-\RightLabel{$\exists\vdash$}
-\UnaryInfC{$\neg A,\Gamma\vdash\Delta$}
-\DisplayProof
-\end{center}
+%% %% Existential quantification
+%% \begin{center}
+%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+%% \RightLabel{$\linfer\exists$}
+%% \UnaryInfC{$\Gamma\linfer \Delta,\neg A$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+%% \RightLabel{$\exists\linfer$}
+%% \UnaryInfC{$\neg A,\Gamma\linfer\Delta$}
+%% \DisplayProof
+%% \end{center}
 
 
-\subsubsection{Structural Rules}
+%% \subsubsection{Structural Rules}
 
-%% thinning
-\begin{center}
-\AxiomC{$\Gamma\vdash \Delta\kern-1.2em$}
-\RightLabel{$\vdash\text{K}$}
-\UnaryInfC{$\Gamma\vdash \Delta, A$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma\vdash \Delta\kern-1.2em$}
-\RightLabel{$\text{K}\vdash$}
-\UnaryInfC{$A,\Gamma\vdash\Delta$}
-\DisplayProof
-\end{center}
+%% %% thinning
+%% \begin{center}
+%% \AxiomC{$\Gamma\linfer \Delta\kern-1.2em$}
+%% \RightLabel{$\linfer\text{K}$}
+%% \UnaryInfC{$\Gamma\linfer \Delta, A$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma\linfer \Delta\kern-1.2em$}
+%% \RightLabel{$\text{K}\linfer$}
+%% \UnaryInfC{$A,\Gamma\linfer\Delta$}
+%% \DisplayProof
+%% \end{center}
 
-%% contraction
-\begin{center}
-\AxiomC{$\Gamma\vdash \Delta, A, A$}
-\RightLabel{$\vdash\text{W}$}
-\UnaryInfC{$\Gamma\vdash\Delta, A$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$A,A,\Gamma\vdash \Delta$}
-\RightLabel{$\text{W}\vdash$}
-\UnaryInfC{$A,\Gamma\vdash \Delta$}
-\DisplayProof
-\end{center}
+%% %% contraction
+%% \begin{center}
+%% \AxiomC{$\Gamma\linfer \Delta, A, A$}
+%% \RightLabel{$\linfer\text{W}$}
+%% \UnaryInfC{$\Gamma\linfer\Delta, A$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$A,A,\Gamma\linfer \Delta$}
+%% \RightLabel{$\text{W}\linfer$}
+%% \UnaryInfC{$A,\Gamma\linfer \Delta$}
+%% \DisplayProof
+%% \end{center}
 
-%% Exchange
-\begin{center}
-\AxiomC{$\Theta\vdash\Gamma,A,B,\Delta$}
-\RightLabel{$\vdash\text{C}$}
-\UnaryInfC{$\Theta\vdash\Gamma,B,A,\Delta$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma,A,B,\Delta\vdash\Theta$}
-\RightLabel{$\text{C}\vdash$}
-\UnaryInfC{$\Gamma,B,A,\Delta\vdash\Theta$}
-\DisplayProof
-\end{center}
+%% %% Exchange
+%% \begin{center}
+%% \AxiomC{$\Theta\linfer\Gamma,A,B,\Delta$}
+%% \RightLabel{$\linfer\text{C}$}
+%% \UnaryInfC{$\Theta\linfer\Gamma,B,A,\Delta$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma,A,B,\Delta\linfer\Theta$}
+%% \RightLabel{$\text{C}\linfer$}
+%% \UnaryInfC{$\Gamma,B,A,\Delta\linfer\Theta$}
+%% \DisplayProof
+%% \end{center}
 
 \subsection{Notes}
 
@@ -5007,154 +5719,154 @@ the surface.
 
 \subsubsection{Axioms}
 
-%% Id, Cut
-\begin{center}
-\AxiomC{}
-\RightLabel{$\text{Id}$}
-\UnaryInfC{$A\land A$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma\vdash \Delta_1,C,\Delta_2\kern-1.2em$}
-\AxiomC{$\seqand\kern-1.2em$}
-\AxiomC{$\Theta_1,C,\Theta_2\vdash\Lambda$}
-\RightLabel{$\text{cut}$}
-\TrinaryInfC{$\Theta_1,\Gamma,\Theta_2\vdash \Delta_1,\Lambda,\Delta_2$}
-\DisplayProof
-\end{center}
+%% %% Id, Cut
+%% \begin{center}
+%% \AxiomC{}
+%% \RightLabel{$\text{Id}$}
+%% \UnaryInfC{$A\land A$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma\linfer \Delta_1,C,\Delta_2\kern-1.2em$}
+%% \AxiomC{$\seqand\kern-1.2em$}
+%% \AxiomC{$\Theta_1,C,\Theta_2\linfer\Lambda$}
+%% \RightLabel{$\text{cut}$}
+%% \TrinaryInfC{$\Theta_1,\Gamma,\Theta_2\linfer \Delta_1,\Lambda,\Delta_2$}
+%% \DisplayProof
+%% \end{center}
 
 \subsubsection{Logical Rules}
 
 Also called (by Bimbó) operational rules.
 
-%% Logical And
-\begin{center}
-\AxiomC{$\Gamma\vdash \Delta, A\kern-1.2em$}
-\AxiomC{$\seqand\kern-1.2em$}
-\AxiomC{$\Gamma\vdash \Delta, B$}
-\RightLabel{$\vdash\land$}
-\TrinaryInfC{$\Gamma\vdash \Delta, A\land B$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$A,\Gamma\vdash \Delta\kern-1.2em$}
-\AxiomC{$\seqor\kern-1.2em$}
-\AxiomC{$B,\Gamma\vdash \Delta$}
-\RightLabel{$\land\vdash$}
-\TrinaryInfC{$A\land B,\Gamma\vdash \Delta$}
-\DisplayProof
-\end{center}
+%% %% Logical And
+%% \begin{center}
+%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+%% \AxiomC{$\seqand\kern-1.2em$}
+%% \AxiomC{$\Gamma\linfer \Delta, B$}
+%% \RightLabel{$\linfer\land$}
+%% \TrinaryInfC{$\Gamma\linfer \Delta, A\land B$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+%% \AxiomC{$\seqor\kern-1.2em$}
+%% \AxiomC{$B,\Gamma\linfer \Delta$}
+%% \RightLabel{$\land\linfer$}
+%% \TrinaryInfC{$A\land B,\Gamma\linfer \Delta$}
+%% \DisplayProof
+%% \end{center}
 
-%% Logical Or
-\begin{center}
-\AxiomC{$\Gamma\vdash \Delta, A\kern-1.2em$}
-\AxiomC{$\seqor\kern-1.2em$}
-\AxiomC{$\Gamma\vdash \Delta, B$}
-\RightLabel{$\vdash\lor$}
-\TrinaryInfC{$\Gamma\vdash\Delta, A\lor B$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$A,\Gamma\vdash \Delta\kern-1.2em$}
-\AxiomC{$\seqand\kern-1.2em$}
-\AxiomC{$B,\Gamma\vdash \Delta$}
-\RightLabel{$\lor\vdash$}
-\TrinaryInfC{$A\lor B,\Gamma\vdash \Delta$}
-\DisplayProof
-\end{center}
+%% %% Logical Or
+%% \begin{center}
+%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+%% \AxiomC{$\seqor\kern-1.2em$}
+%% \AxiomC{$\Gamma\linfer \Delta, B$}
+%% \RightLabel{$\linfer\lor$}
+%% \TrinaryInfC{$\Gamma\linfer\Delta, A\lor B$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+%% \AxiomC{$\seqand\kern-1.2em$}
+%% \AxiomC{$B,\Gamma\linfer \Delta$}
+%% \RightLabel{$\lor\linfer$}
+%% \TrinaryInfC{$A\lor B,\Gamma\linfer \Delta$}
+%% \DisplayProof
+%% \end{center}
 
-%% Implication
-\begin{center}
-\AxiomC{$A,\Gamma\vdash \Delta,B\kern-1.2em$}
-\RightLabel{$\vdash\supset$}
-\UnaryInfC{$\Gamma\vdash \Delta,A\supset B$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma\vdash \Delta, A\kern-1.2em$}
-\AxiomC{$\seqand\kern-1.2em$}
-\AxiomC{$B,\Theta\vdash \Lambda$}
-\RightLabel{$\supset\vdash$}
-\TrinaryInfC{$A\supset B,\Gamma,\Theta\vdash\Delta,\Lambda$}
-\DisplayProof
-\end{center}
+%% %% Implication
+%% \begin{center}
+%% \AxiomC{$A,\Gamma\linfer \Delta,B\kern-1.2em$}
+%% \RightLabel{$\linfer\supset$}
+%% \UnaryInfC{$\Gamma\linfer \Delta,A\supset B$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+%% \AxiomC{$\seqand\kern-1.2em$}
+%% \AxiomC{$B,\Theta\linfer \Lambda$}
+%% \RightLabel{$\supset\linfer$}
+%% \TrinaryInfC{$A\supset B,\Gamma,\Theta\linfer\Delta,\Lambda$}
+%% \DisplayProof
+%% \end{center}
 
-%% Not
-\begin{center}
-\AxiomC{$A,\Gamma\vdash \Delta\kern-1.2em$}
-\RightLabel{$\vdash\neg$}
-\UnaryInfC{$\Gamma\vdash \Delta,\neg A$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma\vdash \Delta, A\kern-1.2em$}
-\RightLabel{$\neg\vdash$}
-\UnaryInfC{$\neg A,\Gamma\vdash\Delta$}
-\DisplayProof
-\end{center}
+%% %% Not
+%% \begin{center}
+%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+%% \RightLabel{$\linfer\neg$}
+%% \UnaryInfC{$\Gamma\linfer \Delta,\neg A$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+%% \RightLabel{$\neg\linfer$}
+%% \UnaryInfC{$\neg A,\Gamma\linfer\Delta$}
+%% \DisplayProof
+%% \end{center}
 
-%% Universal quantification
-\begin{center}
-\AxiomC{$A,\Gamma\vdash \Delta\kern-1.2em$}
-\RightLabel{$\vdash\forall$}
-\UnaryInfC{$\Gamma\vdash \Delta,\neg A$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma\vdash \Delta, A\kern-1.2em$}
-\RightLabel{$\forall\vdash$}
-\UnaryInfC{$\neg A,\Gamma\vdash\Delta$}
-\DisplayProof
-\end{center}
+%% %% Universal quantification
+%% \begin{center}
+%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+%% \RightLabel{$\linfer\forall$}
+%% \UnaryInfC{$\Gamma\linfer \Delta,\neg A$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+%% \RightLabel{$\forall\linfer$}
+%% \UnaryInfC{$\neg A,\Gamma\linfer\Delta$}
+%% \DisplayProof
+%% \end{center}
 
-%% Existential quantification
-\begin{center}
-\AxiomC{$A,\Gamma\vdash \Delta\kern-1.2em$}
-\RightLabel{$\vdash\exists$}
-\UnaryInfC{$\Gamma\vdash \Delta,\neg A$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma\vdash \Delta, A\kern-1.2em$}
-\RightLabel{$\exists\vdash$}
-\UnaryInfC{$\neg A,\Gamma\vdash\Delta$}
-\DisplayProof
-\end{center}
+%% %% Existential quantification
+%% \begin{center}
+%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+%% \RightLabel{$\linfer\exists$}
+%% \UnaryInfC{$\Gamma\linfer \Delta,\neg A$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+%% \RightLabel{$\exists\linfer$}
+%% \UnaryInfC{$\neg A,\Gamma\linfer\Delta$}
+%% \DisplayProof
+%% \end{center}
 
 
 \subsubsection{Structural Rules}
 
-%% thinning
-\begin{center}
-\AxiomC{$\Gamma\vdash \Delta\kern-1.2em$}
-\RightLabel{$\vdash\text{K}$}
-\UnaryInfC{$\Gamma\vdash \Delta, A$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma\vdash \Delta\kern-1.2em$}
-\RightLabel{$\text{K}\vdash$}
-\UnaryInfC{$A,\Gamma\vdash\Delta$}
-\DisplayProof
-\end{center}
+%% %% thinning
+%% \begin{center}
+%% \AxiomC{$\Gamma\linfer \Delta\kern-1.2em$}
+%% \RightLabel{$\linfer\text{K}$}
+%% \UnaryInfC{$\Gamma\linfer \Delta, A$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma\linfer \Delta\kern-1.2em$}
+%% \RightLabel{$\text{K}\linfer$}
+%% \UnaryInfC{$A,\Gamma\linfer\Delta$}
+%% \DisplayProof
+%% \end{center}
 
-%% contraction
-\begin{center}
-\AxiomC{$\Gamma\vdash \Delta, A, A$}
-\RightLabel{$\vdash\text{W}$}
-\UnaryInfC{$\Gamma\vdash\Delta, A$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$A,A,\Gamma\vdash \Delta$}
-\RightLabel{$\text{W}\vdash$}
-\UnaryInfC{$A,\Gamma\vdash \Delta$}
-\DisplayProof
-\end{center}
+%% %% contraction
+%% \begin{center}
+%% \AxiomC{$\Gamma\linfer \Delta, A, A$}
+%% \RightLabel{$\linfer\text{W}$}
+%% \UnaryInfC{$\Gamma\linfer\Delta, A$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$A,A,\Gamma\linfer \Delta$}
+%% \RightLabel{$\text{W}\linfer$}
+%% \UnaryInfC{$A,\Gamma\linfer \Delta$}
+%% \DisplayProof
+%% \end{center}
 
-%% Exchange
-\begin{center}
-\AxiomC{$\Theta\vdash\Gamma,A,B,\Delta$}
-\RightLabel{$\vdash\text{C}$}
-\UnaryInfC{$\Theta\vdash\Gamma,B,A,\Delta$}
-\DisplayProof
-\hskip 1.4em
-\AxiomC{$\Gamma,A,B,\Delta\vdash\Theta$}
-\RightLabel{$\text{C}\vdash$}
-\UnaryInfC{$\Gamma,B,A,\Delta\vdash\Theta$}
-\DisplayProof
-\end{center}
+%% %% Exchange
+%% \begin{center}
+%% \AxiomC{$\Theta\linfer\Gamma,A,B,\Delta$}
+%% \RightLabel{$\linfer\text{C}$}
+%% \UnaryInfC{$\Theta\linfer\Gamma,B,A,\Delta$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma,A,B,\Delta\linfer\Theta$}
+%% \RightLabel{$\text{C}\linfer$}
+%% \UnaryInfC{$\Gamma,B,A,\Delta\linfer\Theta$}
+%% \DisplayProof
+%% \end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \addcontentsline{toc}{section}{References}

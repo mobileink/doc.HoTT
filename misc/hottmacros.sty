@@ -27,13 +27,35 @@
 \newcommand{\riota}{\ensuremath{\iota}}
 %% \newcommand{\riota}{\ensuremath{\rotatebox[origin=c]{180}{\iota}}}
 
+%% equality
+\newcommand{\fregeq}{\ensuremath{≡}}
+\newcommand{\defn}{\ensuremath{\eqdef}} %% {≡}} %% \coloneq
+\newcommand{\EQ}{\ensuremath{\textsf{\slshape EQ}}}
+\newcommand{\EQN}{\ensuremath{\textsf{\slshape EQN}}}
+\newcommand{\REQN}{\ensuremath{\textsf{\slshape REQN}}}
+\newcommand{\pair}{\ensuremath{\textsf{\slshape pair}}}
+\newcommand{\refl}{\ensuremath{\textsf{\slshape refl}}}
+
+\newcommand{\hole}{\ensuremath{[\cdot]}}
+
+\newcommand{\modus}{\textit{modus ponens}}
+
 %% Inference types
+%% generic
+%% logical "so"
+\newcommand{\lso}{\ensuremath{\assert}} %% {\vdash}}
+\newcommand{\linfer}{\ensuremath{\assert}} %% {\vdash}}
+
 % type inference
-\newcommand{\tso}{\ensuremath{\vdash_{\tau}}}
+%% for brevity: tj for typing judgment, even though we don't say that
+\newcommand{\tj}[2]{\ensuremath{#1\hspace{-2pt}:\hspace{-2pt}#2}}
+\newcommand{\tjsmall}[2]{\ensuremath{#1\hspace{-0pt}:\hspace{-0pt}#2}}
+\newcommand{\type}{\ensuremath{\hspace{-2pt}:\hspace{-3pt}}}
+\newcommand{\tinfer}{\ensuremath{\assert_{\tau}}}
 % sequent inference
-\newcommand{\sso}{\ensuremath{\vdash_{\sigma}}}
+\newcommand{\sso}{\ensuremath{\assert_{\sigma}}}
 % proof inference
-\newcommand{\pso}{\ensuremath{\vdash_{\pi}}}
+\newcommand{\pso}{\ensuremath{\Vdash}}
 
 %% Sequent connectors
 \newcommand{\seqso}{\ensuremath{\vdash}}
@@ -112,13 +134,13 @@
 \newcommand{\Unit}{\textsf{Unit}}
 \newcommand{\UnitA}{\textsf{Unit}^A}
 
-\newcommand{\refl}[1]{\textsf{refl}_#1}
+%% \newcommand{\refl}[1]{\textsf{refl}_#1}
 \newcommand{\reflA}{\textsf{refl}^A}
 \newcommand{\reflAx}{\textsf{refl}^A(x)}
-\newcommand{\reflAa}{\textsf{refl}^A(a)}
+%% \newcommand{\reflAa}{\textsf{refl}^A(a)}
 \newcommand{\reflAb}{\textsf{refl}^A(b)}
 \newcommand{\reflx}{\textsf{refl}_x}
-%% \newcommand{\reflAa}{(a\circ^A a)}
+\newcommand{\reflAa}{(a\circ^A a)}
 
 \newcommand{\reln}[3]{(#2\circ^#1 #3)}
 
