@@ -40,6 +40,21 @@
 
 \newcommand{\modus}{\textit{modus ponens}}
 
+%% nat numbers
+\newcommand{\Znat}{\textsf{\slshape Z}}
+\newcommand{\Snat}{\textsf{\slshape S}}
+\newcommand{\ZS}{\textsf{\slshape ZS}}
+\newcommand{\ZSS}{\textsf{\slshape ZSS}}
+%% tally strokes
+\newcommand{\Stroke}[2][]{\begin{tikzpicture}[thick,baseline,#1]
+\foreach \X [evaluate=\X as \Y using {int(mod(\X,5))}]in {1,...,#2}
+{\ifnum\Y=0
+\draw (\X*0.5ex+0.3ex,0) -- ++(-2.2ex,1.8ex);
+\else
+\draw (\X*0.5ex+0.3ex,0) -- ++(0.3ex,1.8ex);
+\fi}
+\end{tikzpicture}}
+
 %% Inference types
 %% generic
 %% logical "so"

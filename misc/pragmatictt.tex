@@ -4,6 +4,7 @@
 
 %% load fonts before fontspec
 \usepackage{MnSymbol}
+\usepackage{dsfont}
 \usepackage{stmaryrd}
 \usepackage{unicode-math}
 \usepackage{cmll}
@@ -2094,7 +2095,7 @@ expresses the inductive inference of which it is the conclusion. Just
 like \(apple\land orange\) expresses the conclusion of an
 \(\land\scriptstyle{\text{-intro}}\) rule.
 
-\subsection{Curry-Howard}
+\section{Curry-Howard}
 
 First a caveat: the Curry-Howard isomorphism is often referred to as
 ``propositions-as-types''. This is incorrect; it is not particular
@@ -2152,7 +2153,151 @@ Under propositional semantics, \(\choice A\) means ``arbitrary
 proposition A'', i.e. ``let the symbol A designate an arbitrary
 proposition.''  The symbol \(A\) names the chosen proposition.
 
-\subsubsection{Token Promotion and Type Demotion}
+\subsection{Type Abstraction}
+
+We need a type abstraction operator analogous to the \(\lambda\)
+operator.
+
+Why? Its what we need to provide an integrated about of types as sets
+and types as propositions. The problem is that propositions are
+particulars, so they cannot be types. What ``propositions as types''
+really means is that each proposition is associated with a type whose
+members are proofs of the proposition. We cannot express this concept
+with standard notation. All we have is \(p:P\), interpreted as ``\(p\)
+is a proof of proposition (type) \(P\)''. But if \(P\) is a
+proposition, it cannot be a type. So we need a notation that allows us
+to explicitly say ``the type associated with the proposition \(P\)''.
+
+Not ``propositions as types'', but ``propositions as proof-types''.
+
+There are two kinds of abstraction involved. We can abstract directly
+from tokens to types, and we can abstract indirectly from token
+construction rules to a type.
+
+Example: \(\Nat\). The definition of the type \(\Nat\) is given by two
+construction rules. Informally, \(\Nat = ...\). But we need to make a
+distinction between the symbol \(\Nat\) and the type, just as be make
+a distinction between a function name and the function it names.
+
+For functions, we can \textit{determine} functions without naming
+them, and this is what allows us to name them. To make \(f\) the name
+of a function, we write \(f\defn\lambda x.M\). This means: ``\(f\)
+names the function determined by the lambda expression \(\lambda
+x.M\)''. Without lambda, we would have no way of naming functions.
+
+Similar considerations apply to types. We cannot name a (determinate)
+type unless we have a type abstraction operator, call it \(\tau\).
+Then we would have \(T\defn \tau.\textsf{expr}\), meaning ``\(T\)
+names the type determined by the tau expression
+\(\tau.\textsf{expr}\)''.  Let's try this with \(\Nat\):
+\[\Nat\defn\tau.\tj{\Znat}{\Nat}, \tj{n}{\Nat}\linfer\tj{Sn}{\Nat}\]
+
+However, this is a recursive definition. To eliminate recursion, we need
+to be able to replace \(\Nat\) on the RHS with something that means
+``the type under definition''.  Howsabout:
+\[\tau x.\tj{\Znat}{x}, \tj{n}{x}\linfer\tj{Sn}{x}\]
+
+Here we use the bound variable \(x\) to mean not ``for all'', as is
+the case with lambda, but something like ``the type.'' A kind of
+pronominal, or Russell's iota.
+
+A \(\lambda\)-bound variable ranges over the domain of the function. A
+lambda expression like \(\lambda x.M\) may be glossed ``the function
+that ...''
+
+But wait, we don't need a bound variable. We're defining a type, all
+we need is a way to say ``the type we're defining'', and we can just
+use \(\tau\) for that. On the RHS it means ``it'', referring to ``the
+type''.
+\[\tau.\tj{\Znat}{\tau}, \tj{n}{\tau}\linfer\tj{Sn}{\tau}\]
+
+That gives us the desired ``anonymous'' type. It determines the type
+whose members are constructed by \Znat and \Snat. Now we can give it a
+name:
+\[\Nat\defn\tau.\tj{\Znat}{\tau}, \tj{n}{\tau}\linfer\tj{Sn}{\tau}\]
+
+which we gloss ``\(\Nat\) names the type whose members are constructed
+by \Znat and \Snat''.
+
+\(\tau\) is a kind of \textit{indirect abstraction} operator for
+types. It abstracts over the constructors and thus indirectly over the
+tokens. This is a different kind of abstraction than the ordinary
+token-to-type abstraction, which we can call \textit{token
+  abstraction}, because it generalizes over tokens. We see a token
+instance like ``the'' and abstract to the associated word-type (which
+we name ``the \(\ulcorner the\urcorner\) type'').
+
+So much for indirect abstraction from token construction rules to
+types. What about direct token abstraction? We should be able to
+abstract from a particular natural number to its type \(\Nat\).
+
+For starters, we can define a kind of naive token abstraction operator
+that expresses the type of any token. For example, using
+superscription, we might say that \(2^{\tau}\) determines the type of
+which \(2\) is a member. But that would be a pretty indeterminate
+type, because we would have no way of determining any other tokens of
+the type. Furthermore, each particular determines what we will call a
+``homoiconic'' type, for lack of a better term, whose tokens are
+``instances'' similar to the particular. In the case of \(2^{\tau}\),
+that would mean the type whose members include all instances of the
+figure \(\ulcorner 2\urcorner\) in the document you are reading; there
+are three such instances in this very paragraph.
+
+\subsection{Propositional Type Abstraction}
+
+Now since propositions are particulars, we need a we to abstract from
+a proposition to the type of its proofs.
+
+We need something like \(\tau.(a+b=b+a)\) to mean ``the type whose tokens are proof of the proposition \(a+b=b+a\)''.  Maybe:
+\[\tau.(a+b=b+a)^{\Pi}\]
+
+But to integrate with set-ish types like \(\Nat\), we need a more
+specific notion of constructors. \(\Nat\) is determined by the
+specific constructors express in its \(\tau\)-expression. For
+propositions, the constructors are all the constructors, primitive and
+derived, in the type logic. So if we call the logic \textsf{\slshape LJ}:
+\[\tau.(a+b=b+a)^{\textsf{\slshape LJ}}\]
+
+This gives us a kind of exponentiation that dovetails with that used
+in category theory, where \(A^B\) may be taken to mean ``functions
+from \(B\) to \(A\)''. So \(\tau\) would give us ``the type whose
+tokens are constructed \textit{from} the rules of \textsf{\slshape
+  LJ}''. But since the logic and rules will always be understood, we
+can use \(\Pi\) instead of naming the logic:
+\[\tau.(a+b=b+a)^{\Pi}\]
+
+Now we can directly express the relations between propositions,
+proofs, and types:
+\[P\defn\tau.(a+b=b+a)^{\Pi}\]
+so \(\tj{p}{P}\) means that \(p\) is a token of the type of proofs of
+the proposition \(a+b=b+a\).
+
+Note that a proposition is not an element of its associated proof
+type.
+
+We can use this with set-ish tokens too; we just need to restrict the
+exponent, so we get ``the type whose tokens constructed from the rules
+for some type.''  E.g.
+\[\tau.2^{\Nat}\text{, or } 2^{\tau\Nat}\]
+
+would be glossed ``the type associated with \(2\) whose elements are
+constructed from the rules of type \(\Nat\)''.
+
+Of course, since we already know the type of \(2\) is \(\Nat\), we
+could write \(2^{\tau}\), meaning ``the type whose rules were used to
+determine \(2\)'', i.e. \(\Nat\).
+
+Note use of ``determine'' instead of ``construct''. That's because the
+tokens of cotypes (codefined, by coinduction) do not have
+constructors.
+
+Every type has a set of rules and corules that jointly determine the
+tokens of the type; and every token has a type. So superscript
+\(\_^{\Pi}\) applies to particular tokens always refers to the rules
+and corules of its type. For propositions this means the entire set of
+types.
+
+\subsection{Token Promotion and Type Demotion}
 
 The token promotion operator is \(\tau\).  It is analogous to the
 lambda abstraction operator. The idea is that it allows us to refer
@@ -2180,7 +2325,7 @@ untyped calculus. But that's ok, the goal here is just to show how
 propositions (formulae) and types go together.
 
 
-\subsubsection{Notes}
+\subsection{Notes}
 
 Thinking out loud...
 
@@ -2286,7 +2431,7 @@ Given a particular proposition, we can infer the type of which it is
 an instance. That's a primitive notion in a type system: every token
 particular has a type.
 
-\subsubsection{Equality Types}
+\subsection{Equality Types}
 
 Things get a little more complicated when we consider equations. An
 equation like \(2+2=4\) is a particular proposition, which we can
@@ -3523,6 +3668,11 @@ Propositions may be asserted. Linguistically, assertion is in the
 indicative mood. This is true even for ``modal'' propositions
 expressing necessity or possibility.
 
+Propositions may be false, or wrongly asserted. Definitions cannot be
+wrong, unless we're trying to define something that already defined.
+That is, an incorrect definition is not a definition, it's a theorem
+that looks like a definition.
+
 Definitions cannot be asserted. The functional role of definitions is
 to set the rules of the game, and in doing so they express a kind of
 \textit{deontic conditional}\footnote{Note that ``deontic'' already
@@ -3568,7 +3718,7 @@ value such that \(x = sqrt(7)\) is true'', which in turn entails(?)
 that \(x\) \textit{should} be bound to whatever \(sqrt(7)\) is bound
 to.
 
-\subsection{The Doctrine of Judgmental Equality}
+\subsection{Martin-Löf's Doctrine of Judgmental Equality}
 
 And it is a doctrine, not a theory or definition.
 
@@ -3654,19 +3804,20 @@ firmly establishing this point, and definitively refuting the formalists
 argument against equality understood as identity, that is the goal of the
 essay.
 
-\textquote[sinn bed final para]{When we found ‘a=a’ and ‘a=b’ to have
-  different cognitive values, the explanation is that for the purpose
-  of knowledge, the sense of the sentence, viz., the thought expressed
-  by it, is no less relevant than its reference, i.e. its truth value.
-  If now a=b, then indeed the reference of ‘b’ is the same as that of
-  ‘a,’ and hence the truth value of ‘a=b’ is the same as ‘a=a.’ In
-  spite of this, the sense of ‘b’ may differ from that of ‘a’, and
-  thereby the thought expressed in ‘a=b’ differs from that of ‘a=a.’
-  In that case the two sentences do not have the same cognitive value.
-  If we understand by ‘judgment’ the advance from the thought to its
-  truth value, as in the above paper, we can also say that the
-  judgments are different... There is only one possible meaning of
-  equality, according to Frege, that can restore the peace: identity.}
+\textquote[\citetitle{frege_sense_ref} \cite{frege_sense_ref}, final paragraph]{When we found ‘a=a’
+  and ‘a=b’ to have different cognitive values, the explanation is
+  that for the purpose of knowledge, the sense of the sentence, viz.,
+  the thought expressed by it, is no less relevant than its reference,
+  i.e. its truth value. If now a=b, then indeed the reference of ‘b’
+  is the same as that of ‘a,’ and hence the truth value of ‘a=b’ is
+  the same as ‘a=a.’ In spite of this, the sense of ‘b’ may differ
+  from that of ‘a’, and thereby the thought expressed in ‘a=b’ differs
+  from that of ‘a=a.’ In that case the two sentences do not have the
+  same cognitive value. If we understand by ‘judgment’ the advance
+  from the thought to its truth value, as in the above paper, we can
+  also say that the judgments are different... There is only one
+  possible meaning of equality, according to Frege, that can restore
+  the peace: identity.}
 
 
 \begin{displayquote}[
@@ -3705,9 +3856,10 @@ by \(d\), if \(c \fregeq d\)” (Begriffsschrift, p. 162).
 \end{displayquote}
 
 ``Judgments of identity of content'' - makes sense for English words,
-we can judge whether or not Hesperus is identical to Phosphorus. But
-in a logical calculus the same considerations do not apply. Once we've
-defined things we do not have to make judgments of identity.
+we can judge whether or not Hesperus is identical to Phosphorus, and
+our judgment could be wrong. But in a logical calculus the same
+considerations do not apply. Once we've defined things we do not have
+to make judgments of identity.
 
 textquote[p. 11]{Although the symbols that occur in the judgements
   that are inferentially related are, as Frege puts it,
@@ -4163,7 +4315,7 @@ debatable propositions:
 \item The equality relation is not unique.
 \end{enumerate}
 
-\subsubsection{Counterexamples}
+\subsubsection{Pathology of Path Modus Ponens}
 
 We can construct proofs of reflexivity types for different numbers,
 e.g. \(\refl_2:\EQN_{\Nat}(2,2)\) and \(\refl_3:\EQN_{\Nat}(3,3)\).
@@ -4231,18 +4383,33 @@ Here's how the previous explanation might be expressed formally:
 Informally: if we can prove \(\tj{b}{B}\) by \textit{assuming} that
 \(p\) is a proof of \(a=_Ab\), and we have a proof \(\refl_x\) of
 \(x=x\), and then we can infer \(\tj{b}{B}\). In other words, this is
-a kind of weird \modus\ rule.
+pathological \modus\ rule.
+
+Expressed in sequent calculus with implicity tokenization:
 
 \begin{prooftree}
-\AxiomC{$\Gamma$}
-\AxiomC{$x=_Ay\lkso B]$}
-\AxiomC{$\tj{\refl_x}{x=_A x}$}
-\TrinaryInfC{$\tj{b}{B}$}
+\AxiomC{$\Gamma\linfer{(x=_Ay)}\lkso B$}
+\AxiomC{$\Delta\linfer{(x=_A x)}$}
+\BinaryInfC{$\Gamma,\Delta\linfer{B}$}
 \end{prooftree}
+
+With explicit tokenization:
+
+\begin{prooftree}
+\AxiomC{$\Gamma\linfer\tj{p}{(x=_Ay)}\lkso\tj{b}{B}$}
+\AxiomC{$\Delta\linfer\tj{\refl_x}{(x=_A x)}$}
+\BinaryInfC{$\Gamma,\Delta\linfer\tj{b}{B}$}
+\end{prooftree}
+
+Formally this makes no sense. But ordinary \modus{} is justified by
+intuition; why shouldn't intuitions about path induction suffice for
+this specialized kind of \modus?
 
 \subsubsection{HoTT Equality - Critique}
 
 Objection: substitutability is a consequence of ``the induction principle for identity types'' (i.e. path induction).  It should be primitive.
+
+Objection: path induction is based on a pathological \modus (see above)
 
 Objection: symmetry and transitivity are theorems. Should be primitives.
 
@@ -4582,7 +4749,7 @@ by pointing to one of those loops.
       red,
       -{Latex[red,length=1.5mm,width=1.5mm]},no marks,thick]
     ({sin(deg(x))},{cos(deg(x))},{10*x/(pi)})%% NB: no semi-colon
-    node [name=A,black,circle,scale=0.4,fill,pos=0,
+    node [name=A,black,circle,scale=0.2,fill,pos=0,
       label={[black,scale=0.6,distance=-4pt]south east:$a$}]{}
     %% node [red,pos=0.7,label={north:$p$}]{}
     coordinate [name=pab,pos=0.5]{}
@@ -4590,7 +4757,7 @@ by pointing to one of those loops.
       xshift=6pt, yshift=10pt,
       label={[black,scale=0.6] %% ,distance=-18pt]
         center:$\tj{\textcolor{red}{p}}{a=_A b}$}]{}
-    node [name=B,black,circle,scale=0.4,fill,pos=1,
+    node [name=B,black,circle,scale=0.2,fill,pos=1,
       label={[black,scale=0.6,distance=-4pt]south east:$b$}]{};
       %% label={[black,label distance=0pt]east:$b$}]{};
     %% equality chord
@@ -4599,7 +4766,7 @@ by pointing to one of those loops.
     \draw[-{Latex[length=1mm,width=.7mm]},black,densely dotted]
     (A)--(omphalos);
     \draw[-{Latex[length=1mm,width=.7mm]},black,densely dotted]
-    (B)--(omphalos);
+    ([xshift=-3pt,yshift=-3pt]B.south west)--(omphalos);
     \draw[-{Latex[length=1mm,width=.7mm]},black]
     ([xshift=-9pt]pablabel.west) to[out=180,in=90] (pab);
     \draw[-{Latex[length=1mm,width=.7mm]},black]
@@ -4951,6 +5118,131 @@ to say nothing. (Tractatus?)
 Treat \(\defn\) as codefinition?
 
 \section{Notes}
+
+\subsection{Imaginary Numbers}
+
+The imaginary number is \(i\), the square root of negative one. The
+acceptance of \(i\) as a genuine number marked a radical shift in our
+concept of number, a movement away from number as magnitude and
+quantity to a more abstract notion in which measurement plays no
+essential role. It threw a spanner in the metaphysical works of
+traditional mathematics. Trying to imagine \(\sqrt{-1}\) is like
+trying to imaging a round square.
+
+But it was not the first imaginary number, if by ``imaginary'' we mean
+something metaphysically puzzling, something whose existence we have a
+hard time imagining.
+
+But \(i\) is only the most famous imaginary number. Zero and negative
+numbers are just as metaphysically puzzling.
+
+[What's the point? Aside from historical interest, demonstrate how a
+  pragmatic order of explanation can account for such things. Does
+  this have any implications for how we do type theory? Other than
+  clarify and refine meanings?  Also: make the relation between logic and mathematics more clear.]
+
+\subsubsection{Zero}
+
+The Greeks lacked zero for a reason. Their mathematics was
+demonstrative and constructive: the way to prove something was to
+demonstrate its construction. But you cannot demonstrate nothing.
+Hence, no zero concept.
+
+If zero \textit{exists}, then it cannot be nothing.
+
+Consider the usual inductive methods of constructing the natural
+numbers. The most primitive way to do it is to concatenate a tally
+mark. The successor operation is something we do -- add another tally
+mark -- which we need not make explicit. So we have \(1\eqdef\Stroke{1},
+2\eqdef\Stroke{2}, 3\eqdef\Stroke{3}\) etc.
+
+This is fine if we do not need zero. We can define addition, for
+example. Notice in particular that there is no distinguished base
+case; every \(\Stroke{1}\) is alike, and to construct a number, you
+start from nothing, not zero.
+
+Most presentations, though, follow Peano's example and define a base
+case and use a distinguished symbol for it (\Znat, \(\mathbb{0}\),
+etc.). This requires two axioms, one affirmative and one negative:
+\Znat{} is a natural number, and \Znat{} is not the successor of any
+natural number.
+
+We start with \Znat{} and \Snat{}, and we can build \ZS, \ZSS, etc.
+\textit{ad libitum}.
+
+But what do \Znat{} and \Snat{} denote? We have two options for \Znat:
+either it denotes something, or it does not.
+
+If \Znat{} exists, then we're forced to concede that the number \(1\)
+is actually a two, since it is the combination of two things:
+\(1\eqdef \ZS\). Under this operation, \Snat{} is also a thing:
+the successor \textit{operation} is not \Snat; rather it is what we do
+when we add \Snat{} to a natural number. But then \Snat{} would be a
+special kind of thing, something that cannot stand alone, since
+otherwise \Snat{} itself would be a number (maybe we need another
+axiom stating ``\Snat{} is not a natural number''.)
+
+Or, we could treat \Snat{} as a kind of primitive, undefined,
+function-like thing that takes any natural number to its successor.
+Then we would have two ways to interpret it. The non-constructive way
+would presuppose that the successor of each \(n\) already exists, and
+the job of \Snat{} is to point to it, so to speak. The constructive
+interpretation would treat \Snat{} as some kind of mechanism that, given
+an existing natural number (as a kind of raw material), produces a new
+one.
+
+Under a constructive interpretation, \Znat{} could not merely denote
+something that already exists; but for \ZS{} to be intelligible
+under this interpretation, \Znat{} would have to denote
+\textit{something}, so that \Snat{} would have the raw materials it
+needs to produce a new number. So we would be compelled to think of
+\Znat{} as a kind of productive machine just like \Snat, except that
+\Znat{} would need no raw materials to get started. It would create
+something from nothing.
+
+So the construction of \(\Nat\) is already metaphysically puzzling.
+
+So far we have a distinguished first natural number \Znat, but it does
+not yet behave like zero. In fact, under the rules we have so far, it
+behaves like \(1\). To make it behave like we expect zero to behave ,
+we need to add some constraints on addition: \(n + \Znat = n,\ \Znat +
+n = n\). And again there are two ways to interpret this. One is to
+think that the introduction of these axioms changes the meaning of
+\Znat. They confer a special property not on the \Znat machine itself,
+but on its output: when that ``\Znat-thing'' used in an addition it
+adds nothing. The other strategy is to think that the introduction of
+the axioms changes the meaning of addition: it now examines its
+operands, and discards any equal to \Znat.
+
+No matter how you cut it hermeneutically, zero is metaphysically
+puzzing.
+
+[What's the point? To motivate a pragmatic order of explanation.]
+
+\subsubsection{Negative Numbers}
+
+It's equally easy to see why the Greeks had no truck numbers. Negative
+quantities and magnitudes are unimaginable. ``Line of length \(-2\)''
+is absurd.\footnote{I distinctly remember first encountering negative
+numbers in my first Algebra class in junior high school, and being
+puzzled as to how a number could possibly be negative. Subtraction is
+one thing; a negative number is a whole `nother thing.}
+
+Historically, the negative numbers emerged in tandem with zero. The
+Arabic-speaking mathematicians who invented algebra did so for
+practical reasons: algebra is a tool that makes it easier to balance
+the books. Negative quantities may be inconceivable, but
+\textit{deficits} are easily understandable, nor do they presuppose
+any metaphysical commitments. Zero is what you get with balanced
+books: no difference between debits and credits. Negative numbers? You
+owe somebody. Positive? Sombody owes you.
+
+The algebraic perspective is compatible with number-as-quantity. A
+negative number represents a quantitative deficit. It's still ``...of
+something''; not just \(-3\), but \(-3\ \textit{dirhams}\) (or goats
+or acres or whatever), that is, a deficit of \(3\) \textit{of
+  dirhams}, the quantity you need to balance your books. If they had had
+formal logic, they would have invented Linear Logic.
 
 \subsection{Games}
 
