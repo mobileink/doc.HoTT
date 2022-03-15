@@ -2242,16 +2242,16 @@ a distinction between a function name and the function it names.
 
 For functions, we can \textit{determine} functions without naming
 them, and this is what allows us to name them. To make \(f\) the name
-of a function, we write \(f\defn\lambda x.M\). This means: ``\(f\)
+of a function, we write \(f\defeq\lambda x.M\). This means: ``\(f\)
 names the function determined by the lambda expression \(\lambda
 x.M\)''. Without lambda, we would have no way of naming functions.
 
 Similar considerations apply to types. We cannot name a (determinate)
 type unless we have a type abstraction operator, call it \(\tau\).
-Then we would have \(T\defn \tau.\textsf{expr}\), meaning ``\(T\)
+Then we would have \(T\defeq \tau.\textsf{expr}\), meaning ``\(T\)
 names the type determined by the tau expression
 \(\tau.\textsf{expr}\)''.  Let's try this with \(\Nat\):
-\[\Nat\defn\tau.\tj{\Znat}{\Nat}, \tj{n}{\Nat}\linfer\tj{Sn}{\Nat}\]
+\[\Nat\defeq\tau.\tj{\Znat}{\Nat}, \tj{n}{\Nat}\linfer\tj{Sn}{\Nat}\]
 
 However, this is a recursive definition. To eliminate recursion, we need
 to be able to replace \(\Nat\) on the RHS with something that means
@@ -2275,7 +2275,7 @@ type''.
 That gives us the desired ``anonymous'' type. It determines the type
 whose members are constructed by \Znat and \Snat. Now we can give it a
 name:
-\[\Nat\defn\tau.\tj{\Znat}{\tau}, \tj{n}{\tau}\linfer\tj{Sn}{\tau}\]
+\[\Nat\defeq\tau.\tj{\Znat}{\tau}, \tj{n}{\tau}\linfer\tj{Sn}{\tau}\]
 
 which we gloss ``\(\Nat\) names the type whose members are constructed
 by \Znat and \Snat''.
@@ -2329,7 +2329,7 @@ can use \(\Pi\) instead of naming the logic:
 
 Now we can directly express the relations between propositions,
 proofs, and types:
-\[P\defn\tau.(a+b=b+a)^{\Pi}\]
+\[P\defeq\tau.(a+b=b+a)^{\Pi}\]
 so \(\tj{p}{P}\) means that \(p\) is a token of the type of proofs of
 the proposition \(a+b=b+a\).
 
@@ -3725,7 +3725,115 @@ To define a function \textit{from} a type, the function must
 To codefine a cofunction \textit{to} a cotype, the cofunction must
 \textit{be used by} the co-constructors.
 
-\subsection{Definition}
+To define a function to a type, use the constructors.
+
+To codefine a function from a cotype, the cofunction must use the
+co-constructors. Example: projection ops like \textsf{second} or
+\textsf{nth}.
+
+So only functions to a cotype are used by coconstructors.
+
+What the codefinitions do is define the relation between the input and
+output of the cofunction from the outside, as it were. This is the
+coinductive analog to the inductive method of treating the value of a
+function at \(n+1\) as a function of \(n\). Codefinitions do not
+define the next codatum, but they do define the ``next'' value
+produced by the cofunction as a function of the coconstructors
+operating on the input. So this is like a homomorphism: the coctor
+applied to the output of a cofunction is function of the same ctor
+applied to the input.
+
+It's like the codefinition is telling the cofunction ``I don't care
+how you do it, but the head of your output had better match what I
+produce operating on the same input.'' For induction, this would be
+something to be proved; for coinduction, its stipulated, from the
+outside.
+
+With induction, the ctors determine the least you need to generate the
+entire type.
+
+With coinduction, the entire type is already given. The co-ctors
+determine the most you can do with an arbitrary element of the type,
+that's what makes it the ``greatest''. Its not about the type, but
+about elements of the type. This is a symmetry since each element is
+infinite, just as the inductive type is infinite.
+
+With an arbitrary stream, you can get the whole thing in its original
+state using the co-ctors. But with the output of a func, thats the
+most you can get; in the case of e.g. \defn{evens} you get a lot less
+than that. So maybe thats the ordering principle. The most you can
+ever get out of a stream is expressible in terms of the co-ctors. Any
+other functions will give you that or less. (What about functions that
+combine two streams, like merge?)
+
+Genuine induction induces an order on the members of the type.
+Elements of a stream are unordered. Is that true for all coinductively
+defined types? We know they don't have a bottom element, but what
+about ordering? Well, we can impose and ordering on e.g.
+\(\Stream\,\Nat\). But there's not internal order induced by
+construction. They're not structurally ordered; if they can be ordered
+its because of the parameter type.
+
+\paragraph{Consistency}
+
+Cofunction codefinitions must to more than give values. They must also
+integrate the cofunction into the co-constructor system to ensure
+consistency. They do this by codefining how they interact with the
+co-constructors.
+
+Take \Cons{} for streams as an example. The primitives are the
+co-constructors \head{} and \tail{}; \cons{} must be a cofunction.
+Step one is to declare the type: \(\tj{x}{X},
+\tj{\coseq{x}}{\Stream\,X}\lso \tj{(x\cons\coseq{x})}{\Stream\,X}\).
+This is not enough, because it does not tell us how the resulting
+\(X\)-stream interacts with the primitives. Remember that streams are
+opaque, and strings of characters like \cons have no intrinsic
+meaning. So we have no reason to think that the \head of such
+construction has any particular value. Consider the following
+pathological definitions:
+
+\paragraph{Constant cons}
+\[\head(x\cons\coseq{x}) = c\]
+
+\paragraph{Forgetful cons}
+\[\head(x\cons\coseq{x}) = \head(\coseq{x})\]
+
+And a proper definition: \(\head(x\cons\coseq{x}) = x\)
+
+The same considerations apply to functions. Consider \head{} and
+\tail{}; these must be functions, since the only primitives are nil
+and \Cons. Since they have no intrinsic meaning, we could give
+pathological definitions like we did above, a constant \head{} that
+always returns \(c\) and a forgetful \head{} that returns the head of
+the tail. So we have to be explicit. A common strategy is to define
+these functions for arguments of the form \(x\cons xs\), but such a
+definition is inadequate, since we cannot assume arguments will always
+have that form. The proper type declaration is
+\(\tj{seq{x}}{\List\,X} \linfer \tj{\head(seq{x})}{\List\,X}\)
+
+And the definition. Maybe.
+\(\head(seq{x}) = \head(\head(seq{x})\cons\tail(seq{x}))\)
+
+\subsection{Fiat Definition}
+
+Fiat definition gives us a way to enrich our vocabulary without
+disturbing its inferential structure. It introduces new names, but not
+new concepts. Fiat definitions are not inferentially justified, nor do
+any new inferences follow from a fiat definition. When we begin by
+stipulating, for example, that symbol \(\ulcorner 2\urcorner\) is to
+be taken to represent the second non-negative natural number, we've
+given a fiat definition. There is no inference involved.
+
+Of course, inductive and coinductive definitions are also adopted by
+fiat, but we reserve the term for non-inferential definitions.
+
+Fiat definitions and axioms may look alike, but they must be formally
+distinguished. Fiat definitions cannot be expressed as inference
+rules, nor are they propositional formulae (we cannot define
+propositions by fiat). Axioms are formulae (propositions), so they can
+be used in inferences.
+
+\subsection{Inductive Definition}
 
 In formal languages, definitions express binding, not equality.
 
@@ -3802,7 +3910,7 @@ as the \textit{cons} constructor):
 
 \begin{align}
   & \linfer \tj{\listld\,\listrd}{\List\,X} \\
-  \tj{x}{X}, \tj{xs}{\List\,X} &\linfer \tj{x\cons{}xs}{\List\,X} \\
+  \tj{x}{X}, \tj{seq{x}}{\List\,X} &\linfer \tj{x\cons{}seq{x}}{\List\,X} \\
 \end{align}
 
 These constructors are not \textit{defined}; we have not said what
@@ -3816,13 +3924,13 @@ we have two options. We can define them inductively as functions or we
 can codefine them by coinduction:
 
 \begin{align}
-  \tj{xs}{\List\,X} & \linfer \tj{\head(xs)}{X} \\
-  \tj{xs}{\List\,X} & \linfer \tj{\tail(xs)}{\List X}
+  \tj{\seq{x}}{\List\,X} & \linfer \tj{\head(\seq{x})}{X} \\
+  \tj{\seq{x}}{\List\,X} & \linfer \tj{\tail(\seq{x})}{\List X}
 \end{align}
 
 \begin{align}
-  \tj{x}{X},\tj{xs}{\List\,X} & \linfer \tj{\tail(x\cons{}xs)} = xs \\
-  \tj{x}{X},\tj{xs}{\List\,X} & \linfer \tj{\head(x\cons{}xs)} = x
+  \tj{x}{X},\tj{\seq{x}}{\List\,X} & \linfer \tj{\tail(x\cons{}\seq{x})} = \seq{x} \\
+  \tj{x}{X},\tj{\seq{x}}{\List\,X} & \linfer \tj{\head(x\cons{}\seq{x})} = x
 \end{align}
 
 Here's the corresponding codefinition of the cotype \(\Stream\,X\).
@@ -3830,8 +3938,8 @@ Dual to the inductive type, \head{} and \tail{} are primitives, codefined
 as co-constructors, and \textit{cons} is defined as a function.
 e
 \begin{align}
-  \tj{\iseq{xs}}{\Stream\,X} & \linfer \tj{\head(\iseq{xs})}{X} \\
-  \tj{\iseq{xs}}{\Stream\,X} & \linfer \tj{\tail(\iseq{xs})}{\Stream\,X}
+  \tj{\coseq{x}}{\Stream\,X} & \linfer \tj{\head(\coseq{x})}{X} \\
+  \tj{\coseq{x}}{\Stream\,X} & \linfer \tj{\tail(\coseq{x})}{\Stream\,X}
 \end{align}
 
 
@@ -3850,7 +3958,7 @@ coconstructor as a producer of a typed blob of ``stuff'', such as
 phlogiston, or ylem, the primordial matter of the cosmos, or even a
 dark number that cannot be observed.
 
-For example, the codefinitions of \ifndef{even} and \ifdef{odd} over
+For example, the codefinitions of \codefn{evens} and \ifdef{odds} over
 streams do not say how they work their magic. All they do is specify
 how their output is related to their input. Codefinition just assumes
 that the cofunction is ``good'', that it takes its input to its
@@ -3859,19 +3967,19 @@ input, expressed using the co-constructors of the type. Those
 co-constructors in turn are also opaque and literally undefined. It's
 all purely structural.
 
-In other words, the codefinition of the coconstructor \ihead tells us
+In other words, the codefinition of the coconstructor \cohead tells us
 only that it produces an \(X\) from a token of type \(\Stream\, X\).
 
 Here's a codefinition of the coconstructors for type \(\Stream\, X\):
 
 \begin{align}
-  \ihead(\ifndef{even}(\iseq{xs})) & = \ihead(\iseq{xs}) \\
-  \itail(\ifndef{even}(\iseq{xs})) & = \itail(\itail(\iseq{xs})) \\
-  \ihead(\ifndef{odd}(\iseq{xs})) & = \ihead(\itail(\iseq{xs})) \\
-  \itail(\ifndef{odd}(\iseq{xs})) & = \itail(\itail(\itail(\iseq{xs})))
+  \cohead(\codefn{evens}(\coseq{x})) & = \cohead(\coseq{x}) \\
+  \cotail(\codefn{evens}(\coseq{x})) & = \cotail(\cotail(\coseq{x})) \\
+  \cohead(\codefn{odds}(\coseq{x})) & = \cohead(\cotail(\coseq{x})) \\
+  \cotail(\codefn{odds}(\coseq{x})) & = \cotail(\cotail(\cotail(\coseq{x})))
 \end{align}
 
-\subsubsection{Sequent Calculus for Cologic}
+\subsubsection{Sequent Calculus for Cotypes}
 
 Inference rules for cotypes cannot be expressed with the usual sequent
 calculus.
@@ -3907,15 +4015,54 @@ So what would a fully fleshed-out inference rule for a coconstructor
 look like?
 
 \begin{prooftree}
-\AxiomC{$\Gamma\linfer \tj{\iseq{xs}}{\Stream\,X}$}
-\AxiomC{$\Gamma,\tj{b}{B}\linfer \tj{c}{C}$}
-\BinaryInfC{$\Gamma,\head(xs)\linfer \tj{c}{C}$}
+\AxiomC{$\Gamma\linfer \tj{\coseq{x}}{\overrightarrow{X}}$}
+\AxiomC{$\Delta,\tj{b}{B}\linfer \tj{c}{C}$}
+\RightLabel{$\linfer\head_{_{\overrightarrow{X}}}$}
+\BinaryInfC{$\Gamma,\Delta,\head(\coseq{x})\linfer \tj{c}{C}$}
 \end{prooftree}
 
-This does not really work. It expresses both introduction and
-elimination of \head.
+I don't think this works. The \(\coseq{x}\) in the premise is on the wrong side of the \(\linfer\).  Try this:
 
-Compare the LK rule for \(lkand\):
+\makebox[\textwidth]{\parbox{1.8\textwidth}{%
+\begin{center}
+\AxiomC{$\Gamma,\tj{\coseq{x}}{\overrightarrow{X}} \linfer\Lambda$}
+\AxiomC{$\Delta,\tj{x}{X}\linfer \tj{c}{C}$}
+\RightLabel{$\head_{_{\overrightarrow{X}}}\linfer$}
+\BinaryInfC{$\Gamma,\Delta,\tj{\head(\coseq{x})}{X}\linfer \tj{c}{C},\Lambda$}
+\DisplayProof
+\hspace{1.5em}
+\AxiomC{$\Gamma,\tj{\coseq{x}}{\overrightarrow{X}} \linfer\Lambda$}
+\AxiomC{$\Delta,\tj{\coseq{x}}{\overrightarrow{X}}\linfer \tj{c}{C}$}
+\RightLabel{$\tail_{_{\overrightarrow{X}}}\linfer$}
+\BinaryInfC{$\Gamma,\Delta,\tj{\tail(\coseq{x})}{\overrightarrow{X}}\linfer \tj{c}{C},\Lambda$}
+\DisplayProof
+\end{center}
+}}
+
+\vspace{1ex}
+
+Right-rules are trivial:
+%% \makebox[\textwidth]{\parbox{1.8\textwidth}{%
+\begin{center}
+\AxiomC{$\Gamma \linfer \Lambda$}
+\AxiomC{$\Delta \linfer \tj{\coseq{x}}{\overrightarrow{X}}$}
+\RightLabel{$\linfer\head_{_{\overrightarrow{X}}}$}
+\BinaryInfC{$\Gamma,\Delta \linfer \Lambda,\tj{\head(\coseq{x})}{X}$}
+\DisplayProof
+??
+\hspace{1.5em}
+\AxiomC{$\Gamma \linfer \tj{\coseq{x}}{\overrightarrow{X}}$}
+\RightLabel{$\linfer\head_{_{\overrightarrow{X}}}$}
+\UnaryInfC{$\Gamma \linfer \tj{\head(\coseq{x})}{X}$}
+\DisplayProof
+\end{center}
+%% }}
+
+\vspace{1ex}
+
+Note that these rules work for both finite and infinite lists.
+
+Compare the LK rule for \(\lkand\):
 
 %% Logical And
 \begin{center}
@@ -3934,6 +4081,85 @@ Compare the LK rule for \(lkand\):
 \DisplayProof
 \end{center}
 
+
+\subsection{Duction}
+
+Relating induction and coinduction.
+
+Functions are defined \textit{over} their type; the type is their
+domain. Cofunctions are defined \textit{under} their cotype; the
+cotype is their codomain.
+
+Definitions and codefinitions always involve two steps: declare the
+type, and give a definition or co-definition.
+
+Co-constructors are under-determined. Codefinitions refine
+co-constructors. They ``partition'' the meaning, make it more
+articulated.
+
+Codefinitions are axiom-like. Or they can be viewed as inference rules
+(you need a rule or axiom for each new name that involves a new
+concept/inference, as opposed to fiat definitions). The corresponding
+definitions are theorems.
+
+Example: \defn{evens} and \codefn{evens}.
+
+\vspace{2ex}
+
+General pattern for codefining \(\overline{f}\): \(\ulcorner
+\cohead\circ\overline{f} = g\circ\cohead\urcorner\), where \(g\) is
+some function that determines the substance of what \(\overline{f}\)
+means. For example it could be a function \(\textsf{\slshape dbl}\)
+that doubles its argument; then \(\overline{f}\) would be the function
+\(\codefn{dbl}\) that applies \(\defn{dbl}\) to each element of a
+stream.\footnote{Where we are using an overline, many other writers
+use a function name, \textsf{\slshape map}, i.e. \(\overline{f} :=
+\textsf{\slshape map}(f)\).}
+
+\vspace{1ex}
+
+The codefinition of \codefn{evens}, using \(g = \idfun\):
+\(\cohead(\codefn{evens}(\coseq{x})) = \idfun(\cohead(\coseq{x}))\).
+This expresses a relation between the input \(\coseq{x}\) and the
+output \(\codefn{evens}(\coseq{x})\). It counts as an axiom of the
+\(\Stream\,X\) type; it is not something that could be proved.
+
+The same relation expressed for \(\List\,X\) is a theorem\footnote{TODO: proof}:
+\(\head(\defn{evens}(\seq{x})) = \idfun(\head(\seq{x}))\). The theoremhood may be more clear if we use pattern matching:
+\[\head(\defn{evens}(x\cons\seq{x})) = \idfun(\head(x\cons\seq{x}))\]
+
+This counts as a theorem because it does not \textit{define} either
+\head{} or \defn{evens}, it \textit{uses} them. The definitions:
+
+\begin{align}
+ \tj{\seq{x}}{\List\,X} & \linfer \tj{\head(\seq{x})}{X} \\
+ \tj{x}{X},\tj{\seq{x}}{\List\,X} & \linfer \head(x\cons\seq{x}) = x \\
+ \tj{\seq{x}}{\List\,X} & \linfer \tj{\defn{evens}(\seq{x})}{\List\,X} \\
+ \tj{\seq{x}}{\List\,X} & \linfer \defn{evens}(x\cons\seq{x})
+   = x\cons(\tail(\tail(\seq{x})))
+\end{align}
+
+There is nothing we can do with defined functions that we cannot do
+without them, since they are defined by constructors.
+
+By contrast, cofunctions allow us to do things we cannot do with only
+the co-constructors. That's because they are not defined; rather they
+are assumed to exist. Their codefinitions do not give a method for
+producing their results.
+
+However, if we view codefinitions as \textit{specifications}, then we
+recover symmetry. There is nothing we can \textit{specify} using
+codefinitions that we cannot specify without them, using the
+co-constructors, since codefinitions are expressed (``constructed''
+by) in terms of co-constructors.
+
+Thinking of codefinitions as specifications solves a lot of conceptual
+problems. For example it explains how we can compute with things like
+streams. We cannot implement cofunctions like \(\codefn{evens}\), but
+we can \textit{approximate} them. Given a codefinition for
+\(\codefn{evens}\), that is, given its specification, we can
+inductively define a function that satisfies the specification and
+thereby approximates the (infinite) cofunction.
 
 \subsection{Martin-Löf's Doctrine of Judgmental Equality}
 
@@ -3997,6 +4223,13 @@ without them, just using the constructors. IOW, the LFP is a basis.
 
 \subsection{Greatest Fixed Points}
 
+It's not the constructors that are least, it's the type they
+determine. Inductive types are built up from their base cases by
+expansion. Coinductive cotypes are greatest, because their
+co-constructors allow us to ``shrink'' them.
+
+Outdated:
+
 GFP of a coinductive type is the co-constructors. You can add
 operations going out of the underlying set, but such operations cannot
 be reduced to the co-constructors. On the contrary, the operation of
@@ -4004,8 +4237,8 @@ the co-constructors must be defined over the results of the new
 operations.
 
 In other words, we start with co-constructors that are defined for
-arbitrary elements of the type. For any \(\tj{xs}{\Stream X}\) we have
-\(\tj{\head(xs)}{X}\) and \(\tj{\tail(xs)}{\Stream X}\).
+arbitrary elements of the type. For any \(\tj{seq{x}}{\Stream X}\) we have
+\(\tj{\head(seq{x})}{X}\) and \(\tj{\tail(seq{x})}{\Stream X}\).
 
 Then to define a new function over \(\Stream X\), we have to give
 definitions of \(\head\) and \(\tail\) for outputs of the function.
@@ -4015,26 +4248,26 @@ type are never completely defined. They always operate on arguments of
 type \(\Stream X\), but their meaning (the way they function) depends
 on how those arguments were produced.
 
-For example, we can define \ifndef{even} and \ifndef{odd} over type
+For example, we can define \codefn{even} and \codefn{odd} over type
 \(\Stream\, X\):
 
 \begin{align}
-  \iseq{xs} & \defn [xs_0, xs_1, \ldots] \\
-  \ifndef{even}(\iseq{xs}) & = [xs_0, xs_2, \ldots] \\
-  \ifndef{odd}(\iseq{xs})  & = [xs_1, xs_3, \ldots]
+  \coseq{seq{x}} & \defeq [x_0, x_1, \ldots] \\
+  \codefn{even}(\coseq{seq{x}}) & = [x_0, x_2, \ldots] \\
+  \codefn{odd}(\coseq{seq{x}})  & = [x_1, x_3, \ldots]
 \end{align}
 
 Note first of all that we cannot define such functions by induction.
 There is no base case for infinite streams, so we cannot inductively
-construct them. For a finite list, we would define \fndef{even} and
-\fndef{odd} by pattern-matching against the internal structure of the
+construct them. For a finite list, we would define \defn{even} and
+\defn{odd} by pattern-matching against the internal structure of the
 argument, expressed by constructor patterns starting with the base case:
 
 \begin{align}
-  \fndef{even}([]) & = [] \\
-  \fndef{odd}([]) & = [] \\
-  \fndef{even}(x::xs) & = x::\fndef{even}(\tail(xs)) \\
-  \fndef{odd}(x::xs) & = \head(xs)::\fndef{odd}(\tail(xs))
+  \defn{even}([]) & = [] \\
+  \defn{odd}([]) & = [] \\
+  \defn{even}(x::seq{x}) & = x::\defn{even}(\tail(seq{x})) \\
+  \defn{odd}(x::seq{x}) & = \head(seq{x})::\defn{odd}(\tail(seq{x}))
 \end{align}
 
 Here we give the meaning of the function applied to constructors of
@@ -4044,20 +4277,20 @@ And there are only two possibilities, corresponding to the two
 constructors, nil (\([]\)) and cons (\(::\)).
 
 Compare the corresponding codefinitions. We have no base case, and we
-cannot start with \(x::xs\), because \cons\ (\(::\)) is not a
+cannot start with \(x::seq{x}\), because \cons\ (\(::\)) is not a
 primitive constructor. Moreover we have to start by making
 \textit{two} assumptions: first that we're given an opaque token
-\(\tj{\iseq{xs}}{\Stream\,X}\), and second that the function we're
+\(\tj{\coseq{x}}{\Stream\,X}\), and second that the function we're
 codefining may already be applied to such a token to produce another
 value of type \(\Stream\, X\). Then we define the consequences of
 applying the function: the values taken by the co-constructors when
 applied to the function's output.
 
 \begin{align}
-  \ihead(\ifndef{even}(\iseq{xs})) & = \ihead(\iseq{xs}) \\
-  \itail(\ifndef{even}(\iseq{xs})) & = \itail(\itail(\iseq{xs})) \\
-  \ihead(\ifndef{odd}(\iseq{xs})) & = \ihead(\itail(\iseq{xs})) \\
-  \itail(\ifndef{odd}(\iseq{xs})) & = \itail(\itail(\itail(\iseq{xs})))
+  \cohead(\codefn{even}(\coseq{xs})) & = \cohead(\coseq{xs}) \\
+  \cotail(\codefn{even}(\coseq{xs})) & = \cotail(\cotail(\coseq{xs})) \\
+  \cohead(\codefn{odd}(\coseq{xs})) & = \cohead(\cotail(\coseq{xs})) \\
+  \cotail(\codefn{odd}(\coseq{xs})) & = \cotail(\cotail(\cotail(\coseq{xs})))
 \end{align}
 
 For co-inductive codefinitions, we give the meaning of the
@@ -4073,7 +4306,25 @@ inferential semantics: meanings are determined jointly by both
 (downstream) of application. Put differently, rules of construction
 and rules of use.
 
-Now back to greatest fixed point.
+Now back to greatest fixed point. The idea is that the co-ctors are
+the greatest fixed point, or greatest solution set, or some such. Such
+that they would subsume any added functions. In what way? For
+induction, the new functions reduce to the base ctors. In coinduction,
+reduction is the wrong concept. The relation is some other kind of
+subsumption.
+
+The coconstructors are just type specifications. We can treat them as
+maximally general. Then we codefine some cofunctions - that narrows
+the meanings of the co-ctors, for particular cases. So the raw
+co-ctors subsume the function-specific meanings assigned by the
+codefinitions.
+
+What precisely is the relation between the raw co-ctors and the
+codefinitions given them for particular cofunctions?
+
+Key point is that the codefinitions do not define values for the
+co-ctors, they only relate them to the input stream. So they confer
+structure, not content.  Although they could add content.
 
 \section{Identity}
 Every thing has an identity, and every thing is identical to itself.
@@ -4682,7 +4933,7 @@ whose tokens express equality of a pair of \(A\)-tokens.\footnote{This is our te
 
 Let's try to define an equality type in our type system. Equality is a
 relation, and relations are expressed as products. So to start we'll
-define an abbreviation: \(\EQ_A\defn A\times A\). The problem with
+define an abbreviation: \(\EQ_A\defeq A\times A\). The problem with
 this is that it puts all A pairs in the equality relation, e.g.
 \(\pair(2,3):\EQ_{\Nat}\).
 
@@ -4826,12 +5077,12 @@ and equality. If \(a\) is definitionally bound to \(b\), infer that
 \(a=b\) is inhabited. This must be made explicit if we want to be able
 to appeal to defined bindings in our logic. Something like:
 
-\[a\defn b:A \linfer\exists\,p\ |\ p : a=_A b\]
+\[a\defeq b:A \linfer\exists\,p\ |\ p : a=_A b\]
 
 We can eliminate the quantifier by following the standard pattern in
 sequent calculus, and show that if C can be proven by assuming
-\(p:a=_A b\), then it can be proven by \(a\defn b:A\). For this to
-work we must admit \(\defn\) as a structural operator in the logic.
+\(p:a=_A b\), then it can be proven by \(a\defeq b:A\). For this to
+work we must admit \(\defeq\) as a structural operator in the logic.
 
 The problem is that the
 \(\textsf{refl}_A\) constructor is only defined for \(a=_A a\):
@@ -4846,9 +5097,9 @@ The problem is that the
   to itself (in a specified way)...
 
   In particular, this means that if \(a\) and \(b\) are judgmentally
-  equal {\upshape [definitionally bound]}, \(a\defn b\), then we also
+  equal {\upshape [definitionally bound]}, \(a\defeq b\), then we also
   have an element \(\textsf{refl}_a : a=_A b\). This is well-typed
-  because \(a\defn b\) means that also the type \(a=_A b\) is
+  because \(a\defeq b\) means that also the type \(a=_A b\) is
   judgmentally equal {\upshape [definitionally bound]} to \(a=_A a\),
     which is the type of \(\textsf{refl}_a\).
 \end{displayquote}
@@ -4869,23 +5120,23 @@ a pair.
 In addition to the dubious justification, the problem is that HoTT
 does not provide an explicit inference rule to support this informal
 argument. The inference
-\[a\defn b \linfer (a=_A b) \defn (a=_A a)\]
+\[a\defeq b \linfer (a=_A b) \defeq (a=_A a)\]
 
 may be intuitively obvious, but it is not formally licensed.
 
-Here's a try. If \(a\defn_A b, p:a=_A b \linfer q:Q\), then \((a\defn_A b):Q\).
+Here's a try. If \(a\defeq_A b, p:a=_A b \linfer q:Q\), then \((a\defeq_A b):Q\).
 
 %% \begin{displaymath}
 %%   \prftree[r]{$\linfer\,=$}
 %%           {\Gamma,}
 %%           {p\type a=_A b\linfer q\type Q,}
-%%           {a\defn b\type A}
-%%           %% {\Gamma,a\defn b\type A \linfer a\type Q}
+%%           {a\defeq b\type A}
+%%           %% {\Gamma,a\defeq b\type A \linfer a\type Q}
 %%           {\Gamma\linfer p\type a=_A a,\ p\type b=_A b}
 %% \end{displaymath}
 
 Note that we cannot do this, in spite of what the HoTT Book says:
-\mbox{\(a\defn_A b\linfer\textsf{refl}_a:a=_A a\)}. For that we would
+\mbox{\(a\defeq_A b\linfer\textsf{refl}_a:a=_A a\)}. For that we would
 need another rule saying that \(\textsf{refl}_a\) is unique.
 
 This is essentially modus ponens for definitions. Or maybe a
@@ -4923,7 +5174,7 @@ but
 We use the notation \(\EQN_A(a,b)\), or equivalently \(\EQN(A,a,b)\)
 for equational types.
 
-\[\EQN \defn \prod\limits_{\tjsmall{a,b}{A}}\Univ\]
+\[\EQN \defeq \prod\limits_{\tjsmall{a,b}{A}}\Univ\]
 
   %% \[\textsf{refl} : ∏_{a:A}(a=_A a)\]
 
@@ -5156,7 +5407,7 @@ Objection: path induction is based on a pathological \modus (see above)
 
 Objection: symmetry and transitivity are theorems. Should be primitives.
 
-Objection: enthymemes. For example, on p. 48: \(a\defn_A
+Objection: enthymemes. For example, on p. 48: \(a\defeq_A
 b\linfer\textsf{refl}_a:a=_A a\) is not supported by an inference rule.
 
 Objection: says nothing about uniqueness of equality types.
@@ -5903,12 +6154,210 @@ to say nothing. (Tractatus?)
 
 So is definitional equality (convertability) the same as confluence?
 Even if it isn't we should use \(a\downarrow b\) instead of \(a = b\).
+Or we should have an inference rule from the former to the latter.
 
-\section{Codefinition \& Coequality}
+\subsection{Codefinition \& Coequality}
 
-Treat \(\defn\) as codefinition?
+Treat \(\defeq\) as codefinition?
 
 \section{Notes}
+
+\subsection{Dark Logic}
+
+Compare coinductive and probabilistic thinking. Both involve reasoning
+with imperfect information.
+
+
+
+Coinduction assumes the definiendum is already determined. Like dark
+matter.
+
+We can express coinduction as inference rules in a logic. And
+reasoning by coinduction seems qualitatively different than inductive
+reasoning.
+
+Does a co-logic make sense?
+
+We have cofunction, a function defined co-inductively. By
+Curry-Howard, that gives us co-implication. What about co-conjuction,
+co-disjunction etc.?
+
+Conjunction. Elimination rule assumes that we can be given a token
+\(p\) where \(\tj{p}{A\lkand B}\), such that the meaning of \(p\) is
+determinate, but it does not assume that \(p\) has the form of a pair.
+
+We can \textit{define} as many distinct function implementations as we
+like for a given function type, say \(\Nat\func\Nat\). What about
+conjuction and disjunction?
+
+Linear logic shows that we need at least two distinct
+``implementations'' for both. Or does it. It has different inference
+rules, so its not a matter of different implementations of the same
+type.
+
+But then under what circumstances would it make sense to have more
+than one implementation of \(\lkand\)? Or: when would it make sense to
+say \(A \lkand B\) is not unique? More precisely that it has only one
+ctor?
+
+We can have many function implementations because of the way we
+interpret \(\func\). It must be a procedure capable of producing a B,
+given an A, an A-to-B machine. That makes it a meta-machine. But all
+inference rules are meta in this way. But \(\func\) starts with a
+token-producing machine, not a meta-matchine. Can we think of
+conjunction like this? Start with a pair of machines capable of
+producing A and B tokens out of ylem; the \(\lkand\) machine turns
+those machines into \(A\lkand B\) tokens. Then we can have different
+implementations of those machines. One that produces tokens out of
+unicorn blood, for example.
+
+So the type of all A-to-B machines is \(A\func B\). To produce one we
+must build it ourselves, using the lambda calculus as a tool.
+
+Leprechaun lambdas.
+
+But we do not have a lambda calculus, or any calculus, that will allow
+us to build an implemention of a cofunction cotype. Such machines can
+only be built by leprechauns, according to leprechaun engineering
+standards, and they are permanently sealed, so it is impossible for us
+to open one up and inspect the construction.
+
+So if we need to do something useful with a machine of such a type, we
+just assume that we can pick out an arbitrary unit from the limitless
+stock of prebuilt machines.
+
+No, better is, we go down to the leprechauns and tell them what we
+want: we give them the equations specifying how the head and tail
+should work, and they build us one from spec. That's how we can think
+of the codefining equations for a cotype as specifications rather than
+axioms. Giving us three ways to think of them: as axiomatic truths, as
+rules of interence, and as engineering specifications.
+
+Leading to the idea that induction is semantic, and coinduction is
+syntactic.
+
+We only need the lambda leprechaums if we insist on metaphysics.
+Classically, for computable functions, we have the idea that they
+exist, and Turing Machines or some other model allows us to express
+them formally. So there remains an ontological gap between a function
+and its representation as, say, a lambda definition. Since our models
+of computation work so well, and since they are constructive, we have
+little compunction thinking that the functions expressed by lambda
+definitions exist, either eternally, or in virtue of our construction.
+
+Things are different for cofunctions, however. We don't have a good
+reason for thinking they exist. We cannot construct them after all; we
+cannot even imagine what it would take to construct them, since the
+very concept of construction seems to mean finitude.
+
+Actually the logic is similar to the way we think about the infinities
+associated with our constructions. We're inclined to think the natural
+numbers exist \textit{in toto}, because we know that we can construct
+any particular natural number. So we make a kind of metaphysical leap
+from the existence of each natural number to the existence of their
+infinitude. Of course, intuitionism rejects the possibility of a
+``completed infinity''. Usually we just abuse the language, and say
+``\(\Nat\) exists'' when what we really mean is that each number
+exists or can be constructed. In any case, the critical point is that
+we need not presuppose the existence of the totality \(\Nat\) in order
+to think that \textit{each} natural number exists.
+
+We can \textit{almost} think about streams in the same way. Each
+stream is isomorphic to \(\Nat\), and we can extract each prefix as a
+finite list, just as we can construct each natural number. But
+extraction of a prefix depends on use of the co-constructors and the
+assumption that the stream antecedently exists - if it did not, then
+the co-constructors would have nothing to work with, and we would not
+be able to extract a finite list. So it looks like the logic of
+coinduction inescapably presupposes some metaphysical commitments.
+
+How can we get around this, and ``explain'' such codata without
+metaphysics? I think the intuitionist approach is to think in terms of
+approximations. We do not need ontological commitments to understand
+codefinitions etc. as specifications. In other words, if we think
+syntactically instead of semantically. Then we can approximate a
+stream by constructing successive prefixes, without any metaphysical
+presuppositions about the existence or otherwise of the whole stream.
+
+But note: we're not quite thinking entirely syntactically. We're just
+treating syntax as primary. We then endow the syntax with meaning.
+I.e. its not empty syntax, its more like syntax with contingent or
+implied semantics. We work with the syntax on the understanding that
+it has a kind of approximative semantics.
+
+Counter-factual semantics: if streams were to exist, then we would be
+able to extract finite prefixes. But the converse does not hold: if we
+can extract prefixes, then streams exist. So our ability to extract
+prefixes is rendered intelligible by the counter-factual, but we
+cannot then conclude that streams exist. We can say that the syntax
+has counter-factual semantics. Meaning that the counter-factual makes
+the things we say about streams meaningful, but does not entail
+metaphysical commitments.
+
+This would require that we reject the usual reading of ``semantic'' as a
+synonym of ``denotational'' or ``representational''.
+
+Sadly, the logic and semantics of counterfactuals is very complex. But
+they're easy enough to understand informally and that's enough for
+present purposes.
+
+\citetitle{sep-counterfactuals} \cite{sep-counterfactuals}
+
+
+\subsection{Coinduction Rules}
+
+Double entendre: rules of coinduction v. dominance of coinduction
+
+The logic of coinduction is the logic of empirical science.
+
+Difference between scientific induction and mathematical induction:
+the latter involves an element of necessity that is completely lacking
+in the former. Modality of necessity v. possibility. The inferences
+delivered by scientific induction are always contingent. They may be
+undermined in two ways. Additional experimental evidence may render
+them invalid, and changes to theory may render them inappropriate, for
+lack of a better term. Einstein gave us a vivid example of the latter
+when he redefined the concept of gravity, and thereby forced a
+reconceptualization of the entire body of inferences underwriting
+theoretical physics.
+
+But if scientific and mathematical induction differ in this
+fundamental way, why do we call them both ``induction''. One reason is
+historical: the concept of induction is much older and more familiar
+than the concept of coinduction, which only began to emerge as a
+distinctive concept relatively recently.
+
+Once we have a clear understanding of coinduction, it becomes clear
+that what we all scientific induction is actually coinduction.
+
+Latent variables and measurement. What's the difference between a
+``latent variable'' in the social sciences, like the Big 5 personality
+traits (extraversion, agreeableness, openness, consientiousness, and
+neuroticism), and a concept like ``mass'' in physics? After all, mass
+is just as ``latent'' as neuroticism. We cannot directly observe mass;
+the best we can do is observe measurements whose results, we theorize,
+are ``caused'' by mass. Those measurements are so precise and reliable
+(replicable), and the predictions we make based on those experimental
+results are so good, that we have seen fit to elevate the concept of
+mass to a kind of axiomatic status. That's an example of co-inductive
+reasoning: we use observations to draw inferences about the machinery
+behind the appearances.
+
+From this perspective, the only difference between such (mostly)
+undisputed concepts like mass and very debatable concepts like the
+latent variables of psychology is measurement. The problem with
+``neuroticism'' is that we have no good way to measure it. That could
+be because we do not have a good theory that would enable us to
+explain how neuroticism affects observable properties or behaviors, or
+it could be because we lack the instruments of measurement we need to
+make good observations. But if we did have a good way of measuring
+neuroticism, and such measurements allowed us to make reliable
+predictions about future measurements, then we would be justified in
+bestowing on the concept of neuroticism the same status we grant to
+the concept of mass. And the kind of reasoning involved would be
+coinduction.
+
+Pavlov's dog.
 
 \subsection{Imaginary Numbers}
 
@@ -6264,49 +6713,49 @@ above, but explicit.
 
 Examples:
 
-%% \begin{center}
-%% \AxiomC{$\Gamma$}
-%% \AxiomC{$[\phi]$}
-%% \noLine
-%% \UnaryInfC{$\vdots$}
-%% \noLine
-%% \UnaryInfC{$\psi$}
-%% \BinaryInfC{$\phi\rightarrow\psi$}
-%% \DisplayProof
-%% \hskip1em
-%% \rightarrow
-%% \AxiomC{$\Gamma$}
-%% \AxiomC{$\epsilon\phi$}
-%% \noLine
-%% \UnaryInfC{$\vdots$}
-%% \noLine
-%% \UnaryInfC{$\psi$}
-%% \BinaryInfC{$\phi\rightarrow\psi$}
-%% \DisplayProof
-%% \end{center}
+\begin{center}
+\AxiomC{$\Gamma$}
+\AxiomC{$[\phi]$}
+\noLine
+\UnaryInfC{$\vdots$}
+\noLine
+\UnaryInfC{$\psi$}
+\BinaryInfC{$\phi\rightarrow\psi$}
+\DisplayProof
+\hskip1em
+\rightarrow
+\AxiomC{$\Gamma$}
+\AxiomC{$\epsilon\phi$}
+\noLine
+\UnaryInfC{$\vdots$}
+\noLine
+\UnaryInfC{$\psi$}
+\BinaryInfC{$\phi\rightarrow\psi$}
+\DisplayProof
+\end{center}
 
 With types:
 
-%% \begin{center}
-%% \AxiomC{$\Gamma$}
-%% \AxiomC{$[\phi:A]$}
-%% \noLine
-%% \UnaryInfC{$\vdots$}
-%% \noLine
-%% \UnaryInfC{$\psi:B$}
-%% \BinaryInfC{$\phi\rightarrow\psi:$}
-%% \DisplayProof
-%% \hskip1em
-%% \rightarrow
-%% \AxiomC{$\Gamma$}
-%% \AxiomC{$\epsilon\phi$}
-%% \noLine
-%% \UnaryInfC{$\vdots$}
-%% \noLine
-%% \UnaryInfC{$\psi$}
-%% \BinaryInfC{$\phi\rightarrow\psi$}
-%% \DisplayProof
-%% \end{center}
+\begin{center}
+\AxiomC{$\Gamma$}
+\AxiomC{$[\phi:A]$}
+\noLine
+\UnaryInfC{$\vdots$}
+\noLine
+\UnaryInfC{$\psi:B$}
+\BinaryInfC{$\phi\rightarrow\psi:$}
+\DisplayProof
+\hskip1em
+\rightarrow
+\AxiomC{$\Gamma$}
+\AxiomC{$\epsilon\phi$}
+\noLine
+\UnaryInfC{$\vdots$}
+\noLine
+\UnaryInfC{$\psi$}
+\BinaryInfC{$\phi\rightarrow\psi$}
+\DisplayProof
+\end{center}
 
 \subsection{Strategies}
 
@@ -6643,8 +7092,6 @@ Id, Cut
 
 \subsubsection{Logical Rules}
 
-Also called (by Bimbó) operational rules.
-
 %% Logical And
 \begin{center}
 \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
@@ -6774,10 +7221,6 @@ Also called (by Bimbó) operational rules.
 \UnaryInfC{$\Gamma,B,A,\Delta\linfer\Theta$}
 \DisplayProof
 \end{center}
-
-\subsection{Notes}
-
-Source: \textquote[\parencite{bimbo2014proof}]{Proof Theory: Sequent Calculi and Related Formalisms}
 
 \subsection{LL}
 

@@ -30,7 +30,7 @@
 
 %% equality
 \newcommand{\fregeq}{\ensuremath{≡}}
-\newcommand{\defn}{\ensuremath{\eqdef}} %% {≡}} %% \coloneq
+\newcommand{\defeq}{\ensuremath{\eqdef}} %% {≡}} %% \coloneq
 \newcommand{\EQ}{\ensuremath{\textsf{\slshape EQ}}}
 \newcommand{\EQN}{\ensuremath{\textsf{\slshape EQN}}}
 \newcommand{\REQN}{\ensuremath{\textsf{\slshape REQN}}}
@@ -60,25 +60,31 @@
 
 \newcommand{\IBMMM}{\ensuremath{\textsf{IBM}^3}}
 
-\newcommand{\fndef}[1]{\ensuremath{\textsf{\slshape #1}}}
-\newcommand{\ifndef}[1]{\ensuremath{\textsf{\slshape #1}^{\*}}}
+\newcommand{\defn}[1]{\ensuremath{\textsf{\slshape #1}}}
+\newcommand{\codefn}[1]{\ensuremath{\overline{\textsf{\slshape #1}}}}
 
+%% identity function
+\newcommand{\idfun}{\ensuremath{\textsf{\slshape Id}}}
 
 %% lists
-\newcommand{\head}{\ensuremath{\textsf{head}}}
-\newcommand{\tail}{\ensuremath{\textsf{tail}}}
+%% finite lists
+\newcommand{\List}{\ensuremath{\textsf{\slshape List}}}
+\newcommand{\seq}[1]{\ensuremath{#1s}}
+
+\newcommand{\head}{\ensuremath{\textsf{\slshape head}}}
+\newcommand{\tail}{\ensuremath{\textsf{\slshape tail}}}
 \newcommand{\cons}{\ensuremath{{\mathpunct{::}}}}
-\newcommand{\Cons}{\ensuremath{\textsf{cons}}}
+\newcommand{\Cons}{\ensuremath{\textsf{\slshape cons}}}
 %% ld = left delim
 \newcommand{\listld}{\ensuremath{\textsf{[}}}
 \newcommand{\listrd}{\ensuremath{\textsf{]}}}
 
-\newcommand{\List}{\ensuremath{\textsf{\slshape List}}}
+%% streams
 \newcommand{\Stream}{\ensuremath{\textsf{\slshape Stream}}}
-\newcommand{\iseq}[1]{\ensuremath{\overrightarrow{#1}}}
-\newcommand{\ihead}{\ensuremath{\textsf{head}}}
-\newcommand{\itail}{\ensuremath{\textsf{tail}}}
-\newcommand{\icons}{\ensuremath{\textsf{cons}}}
+\newcommand{\coseq}[1]{\ensuremath{\overline{#1s}}}
+\newcommand{\cohead}{\ensuremath{\overline{\textsf{head}}}}
+\newcommand{\cotail}{\ensuremath{\overline{\textsf{tail}}}}
+\newcommand{\cocons}{\ensuremath{\overline{\textsf{cons}}}}
 
 %% Inference types
 %% generic
@@ -91,7 +97,7 @@
 
 % type inference
 %% for brevity: tj for typing judgment, even though we don't say that
-\newcommand{\tj}[2]{\ensuremath{#1\hspace{-0pt}\mathpunct{:}\hspace{-0pt}#2}}
+\newcommand{\tj}[2]{\ensuremath{#1\hspace{1pt}\mathpunct{:}\hspace{-1pt}#2}}
 \newcommand{\tjsmall}[2]{\ensuremath{#1\hspace{-0pt}\mathpunct{:}\hspace{-0pt}#2}}
 \newcommand{\type}{\ensuremath{\hspace{-2pt}\mathpunct{:}\hspace{-3pt}}}
 \newcommand{\tinfer}{\ensuremath{\assert_{\tau}}}
