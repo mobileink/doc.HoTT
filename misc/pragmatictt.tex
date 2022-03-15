@@ -974,13 +974,39 @@ about functions, combinatory function calculus). Differs from logical
 calculi by having a definite intended interpretation, the world of
 functions.
 \item Process calculi: \(\pi\) calculus, CCS, etc.
+\item Protocol/security calculi: Spi calculus
 \item Other kinds?  See \href{https://en.wikipedia.org/wiki/List_of_formal_systems}{List of Formal Systems}.
 \end{itemize}
 
 What do they all have in common? Only syntax, probably. Plus an
 intended domain of interpretation.
 
-\subsection{Natural Deduction}
+\citetitle{spi_calculus} \cite{spi_calculus}
+
+\subsection{Logical Calculi}
+
+\begin{itemize}
+\item \citetitle{bimbo2014proof} \cite{bimbo2014proof}
+\item \citetitle{negri2008structural} \cite{negri2008structural}
+\item \citetitle{Restall2000-RESAIT-4} \cite{Restall2000-RESAIT-4}
+\item \citetitle{Fitch1952-FITSL} \cite{Fitch1952-FITSL}
+\item \citetitle{Lemmon1965-LEMBL} \cite{Lemmon1965-LEMBL}
+\item \citetitle{takeuti2013proof} \cite{takeuti2013proof}
+\item \citetitle{Kleene1967-KLEML} \cite{Kleene1967-KLEML}
+\item \citetitle{Quine1940-QUIML} \cite{Quine1940-QUIML}
+\item \citetitle{Quine1950-QUIMOL} \cite{Quine1950-QUIMOL}
+\item \citetitle{Church1944-CHUITM} \cite{Church1944-CHUITM}
+\item \citetitle{Gentzen1964-nat-deduc} \cite{Gentzen1964-nat-deduc}
+\item \citetitle{Gentzen1969-GENTCP} \cite{Gentzen1969-GENTCP}
+\end{itemize}
+
+\subsubsection{Natural Deduction}
+
+
+\begin{itemize}
+\item \citetitle{Prawitz1965-PRANDA}, \cite{Prawitz1965-PRANDA}
+\item \citetitle{Gentzen1964-nat-deduc} \cite{Gentzen1964-nat-deduc}
+\end{itemize}
 
 %% \begin{prooftree}
 %% \AxiomC{$A$}
@@ -989,7 +1015,7 @@ intended domain of interpretation.
 %% \TrinaryInfC{$A\land B$}
 %% \end{prooftree}
 
-\subsection{Sequent Calculus}
+\subsubsection{Sequent Calculus}
 
 Good overview:
 https://users.cecs.anu.edu.au/~jks/LogicNotes/sequent-calculus.html
@@ -1155,6 +1181,41 @@ but not singly; \(\multimap\) affords a single application per input.
 
 We could also use ``affords'' instead of ``suffices for''.
 
+\subsubsection{Tableau}
+
+\begin{itemize}
+
+\item \citetitle{Smullyan1968-SMUFL} \cite{Smullyan1968-SMUFL}
+
+\end{itemize}
+
+\subsubsection{Fitch Diagrams}
+
+\citetitle{Fitch1952-FITSL} \cite{Fitch1952-FITSL}
+
+\subsubsection{Lemmon}
+
+\citetitle{Lemmon1965-LEMBL} \cite{Lemmon1965-LEMBL}
+
+%%%%%%%%%%%%%%%%
+\subsection{Functional Calculi}
+
+\subsubsection{Combinatory Logic}
+
+\begin{itemize}
+\item \citetitle{bimbo2011combinatory} \cite{bimbo2011combinatory}
+\item \citetitle{Smullyan1985-SMUTMA-2} \cite{Smullyan1985-SMUTMA-2}
+\end{itemize}
+
+\subsubsection{Lambda Calculus}
+
+\subsection{Process Calculi}
+
+\begin{itemize}
+\item \citetitle{sangiorgi2003pi} \cite{sangiorgi2003pi}
+\item \citetitle{milner1999communicating} \cite{milner1999communicating}
+\item \citetitle{Honda00secureinformation} \cite{Honda00secureinformation}
+\end{itemize}
 
 \section{Inferential Modalities}
 
@@ -3051,19 +3112,19 @@ If we want to be able to construct and use implications we need inference
 rules for it:
 
 %% Implication rules
-%% \begin{center}
-%% \AxiomC{$\Gamma;A\linfer B\structor\Delta\kern-1.2em$}
-%% \RightLabel{$\linfer\lollipop$}
-%% \UnaryInfC{$\Gamma\linfer A\lollipop B\structor\Delta$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$\Gamma\linfer A\structor\Delta\kern-1.2em$}
-%% \AxiomC{$\seqand\kern-1.2em$}
-%% \AxiomC{$\Theta; B\linfer \Lambda$}
-%% \RightLabel{$\lollipop\linfer$}
-%% \TrinaryInfC{$\Gamma;\Theta;A\lollipop B\linfer\Delta\structor\Lambda$}
-%% \DisplayProof
-%% \end{center}
+\begin{center}
+\AxiomC{$\Gamma;A\linfer B\structor\Delta\kern-1.2em$}
+\RightLabel{$\linfer\lollipop$}
+\UnaryInfC{$\Gamma\linfer A\lollipop B\structor\Delta$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma\linfer A\structor\Delta\kern-1.2em$}
+\AxiomC{$\seqand\kern-1.2em$}
+\AxiomC{$\Theta; B\linfer \Lambda$}
+\RightLabel{$\lollipop\linfer$}
+\TrinaryInfC{$\Gamma;\Theta;A\lollipop B\linfer\Delta\structor\Lambda$}
+\DisplayProof
+\end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Negation}
@@ -3084,17 +3145,17 @@ Name: ``nil''.  Symbol: \((\cdot)^{\bot}\)
 \subsubsection{Rules}
 
 %% Negation rules
-%% \begin{center}
-%% \AxiomC{$\Gamma,B\linfer\Delta\kern-1.2em$}
-%% \RightLabel{$\linfer\ (\cdot)^{\bot}$}
-%% \UnaryInfC{$\Delta\linfer B^{\bot}\structor\Delta$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$\Gamma\linfer B,\Delta\kern-1.2em$}
-%% \RightLabel{$(\cdot)^{\bot}\ \linfer$}
-%% \UnaryInfC{$\Gamma;B^{\bot}\linfer\Delta$}
-%% \DisplayProof
-%% \end{center}
+\begin{center}
+\AxiomC{$\Gamma,B\linfer\Delta\kern-1.2em$}
+\RightLabel{$\linfer\ (\cdot)^{\bot}$}
+\UnaryInfC{$\Delta\linfer B^{\bot}\structor\Delta$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma\linfer B,\Delta\kern-1.2em$}
+\RightLabel{$(\cdot)^{\bot}\ \linfer$}
+\UnaryInfC{$\Gamma;B^{\bot}\linfer\Delta$}
+\DisplayProof
+\end{center}
 
 \subsubsection{Defining Equations}
 
@@ -3111,7 +3172,7 @@ Name: ``nil''.  Symbol: \((\cdot)^{\bot}\)
 Here ``conclusions'' means a disjunct containing one or more true
 propositions.
 
-\subsubsection{Conjunction: both but not each (fusion)}
+\subsubsection[Conjunction: both but not each (fusion)]{Conjunction: \Fusion}
 
 Name: ``fusion''.  Symbol: \(\fusion\) (Girard: \(\otimes\))
 
@@ -3138,12 +3199,12 @@ language, since a conclusion can only be a single proposition. The
 elim rule for \(\circ\) suggests that we can only use it to provide A
 and B in a premise structure, not in a logical formula:
 
-%% \begin{prooftree}
-%% \AxiomC{$\Gamma\linfer A\circ B$}
-%% \AxiomC{$\Delta,\langle A\rangle,\langle B\rangle\linfer C$}
-%% \RightLabel{$\circ\ \text{elim}$}
-%% \BinaryInfC{$\Gamma,\Delta\linfer C$}
-%% \end{prooftree}
+\begin{prooftree}
+\AxiomC{$\Gamma\linfer A\circ B$}
+\AxiomC{$\Delta,\langle A\rangle,\langle B\rangle\linfer C$}
+\RightLabel{$\circ\ \text{elim}$}
+\BinaryInfC{$\Gamma,\Delta\linfer C$}
+\end{prooftree}
 
 NB: this is Wadler's (based on natural deduction). In the sequent calc
 it looks different.
@@ -3170,11 +3231,11 @@ An alternative left (elim) rule showing more conspicuously the
 relation between meta-symbol ',' and \(\circ\), or between antecedent
 structure \(A,B\) and logical formula \(A\circ B\):
 
-%% \begin{prooftree}
-%% \AxiomC{$A,B,\Gamma\linfer \Delta$}
-%% \RightLabel{$\circ\linfer$}
-%% \UnaryInfC{$A\circ B,\Gamma\linfer\Delta$}
-%% \end{prooftree}
+\begin{prooftree}
+\AxiomC{$A,B,\Gamma\linfer \Delta$}
+\RightLabel{$\circ\linfer$}
+\UnaryInfC{$A\circ B,\Gamma\linfer\Delta$}
+\end{prooftree}
 
 TODO: compare different variants of intro/elim rules. Wadler, which
 I've been using, is really natural deduction (it has elim rules). The
@@ -3184,21 +3245,21 @@ rules make more sense, the are rules of use rather than elimination.
 \paragraph{Rules} Conjunction (``fusion'')
 
 %% Fusion (multiplicative conjunction) rules
-%% \begin{center}
-%% \AxiomC{$\Gamma\linfer A\structor\Delta\kern-1.2em$}
-%% \AxiomC{$\seqand\kern-1.2em$}
-%% \AxiomC{$\Theta\linfer B\structor\Lambda$}
-%% \RightLabel{$\fusion\linfer$}
-%% \TrinaryInfC{$\Gamma;\Theta\linfer A\fusion B\structor\Delta\structor\Lambda$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$\Gamma;A;B\linfer\Delta$}
-%% \RightLabel{$\linfer\fusion$}
-%% \UnaryInfC{$\Gamma;A\fusion B\linfer\Delta$}
-%% \DisplayProof
-%% \end{center}
+\begin{center}
+\AxiomC{$\Gamma\linfer A\structor\Delta\kern-1.2em$}
+\AxiomC{$\seqand\kern-1.2em$}
+\AxiomC{$\Theta\linfer B\structor\Lambda$}
+\RightLabel{$\fusion\linfer$}
+\TrinaryInfC{$\Gamma;\Theta\linfer A\fusion B\structor\Delta\structor\Lambda$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma;A;B\linfer\Delta$}
+\RightLabel{$\linfer\fusion$}
+\UnaryInfC{$\Gamma;A\fusion B\linfer\Delta$}
+\DisplayProof
+\end{center}
 
-\subsubsection{Disjunction: both or either (fission)}
+\subsubsection[Disjunction: both or either (fission)]{Disjunction: \(\fission\)}
 
 Name ``fission''; Symbol: \(\fission\) (Girard: \(\parr\))
 
@@ -3251,19 +3312,19 @@ or both in the box.
 \paragraph{Rules} multiplicative disjunction
 
 %% Fission (multiplicative disjunction) rules
-%% \begin{center}
-%% \AxiomC{$\Gamma\linfer A\structor B\structor\Delta$}
-%% \RightLabel{$\linfer\fission$}
-%% \UnaryInfC{$\Gamma\linfer A\fission B\structor\Delta$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$\Gamma,A\linfer \Delta\kern-1.2em$}
-%% \AxiomC{$\seqand\kern-1.2em$}
-%% \AxiomC{$\Theta, B\linfer \Lambda$}
-%% \RightLabel{$\fission\linfer$}
-%% \TrinaryInfC{$\Gamma;\Theta;A\fission B\linfer \Delta\structor\Lambda$}
-%% \DisplayProof
-%% \end{center}
+\begin{center}
+\AxiomC{$\Gamma\linfer A\structor B\structor\Delta$}
+\RightLabel{$\linfer\fission$}
+\UnaryInfC{$\Gamma\linfer A\fission B\structor\Delta$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma,A\linfer \Delta\kern-1.2em$}
+\AxiomC{$\seqand\kern-1.2em$}
+\AxiomC{$\Theta, B\linfer \Lambda$}
+\RightLabel{$\fission\linfer$}
+\TrinaryInfC{$\Gamma;\Theta;A\fission B\linfer \Delta\structor\Lambda$}
+\DisplayProof
+\end{center}
 
 Note that consequent part of a sequent is a disjunction; we use a
 mirrored semicolon to suggest this. So in rule \(\linfer\fission\) the
@@ -3656,7 +3717,15 @@ the latter, if only to justify use of the same word.
 
 
 
-\section{Definition}
+\section{Definition \& Codefinition}
+
+To define a function \textit{from} a type, the function must
+\textit{use} the constructors of the type.
+
+To codefine a cofunction \textit{to} a cotype, the cofunction must
+\textit{be used by} the co-constructors.
+
+\subsection{Definition}
 
 In formal languages, definitions express binding, not equality.
 
@@ -3718,6 +3787,154 @@ value such that \(x = sqrt(7)\) is true'', which in turn entails(?)
 that \(x\) \textit{should} be bound to whatever \(sqrt(7)\) is bound
 to.
 
+\subsection{Codefinition}
+
+Codefinition relies essentially on the assumption that co-constructors
+and cofunctions already ``exist'' in good working order.
+
+Coinductively defined types, or cotypes as we will call them, are
+determined by their co-constructors, just as inductively defined types
+are determined by their constructors (and eliminators, maybe). But
+neither constructors nor co-constructors are defined; they're just
+stipulated as primitives. For example, here's an inductive definition
+of the constructors for type \(\List\, X\) (using \(\mathpunct{::}\)
+as the \textit{cons} constructor):
+
+\begin{align}
+  & \linfer \tj{\listld\,\listrd}{\List\,X} \\
+  \tj{x}{X}, \tj{xs}{\List\,X} &\linfer \tj{x\cons{}xs}{\List\,X} \\
+\end{align}
+
+These constructors are not \textit{defined}; we have not said what
+they are or how they work (no algorithm here). We've only shown that
+they observe a kind of type discipline and left it at that. But we do
+say that together they ``define'' the type \(\Stream\, X\), by which
+we mean they \textit{determine} the type.
+
+The constructors are primitive; \head{} and \tail{} are not. For them
+we have two options. We can define them inductively as functions or we
+can codefine them by coinduction:
+
+\begin{align}
+  \tj{xs}{\List\,X} & \linfer \tj{\head(xs)}{X} \\
+  \tj{xs}{\List\,X} & \linfer \tj{\tail(xs)}{\List X}
+\end{align}
+
+\begin{align}
+  \tj{x}{X},\tj{xs}{\List\,X} & \linfer \tj{\tail(x\cons{}xs)} = xs \\
+  \tj{x}{X},\tj{xs}{\List\,X} & \linfer \tj{\head(x\cons{}xs)} = x
+\end{align}
+
+Here's the corresponding codefinition of the cotype \(\Stream\,X\).
+Dual to the inductive type, \head{} and \tail{} are primitives, codefined
+as co-constructors, and \textit{cons} is defined as a function.
+e
+\begin{align}
+  \tj{\iseq{xs}}{\Stream\,X} & \linfer \tj{\head(\iseq{xs})}{X} \\
+  \tj{\iseq{xs}}{\Stream\,X} & \linfer \tj{\tail(\iseq{xs})}{\Stream\,X}
+\end{align}
+
+
+
+Codefinitions do not define.
+
+Codefined functions are cofunctions. They are not defined the way
+inductively defined functions are defined. For the latter we specify
+an algorithm that determines the function, and we can ``see'' how it
+works. We cannot do that for cofunctions. They can only be codefined,
+by specifying what can be done with their outputs. They remain opaque
+and indeterminate.
+
+If you are beset by metaphysical longings, you can thing of a
+coconstructor as a producer of a typed blob of ``stuff'', such as
+phlogiston, or ylem, the primordial matter of the cosmos, or even a
+dark number that cannot be observed.
+
+For example, the codefinitions of \ifndef{even} and \ifdef{odd} over
+streams do not say how they work their magic. All they do is specify
+how their output is related to their input. Codefinition just assumes
+that the cofunction is ``good'', that it takes its input to its
+output. The codefinition then says how the output relates to the
+input, expressed using the co-constructors of the type. Those
+co-constructors in turn are also opaque and literally undefined. It's
+all purely structural.
+
+In other words, the codefinition of the coconstructor \ihead tells us
+only that it produces an \(X\) from a token of type \(\Stream\, X\).
+
+Here's a codefinition of the coconstructors for type \(\Stream\, X\):
+
+\begin{align}
+  \ihead(\ifndef{even}(\iseq{xs})) & = \ihead(\iseq{xs}) \\
+  \itail(\ifndef{even}(\iseq{xs})) & = \itail(\itail(\iseq{xs})) \\
+  \ihead(\ifndef{odd}(\iseq{xs})) & = \ihead(\itail(\iseq{xs})) \\
+  \itail(\ifndef{odd}(\iseq{xs})) & = \itail(\itail(\itail(\iseq{xs})))
+\end{align}
+
+\subsubsection{Sequent Calculus for Cologic}
+
+Inference rules for cotypes cannot be expressed with the usual sequent
+calculus.
+
+For inductive types, the sequent calculus is powerful enought to
+express a basic pattern: if the environment suffices for a
+construction, and a proof depends on a component of the construction,
+then the environment suffices for the proof. For example, if the
+environment suffices to prove \(A\lkand B\), and \(B\) suffices to
+prove \(C\), then the environment suffices to prove \(C\). This does
+not require an elimination rule; it just reflects the basic insight
+that if the environment provides the components \(A\) and \(B\) that
+you need to build \(A\lkand B\), then you can use that environment to
+directlyl build anything that needs either \(A\) or \(B\), without
+going through the detour of assembling and then disassembling
+\(A\lkand B\).
+
+For coinductive types, by contrast, this reasoning does not hold,
+because codata are not constructed; instead we always assume that they
+are already available (and we do not concern ourselves with their
+provenance). So it makes no sense to say that if an environment
+suffices for an \(X\)-stream, then it must suffice for something that
+needs an X. The environment may suffice for something that needs an
+\(X\) stream, but it does not follow that it suffices for something
+that needs an X. The reason for this is that \(X\)-streams are not
+constructed. An environment can deliver an \(X\)-stream if it already
+has one, but that doen't mean it can also deliver a stand-alone \(X\).
+
+In short, reasoning with cotypes, codata, cofunctions etc. requires an
+entirely different set of assumptions.
+
+So what would a fully fleshed-out inference rule for a coconstructor
+look like?
+
+\begin{prooftree}
+\AxiomC{$\Gamma\linfer \tj{\iseq{xs}}{\Stream\,X}$}
+\AxiomC{$\Gamma,\tj{b}{B}\linfer \tj{c}{C}$}
+\BinaryInfC{$\Gamma,\head(xs)\linfer \tj{c}{C}$}
+\end{prooftree}
+
+This does not really work. It expresses both introduction and
+elimination of \head.
+
+Compare the LK rule for \(lkand\):
+
+%% Logical And
+\begin{center}
+\AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+\AxiomC{$\seqand\kern-1.2em$}
+\AxiomC{$\Gamma\linfer \Delta, B$}
+\RightLabel{$\linfer\land$}
+\TrinaryInfC{$\Gamma\linfer \Delta, A\land B$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+\AxiomC{$\seqor\kern-1.2em$}
+\AxiomC{$B,\Gamma\linfer \Delta$}
+\RightLabel{$\land\linfer$}
+\TrinaryInfC{$A\land B,\Gamma\linfer \Delta$}
+\DisplayProof
+\end{center}
+
+
 \subsection{Martin-Löf's Doctrine of Judgmental Equality}
 
 And it is a doctrine, not a theory or definition.
@@ -3760,6 +3977,103 @@ considerably.
 
 Effect on the text:
 
+
+\section{Fixed Points}
+
+Resources:
+
+\begin{itemize}
+\item \citetitle{lawvere1997conceptual} \cite{lawvere1997conceptual}
+\item \citetitle{davey2002introduction} \cite{davey2002introduction}
+\item \citetitle{stoy1977denotational} \cite{stoy1977denotational}
+\end{itemize}
+
+\subsection{Least Fixed Points}
+
+LFP of an inductive type is the constructors. Any operations you add
+going \textit{into} the underlying set can be reduced to the
+contructors. Whatever you can do with the new ops could also be done
+without them, just using the constructors. IOW, the LFP is a basis.
+
+\subsection{Greatest Fixed Points}
+
+GFP of a coinductive type is the co-constructors. You can add
+operations going out of the underlying set, but such operations cannot
+be reduced to the co-constructors. On the contrary, the operation of
+the co-constructors must be defined over the results of the new
+operations.
+
+In other words, we start with co-constructors that are defined for
+arbitrary elements of the type. For any \(\tj{xs}{\Stream X}\) we have
+\(\tj{\head(xs)}{X}\) and \(\tj{\tail(xs)}{\Stream X}\).
+
+Then to define a new function over \(\Stream X\), we have to give
+definitions of \(\head\) and \(\tail\) for outputs of the function.
+This is the exact opposite of induction, where we define the
+constructors once. It means that the co-constructors of a co-inductive
+type are never completely defined. They always operate on arguments of
+type \(\Stream X\), but their meaning (the way they function) depends
+on how those arguments were produced.
+
+For example, we can define \ifndef{even} and \ifndef{odd} over type
+\(\Stream\, X\):
+
+\begin{align}
+  \iseq{xs} & \defn [xs_0, xs_1, \ldots] \\
+  \ifndef{even}(\iseq{xs}) & = [xs_0, xs_2, \ldots] \\
+  \ifndef{odd}(\iseq{xs})  & = [xs_1, xs_3, \ldots]
+\end{align}
+
+Note first of all that we cannot define such functions by induction.
+There is no base case for infinite streams, so we cannot inductively
+construct them. For a finite list, we would define \fndef{even} and
+\fndef{odd} by pattern-matching against the internal structure of the
+argument, expressed by constructor patterns starting with the base case:
+
+\begin{align}
+  \fndef{even}([]) & = [] \\
+  \fndef{odd}([]) & = [] \\
+  \fndef{even}(x::xs) & = x::\fndef{even}(\tail(xs)) \\
+  \fndef{odd}(x::xs) & = \head(xs)::\fndef{odd}(\tail(xs))
+\end{align}
+
+Here we give the meaning of the function applied to constructors of
+the type. We define the \textit{circumstances of application} of the
+function: what constructions it may be applied to, with what result.
+And there are only two possibilities, corresponding to the two
+constructors, nil (\([]\)) and cons (\(::\)).
+
+Compare the corresponding codefinitions. We have no base case, and we
+cannot start with \(x::xs\), because \cons\ (\(::\)) is not a
+primitive constructor. Moreover we have to start by making
+\textit{two} assumptions: first that we're given an opaque token
+\(\tj{\iseq{xs}}{\Stream\,X}\), and second that the function we're
+codefining may already be applied to such a token to produce another
+value of type \(\Stream\, X\). Then we define the consequences of
+applying the function: the values taken by the co-constructors when
+applied to the function's output.
+
+\begin{align}
+  \ihead(\ifndef{even}(\iseq{xs})) & = \ihead(\iseq{xs}) \\
+  \itail(\ifndef{even}(\iseq{xs})) & = \itail(\itail(\iseq{xs})) \\
+  \ihead(\ifndef{odd}(\iseq{xs})) & = \ihead(\itail(\iseq{xs})) \\
+  \itail(\ifndef{odd}(\iseq{xs})) & = \itail(\itail(\itail(\iseq{xs})))
+\end{align}
+
+For co-inductive codefinitions, we give the meaning of the
+co-constructors of the type when applied to the results of the
+function. In other words, we never actually \textit{define} the
+function; instead we define the \textit{consequences} that use of the
+function has for the co-constructors - thereby extending the meaning
+of the co-constructors.
+
+So there's a perfect symmetry the corresponds exactly to the tenets of
+inferential semantics: meanings are determined jointly by both
+\textit{circumstances} (upstream) and \textit{consequences}
+(downstream) of application. Put differently, rules of construction
+and rules of use.
+
+Now back to greatest fixed point.
 
 \section{Identity}
 Every thing has an identity, and every thing is identical to itself.
@@ -3932,8 +4246,437 @@ can define a type for each pair of equal elements, where the members
 of the type represent proof of the equality. For clarity, we call the
 former ``equality types'', and the latter ``equational types''.
 
-\subsection{Equality Types}
+\subsection{Semantic Pluralism}
 
+How can we have \(a=b\) if \(a\) and \(b\) are distinct?  Old problem.
+
+Frege: ...
+
+A common way to finesse this problem, following Frege, is to take
+\(a=b\) to mean that the symbols \(a\) and \(b\) are
+\textit{co-referential}: they both denote the same thing.
+
+This approach reflects semantic monism.
+
+Semantic monism is not compulsory. It's open to us to interpret
+\(a=b\) differently, by saying that the distinct symbols denote
+distinct things that are nonetheless indistinguishable and thus equal.
+
+For this to work all we need do is treat identity as something
+special, neither a relation nor a property. Every distinct thing has a
+unique identity, independent of its properties and any relations it
+may have with other things. Then two things can be indistinguishable
+but distinct.
+
+We already have a well-known example of this kind of semantic (or
+ontological) pluralism: geometry. The points in a space are
+indistinguishable. The have the same properties, if they have any
+properties at all, but each has a unique location. For ``location'',
+read ``identity''. Then we can say that all points are
+identi\textit{cal}, if we mean by that indistinguishable
+\textit{except} for identity.  Separate but equal.
+
+Now if we say that \(a\) and \(b\) name different points in a space,
+what we mean is that they name points with distinct identities, not
+points with different properties. Under the traditional
+interpretation, \(a=b\) means \(a\) and \(b\) denote the same point -
+i.e. same identity. But we can reinterpet equality to mean
+indistinguishable except for identity. Of course, that would mean that
+all points in a space are equal. We can make this work by treating
+each distinct token \(a\) of type \(A\) as determining its own
+``equality space'' with \(a\) at the origin, in which every point is
+equal to (but distinct from) \(a\).
+
+Now consider the HoTT interpretation of equality. Equality is treated
+as a path, so \(a=b\) means there is a path between \(a\) and \(b\).
+We just need to refine this a bit, and say that such paths only occur
+in equality spaces. So if \(a\neq b\), then they determine two
+distinct equality spaces, and there is no way to draw a line from one
+to the other.
+
+The traditional approach puts equality first. A line between \(a\) and
+\(b\) in an equality space denotes the relation of equality between
+the two points. The presupposition is that they are already equal. It
+is true that we then say that the expression \(a=b\) denotes a line
+between \(a\) and \(b\), but that only comes \textit{after} the idea
+that lines express equality. \(a=b\) means equality because the path
+it denotes means equality. This strategy ends up in a viscious circle,
+because it forces us to say that equality is a path between two equal
+points.
+
+But we can reverse this order of explanation, and say that the paths
+come first. If there is a path between two points in an equality
+space, \textit{then} we say they are equal. Note that ``equality
+space'' does not presuppose a an antecedent concept of equality; it
+just relies on the notions ``distinct'' and ``indistinguishable. Paths
+within such a space institute the notion of equality rather than the
+other way around. Then we can explain the notion of equality without
+circularity: two points are equal if they are connected by a path,
+full stop.
+
+This solves the paradox of reflexivity rather nicely. Relations relate
+two things, so how can reflexivity be a relation between a thing and
+itself? We can resolve this by abandoning the idea that reflexivity is
+a relation. Instead we can treat ``reflexivity'' as another word for
+``identity''. Then forms like \(a=a\) denote identity rather than a
+relation. Not the proposition ``a equals a'' or even ``a is equal to
+itself'', but ``a has a distinct identity''.
+
+In other words, under traditional usage, the symbol \(=\) is
+semantically overloaded.
+
+But we can draw loops in a space. If we want to treat a loop as
+reflexivity, this would mean reflexivity is not unique: we would have
+infinitely many reflexivities. Which would be in keeping with the
+theme of semantic pluralism. The problem is not plurality, it's
+disentangling the notions of equality, identity, and reflexivity.
+They're not the same, but clearly they are related. Identities are
+unique, so treating loops as reflexivities would drive a wedge between
+reflexivity and identity. Maybe that would be a good thing.
+
+Of course, we could institute a ``no loops allowed'' rule, but it
+would be better to provide a reasonable way of conceptualizing loops
+in terms of equalities and identities. We still want loops starting
+and ending at \(a\) to represent reflexivity.
+
+A line between distinct points means ``indistinguishable but
+distinct''. A loop anchored at a point means ``indistinguishable and
+not distinct'', i.e. same point. So a loop always implicates one
+identity.
+
+I like the idea that expressions like \(a=a\) involve one identity,
+whereas \(a=b\) involves two identities.
+
+A possible way out is suggested by the observation that loops do not
+have start and end points, so in a sense a loop cannot (or should not)
+be viewed as a line between two points. In which case a loop would not
+generate an equality. On the other hand, standard notation
+unequivocally makes reflexivity look like an equality: \(a=a\). But
+this just means that the symbol \(\ulcorner = \urcorner\) is
+overloaded. We can treat \(a=a\) as expressing reflexivity without
+thereby committing to the notion that reflexivity is a relation, let
+alone and equality relation. HoTT already does this to some extent,
+since the constructor for \(a=_A a\), \textsf{refl}, does not contain
+the equality sign.
+
+I think we can just set it down as an axiom that loops institute the
+concept of reflexivity. Not that loops are justified by reflexivity,
+but that the concept of reflexivity is justified by loops.
+
+We could say that loops generate reflexivity, and the limit of
+reflexity (as the loop shrinks) is identity.
+
+One way to finesse this might be to treat such loops as denoting the
+identity of their endpoint. But that would be cheating, since it would
+treat the loops as symbols. If we're going to say that paths institute
+the concept of equality, we'd better be prepared to say that loops
+institute the concept of reflexivity. How can we reconcile this with
+the idea that reflexivity is another name for identity? The identity
+of a point cannot be a loop.
+
+Since we're thinking geometrically, one possible strategy would be to
+invoke the concept of a limit. Lines and loops have a length. The
+limit of a loop as its length goes to zero is a point. We could
+restate this and say the limit is the identity of the point to which
+it collapses.
+
+Maybe we should say that reflexivity \textit{reduces} to identity.
+
+In HoTT, \(a=b\) ``reduces'' to reflexivity. It's critical that our
+account accomodate something like this if we want to use equalities in
+proofs. The HoTT way is to observe that each line from \(a\) to \(b\)
+has an inverse, forming a loop that can be ``retracted'' to the base
+loop, which is evidently the limit we mentioned above. From \(a=b\) we
+have \(b=a\), and by transitivity (a kind of ``cut'' for equalities?)
+we get \(a=a\).
+
+All reflexivities for a point have exactly one thing in common, the
+point.
+
+Goal: derive concept of reflexivity from loops. Maybe intersection?
+Each point is the intersection of infinitely many loops. How does the concept of reflexivity emerge from that?
+
+Etymology: reflexive: "reflective, capable of bending or turning
+back". Sounds like circularity to me. Why not just declare ``loop
+means reflexivity''?
+
+Let's take the pragmatic approach: what role does reflexivity play in
+our normative reasoning practices? Regardless of ontological status.
+
+Once this idea of an equality space is in place, we can assign extra
+meanings to the points. For example, in the 5-eqspace, one point could
+be assigned \(2+3\); another, ``one less than the number of
+Liverpudlians in the Fab Four''. The points would remain equal with
+respect to number, but intensionally distinct.
+
+\subsection{Extensional v. Intensional Equality}
+
+The equality spaces sketched above can be thought of as indirectly
+expressing extensional equality. The indistinguishability of the
+points represents sameness of denotation. So if we strip them of
+identity, the space collapses to a single point.
+
+If we collapse all such spaces (for a given type), then we have an
+\textit{extensional equality space}. Each point in such a space
+represents a different token of the type, and each type \(A\)
+determines a unique extensional equality space containing one point
+for each token \(\tj{a}{A}\).
+
+We can turn our original equality spaces into \textit{intensional
+  equality spaces} by replacing identity with some set of properties.
+Then the difference between two points is determined by the difference
+in properties.
+
+For example, consider the identity function over \(\Nat\), \(\lambda
+x.x\). If we think of this as a program, it's easy to see that we can
+define infinitely many implementations; for example
+
+\begin{align}
+  & \lambda x.x \label{natid:lfp} \\
+  & \lambda x.x + 0 - 0 \\
+  & \lambda x.x + 1 - 1 \label{natid:1} \\
+  & \lambda x.x + 2 - 2 \label{natid:2} \\
+  & ... \nonumber
+\end{align}
+
+Now each of these functions has the same type, \(\Nat\func\Nat\). That
+type determines an extensional equality space whose points represent
+such functions. The function definitions above are all represented by
+a single point in that space -- recall that functions are
+extenstionally equal if they produce the same outputs for the same
+inputs. But if infinitely many implementations count as the same
+function, how can we name \textit{the} function to which they are all
+extensionally equal? Easy: we pick the \textit{least} such function and
+designate it as the \textit{canonical} function for that family of
+implementations. More on this below.
+
+Turning back to intensionality, it's clear that the function
+definitions given above are distinct. We can make this more concrete
+by specifying the particular property or properties that serve to
+distinguish them. Since they are programs, each generates a
+\textit{computation} for each input. A computation is a sequence of
+\textit{instructions}, where an instruction is a minimal, indivisible
+unit of computation. This gives us a property, length of computation,
+that distinguishes the different implementations. For a given input
+\(a\), different implementations will generate computations of
+different lengths.
+
+Note that length of computation is not the same as length of formula -
+the implemetations (\ref{natid:1}) and (\ref{natid:2}) are expressed
+by formulae of the same length, but they generate computations of
+different length. We know this, because their inputs are natural
+numbers, and natural numbers are defined inductively by two
+constructors, \Znat and \Snat. The instructions of a computation
+correspond to the constructors of the type being computed.
+
+So each point in the intensional equality space associated with the
+identity function represents a distinct implementation. All compute
+the same outputs for the same inputs (they are extensionally equal),
+be each generates a computation of different length for a given input
+(they are intensionally unequal).
+
+\subsubsection{Functional Pluralism and Fixed Points}
+
+If all the points in the intensional equality space for a given
+function \(f\) are extensionally equal, then is that function one or
+many? If it is unique, then we are compelled to say that each
+implementation represents (in some sense) the same function. If it is
+not unique, then we are compelled to give an account of how a
+plurality of implementations manage to implement ``the same''
+function.
+
+This is a very common situation in mathematics, and a common idiom has
+emerged to express it: two things are said to be equal \textit{up to}
+isomorphism (or homotopy, or whatever). In this case, we can accept
+that each distinct implementation is a different thing, but they are
+all \textit{equivalent} with respect to computation. In other words,
+we can think of them as forming an equivalence class. All elements of
+an equivalence class are ``equal''. However, we can and do nominate
+one element as a kind of first-among-equals. In this case, we can see
+that (\ref{natid:lfp}) is the \textit{least} implementation: the
+computations it generates will be shorter than those generated by any
+other implementation.
+
+[TODO: connect this to the concept of least fixed point. Y combinator?]
+
+This gives us a distinguished name for the class of implementations:
+\(\lambda x.x\). We can use it to label the origin of its intensional
+equality space (which can thus be taken to represent the equivalence
+class of implementions). We can also use it to label the point in the
+extenional equality space of all functions, where it denotes not
+\textit{the} identity function, but the equivalence class of
+implementations.
+
+\subsection{Co-data, co-computation, co-equality}
+
+We also need to accomodate infinite structures and computations, for
+both mathematics and programming. Infinite sequences are common in
+mathematics, and real-world computation almost always involves
+streams, which are theoretically infinite lists.
+
+We handle infinite structures pretty much the same way we handle
+finite structures. But there is one critical difference, which is most
+easily explained by example.
+
+Above we used a constant function over the natural numbers to
+illustrate the difference between extensional and intensional
+equality for finite values, i.e. natural numbers.
+
+To show how it works for infinite structures we'll use infinite lists
+of natural numbers. We'll show the difference between the identify
+function over finite lists and over infinite lists. So we'll start by
+examining finite lists.
+
+Our definitions of implementations for the identity function over
+finite lists looks very similiar to the definitions for constant
+functions over natural numbers. Assuming \(xs:\textsf{List}\,X\), and
+\(::\) is the \textit{cons} operator:
+
+\begin{align}
+  & \lambda xs.xs \label{finid:lfp} \\
+  & \lambda xs.\textsf{tail}(0::xs) \\
+  & \lambda xs.\textsf{tail}(0::\textsf{tail}(0::xs) \label{finid:1}) \\
+  & \lambda xs.\textsf{tail}(0::\textsf{tail}(0::\textsf{tail}(0::xs) \label{finid:2})) \\
+  & ... \nonumber
+\end{align}
+
+Each of these implementations returns its input unchanged, and all but
+the first perform some addition work. So they are extensionally equal,
+but intensionally unequal. The primitive operators for finite lists
+are \textit{cons} (or \(::\), meaning prepend a new element to the list),
+\textit{hd} (return the first element of the list), and \textit{tail}
+(return all but the first element). So the computations generated by
+these implementations will consist of sequences of these primitive
+operations, and (\ref{finid:lfp}) will be the least implementation.
+
+So the identity function over finite lists is exactly like the
+identity function over \(\Nat\) with respect to extensional and
+intensional equalities.
+
+Now let's look at infinite lists. First some notation. For finite
+lists we used \(\tj{xs}{\textsf{List}\,X}\); for infinite lists, we use
+\(\overrightarrow{xs}:\textsf{List}^* X\).
+
+To define implementations of the identity function over infinite
+lists, we use exactly the same equations as for finite lists, except
+for the notation change:
+
+\begin{align}
+  & \lambda \overrightarrow{xs}.\overrightarrow{xs} \label{infinid:lfp} \\
+  & \lambda \overrightarrow{xs}.\textsf{tail}(0::\overrightarrow{xs})  \label{infinid:1}\\
+  & \lambda \overrightarrow{xs}.\textsf{tail}(0:\textsf{tail}(0::\overrightarrow{xs}))  \label{infinid:2}\\
+  & \lambda \overrightarrow{xs}.\textsf{tail}(0:\textsf{tail}(0:\textsf{tail}(0::\overrightarrow{xs}))) \label{infinid:3} \\
+  & ... \nonumber
+\end{align}
+
+Now the critical point is that the computations generated by these
+implementations all have the same length: infinity! Or more
+accurately, the computations they generate are unlimited, so they do
+not even have a determinate length. Adding some instructions to an
+unlimited computation does not increase its length; it remains
+unlimited. So these implementations are indistinguishable
+computationally, because they're computing on infinite lists. In
+particular, (\ref{infinid:lfp}) is not the least implementation.
+
+It may be tempting to think that these are in fact finite
+computations, since for example (\ref{infinid:1}) performs just two
+operations, a \textit{cons} and then a \textit{tail}, which gives it
+the input \(\overrightarrow{xs}\), and since the input was already
+packaged up, it can just return the package in one fell swoop. The
+syntax makes it look that way, after all. But that is wrong.
+Infinities are not complete, by definition, so it is not possible to
+``package up'' an infinity in a single, complete (and thus finite)
+bundle. So in principle both the conveying of an infinite list as
+input to the function, and the returning of an infinite list as the
+value of a function, must involve unlimited computation. So there's a
+paradox here: the input can never be \textit{completely} delivered to
+the function, nor can the function ever \textit{completely} deliver
+its output. So implicitly any computation involving infinities must
+proceed piecemeal.
+
+On the other hand, there is another way of thinking about infinite
+lists.
+
+An easy way to think metaphorically about finite lists is by imagining
+a physical stack of something, say bricks. The internal structure of
+such a stack is inspectable. You can build a stack by starting at the
+ground and stacking bricks one at a time. Take the top brick off the
+stack and you're left with a stack of bricks, or the ground if it's the
+last brick.  The internal structure is always visible.
+
+It's tempting to borrow this metaphor to think about infinite lists:
+an infinite list is like a bottomless stack of bricks. But it's a bad
+metaphor. One problem is that it is difficult to imagine a bottomless
+stack of anything. A bottomless stack is like a Euclidean line: it's
+easy to \text{say} that a line has infinite length, but it's very hard
+or impossible to picture such a thing in the mind's eye.
+
+The more fundamental problem with the bottomless stack metaphor is
+that it suggests that the internal structure of an infinite list is
+visible. But a fundamental property of infinite lists (and of co-data
+in general) is that its internal structure is hidden. The
+\textit{only} thing we know about an infinite list is that we can take
+its head and its tail. That tells us precisely nothing about its
+internal structure.
+
+Incidentally, this suggests that ``list'' is itself the wrong term,
+insofar as it suggests internal structure. ``Stream'' is better.
+
+A better strategy is to think of an infinite list as a kind of
+machine. Think of an infinite list of bricks an \textit{Inexhaustible
+  Brick-Making Meta-Machine}, or \IBMMM. An \IBMMM is a brick-making
+machine: if you pull the \textsf{head} lever, you get a brick. It is a
+meta-maching: if you pull the \textsf{tail} lever, you get another
+\IBMMM. It is inexhaustible because you can pull either lever as many
+times as you like.
+
+The \IBMMM comes in a pro model. The pro model contains a cache that
+can hold one finite stack of bricks. To add a brick to the cache, you
+must use the \textsf{CONS} machine that comes with the \IBMMM. Give
+the \textsf{CONS} machine an old brick and an old \IBMMM, and it will
+open the cache on the \IBMMM and set the old brick on top of the cache
+stack. If you then pull the \textsf{head} lever, the \IBMMM will
+dispense the top brick of its cache, or create a new brick if the
+cache is empty.
+
+There is no after-market for these machines; only the \textsf{CONS}
+machine that came with the \IBMMM can add bricks to its stack. It's
+like a printer that only works with toner cartridges made by the
+printer manufacturer.
+
+An \IBMMM is entirely opaque. There is no way to open it up and
+inspect its internals.
+
+An \IBMMM is inexhaustible, but it is also finite. That means we would
+indeed be able to pass one in its entirety to a function and return
+one as the result of a function.
+
+In any case, our implementations of the identity function on streams
+are all clearly different, so the task is to find what is that makes
+them different and express it explicitly. That requires a fundamental
+shift of perspective; in fact, a reversal of perspective. In brief, we
+will still end up with (\ref{infinid:lfp}) as the distinguish element
+of the equivalence class of implementations, but it will be the
+\textit{greatest} implementation rather than the least.
+
+For finite lists, the difference between implementations is determined
+by what the function implementation does with its (finite) input. For
+streams, the difference is characterized by what finite
+computations do with the \textit{output} of the implementation.
+
+Alternatively, if we use the machine metaphor, the difference between
+the minimal implementation (\ref{infinid:lfp}) and the others is the
+use of the cache. All the computations for the stream are actually on
+the cache stack. That's where the extra work is. By contrast, the
+extra work for finite lists is on the list itself.
+
+Hmm. It looks like the difference is maybe computation length after
+all. The tricky part is how to thing of the ``minimal'' implementation
+(\ref{infinid:lfp}) as the greatest fixed point. It looks like the
+least. How does it subsume all the other implementations? Why does
+``no extra computation'' count as greater than some?
+
+\subsection{Equality Types}
 An equality type \(\EQ_A\) is a type derived from a base type \(A\)
 whose tokens express equality of a pair of \(A\)-tokens.\footnote{This is our terminology, not necessarily used in the literature.}
 
@@ -5086,21 +5829,21 @@ identity of indiscernables v. indiscernability of identicals
 
 \citetitle{russell_denoting} \cite{russell_denoting}
 
-\textcite[]{If we say ``Scott is the author of Waverley,'' we assert an
-  identity of denotation with a difference of meaning. I shall,
-  however, not repeat the grounds in favour of this theory, as I have
-  urged its claims elsewhere (loc. cit.), and am now concerned to
-    dispute those claims.}
+\textquote[\cite{russell_denoting}]{If we say ``Scott is the author of
+  Waverley,'' we assert an identity of denotation with a difference of
+  meaning. I shall, however, not repeat the grounds in favour of this
+  theory, as I have urged its claims elsewhere (loc. cit.), and am now
+  concerned to dispute those claims.}
 
-\textcite{(1) If a is identical with b, whatever is true of the one is
-  true of the other, and either may be substituted for the other in
-  any proposition without altering the truth or falsehood of that
-  proposition. Now George IV. wished to know whether Scott was the
-  author of Waverley; and in fact Scott was the author of Waverley.
-  Hence we may substitute Scott for the autlior of " Waverley," and
-  thereby prove that George IV. wished to know whether Scott was
-  Scott. Yet an interest in the law of identity can hardly be
-  attributed to the first gentleman of Europe.}
+\textquote[\cite{russell_denoting}]{(1) If a is identical with b,
+  whatever is true of the one is true of the other, and either may be
+  substituted for the other in any proposition without altering the
+  truth or falsehood of that proposition. Now George IV. wished to
+  know whether Scott was the author of Waverley; and in fact Scott was
+  the author of Waverley. Hence we may substitute Scott for the
+  autlior of " Waverley," and thereby prove that George IV. wished to
+  know whether Scott was Scott. Yet an interest in the law of identity
+  can hardly be attributed to the first gentleman of Europe.}
 
 \subsection{Church}
 
@@ -5112,6 +5855,54 @@ that of the other without loss of truth” (Church 1956, p. 300).
 Roughly speaking: to say of two things that they are identical is
 nonsense, and to say of one thing that it is identical with itself is
 to say nothing. (Tractatus?)
+
+\subsection{Martin-Löf}
+
+\begin{displayquote}[\cite{Martin-Lof-1972}, p. 14]
+  2.4.2 Rules of contraction.
+  \begin{align*}
+    & (\lambda x)(b[x])(a)\hspace{2em}\text{contr}\hspace{2em} b[a], \\
+    etc.
+  \end{align*}
+  ... An expression \(a\) {\upshape reduces} to an expression \(b\),
+  abbreviated \(\ulcorner a\ \text{\upshape red}\ b\urcorner\), if
+  \(b\) can be obtained from \(a\) by repeated contractions of parts
+  of the expression \(a\), and an expression \(a\) is said to be
+  {\upshape irreducible} or {\upshape normal} if it cannot be further
+  reduced. Finally, an expression \(a\) is said to {\upshape convert}
+  into an expression \(b\), abbreviated \(\ulcorner a\ \text{\upshape
+    conv}\ b\urcorner\), if there is an expression \(c\) such that
+  both \(\ulcorner a\ \text{\upshape red}\ c\urcorner\) and \(\ulcorner
+  b\ \text{\upshape red}\ c\urcorner\).
+\end{displayquote}
+
+\vspace{2ex}
+
+\begin{displayquote}[\cite{Martin-Lof-1972}, p. 17; emphasis and scare quotes]
+    2.4.3  Church-Rosser property.  If \(a\ \text{\upshape red}\ b\) and \(a\ \text{\upshape red}\ c\), then there is an expression \(d\) such that
+    \(b\ \text{\upshape red}\ d\) and \(c\ \text{\upshape red}\ d\).
+\end{displayquote}
+
+\vspace{2ex}
+
+\begin{displayquote}[\cite{Martin-Lof-1972}, p. 17; emphasis and scare quotes
+    added] 2.4.6 Definitional equality. Two types \(A\) and \(B\) are
+  said to be {\upshape definitionally equal} provided \(\ulcorner
+  A\ \text{\upshape conv}\ B\urcorner\). Also a term \(a\) of type
+  \(A\) is definitionally equal to a term \(b\) of type \(B\) if both
+  \(\ulcorner a\ \text{\upshape conv}\ b\urcorner\) and \(\ulcorner\ A
+  \text{\upshape conv}\ B\urcorner\). Note that, because of the rule of type
+  conversion, two terms are definitionally equal types if and only if
+  they are of the same type. Two definitionally equal types denote the
+  same abstract type, and similarly, two definitionally equal terms
+  denote the same object of the abstract type denoted by their types.
+  Thus, \textbf{definitional equality is a relation between linguistic
+    expressions and not between the abstract entities which they
+    denote} (and which are the same).
+\end{displayquote}
+
+So is definitional equality (convertability) the same as confluence?
+Even if it isn't we should use \(a\downarrow b\) instead of \(a = b\).
 
 \section{Codefinition \& Coequality}
 
@@ -5835,154 +6626,154 @@ kind of backward reasoning.
 
 \subsubsection{Axioms}
 
-%% Id, Cut
-%% \begin{center}
-%% \AxiomC{}
-%% \RightLabel{$\text{Id}$}
-%% \UnaryInfC{$A\land A$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$\Gamma\linfer \Delta_1,C,\Delta_2\kern-1.2em$}
-%% \AxiomC{$\seqand\kern-1.2em$}
-%% \AxiomC{$\Theta_1,C,\Theta_2\linfer\Lambda$}
-%% \RightLabel{$\text{cut}$}
-%% \TrinaryInfC{$\Theta_1,\Gamma,\Theta_2\linfer \Delta_1,\Lambda,\Delta_2$}
-%% \DisplayProof
-%% \end{center}
+Id, Cut
+\begin{center}
+\AxiomC{}
+\RightLabel{$\text{Id}$}
+\UnaryInfC{$A\land A$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma\linfer \Delta_1,C,\Delta_2\kern-1.2em$}
+\AxiomC{$\seqand\kern-1.2em$}
+\AxiomC{$\Theta_1,C,\Theta_2\linfer\Lambda$}
+\RightLabel{$\text{cut}$}
+\TrinaryInfC{$\Theta_1,\Gamma,\Theta_2\linfer \Delta_1,\Lambda,\Delta_2$}
+\DisplayProof
+\end{center}
 
 \subsubsection{Logical Rules}
 
 Also called (by Bimbó) operational rules.
 
-%% %% Logical And
-%% \begin{center}
-%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
-%% \AxiomC{$\seqand\kern-1.2em$}
-%% \AxiomC{$\Gamma\linfer \Delta, B$}
-%% \RightLabel{$\linfer\land$}
-%% \TrinaryInfC{$\Gamma\linfer \Delta, A\land B$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
-%% \AxiomC{$\seqor\kern-1.2em$}
-%% \AxiomC{$B,\Gamma\linfer \Delta$}
-%% \RightLabel{$\land\linfer$}
-%% \TrinaryInfC{$A\land B,\Gamma\linfer \Delta$}
-%% \DisplayProof
-%% \end{center}
+%% Logical And
+\begin{center}
+\AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+\AxiomC{$\seqand\kern-1.2em$}
+\AxiomC{$\Gamma\linfer \Delta, B$}
+\RightLabel{$\linfer\land$}
+\TrinaryInfC{$\Gamma\linfer \Delta, A\land B$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+\AxiomC{$\seqor\kern-1.2em$}
+\AxiomC{$B,\Gamma\linfer \Delta$}
+\RightLabel{$\land\linfer$}
+\TrinaryInfC{$A\land B,\Gamma\linfer \Delta$}
+\DisplayProof
+\end{center}
 
-%% %% Logical Or
-%% \begin{center}
-%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
-%% \AxiomC{$\seqor\kern-1.2em$}
-%% \AxiomC{$\Gamma\linfer \Delta, B$}
-%% \RightLabel{$\linfer\lor$}
-%% \TrinaryInfC{$\Gamma\linfer\Delta, A\lor B$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
-%% \AxiomC{$\seqand\kern-1.2em$}
-%% \AxiomC{$B,\Gamma\linfer \Delta$}
-%% \RightLabel{$\lor\linfer$}
-%% \TrinaryInfC{$A\lor B,\Gamma\linfer \Delta$}
-%% \DisplayProof
-%% \end{center}
+%% Logical Or
+\begin{center}
+\AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+\AxiomC{$\seqor\kern-1.2em$}
+\AxiomC{$\Gamma\linfer \Delta, B$}
+\RightLabel{$\linfer\lor$}
+\TrinaryInfC{$\Gamma\linfer\Delta, A\lor B$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+\AxiomC{$\seqand\kern-1.2em$}
+\AxiomC{$B,\Gamma\linfer \Delta$}
+\RightLabel{$\lor\linfer$}
+\TrinaryInfC{$A\lor B,\Gamma\linfer \Delta$}
+\DisplayProof
+\end{center}
 
-%% %% Implication
-%% \begin{center}
-%% \AxiomC{$A,\Gamma\linfer \Delta,B\kern-1.2em$}
-%% \RightLabel{$\linfer\supset$}
-%% \UnaryInfC{$\Gamma\linfer \Delta,A\supset B$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
-%% \AxiomC{$\seqand\kern-1.2em$}
-%% \AxiomC{$B,\Theta\linfer \Lambda$}
-%% \RightLabel{$\supset\linfer$}
-%% \TrinaryInfC{$A\supset B,\Gamma,\Theta\linfer\Delta,\Lambda$}
-%% \DisplayProof
-%% \end{center}
+%% Implication
+\begin{center}
+\AxiomC{$A,\Gamma\linfer \Delta,B\kern-1.2em$}
+\RightLabel{$\linfer\supset$}
+\UnaryInfC{$\Gamma\linfer \Delta,A\supset B$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+\AxiomC{$\seqand\kern-1.2em$}
+\AxiomC{$B,\Theta\linfer \Lambda$}
+\RightLabel{$\supset\linfer$}
+\TrinaryInfC{$A\supset B,\Gamma,\Theta\linfer\Delta,\Lambda$}
+\DisplayProof
+\end{center}
 
-%% %% Not
-%% \begin{center}
-%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
-%% \RightLabel{$\linfer\neg$}
-%% \UnaryInfC{$\Gamma\linfer \Delta,\neg A$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
-%% \RightLabel{$\neg\linfer$}
-%% \UnaryInfC{$\neg A,\Gamma\linfer\Delta$}
-%% \DisplayProof
-%% \end{center}
+%% Not
+\begin{center}
+\AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+\RightLabel{$\linfer\neg$}
+\UnaryInfC{$\Gamma\linfer \Delta,\neg A$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+\RightLabel{$\neg\linfer$}
+\UnaryInfC{$\neg A,\Gamma\linfer\Delta$}
+\DisplayProof
+\end{center}
 
-%% %% Universal quantification
-%% \begin{center}
-%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
-%% \RightLabel{$\linfer\forall$}
-%% \UnaryInfC{$\Gamma\linfer \Delta,\neg A$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
-%% \RightLabel{$\forall\linfer$}
-%% \UnaryInfC{$\neg A,\Gamma\linfer\Delta$}
-%% \DisplayProof
-%% \end{center}
+%% Universal quantification
+\begin{center}
+\AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+\RightLabel{$\linfer\forall$}
+\UnaryInfC{$\Gamma\linfer \Delta,\neg A$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+\RightLabel{$\forall\linfer$}
+\UnaryInfC{$\neg A,\Gamma\linfer\Delta$}
+\DisplayProof
+\end{center}
 
-%% %% Existential quantification
-%% \begin{center}
-%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
-%% \RightLabel{$\linfer\exists$}
-%% \UnaryInfC{$\Gamma\linfer \Delta,\neg A$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
-%% \RightLabel{$\exists\linfer$}
-%% \UnaryInfC{$\neg A,\Gamma\linfer\Delta$}
-%% \DisplayProof
-%% \end{center}
+%% Existential quantification
+\begin{center}
+\AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+\RightLabel{$\linfer\exists$}
+\UnaryInfC{$\Gamma\linfer \Delta,\neg A$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+\RightLabel{$\exists\linfer$}
+\UnaryInfC{$\neg A,\Gamma\linfer\Delta$}
+\DisplayProof
+\end{center}
 
 
-%% \subsubsection{Structural Rules}
+\subsubsection{Structural Rules}
 
-%% %% thinning
-%% \begin{center}
-%% \AxiomC{$\Gamma\linfer \Delta\kern-1.2em$}
-%% \RightLabel{$\linfer\text{K}$}
-%% \UnaryInfC{$\Gamma\linfer \Delta, A$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$\Gamma\linfer \Delta\kern-1.2em$}
-%% \RightLabel{$\text{K}\linfer$}
-%% \UnaryInfC{$A,\Gamma\linfer\Delta$}
-%% \DisplayProof
-%% \end{center}
+%% thinning
+\begin{center}
+\AxiomC{$\Gamma\linfer \Delta\kern-1.2em$}
+\RightLabel{$\linfer\text{K}$}
+\UnaryInfC{$\Gamma\linfer \Delta, A$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma\linfer \Delta\kern-1.2em$}
+\RightLabel{$\text{K}\linfer$}
+\UnaryInfC{$A,\Gamma\linfer\Delta$}
+\DisplayProof
+\end{center}
 
-%% %% contraction
-%% \begin{center}
-%% \AxiomC{$\Gamma\linfer \Delta, A, A$}
-%% \RightLabel{$\linfer\text{W}$}
-%% \UnaryInfC{$\Gamma\linfer\Delta, A$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$A,A,\Gamma\linfer \Delta$}
-%% \RightLabel{$\text{W}\linfer$}
-%% \UnaryInfC{$A,\Gamma\linfer \Delta$}
-%% \DisplayProof
-%% \end{center}
+%% contraction
+\begin{center}
+\AxiomC{$\Gamma\linfer \Delta, A, A$}
+\RightLabel{$\linfer\text{W}$}
+\UnaryInfC{$\Gamma\linfer\Delta, A$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$A,A,\Gamma\linfer \Delta$}
+\RightLabel{$\text{W}\linfer$}
+\UnaryInfC{$A,\Gamma\linfer \Delta$}
+\DisplayProof
+\end{center}
 
-%% %% Exchange
-%% \begin{center}
-%% \AxiomC{$\Theta\linfer\Gamma,A,B,\Delta$}
-%% \RightLabel{$\linfer\text{C}$}
-%% \UnaryInfC{$\Theta\linfer\Gamma,B,A,\Delta$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$\Gamma,A,B,\Delta\linfer\Theta$}
-%% \RightLabel{$\text{C}\linfer$}
-%% \UnaryInfC{$\Gamma,B,A,\Delta\linfer\Theta$}
-%% \DisplayProof
-%% \end{center}
+%% Exchange
+\begin{center}
+\AxiomC{$\Theta\linfer\Gamma,A,B,\Delta$}
+\RightLabel{$\linfer\text{C}$}
+\UnaryInfC{$\Theta\linfer\Gamma,B,A,\Delta$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma,A,B,\Delta\linfer\Theta$}
+\RightLabel{$\text{C}\linfer$}
+\UnaryInfC{$\Gamma,B,A,\Delta\linfer\Theta$}
+\DisplayProof
+\end{center}
 
 \subsection{Notes}
 
@@ -6011,154 +6802,188 @@ the surface.
 
 \subsubsection{Axioms}
 
-%% %% Id, Cut
-%% \begin{center}
-%% \AxiomC{}
-%% \RightLabel{$\text{Id}$}
-%% \UnaryInfC{$A\land A$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$\Gamma\linfer \Delta_1,C,\Delta_2\kern-1.2em$}
-%% \AxiomC{$\seqand\kern-1.2em$}
-%% \AxiomC{$\Theta_1,C,\Theta_2\linfer\Lambda$}
-%% \RightLabel{$\text{cut}$}
-%% \TrinaryInfC{$\Theta_1,\Gamma,\Theta_2\linfer \Delta_1,\Lambda,\Delta_2$}
-%% \DisplayProof
-%% \end{center}
+%% Id, Cut
+\begin{center}
+\AxiomC{}
+\RightLabel{$\text{Id}$}
+\UnaryInfC{$A\land A$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma\linfer \Delta_1,C,\Delta_2\kern-1.2em$}
+\AxiomC{$\seqand\kern-1.2em$}
+\AxiomC{$\Theta_1,C,\Theta_2\linfer\Lambda$}
+\RightLabel{$\text{cut}$}
+\TrinaryInfC{$\Theta_1,\Gamma,\Theta_2\linfer \Delta_1,\Lambda,\Delta_2$}
+\DisplayProof
+\end{center}
 
 \subsubsection{Logical Rules}
 
-Also called (by Bimbó) operational rules.
+\paragraph{Both but not each (Fusion)}
+\begin{center}
+\AxiomC{$\Gamma\linfer A\structor\Delta\kern-1.2em$}
+\AxiomC{$\seqand\kern-1.2em$}
+\AxiomC{$\Theta\linfer B\structor\Lambda$}
+\RightLabel{$\fusion\linfer$}
+\TrinaryInfC{$\Gamma;\Theta\linfer A\fusion B\structor\Delta\structor\Lambda$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma;A;B\linfer\Delta$}
+\RightLabel{$\linfer\fusion$}
+\UnaryInfC{$\Gamma;A\fusion B\linfer\Delta$}
+\DisplayProof
+\end{center}
 
-%% %% Logical And
-%% \begin{center}
-%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
-%% \AxiomC{$\seqand\kern-1.2em$}
-%% \AxiomC{$\Gamma\linfer \Delta, B$}
-%% \RightLabel{$\linfer\land$}
-%% \TrinaryInfC{$\Gamma\linfer \Delta, A\land B$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
-%% \AxiomC{$\seqor\kern-1.2em$}
-%% \AxiomC{$B,\Gamma\linfer \Delta$}
-%% \RightLabel{$\land\linfer$}
-%% \TrinaryInfC{$A\land B,\Gamma\linfer \Delta$}
-%% \DisplayProof
-%% \end{center}
+%%%%%%%%%%%%%%%%
+\paragraph{Both or either (Fission)}
+\begin{center}
+\AxiomC{$\Gamma\linfer A\structor B\structor\Delta$}
+\RightLabel{$\linfer\fission$}
+\UnaryInfC{$\Gamma\linfer A\fission B\structor\Delta$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma,A\linfer \Delta\kern-1.2em$}
+\AxiomC{$\seqand\kern-1.2em$}
+\AxiomC{$\Theta, B\linfer \Lambda$}
+\RightLabel{$\fission\linfer$}
+\TrinaryInfC{$\Gamma;\Theta;A\fission B\linfer \Delta\structor\Lambda$}
+\DisplayProof
+\end{center}
 
-%% %% Logical Or
-%% \begin{center}
-%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
-%% \AxiomC{$\seqor\kern-1.2em$}
-%% \AxiomC{$\Gamma\linfer \Delta, B$}
-%% \RightLabel{$\linfer\lor$}
-%% \TrinaryInfC{$\Gamma\linfer\Delta, A\lor B$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
-%% \AxiomC{$\seqand\kern-1.2em$}
-%% \AxiomC{$B,\Gamma\linfer \Delta$}
-%% \RightLabel{$\lor\linfer$}
-%% \TrinaryInfC{$A\lor B,\Gamma\linfer \Delta$}
-%% \DisplayProof
-%% \end{center}
+%%%%%%%%%%%%%%%%
+\paragraph{Each but not both (additive conjunction)}
+\begin{center}
+\AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+\AxiomC{$\seqand\kern-1.2em$}
+\AxiomC{$\Gamma\linfer \Delta, B$}
+\RightLabel{$\linfer\land$}
+\TrinaryInfC{$\Gamma\linfer \Delta, A\land B$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+\AxiomC{$\seqor\kern-1.2em$}
+\AxiomC{$B,\Gamma\linfer \Delta$}
+\RightLabel{$\land\linfer$}
+\TrinaryInfC{$A\land B,\Gamma\linfer \Delta$}
+\DisplayProof
+\end{center}
 
-%% %% Implication
-%% \begin{center}
-%% \AxiomC{$A,\Gamma\linfer \Delta,B\kern-1.2em$}
-%% \RightLabel{$\linfer\supset$}
-%% \UnaryInfC{$\Gamma\linfer \Delta,A\supset B$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
-%% \AxiomC{$\seqand\kern-1.2em$}
-%% \AxiomC{$B,\Theta\linfer \Lambda$}
-%% \RightLabel{$\supset\linfer$}
-%% \TrinaryInfC{$A\supset B,\Gamma,\Theta\linfer\Delta,\Lambda$}
-%% \DisplayProof
-%% \end{center}
+%%%%%%%%%%%%%%%%
+\paragraph{Either but not both (additive disjunction)}
+\begin{center}
+\AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+\AxiomC{$\seqor\kern-1.2em$}
+\AxiomC{$\Gamma\linfer \Delta, B$}
+\RightLabel{$\linfer\lor$}
+\TrinaryInfC{$\Gamma\linfer\Delta, A\lor B$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+\AxiomC{$\seqand\kern-1.2em$}
+\AxiomC{$B,\Gamma\linfer \Delta$}
+\RightLabel{$\lor\linfer$}
+\TrinaryInfC{$A\lor B,\Gamma\linfer \Delta$}
+\DisplayProof
+\end{center}
 
-%% %% Not
-%% \begin{center}
-%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
-%% \RightLabel{$\linfer\neg$}
-%% \UnaryInfC{$\Gamma\linfer \Delta,\neg A$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
-%% \RightLabel{$\neg\linfer$}
-%% \UnaryInfC{$\neg A,\Gamma\linfer\Delta$}
-%% \DisplayProof
-%% \end{center}
+%%%%%%%%%%%%%%%%
+\paragraph{Linear implication}
+\begin{center}
+\AxiomC{$A,\Gamma\linfer \Delta,B\kern-1.2em$}
+\RightLabel{$\linfer\llso$}
+\UnaryInfC{$\Gamma\linfer \Delta,A\llso B$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+\AxiomC{$\seqand\kern-1.2em$}
+\AxiomC{$B,\Theta\linfer \Lambda$}
+\RightLabel{$\llso\linfer$}
+\TrinaryInfC{$A\llso B,\Gamma,\Theta\linfer\Delta,\Lambda$}
+\DisplayProof
+\end{center}
 
-%% %% Universal quantification
-%% \begin{center}
-%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
-%% \RightLabel{$\linfer\forall$}
-%% \UnaryInfC{$\Gamma\linfer \Delta,\neg A$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
-%% \RightLabel{$\forall\linfer$}
-%% \UnaryInfC{$\neg A,\Gamma\linfer\Delta$}
-%% \DisplayProof
-%% \end{center}
+%%%%%%%%%%%%%%%%
+\paragraph{Negation}
+\begin{center}
+\AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+\RightLabel{$\linfer\neg$}
+\UnaryInfC{$\Gamma\linfer \Delta,\neg A$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+\RightLabel{$\neg\linfer$}
+\UnaryInfC{$\neg A,\Gamma\linfer\Delta$}
+\DisplayProof
+\end{center}
 
-%% %% Existential quantification
-%% \begin{center}
-%% \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
-%% \RightLabel{$\linfer\exists$}
-%% \UnaryInfC{$\Gamma\linfer \Delta,\neg A$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
-%% \RightLabel{$\exists\linfer$}
-%% \UnaryInfC{$\neg A,\Gamma\linfer\Delta$}
-%% \DisplayProof
-%% \end{center}
+%%%%%%%%%%%%%%%%
+\paragraph{Universal quantification}
+\begin{center}
+\AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+\RightLabel{$\linfer\forall$}
+\UnaryInfC{$\Gamma\linfer \Delta,\neg A$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+\RightLabel{$\forall\linfer$}
+\UnaryInfC{$\neg A,\Gamma\linfer\Delta$}
+\DisplayProof
+\end{center}
 
+%%%%%%%%%%%%%%%%
+\paragraph{Existential quantification}
+\begin{center}
+\AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+\RightLabel{$\linfer\exists$}
+\UnaryInfC{$\Gamma\linfer \Delta,\neg A$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+\RightLabel{$\exists\linfer$}
+\UnaryInfC{$\neg A,\Gamma\linfer\Delta$}
+\DisplayProof
+\end{center}
 
 \subsubsection{Structural Rules}
 
-%% %% thinning
-%% \begin{center}
-%% \AxiomC{$\Gamma\linfer \Delta\kern-1.2em$}
-%% \RightLabel{$\linfer\text{K}$}
-%% \UnaryInfC{$\Gamma\linfer \Delta, A$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$\Gamma\linfer \Delta\kern-1.2em$}
-%% \RightLabel{$\text{K}\linfer$}
-%% \UnaryInfC{$A,\Gamma\linfer\Delta$}
-%% \DisplayProof
-%% \end{center}
+%% thinning
+\begin{center}
+\AxiomC{$\Gamma\linfer \Delta\kern-1.2em$}
+\RightLabel{$\linfer\text{K}$}
+\UnaryInfC{$\Gamma\linfer \Delta, A$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma\linfer \Delta\kern-1.2em$}
+\RightLabel{$\text{K}\linfer$}
+\UnaryInfC{$A,\Gamma\linfer\Delta$}
+\DisplayProof
+\end{center}
 
-%% %% contraction
-%% \begin{center}
-%% \AxiomC{$\Gamma\linfer \Delta, A, A$}
-%% \RightLabel{$\linfer\text{W}$}
-%% \UnaryInfC{$\Gamma\linfer\Delta, A$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$A,A,\Gamma\linfer \Delta$}
-%% \RightLabel{$\text{W}\linfer$}
-%% \UnaryInfC{$A,\Gamma\linfer \Delta$}
-%% \DisplayProof
-%% \end{center}
+%% contraction
+\begin{center}
+\AxiomC{$\Gamma\linfer \Delta, A, A$}
+\RightLabel{$\linfer\text{W}$}
+\UnaryInfC{$\Gamma\linfer\Delta, A$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$A,A,\Gamma\linfer \Delta$}
+\RightLabel{$\text{W}\linfer$}
+\UnaryInfC{$A,\Gamma\linfer \Delta$}
+\DisplayProof
+\end{center}
 
-%% %% Exchange
-%% \begin{center}
-%% \AxiomC{$\Theta\linfer\Gamma,A,B,\Delta$}
-%% \RightLabel{$\linfer\text{C}$}
-%% \UnaryInfC{$\Theta\linfer\Gamma,B,A,\Delta$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$\Gamma,A,B,\Delta\linfer\Theta$}
-%% \RightLabel{$\text{C}\linfer$}
-%% \UnaryInfC{$\Gamma,B,A,\Delta\linfer\Theta$}
-%% \DisplayProof
-%% \end{center}
+%% Exchange
+\begin{center}
+\AxiomC{$\Theta\linfer\Gamma,A,B,\Delta$}
+\RightLabel{$\linfer\text{C}$}
+\UnaryInfC{$\Theta\linfer\Gamma,B,A,\Delta$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma,A,B,\Delta\linfer\Theta$}
+\RightLabel{$\text{C}\linfer$}
+\UnaryInfC{$\Gamma,B,A,\Delta\linfer\Theta$}
+\DisplayProof
+\end{center}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \addcontentsline{toc}{section}{References}

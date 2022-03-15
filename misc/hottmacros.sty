@@ -3,6 +3,7 @@
 \usepackage[fleqn]{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{relsize}
 \usepackage{stackengine}
 
 \usepackage{titlesec}
@@ -55,17 +56,44 @@
 \fi}
 \end{tikzpicture}}
 
+\DeclareRobustCommand*{\Fusion}{$\boldmath\fusion$}
+
+\newcommand{\IBMMM}{\ensuremath{\textsf{IBM}^3}}
+
+\newcommand{\fndef}[1]{\ensuremath{\textsf{\slshape #1}}}
+\newcommand{\ifndef}[1]{\ensuremath{\textsf{\slshape #1}^{\*}}}
+
+
+%% lists
+\newcommand{\head}{\ensuremath{\textsf{head}}}
+\newcommand{\tail}{\ensuremath{\textsf{tail}}}
+\newcommand{\cons}{\ensuremath{{\mathpunct{::}}}}
+\newcommand{\Cons}{\ensuremath{\textsf{cons}}}
+%% ld = left delim
+\newcommand{\listld}{\ensuremath{\textsf{[}}}
+\newcommand{\listrd}{\ensuremath{\textsf{]}}}
+
+\newcommand{\List}{\ensuremath{\textsf{\slshape List}}}
+\newcommand{\Stream}{\ensuremath{\textsf{\slshape Stream}}}
+\newcommand{\iseq}[1]{\ensuremath{\overrightarrow{#1}}}
+\newcommand{\ihead}{\ensuremath{\textsf{head}}}
+\newcommand{\itail}{\ensuremath{\textsf{tail}}}
+\newcommand{\icons}{\ensuremath{\textsf{cons}}}
+
 %% Inference types
 %% generic
 %% logical "so"
 \newcommand{\lso}{\ensuremath{\assert}} %% {\vdash}}
 \newcommand{\linfer}{\ensuremath{\assert}} %% {\vdash}}
 
+%% functions
+\newcommand{\func}{\ensuremath{\rightarrow}}
+
 % type inference
 %% for brevity: tj for typing judgment, even though we don't say that
-\newcommand{\tj}[2]{\ensuremath{#1\hspace{-2pt}:\hspace{-2pt}#2}}
-\newcommand{\tjsmall}[2]{\ensuremath{#1\hspace{-0pt}:\hspace{-0pt}#2}}
-\newcommand{\type}{\ensuremath{\hspace{-2pt}:\hspace{-3pt}}}
+\newcommand{\tj}[2]{\ensuremath{#1\hspace{-0pt}\mathpunct{:}\hspace{-0pt}#2}}
+\newcommand{\tjsmall}[2]{\ensuremath{#1\hspace{-0pt}\mathpunct{:}\hspace{-0pt}#2}}
+\newcommand{\type}{\ensuremath{\hspace{-2pt}\mathpunct{:}\hspace{-3pt}}}
 \newcommand{\tinfer}{\ensuremath{\assert_{\tau}}}
 % sequent inference
 \newcommand{\sso}{\ensuremath{\assert_{\sigma}}}
@@ -92,6 +120,8 @@
 \newcommand{\Nil}{\ensuremath{(\cdot)^{\bot}}}
 \newcommand{\nilnil}[1]{\ensuremath{#1^{\bot\bot}}}
 \newcommand{\lollipop}{\ensuremath{\multimap}}
+\newcommand{\llso}{\ensuremath{\multimap}}
+
 
 \newcommand{\ofcourse}{\ensuremath{!}}
 \newcommand{\whynot}{\ensuremath{?}}
