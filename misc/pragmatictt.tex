@@ -4228,6 +4228,17 @@ determine. Inductive types are built up from their base cases by
 expansion. Coinductive cotypes are greatest, because their
 co-constructors allow us to ``shrink'' them.
 
+Functions automatically expand, they add new stuff. Cofunctions
+automatically contract, the exclude stuff. So \(\defn{evens}\) creates
+a new finite list from an old one, by construction. But
+\(\codefn{evens}\) can't create a new stream, because they already
+exist, and because we have no stream constructors. Instead it
+contracts an old one. Remember that a codefinition does not define
+\textit{how} a cofunction manages to do whatever it does, it just
+specifies \textit{what} must be done. So we interpret the ``action''
+of a cofunction as essentially subtractive. Furthermore subtraction or
+contraction is the only thing cofunctions can ``do''.
+
 Outdated:
 
 GFP of a coinductive type is the co-constructors. You can add
@@ -6162,12 +6173,16 @@ Treat \(\defeq\) as codefinition?
 
 \section{Notes}
 
+\subsection{Assumptions}
+
+Compare: reasoning with counterfactuals v. reasoning from assumptions
+
+Counterfactuals make no assumptions.
+
 \subsection{Dark Logic}
 
 Compare coinductive and probabilistic thinking. Both involve reasoning
 with imperfect information.
-
-
 
 Coinduction assumes the definiendum is already determined. Like dark
 matter.
