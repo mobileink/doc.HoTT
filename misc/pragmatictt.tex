@@ -974,6 +974,7 @@ about functions, combinatory function calculus). Differs from logical
 calculi by having a definite intended interpretation, the world of
 functions.
 \item Process calculi: \(\pi\) calculus, CCS, etc.
+\item Refinement calculus
 \item Protocol/security calculi: Spi calculus
 \item Other kinds?  See \href{https://en.wikipedia.org/wiki/List_of_formal_systems}{List of Formal Systems}.
 \end{itemize}
@@ -983,16 +984,19 @@ intended domain of interpretation.
 
 \citetitle{spi_calculus} \cite{spi_calculus}
 
+
 \subsection{Logical Calculi}
 
 \begin{itemize}
 \item \citetitle{bimbo2014proof} \cite{bimbo2014proof}
+\item \citetitle{troelstra2000basic} \cite{troelstra2000basic}
 \item \citetitle{negri2008structural} \cite{negri2008structural}
 \item \citetitle{Restall2000-RESAIT-4} \cite{Restall2000-RESAIT-4}
+\item \citetitle{takeuti2013proof} \cite{takeuti2013proof}
+\item \citetitle{kleene2009introduction} \cite{kleene2009introduction}
+\item \citetitle{Kleene1967-KLEML} \cite{Kleene1967-KLEML}
 \item \citetitle{Fitch1952-FITSL} \cite{Fitch1952-FITSL}
 \item \citetitle{Lemmon1965-LEMBL} \cite{Lemmon1965-LEMBL}
-\item \citetitle{takeuti2013proof} \cite{takeuti2013proof}
-\item \citetitle{Kleene1967-KLEML} \cite{Kleene1967-KLEML}
 \item \citetitle{Quine1940-QUIML} \cite{Quine1940-QUIML}
 \item \citetitle{Quine1950-QUIMOL} \cite{Quine1950-QUIMOL}
 \item \citetitle{Church1944-CHUITM} \cite{Church1944-CHUITM}
@@ -1016,6 +1020,9 @@ intended domain of interpretation.
 %% \end{prooftree}
 
 \subsubsection{Sequent Calculus}
+
+Instead of antecedent/succedent, why not use protasis and apodosis? It
+is grammar, after all.
 
 Good overview:
 https://users.cecs.anu.edu.au/~jks/LogicNotes/sequent-calculus.html
@@ -1200,6 +1207,7 @@ We could also use ``affords'' instead of ``suffices for''.
 %%%%%%%%%%%%%%%%
 \subsection{Functional Calculi}
 
+%%%%%%%%%%%%%%%%
 \subsubsection{Combinatory Logic}
 
 \begin{itemize}
@@ -1207,8 +1215,10 @@ We could also use ``affords'' instead of ``suffices for''.
 \item \citetitle{Smullyan1985-SMUTMA-2} \cite{Smullyan1985-SMUTMA-2}
 \end{itemize}
 
+%%%%%%%%%%%%%%%%
 \subsubsection{Lambda Calculus}
 
+%%%%%%%%%%%%%%%%
 \subsection{Process Calculi}
 
 \begin{itemize}
@@ -1217,6 +1227,18 @@ We could also use ``affords'' instead of ``suffices for''.
 \item \citetitle{Honda00secureinformation} \cite{Honda00secureinformation}
 \end{itemize}
 
+%%%%%%%%%%%%%%%%
+\subsection{Refinement Calculus}
+
+\begin{itemize}
+  \item \citetitle{irefinement_calc} \cite{irefinement_calc}
+  \item \citetitle{back2012refinement} \cite{back2012refinement}
+  \item \citetitle{refinement_types_ml} \cite{refinement_types_ml}
+  \item \citetitle{morgan1990programming} \cite{morgan1990programming}
+\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Inferential Modalities}
 
 The logical constants do not in themselves determine how to produce
@@ -3743,11 +3765,33 @@ operating on the input. So this is like a homomorphism: the coctor
 applied to the output of a cofunction is function of the same ctor
 applied to the input.
 
+But that's wrong. We are free to codefine e.g. a constant head:
+\mbox{\(\cohead(\coseq{x}) = 7\)}.
+
+The codefinition for a cofunction defines the co-constructors for
+elements of the codomain of the cofunction, which is the cobase of the
+type.
+
+With codefinitions we get a different meaning for the co-ctors for
+each cofunction. That makes sense because a codefinition defines the
+co-ctors over the codomain of the cofunction, not its domain.
+
+Which in effect means that what codefinitions ``define'' is not a
+function, but the cotype itself. The cotype with its co-constructors
+alone is ``least defined''; adding cofunctions by codefinition refines
+the type by making it more defined.
+
+Coinduction thus goes very well with concepts like Refinement calculus
+and program refinement.
+
+By contrast, constructors have the same meaning always, because their
+domain is fixed.
+
 It's like the codefinition is telling the cofunction ``I don't care
 how you do it, but the head of your output had better match what I
 produce operating on the same input.'' For induction, this would be
 something to be proved; for coinduction, its stipulated, from the
-outside.
+outside: a kind of axiom.
 
 With induction, the ctors determine the least you need to generate the
 entire type.
@@ -3758,19 +3802,19 @@ that's what makes it the ``greatest''. Its not about the type, but
 about elements of the type. This is a symmetry since each element is
 infinite, just as the inductive type is infinite.
 
-With an arbitrary stream, you can get the whole thing in its original
+With an arbitrary colist, you can get the whole thing in its original
 state using the co-ctors. But with the output of a func, thats the
 most you can get; in the case of e.g. \defn{evens} you get a lot less
 than that. So maybe thats the ordering principle. The most you can
-ever get out of a stream is expressible in terms of the co-ctors. Any
+ever get out of a colist is expressible in terms of the co-ctors. Any
 other functions will give you that or less. (What about functions that
-combine two streams, like merge?)
+combine two colists, like merge?)
 
 Genuine induction induces an order on the members of the type.
-Elements of a stream are unordered. Is that true for all coinductively
+Elements of a colist are unordered. Is that true for all coinductively
 defined types? We know they don't have a bottom element, but what
 about ordering? Well, we can impose and ordering on e.g.
-\(\Stream\,\Nat\). But there's not internal order induced by
+\(\Colist{\Nat}\). But there's not internal order induced by
 construction. They're not structurally ordered; if they can be ordered
 its because of the parameter type.
 
@@ -3781,12 +3825,12 @@ integrate the cofunction into the co-constructor system to ensure
 consistency. They do this by codefining how they interact with the
 co-constructors.
 
-Take \Cons{} for streams as an example. The primitives are the
+Take \Cons{} for colists as an example. The primitives are the
 co-constructors \head{} and \tail{}; \cons{} must be a cofunction.
 Step one is to declare the type: \(\tj{x}{X},
-\tj{\coseq{x}}{\Stream\,X}\lso \tj{(x\cons\coseq{x})}{\Stream\,X}\).
+\tj{\coseq{x}}{\Colist{X}}\lso \tj{(x\cons\coseq{x})}{\Colist{X}}\).
 This is not enough, because it does not tell us how the resulting
-\(X\)-stream interacts with the primitives. Remember that streams are
+\(X\)-colist interacts with the primitives. Remember that colists are
 opaque, and strings of characters like \cons have no intrinsic
 meaning. So we have no reason to think that the \head of such
 construction has any particular value. Consider the following
@@ -3809,10 +3853,10 @@ the tail. So we have to be explicit. A common strategy is to define
 these functions for arguments of the form \(x\cons xs\), but such a
 definition is inadequate, since we cannot assume arguments will always
 have that form. The proper type declaration is
-\(\tj{seq{x}}{\List\,X} \linfer \tj{\head(seq{x})}{\List\,X}\)
+\(\tj{\seq{x}}{\List{X}} \linfer \tj{\head(\seq{x})}{\List{X}}\)
 
 And the definition. Maybe.
-\(\head(seq{x}) = \head(\head(seq{x})\cons\tail(seq{x}))\)
+\(\head(\seq{x}) = \head(\head(\seq{x})\cons\tail(\seq{x}))\)
 
 \subsection{Fiat Definition}
 
@@ -3904,19 +3948,24 @@ Coinductively defined types, or cotypes as we will call them, are
 determined by their co-constructors, just as inductively defined types
 are determined by their constructors (and eliminators, maybe). But
 neither constructors nor co-constructors are defined; they're just
-stipulated as primitives. For example, here's an inductive definition
-of the constructors for type \(\List\, X\) (using \(\mathpunct{::}\)
-as the \textit{cons} constructor):
+stipulated as primitives.
+
+[Well, not quite. Codefinitions do in fact define co-constructors, at
+  least partly.]
+
+For example, here's an inductive definition of the constructors for
+type \(\List{X}\) (using \(\mathpunct{::}\) as the \textit{cons}
+constructor):
 
 \begin{align}
-  & \linfer \tj{\listld\,\listrd}{\List\,X} \\
-  \tj{x}{X}, \tj{seq{x}}{\List\,X} &\linfer \tj{x\cons{}seq{x}}{\List\,X} \\
+  & \linfer \tj{\listld\,\listrd}{\List{X}} \\
+  \tj{x}{X}, \tj{\seq{x}}{\List{X}} &\linfer \tj{x\cons{}\seq{x}}{\List{X}} \\
 \end{align}
 
 These constructors are not \textit{defined}; we have not said what
 they are or how they work (no algorithm here). We've only shown that
 they observe a kind of type discipline and left it at that. But we do
-say that together they ``define'' the type \(\Stream\, X\), by which
+say that together they ``define'' the type \(\Colist{X}\), by which
 we mean they \textit{determine} the type.
 
 The constructors are primitive; \head{} and \tail{} are not. For them
@@ -3924,27 +3973,31 @@ we have two options. We can define them inductively as functions or we
 can codefine them by coinduction:
 
 \begin{align}
-  \tj{\seq{x}}{\List\,X} & \linfer \tj{\head(\seq{x})}{X} \\
-  \tj{\seq{x}}{\List\,X} & \linfer \tj{\tail(\seq{x})}{\List X}
+  \tj{\seq{x}}{\List{X}} & \linfer \tj{\head(\seq{x})}{X} \\
+  \tj{\seq{x}}{\List{X}} & \linfer \tj{\tail(\seq{x})}{\List X}
 \end{align}
 
 \begin{align}
-  \tj{x}{X},\tj{\seq{x}}{\List\,X} & \linfer \tj{\tail(x\cons{}\seq{x})} = \seq{x} \\
-  \tj{x}{X},\tj{\seq{x}}{\List\,X} & \linfer \tj{\head(x\cons{}\seq{x})} = x
+  \tj{x}{X},\tj{\seq{x}}{\List{X}} & \linfer \tj{\tail(x\cons{}\seq{x})} = \seq{x} \\
+  \tj{x}{X},\tj{\seq{x}}{\List{X}} & \linfer \tj{\head(x\cons{}\seq{x})} = x
 \end{align}
 
-Here's the corresponding codefinition of the cotype \(\Stream\,X\).
+Here's the corresponding codefinition of the cotype \(\Colist{X}\).
 Dual to the inductive type, \head{} and \tail{} are primitives, codefined
 as co-constructors, and \textit{cons} is defined as a function.
 e
 \begin{align}
-  \tj{\coseq{x}}{\Stream\,X} & \linfer \tj{\head(\coseq{x})}{X} \\
-  \tj{\coseq{x}}{\Stream\,X} & \linfer \tj{\tail(\coseq{x})}{\Stream\,X}
+  \tj{\coseq{x}}{\Colist{X}} & \linfer \tj{\head(\coseq{x})}{X} \\
+  \tj{\coseq{x}}{\Colist{X}} & \linfer \tj{\tail(\coseq{x})}{\Colist{X}}
 \end{align}
 
 
 
-Codefinitions do not define.
+Codefinitions do not define a function; rather, they (re-)define the
+co-ctors of the type for the range of the function. Which is why we
+say ``codefinition'' and ``cofunction''. So the meaning of the
+co-ctors depends not on the type they are applied to - that does not
+vary - but on which cofunction produced the value (cotoken?).
 
 Codefined functions are cofunctions. They are not defined the way
 inductively defined functions are defined. For the latter we specify
@@ -3959,7 +4012,7 @@ phlogiston, or ylem, the primordial matter of the cosmos, or even a
 dark number that cannot be observed.
 
 For example, the codefinitions of \codefn{evens} and \ifdef{odds} over
-streams do not say how they work their magic. All they do is specify
+colists do not say how they work their magic. All they do is specify
 how their output is related to their input. Codefinition just assumes
 that the cofunction is ``good'', that it takes its input to its
 output. The codefinition then says how the output relates to the
@@ -3968,9 +4021,9 @@ co-constructors in turn are also opaque and literally undefined. It's
 all purely structural.
 
 In other words, the codefinition of the coconstructor \cohead tells us
-only that it produces an \(X\) from a token of type \(\Stream\, X\).
+only that it produces an \(X\) from a token of type \(\Colist{X}\).
 
-Here's a codefinition of the coconstructors for type \(\Stream\, X\):
+Here's a codefinition of the coconstructors for type \(\Colist{X}\):
 
 \begin{align}
   \cohead(\codefn{evens}(\coseq{x})) & = \cohead(\coseq{x}) \\
@@ -4001,11 +4054,11 @@ For coinductive types, by contrast, this reasoning does not hold,
 because codata are not constructed; instead we always assume that they
 are already available (and we do not concern ourselves with their
 provenance). So it makes no sense to say that if an environment
-suffices for an \(X\)-stream, then it must suffice for something that
+suffices for an \(X\)-colist, then it must suffice for something that
 needs an X. The environment may suffice for something that needs an
-\(X\) stream, but it does not follow that it suffices for something
-that needs an X. The reason for this is that \(X\)-streams are not
-constructed. An environment can deliver an \(X\)-stream if it already
+\(X\) colist, but it does not follow that it suffices for something
+that needs an X. The reason for this is that \(X\)-colists are not
+constructed. An environment can deliver an \(X\)-colist if it already
 has one, but that doen't mean it can also deliver a stand-alone \(X\).
 
 In short, reasoning with cotypes, codata, cofunctions etc. requires an
@@ -4082,85 +4135,6 @@ Compare the LK rule for \(\lkand\):
 \end{center}
 
 
-\subsection{Duction}
-
-Relating induction and coinduction.
-
-Functions are defined \textit{over} their type; the type is their
-domain. Cofunctions are defined \textit{under} their cotype; the
-cotype is their codomain.
-
-Definitions and codefinitions always involve two steps: declare the
-type, and give a definition or co-definition.
-
-Co-constructors are under-determined. Codefinitions refine
-co-constructors. They ``partition'' the meaning, make it more
-articulated.
-
-Codefinitions are axiom-like. Or they can be viewed as inference rules
-(you need a rule or axiom for each new name that involves a new
-concept/inference, as opposed to fiat definitions). The corresponding
-definitions are theorems.
-
-Example: \defn{evens} and \codefn{evens}.
-
-\vspace{2ex}
-
-General pattern for codefining \(\overline{f}\): \(\ulcorner
-\cohead\circ\overline{f} = g\circ\cohead\urcorner\), where \(g\) is
-some function that determines the substance of what \(\overline{f}\)
-means. For example it could be a function \(\textsf{\slshape dbl}\)
-that doubles its argument; then \(\overline{f}\) would be the function
-\(\codefn{dbl}\) that applies \(\defn{dbl}\) to each element of a
-stream.\footnote{Where we are using an overline, many other writers
-use a function name, \textsf{\slshape map}, i.e. \(\overline{f} :=
-\textsf{\slshape map}(f)\).}
-
-\vspace{1ex}
-
-The codefinition of \codefn{evens}, using \(g = \idfun\):
-\(\cohead(\codefn{evens}(\coseq{x})) = \idfun(\cohead(\coseq{x}))\).
-This expresses a relation between the input \(\coseq{x}\) and the
-output \(\codefn{evens}(\coseq{x})\). It counts as an axiom of the
-\(\Stream\,X\) type; it is not something that could be proved.
-
-The same relation expressed for \(\List\,X\) is a theorem\footnote{TODO: proof}:
-\(\head(\defn{evens}(\seq{x})) = \idfun(\head(\seq{x}))\). The theoremhood may be more clear if we use pattern matching:
-\[\head(\defn{evens}(x\cons\seq{x})) = \idfun(\head(x\cons\seq{x}))\]
-
-This counts as a theorem because it does not \textit{define} either
-\head{} or \defn{evens}, it \textit{uses} them. The definitions:
-
-\begin{align}
- \tj{\seq{x}}{\List\,X} & \linfer \tj{\head(\seq{x})}{X} \\
- \tj{x}{X},\tj{\seq{x}}{\List\,X} & \linfer \head(x\cons\seq{x}) = x \\
- \tj{\seq{x}}{\List\,X} & \linfer \tj{\defn{evens}(\seq{x})}{\List\,X} \\
- \tj{\seq{x}}{\List\,X} & \linfer \defn{evens}(x\cons\seq{x})
-   = x\cons(\tail(\tail(\seq{x})))
-\end{align}
-
-There is nothing we can do with defined functions that we cannot do
-without them, since they are defined by constructors.
-
-By contrast, cofunctions allow us to do things we cannot do with only
-the co-constructors. That's because they are not defined; rather they
-are assumed to exist. Their codefinitions do not give a method for
-producing their results.
-
-However, if we view codefinitions as \textit{specifications}, then we
-recover symmetry. There is nothing we can \textit{specify} using
-codefinitions that we cannot specify without them, using the
-co-constructors, since codefinitions are expressed (``constructed''
-by) in terms of co-constructors.
-
-Thinking of codefinitions as specifications solves a lot of conceptual
-problems. For example it explains how we can compute with things like
-streams. We cannot implement cofunctions like \(\codefn{evens}\), but
-we can \textit{approximate} them. Given a codefinition for
-\(\codefn{evens}\), that is, given its specification, we can
-inductively define a function that satisfies the specification and
-thereby approximates the (infinite) cofunction.
-
 \subsection{Martin-Löf's Doctrine of Judgmental Equality}
 
 And it is a doctrine, not a theory or definition.
@@ -4204,6 +4178,191 @@ considerably.
 Effect on the text:
 
 
+\section{Duction}
+
+The defining inference rules (for \Znat and \Snat) jointly define
+\(\Nat\). It is critically important to understand exactly what this
+means: they define the \textit{type} \(\Nat\). A type is not a set;
+although it is fine to say they define the natural number\textit{s},
+plural, we should probably \textit{not} say that they define the
+\textit{set} of natural numbers. It may be ok to say they
+\textit{determine} that set, but as the etymology of ``define''
+suggests, it would be an oxyoron to say they \textit{define} it. That
+would imply that the rules define the set as a complete whole, and
+that would make it finite. A fundamental tenet of intuitionism is that
+infinities must not be thought of as completed totalities.
+
+Similarly, the codefining inference rules for \(\cohead\) and
+\(\cotail\) jointly codefine the cotype \(\Colist{X}\) (infinite
+stream of \(X\)). They have the same form as the defining rules for
+\(\Nat\), but there is a fundamental semantic difference. The rules
+for \(\Znat\) and \(\Snat\) make no ontological presuppositions. The
+\(\Znat\) rule is an axiom; it licenses the inference to
+\(\tj{\Znat}{\Nat}\) from nothing. The rule for \(\Snat\) does assume
+an arbitrary \(\tj{n}{\Nat}\), but the assumption is that any such
+object has been built up by the rules themselves starting from
+\(\Znat\). So the assumption is warranted by the rules themselves.
+
+The codefinition rules for \(\Colist{X}\) are different. They both
+assume that an arbitrary \(\tj{\coseq{x}}{\Colist{X}}\) is already
+available, so to speak, without having been constructed by the rules
+themselves. They license inferences, but those inferences have an
+indeterminate, undefined premise, namely
+\(\tj{\coseq{x}}{\Colist{X}}\). They are purely formal, whereas the
+rules for \(\Nat\) have substance.
+
+We might think of the inference rules for \(\Colist{X}\) in
+counterfactual terms: \textit{if} we had arbitrary
+\(\tj{\coseq{x}}{\Colist{X}}\), \textit{then} we could make the
+inferences licensed by the codefining inference rules.
+
+irrealis mood.
+
+Now that we have a defined type and a codefined cotype, we can explore
+the consequences. There's really only one: that we can define
+functions and codefine cofunctions. Again there are radical differences between functions and cofunctions.
+
+Functions are defined over the type. In fact we can think of the
+\textit{role} of types defined by induction is to serve as a domain
+for functions. In a sense that is what they are for. That's the point
+of defining types.
+
+Cofunctions, again, are very different. Like the inference rules for
+codefining a cotype, the rules for codefining cofunctions are based on
+the assumption that what is being codefined already exists. They do
+not \textit{define} the cofunction over elements of the type; rather,
+they license inferences from the result of applying the function. They
+say \textit{what} the cofunction must be capable of doing, not
+\textit{how} it should do it.
+
+The role of cotypes codefined by coinduction is to serve as the
+codomain for cofunctions. Cofunctions are codefined by specifying the
+``action'' of the co-constructors on the result of using the
+cofunction. In other words, they are codefined in terms of their image
+in their codomain.
+
+
+
+\paragraph{Relating induction and coinduction}
+
+Functions are defined \textit{over} their type; the type is their
+domain. Cofunctions are defined \textit{under} their cotype; the
+cotype is their codomain.
+
+(co)Functions go into or out. Out: ``apo'' (Greek) Apodictic,
+apostacy, apoptosis, apostrophe (turn away to address sb briefly)
+
+Definitions and codefinitions always involve two steps: declare the
+type, and give a definition or co-definition.
+
+Co-constructors are under-determined. Codefinitions refine
+co-constructors. They ``partition'' the meaning, make it more
+articulated.
+
+Functions expand; cofunctions contract.
+
+Functions expand their base, perhaps indirectly. Their codomain is a
+superset of their base. For example, the codomain of \(\defn{evens}\)
+is a subset of all \(\tj{\seq{x}}{\List{X}}\), but that is indirectly
+a superset of the base of \(\List{X}\), which is \([]\), the null
+list. Indirectly because its domain, \(\List{X}\), is itself
+constructed using only the constructors of its type.
+
+Cofunctions contract their base; we will call this its ``cobase'',
+since cotypes have no base case co-constructor. The cobase of type
+\(\Colist{X}\) is the entire collection
+\(\tj{\coseq{x}}{\Colist{X}}\), which we assume to be antecedently
+determined if not defined. Furthermore, the codomain of every
+cofunction is the cobase; cofunctions are given by defining the
+actions of the co-constructors on their codomains. For example,
+\(\codefn{evens}\) is an endofunction; its domain is the same as its
+codomain, which is its cobase \(\Colist{X}\). The codomain of
+\(\codefn{evens}\) is a subset of its cobase (which also happens to be
+its domain).
+
+[TODO: diagram this]
+
+
+Codefinitions are axiom-like. Or they can be viewed as inference rules
+(you need a rule or axiom for each new name that involves a new
+concept/inference, as opposed to fiat definitions). The corresponding
+definitions are theorems.
+
+Example: \defn{evens} and \codefn{evens}.
+
+
+
+\vspace{2ex}
+
+General pattern for codefining \(\overline{f}\): \(\ulcorner
+\cohead\circ\overline{f} = g\circ\cohead\urcorner\), where \(g\) is
+some function that determines the substance of what \(\overline{f}\)
+means. For example it could be a function \(\textsf{\slshape dbl}\)
+that doubles its argument; then \(\overline{f}\) would be the function
+\(\codefn{dbl}\) that applies \(\defn{dbl}\) to each element of a
+colist.\footnote{Where we are using an overline, many other writers
+use a function name, \textsf{\slshape map}, i.e. \(\overline{f} :=
+\textsf{\slshape map}(f)\).}
+
+\vspace{1ex}
+
+The codefinition of \codefn{evens}, using \(g = \idfun\):
+\(\cohead(\codefn{evens}(\coseq{x})) = \idfun(\cohead(\coseq{x}))\).
+This expresses a relation between the input \(\coseq{x}\) and the
+output \(\codefn{evens}(\coseq{x})\). It counts as an axiom of the
+\(\Colist{X}\) type; it is not something that could be proved.
+
+The same relation expressed for \(\List{X}\) is a theorem\footnote{TODO: proof}:
+\(\head(\defn{evens}(\seq{x})) = \idfun(\head(\seq{x}))\). The theoremhood may be more clear if we use pattern matching:
+\[\head(\defn{evens}(x\cons\seq{x})) = \idfun(\head(x\cons\seq{x}))\]
+
+This counts as a theorem because it does not \textit{define} either
+\head{} or \defn{evens}, it \textit{uses} them. The definitions:
+
+\begin{align}
+ \tj{\seq{x}}{\List{X}} & \linfer \tj{\head(\seq{x})}{X} \\
+ \tj{x}{X},\tj{\seq{x}}{\List{X}} & \linfer \head(x\cons\seq{x}) = x \\
+ \tj{\seq{x}}{\List{X}} & \linfer \tj{\defn{evens}(\seq{x})}{\List{X}} \\
+ \tj{\seq{x}}{\List{X}} & \linfer \defn{evens}(x\cons\seq{x})
+   = x\cons(\tail(\tail(\seq{x})))
+\end{align}
+
+There is nothing we can do with defined functions that we cannot do
+without them, since they are defined by constructors.
+
+By contrast, cofunctions allow us to do things we cannot do with only
+the co-constructors. That's because they are not defined; rather they
+are assumed to exist. Their codefinitions do not give a method for
+producing their results.
+
+However, if we view codefinitions as \textit{specifications}, then we
+recover symmetry. There is nothing we can \textit{specify} using
+codefinitions that we cannot specify without them, using the
+co-constructors, since codefinitions are expressed (``constructed''
+by) in terms of co-constructors.
+
+Thinking of codefinitions as specifications solves a lot of conceptual
+problems. For example it explains how we can compute with things like
+colists. We cannot implement cofunctions like \(\codefn{evens}\), but
+we can \textit{approximate} them. Given a codefinition for
+\(\codefn{evens}\), that is, given its specification, we can
+inductively define a function that satisfies the specification and
+thereby approximates the (infinite) cofunction.
+
+\section{Coinduction}
+
+Coinduction is usually presented as a means of handling infinite
+datatypes such as colists. But it is more general than that. Better to
+think of it as a means of reasoning about and computing with
+\textit{indeterminate} or \textit{non-deterministic} data. Examples
+are, in addition to infinite structures like colist, state,
+randomness, etc.
+
+Compare probability as a way of dealing with imperfect information.
+
+Conumbers
+
+
 \section{Fixed Points}
 
 Resources:
@@ -4231,8 +4390,8 @@ co-constructors allow us to ``shrink'' them.
 Functions automatically expand, they add new stuff. Cofunctions
 automatically contract, the exclude stuff. So \(\defn{evens}\) creates
 a new finite list from an old one, by construction. But
-\(\codefn{evens}\) can't create a new stream, because they already
-exist, and because we have no stream constructors. Instead it
+\(\codefn{evens}\) can't create a new colist, because they already
+exist, and because we have no colist constructors. Instead it
 contracts an old one. Remember that a codefinition does not define
 \textit{how} a cofunction manages to do whatever it does, it just
 specifies \textit{what} must be done. So we interpret the ``action''
@@ -4248,28 +4407,28 @@ the co-constructors must be defined over the results of the new
 operations.
 
 In other words, we start with co-constructors that are defined for
-arbitrary elements of the type. For any \(\tj{seq{x}}{\Stream X}\) we have
-\(\tj{\head(seq{x})}{X}\) and \(\tj{\tail(seq{x})}{\Stream X}\).
+arbitrary elements of the type. For any \(\tj{\seq{x}}{\Colist X}\) we have
+\(\tj{\head(\seq{x})}{X}\) and \(\tj{\tail(\seq{x})}{\Colist X}\).
 
-Then to define a new function over \(\Stream X\), we have to give
+Then to define a new function over \(\Colist X\), we have to give
 definitions of \(\head\) and \(\tail\) for outputs of the function.
 This is the exact opposite of induction, where we define the
 constructors once. It means that the co-constructors of a co-inductive
 type are never completely defined. They always operate on arguments of
-type \(\Stream X\), but their meaning (the way they function) depends
+type \(\Colist X\), but their meaning (the way they function) depends
 on how those arguments were produced.
 
 For example, we can define \codefn{even} and \codefn{odd} over type
-\(\Stream\, X\):
+\(\Colist{X}\):
 
 \begin{align}
-  \coseq{seq{x}} & \defeq [x_0, x_1, \ldots] \\
-  \codefn{even}(\coseq{seq{x}}) & = [x_0, x_2, \ldots] \\
-  \codefn{odd}(\coseq{seq{x}})  & = [x_1, x_3, \ldots]
+  \coseq{\seq{x}} & \defeq [x_0, x_1, \ldots] \\
+  \codefn{even}(\coseq{\seq{x}}) & = [x_0, x_2, \ldots] \\
+  \codefn{odd}(\coseq{\seq{x}})  & = [x_1, x_3, \ldots]
 \end{align}
 
 Note first of all that we cannot define such functions by induction.
-There is no base case for infinite streams, so we cannot inductively
+There is no base case for infinite colists, so we cannot inductively
 construct them. For a finite list, we would define \defn{even} and
 \defn{odd} by pattern-matching against the internal structure of the
 argument, expressed by constructor patterns starting with the base case:
@@ -4277,8 +4436,8 @@ argument, expressed by constructor patterns starting with the base case:
 \begin{align}
   \defn{even}([]) & = [] \\
   \defn{odd}([]) & = [] \\
-  \defn{even}(x::seq{x}) & = x::\defn{even}(\tail(seq{x})) \\
-  \defn{odd}(x::seq{x}) & = \head(seq{x})::\defn{odd}(\tail(seq{x}))
+  \defn{even}(x::seq{x}) & = x::\defn{even}(\tail(\seq{x})) \\
+  \defn{odd}(x::seq{x}) & = \head(\seq{x})::\defn{odd}(\tail(\seq{x}))
 \end{align}
 
 Here we give the meaning of the function applied to constructors of
@@ -4291,9 +4450,9 @@ Compare the corresponding codefinitions. We have no base case, and we
 cannot start with \(x::seq{x}\), because \cons\ (\(::\)) is not a
 primitive constructor. Moreover we have to start by making
 \textit{two} assumptions: first that we're given an opaque token
-\(\tj{\coseq{x}}{\Stream\,X}\), and second that the function we're
+\(\tj{\coseq{x}}{\Colist{X}}\), and second that the function we're
 codefining may already be applied to such a token to produce another
-value of type \(\Stream\, X\). Then we define the consequences of
+value of type \(\Colist{X}\). Then we define the consequences of
 applying the function: the values taken by the co-constructors when
 applied to the function's output.
 
@@ -4313,8 +4472,8 @@ of the co-constructors.
 
 So there's a perfect symmetry the corresponds exactly to the tenets of
 inferential semantics: meanings are determined jointly by both
-\textit{circumstances} (upstream) and \textit{consequences}
-(downstream) of application. Put differently, rules of construction
+\textit{circumstances} (upcolist) and \textit{consequences}
+(downcolist) of application. Put differently, rules of construction
 and rules of use.
 
 Now back to greatest fixed point. The idea is that the co-ctors are
@@ -4334,7 +4493,7 @@ What precisely is the relation between the raw co-ctors and the
 codefinitions given them for particular cofunctions?
 
 Key point is that the codefinitions do not define values for the
-co-ctors, they only relate them to the input stream. So they confer
+co-ctors, they only relate them to the input colist. So they confer
 structure, not content.  Although they could add content.
 
 \section{Identity}
@@ -4774,7 +4933,7 @@ implementations.
 We also need to accomodate infinite structures and computations, for
 both mathematics and programming. Infinite sequences are common in
 mathematics, and real-world computation almost always involves
-streams, which are theoretically infinite lists.
+colists, which are theoretically infinite lists.
 
 We handle infinite structures pretty much the same way we handle
 finite structures. But there is one critical difference, which is most
@@ -4882,7 +5041,7 @@ its head and its tail. That tells us precisely nothing about its
 internal structure.
 
 Incidentally, this suggests that ``list'' is itself the wrong term,
-insofar as it suggests internal structure. ``Stream'' is better.
+insofar as it suggests internal structure. ``Colist'' is better.
 
 A better strategy is to think of an infinite list as a kind of
 machine. Think of an infinite list of bricks an \textit{Inexhaustible
@@ -4913,7 +5072,7 @@ An \IBMMM is inexhaustible, but it is also finite. That means we would
 indeed be able to pass one in its entirety to a function and return
 one as the result of a function.
 
-In any case, our implementations of the identity function on streams
+In any case, our implementations of the identity function on colists
 are all clearly different, so the task is to find what is that makes
 them different and express it explicitly. That requires a fundamental
 shift of perspective; in fact, a reversal of perspective. In brief, we
@@ -4923,12 +5082,12 @@ of the equivalence class of implementations, but it will be the
 
 For finite lists, the difference between implementations is determined
 by what the function implementation does with its (finite) input. For
-streams, the difference is characterized by what finite
+colists, the difference is characterized by what finite
 computations do with the \textit{output} of the implementation.
 
 Alternatively, if we use the machine metaphor, the difference between
 the minimal implementation (\ref{infinid:lfp}) and the others is the
-use of the cache. All the computations for the stream are actually on
+use of the cache. All the computations for the colist are actually on
 the cache stack. That's where the extra work is. By contrast, the
 extra work for finite lists is on the list itself.
 
@@ -6171,7 +6330,64 @@ Or we should have an inference rule from the former to the latter.
 
 Treat \(\defeq\) as codefinition?
 
+\section{Case studies in induction and coinduction}
+
+\subsection{Numbers and Conumbers}
+
+Conatural numbers? See
+\href{https://www.cl.cam.ac.uk/archive/mjcg/plans/Coinduction.pdf}{Corecursion
+  and coinduction: what they are and how they relate to recursion and
+  induction}
+
+\subsection{Finite and infinite Lists}
+
+Examples of various types of functions/cofunctions.
+
+To define:
+
+\begin{itemize}
+\item projection ops, e.g. second, butlast, nth, etc.
+\item pathological (co)functions: constant hd, tl, cons, etc.
+\item evens, odds, merge
+\item construction: UpFrom(n) - colist [n, n+1, ...][
+\item Take(n)
+\item Sum, Sum(n)
+\end{itemize}
+
+evens, odds, merge
+
 \section{Notes}
+
+\subsection{Recursion and Corecursion}
+
+\href{http://blog.ezyang.com/2013/04/the-difference-between-recursion-induction/}{The Difference between Recursion \& Induction}
+
+Summary: induction over types, recursion over terms?
+
+Or: define types by induction, functions by recursion?
+
+Some writers say the opposite: recursion defines, induction proves.
+
+Better: induction defines types, recursion defines functions on types.
+
+Or: induction is semantic, recursion is syntactic. In which case we would express induction by writing recursion.
+
+Does recursive merely mean self-referential? Note there is no
+self-reference in the standard definition of \(\Nat\) by induction.
+Except maybe insofar as the ctor definitions refer to the type name.
+
+Etymology: recursion = running \textit{back}, i.e. back to the
+beginning, returning to the base case. ``Recursion'' cannot mean
+``self-referential'', so maybe it was coined specifically to the
+``iterating back to base'' process. Then induction would only refer to
+building up new from old, without self-reference.
+
+Makes sense. Function definitions analyze their arguments and then
+possibly recur on part of the arg.
+
+\subsection{Programming}
+
+\citetitle{goguen1996algebraic} \cite{goguen1996algebraic}
 
 \subsection{Assumptions}
 
@@ -6277,11 +6493,11 @@ exists or can be constructed. In any case, the critical point is that
 we need not presuppose the existence of the totality \(\Nat\) in order
 to think that \textit{each} natural number exists.
 
-We can \textit{almost} think about streams in the same way. Each
-stream is isomorphic to \(\Nat\), and we can extract each prefix as a
+We can \textit{almost} think about colists in the same way. Each
+colist is isomorphic to \(\Nat\), and we can extract each prefix as a
 finite list, just as we can construct each natural number. But
 extraction of a prefix depends on use of the co-constructors and the
-assumption that the stream antecedently exists - if it did not, then
+assumption that the colist antecedently exists - if it did not, then
 the co-constructors would have nothing to work with, and we would not
 be able to extract a finite list. So it looks like the logic of
 coinduction inescapably presupposes some metaphysical commitments.
@@ -6291,8 +6507,8 @@ metaphysics? I think the intuitionist approach is to think in terms of
 approximations. We do not need ontological commitments to understand
 codefinitions etc. as specifications. In other words, if we think
 syntactically instead of semantically. Then we can approximate a
-stream by constructing successive prefixes, without any metaphysical
-presuppositions about the existence or otherwise of the whole stream.
+colist by constructing successive prefixes, without any metaphysical
+presuppositions about the existence or otherwise of the whole colist.
 
 But note: we're not quite thinking entirely syntactically. We're just
 treating syntax as primary. We then endow the syntax with meaning.
@@ -6300,13 +6516,13 @@ I.e. its not empty syntax, its more like syntax with contingent or
 implied semantics. We work with the syntax on the understanding that
 it has a kind of approximative semantics.
 
-Counter-factual semantics: if streams were to exist, then we would be
+Counter-factual semantics: if colists were to exist, then we would be
 able to extract finite prefixes. But the converse does not hold: if we
-can extract prefixes, then streams exist. So our ability to extract
+can extract prefixes, then colists exist. So our ability to extract
 prefixes is rendered intelligible by the counter-factual, but we
-cannot then conclude that streams exist. We can say that the syntax
+cannot then conclude that colists exist. We can say that the syntax
 has counter-factual semantics. Meaning that the counter-factual makes
-the things we say about streams meaningful, but does not entail
+the things we say about colists meaningful, but does not entail
 metaphysical commitments.
 
 This would require that we reject the usual reading of ``semantic'' as a
@@ -6317,6 +6533,7 @@ they're easy enough to understand informally and that's enough for
 present purposes.
 
 \citetitle{sep-counterfactuals} \cite{sep-counterfactuals}
+
 
 
 \subsection{Coinduction Rules}

@@ -68,8 +68,9 @@
 
 %% lists
 %% finite lists
-\newcommand{\List}{\ensuremath{\textsf{\slshape List}}}
-\newcommand{\seq}[1]{\ensuremath{#1s}}
+%% \newcommand{\List}[1]{\ensuremath{\textsf{\slshape List}\,{#1}}}
+\newcommand{\List}[1]{\ensuremath{\overset{\multimap}{#1}}}
+\newcommand{\seq}[1]{\ensuremath{\overset{\multimap}{#1}}}
 
 \newcommand{\head}{\ensuremath{\textsf{\slshape head}}}
 \newcommand{\tail}{\ensuremath{\textsf{\slshape tail}}}
@@ -79,9 +80,10 @@
 \newcommand{\listld}{\ensuremath{\textsf{[}}}
 \newcommand{\listrd}{\ensuremath{\textsf{]}}}
 
-%% streams
-\newcommand{\Stream}{\ensuremath{\textsf{\slshape Stream}}}
-\newcommand{\coseq}[1]{\ensuremath{\overline{#1s}}}
+%% colists
+%% \newcommand{\Colist}[1]{\ensuremath{\textsf{\slshape Colist}\,#1}}
+\newcommand{\Colist}[1]{\ensuremath{\overrightarrow{#1}}}
+\newcommand{\coseq}[1]{\ensuremath{\overrightarrow{#1}}}
 \newcommand{\cohead}{\ensuremath{\overline{\textsf{head}}}}
 \newcommand{\cotail}{\ensuremath{\overline{\textsf{tail}}}}
 \newcommand{\cocons}{\ensuremath{\overline{\textsf{cons}}}}
