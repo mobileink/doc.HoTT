@@ -66,11 +66,19 @@
 %% identity function
 \newcommand{\idfun}{\ensuremath{\textsf{\slshape Id}}}
 
-%% lists
+%% duality
+\newcommand{\dual}{\ensuremath{\hspace{1em}\rightleftarrows\hspace{1em}}}
+
+%% types and cotypes
+\newcommand{\cotype}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\cotok}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\ctor}[1]{\ensuremath{\textsf{\slshape c}_{#1}}}
+\newcommand{\coctor}[1]{\ensuremath{\overline{\textsf{\slshape c}}_{#1}}}
+
 %% finite lists
-%% \newcommand{\List}[1]{\ensuremath{\textsf{\slshape List}\,{#1}}}
-\newcommand{\List}[1]{\ensuremath{\overset{\multimap}{#1}}}
-\newcommand{\seq}[1]{\ensuremath{\overset{\multimap}{#1}}}
+%% NB: \list is already defined and used by e.g. itemize
+\newcommand{\List}[1]{\ensuremath{\underset{\rightarrow}{#1}}}
+\newcommand{\seq}[1]{\ensuremath{\underset{\rightarrow}{#1}}}
 
 \newcommand{\head}{\ensuremath{\textsf{\slshape head}}}
 \newcommand{\tail}{\ensuremath{\textsf{\slshape tail}}}
@@ -82,7 +90,7 @@
 
 %% colists
 %% \newcommand{\Colist}[1]{\ensuremath{\textsf{\slshape Colist}\,#1}}
-\newcommand{\Colist}[1]{\ensuremath{\overrightarrow{#1}}}
+\newcommand{\colist}[1]{\ensuremath{\underrightarrow{\overline{#1}}}}
 \newcommand{\coseq}[1]{\ensuremath{\overrightarrow{#1}}}
 \newcommand{\cohead}{\ensuremath{\overline{\textsf{head}}}}
 \newcommand{\cotail}{\ensuremath{\overline{\textsf{tail}}}}

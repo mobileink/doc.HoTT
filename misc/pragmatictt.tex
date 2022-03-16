@@ -3814,7 +3814,7 @@ Genuine induction induces an order on the members of the type.
 Elements of a colist are unordered. Is that true for all coinductively
 defined types? We know they don't have a bottom element, but what
 about ordering? Well, we can impose and ordering on e.g.
-\(\Colist{\Nat}\). But there's not internal order induced by
+\(\colist{\Nat}\). But there's not internal order induced by
 construction. They're not structurally ordered; if they can be ordered
 its because of the parameter type.
 
@@ -3828,7 +3828,7 @@ co-constructors.
 Take \Cons{} for colists as an example. The primitives are the
 co-constructors \head{} and \tail{}; \cons{} must be a cofunction.
 Step one is to declare the type: \(\tj{x}{X},
-\tj{\coseq{x}}{\Colist{X}}\lso \tj{(x\cons\coseq{x})}{\Colist{X}}\).
+\tj{\coseq{x}}{\colist{X}}\lso \tj{(x\cons\coseq{x})}{\colist{X}}\).
 This is not enough, because it does not tell us how the resulting
 \(X\)-colist interacts with the primitives. Remember that colists are
 opaque, and strings of characters like \cons have no intrinsic
@@ -3965,7 +3965,7 @@ constructor):
 These constructors are not \textit{defined}; we have not said what
 they are or how they work (no algorithm here). We've only shown that
 they observe a kind of type discipline and left it at that. But we do
-say that together they ``define'' the type \(\Colist{X}\), by which
+say that together they ``define'' the type \(\colist{X}\), by which
 we mean they \textit{determine} the type.
 
 The constructors are primitive; \head{} and \tail{} are not. For them
@@ -3982,13 +3982,13 @@ can codefine them by coinduction:
   \tj{x}{X},\tj{\seq{x}}{\List{X}} & \linfer \tj{\head(x\cons{}\seq{x})} = x
 \end{align}
 
-Here's the corresponding codefinition of the cotype \(\Colist{X}\).
+Here's the corresponding codefinition of the cotype \(\colist{X}\).
 Dual to the inductive type, \head{} and \tail{} are primitives, codefined
 as co-constructors, and \textit{cons} is defined as a function.
 e
 \begin{align}
-  \tj{\coseq{x}}{\Colist{X}} & \linfer \tj{\head(\coseq{x})}{X} \\
-  \tj{\coseq{x}}{\Colist{X}} & \linfer \tj{\tail(\coseq{x})}{\Colist{X}}
+  \tj{\coseq{x}}{\colist{X}} & \linfer \tj{\head(\coseq{x})}{X} \\
+  \tj{\coseq{x}}{\colist{X}} & \linfer \tj{\tail(\coseq{x})}{\colist{X}}
 \end{align}
 
 
@@ -4007,23 +4007,28 @@ by specifying what can be done with their outputs. They remain opaque
 and indeterminate.
 
 If you are beset by metaphysical longings, you can thing of a
-coconstructor as a producer of a typed blob of ``stuff'', such as
-phlogiston, or ylem, the primordial matter of the cosmos, or even a
-dark number that cannot be observed.
+cofunction as a producer of typed of ``stuff'', such as phlogiston, or
+ylem, the primordial matter of the cosmos, or even a dark number that
+cannot be observed. The coconstructors extract a blob of it and give
+it form. But in general it's a bad idea to think like this. We do not
+need to posit the existence of cofunctions or their inputs and outputs
+in order to understand them. In fact it is better not to, because doing so needlessly complicates things.]
 
-For example, the codefinitions of \codefn{evens} and \ifdef{odds} over
+For example, the codefinitions of \codefn{evens} and \codefn{odds} over
 colists do not say how they work their magic. All they do is specify
 how their output is related to their input. Codefinition just assumes
 that the cofunction is ``good'', that it takes its input to its
-output. The codefinition then says how the output relates to the
+output. [\textbf{Wrong! to be revised:}
+The codefinition then says how the output relates to the
 input, expressed using the co-constructors of the type. Those
 co-constructors in turn are also opaque and literally undefined. It's
-all purely structural.
+all purely structural.]
 
-In other words, the codefinition of the coconstructor \cohead tells us
-only that it produces an \(X\) from a token of type \(\Colist{X}\).
+In other words, the codefinition of the coconstructor \cohead{} tells
+us only that it produces an \(X\) from a token of type \(\colist{X}\).
+It only determines the type, leaving the coctor underdetermined.
 
-Here's a codefinition of the coconstructors for type \(\Colist{X}\):
+Here's a codefinition of the coconstructors for type \(\colist{X}\):
 
 \begin{align}
   \cohead(\codefn{evens}(\coseq{x})) & = \cohead(\coseq{x}) \\
@@ -4193,7 +4198,7 @@ that would make it finite. A fundamental tenet of intuitionism is that
 infinities must not be thought of as completed totalities.
 
 Similarly, the codefining inference rules for \(\cohead\) and
-\(\cotail\) jointly codefine the cotype \(\Colist{X}\) (infinite
+\(\cotail\) jointly codefine the cotype \(\colist{X}\) (infinite
 stream of \(X\)). They have the same form as the defining rules for
 \(\Nat\), but there is a fundamental semantic difference. The rules
 for \(\Znat\) and \(\Snat\) make no ontological presuppositions. The
@@ -4203,17 +4208,17 @@ an arbitrary \(\tj{n}{\Nat}\), but the assumption is that any such
 object has been built up by the rules themselves starting from
 \(\Znat\). So the assumption is warranted by the rules themselves.
 
-The codefinition rules for \(\Colist{X}\) are different. They both
-assume that an arbitrary \(\tj{\coseq{x}}{\Colist{X}}\) is already
+The codefinition rules for \(\colist{X}\) are different. They both
+assume that an arbitrary \(\tj{\coseq{x}}{\colist{X}}\) is already
 available, so to speak, without having been constructed by the rules
 themselves. They license inferences, but those inferences have an
 indeterminate, undefined premise, namely
-\(\tj{\coseq{x}}{\Colist{X}}\). They are purely formal, whereas the
+\(\tj{\coseq{x}}{\colist{X}}\). They are purely formal, whereas the
 rules for \(\Nat\) have substance.
 
-We might think of the inference rules for \(\Colist{X}\) in
+We might think of the inference rules for \(\colist{X}\) in
 counterfactual terms: \textit{if} we had arbitrary
-\(\tj{\coseq{x}}{\Colist{X}}\), \textit{then} we could make the
+\(\tj{\coseq{x}}{\colist{X}}\), \textit{then} we could make the
 inferences licensed by the codefining inference rules.
 
 irrealis mood.
@@ -4233,15 +4238,25 @@ the assumption that what is being codefined already exists. They do
 not \textit{define} the cofunction over elements of the type; rather,
 they license inferences from the result of applying the function. They
 say \textit{what} the cofunction must be capable of doing, not
-\textit{how} it should do it.
+\textit{how} it should do it. Which suggests the co-ctor rules may be
+best thought of as \textit{specifications} rather than definitions.
 
-The role of cotypes codefined by coinduction is to serve as the
-codomain for cofunctions. Cofunctions are codefined by specifying the
-``action'' of the co-constructors on the result of using the
+The primary role of cotypes codefined by coinduction is to serve as
+the codomain for cofunctions. Cofunctions are codefined by specifying
+the ``action'' of the co-constructors on the result of using the
 cofunction. In other words, they are codefined in terms of their image
 in their codomain.
 
-
+All of which suggests it is fundamentally misleading, if not wrong, to
+speak of either definition or codefinition of cofunctions. Those
+``functions'' or cofunctions are inert phantoms; what we actually do
+is adapt the co-constructors to work with elements in the codomain of
+the cofunction. To ``define'' a function by coinduction is to extend
+the definitions of the co-constructors of the type to accomodate the
+output of the function; \textit{how} the function actually manages to
+work correctly according to the revised co-constructor rules is
+irrelevant. The co-constructors, not the functions, play the lead
+role.
 
 \paragraph{Relating induction and coinduction}
 
@@ -4270,13 +4285,13 @@ constructed using only the constructors of its type.
 
 Cofunctions contract their base; we will call this its ``cobase'',
 since cotypes have no base case co-constructor. The cobase of type
-\(\Colist{X}\) is the entire collection
-\(\tj{\coseq{x}}{\Colist{X}}\), which we assume to be antecedently
+\(\colist{X}\) is the entire collection
+\(\tj{\coseq{x}}{\colist{X}}\), which we assume to be antecedently
 determined if not defined. Furthermore, the codomain of every
 cofunction is the cobase; cofunctions are given by defining the
 actions of the co-constructors on their codomains. For example,
 \(\codefn{evens}\) is an endofunction; its domain is the same as its
-codomain, which is its cobase \(\Colist{X}\). The codomain of
+codomain, which is its cobase \(\colist{X}\). The codomain of
 \(\codefn{evens}\) is a subset of its cobase (which also happens to be
 its domain).
 
@@ -4310,7 +4325,7 @@ The codefinition of \codefn{evens}, using \(g = \idfun\):
 \(\cohead(\codefn{evens}(\coseq{x})) = \idfun(\cohead(\coseq{x}))\).
 This expresses a relation between the input \(\coseq{x}\) and the
 output \(\codefn{evens}(\coseq{x})\). It counts as an axiom of the
-\(\Colist{X}\) type; it is not something that could be proved.
+\(\colist{X}\) type; it is not something that could be proved.
 
 The same relation expressed for \(\List{X}\) is a theorem\footnote{TODO: proof}:
 \(\head(\defn{evens}(\seq{x})) = \idfun(\head(\seq{x}))\). The theoremhood may be more clear if we use pattern matching:
@@ -4348,6 +4363,187 @@ we can \textit{approximate} them. Given a codefinition for
 \(\codefn{evens}\), that is, given its specification, we can
 inductively define a function that satisfies the specification and
 thereby approximates the (infinite) cofunction.
+
+\section{Types and Cotypes}
+
+\paragraph{Duality}  Duality is an all-or-nothing affair. If you reverse one arrow, you must reverse all other arrows related to the first.
+
+Formally, duality is expressed by simply reversing the arrows:
+\(A\rightarrow B\) is the dual of \(A\leftarrow B\), and vice-versa.
+But there is much more to the duality of types and cotypes than this.
+It also involves semantic reversals that must be explicated in order
+to render the duality fully intelligible.
+
+We use a regimented vocabulary in order to emphasize dualities; we
+always use the prefix \textit{co} the express a dual. The drawback of
+this practice is that the meanings of such \textit{co}-terms may not
+be simple, direct variants of the original term. For example,
+codefinition is not merely a variant kind of definition; rather, the
+intended meaning of the term is \textit{underdetermines}, for reasons
+that will soon become clear. Therefore reader is hereby forewarned
+that the concept expressed by \textit{co-x} may not be directly
+inferrable from the concept expressed by \textit{x}.
+
+\paragraph{Notation}
+
+\begin{description}
+\item[Duality:] \dual
+\item[Type and cotype:]\hspace{2em}\(A\dual \cotype{A}\)
+\item[Token and cotoken:] \(\tj{a}{A}\dual
+  \tj{\cotok{a}}{\cotype{A}}\)
+    \item[Constructor and co-constructor:] \(\ctor{i}\dual \coctor{i}\)
+    \item[Definition and codefinition:]
+
+      \begin{align}
+       \ctor{0}\times\ldots\times\ctor{n} & \rightarrow A \nonumber \\
+       \coctor{0}\times\ldots\times\coctor{n} & \leftarrow \cotype{A} \nonumber
+      \end{align}
+      \item[List and colist:] \(\List{X}\) \dual \(\colist{X}\)
+\end{description}
+
+%%%%%%%%%%%%%%%%
+\subsection{Semantics}
+
+\subsubsection{Definition and codefinition}
+
+Types \textit{are determined by} their constructors: \(\ctor{0}\times\ldots\times\ctor{n} \rightarrow A\).
+
+Cotypes, by contrast, \textit{codetermine} their co-constructors:
+\(\coctor{0}\times\ldots\times\coctor{n} \leftarrow \cotype{A}\).
+Equivalently, and perhaps more scandalously, co-constructors are
+determined by their cotype.
+
+This may seem counter-intuitive at first glance. According to the
+common way of speaking, what we call cotypes are ``defined by
+coinduction'', and what we call co-constructors (often called
+``destructors'') are what do the defining. But how can something we
+are defining be said to determine the instruments that do the
+defining? How can the \textit{definiendum} determine the
+\textit{definiens}?
+
+The beginning of wisdom here is to notice that coinduction does
+\textit{not} define anything; that's one reason we use the term
+``codefinition''. Codefinition always presupposes that the
+\textit{(~co-~)definiendum} is antecedently available; that is, we are
+to assume that cotypes and their cotokens are already ``defined'' in
+some dark inscrutable way.
+
+Fastidious anti-realists may be dissatisfied with this kind of
+presupposition. For them, counter-factuals provide a way out. We can
+think of a codefinition as expressing something like ``\textit{if}
+this cotype were to exist, \textit{then} it would behave like so''.
+Here a caveat is in order. From this perspective, codefinition may
+look like a kind of contingent definition. But even if it is
+contingent, it still would not count as a kind of definition. The key
+word in our counter-factual is \textit{behave}. We did not say ``if it
+were to exist, it would have such and such an internal structure''.
+That is not how codefinition works. It says what the definiendum's
+behavior must be, but does not specify the mechanism that enables the
+behavior. It does not \textit{define} the cotype, it only
+\textit{specifies} its behavior.
+
+However you slice it, what comes out is that in codefinition we start
+with an antecedently available notion of what the definiendum is, or
+how it behaves, and from that we infer the shape of its
+co-constructors. For example, to codefine streams (infinite lists), we
+start with our intuitive notion of what an infinite stream would be
+like, and from that we derive the notions ``head of stream'' and ``tail
+of stream''. In that sense, the concept ``stream'' determines the
+concepts ``head'' and ``tail''. Which makes sense: clearly it would be
+rather difficult to come up with the concept ``head'' if we did not
+already have an answer to ``head of what?''. It would be a little
+like conceiving of the inside of a square without also coming up with
+the notion of outside of a square.
+
+With definitions, by contrast, we start out with our constructor
+concepts. To define a type of finite lists of type \(X\), we start by
+thinking of an empty list and a concept of combining \(X\) tokens --
+which we can do even if we lack the concept ``list of \(X\)'' -- and
+from that we derive the concept of a list. This is made clear by a
+simple metaphor: start with a clear space on the ground and a pile of
+bricks. If you can imagine stacking the bricks one upon the other, one
+at a time, then you can arrive at the concept ``stack of bricks''.
+
+Incidentally, another duality should be clear here: for finite lists,
+the composition operation (``cons'') is primitive, and the
+complementary operations, \head{} and \tail{}, are derivative, to be
+expressed as functions. Dually, for colists, \cohead{} and \cotail{}
+are the primitive operations, and \cocons{} is derived.
+
+So cotypes ``codetermine'' their co-constructors. What exactly does
+that mean? It means precisely that they fix their type signatures.
+That leaves them undefined but not entirely undetermined; rather, they
+are \textit{under}determined. They're partly determined, since their
+types are fixed, and partly undetermined, since they are undefined. So
+we use ``codetermined'' to mean ``partly determined by a fixed
+type''.
+
+Co-constructors, in turn, serve to codetermine the cotokens of the
+cotype. Now this seems circular. We said that codefinition starts out
+by assuming we already have the cotype; now we seem to be saying that
+co-constructors, having been codetermined by their cotype, turn around
+and codefine that very cotype. How does that work?
+
+There's no paradox here if we remember that codefinition does not mean
+definition. Just as cotypes codetermine their co-constructors by
+fixing their types, co-constructors return the favor by expressing
+constraints on the ``behavior'' not of cotypes but of cotokens. Let's spell this out more explicitly with an example:
+
+\begin{itemize}
+\item The cotype \(\colist{X}\) (stream of \(X\)) fixes the type of
+  its \cohead{} co-constructor:
+  \(\tj{\cotok{x}}{\colist{X}}\linfer\tj{\cohead(\cotok{x})}{X}\).
+  \item The co-constructor in turn expresses a constraint on cotokens
+    of the cotype: their \cohead{} must be of type \(X\).
+\end{itemize}
+
+And here again ``codefine'' means ``partly determine''. The
+co-constructor fixes the type of its output but does not define it.
+That leaves it underdetermined,, and it will remain underdetermined
+until the co-constructor becomes fully determined by a cofunction
+definition, to which we now turn.
+
+Critically important: the partial determinations expressed by the
+co-constructors are global! They apply to every cotoken of the cotype.
+
+\subsubsection{Function and Cofunction}
+
+Domain and codomain.
+
+At the cotype level, the co-constructors express type constraints on
+\textit{all} cotokens of the co-type.
+
+Cofunctions refine the co-constructors by defining them. But this
+refinement is \textit\textit{local}! It only applies to cotokens
+produced by the cofunction.
+
+We can think of the co-constructors as expressing a generic or global
+interface or signature for cotokens of the cotype. Then cofunctions
+provide implementations\footnote{Co-implementations?}.
+
+(Compare: inheritance)
+
+
+%%%%%%%%%%%%%%%%
+\subsection{Calculi}
+The concepts of types and cotypes may be presented in a variety of forms.
+
+\subsubsection{Typed calculus of types and cotypes}
+
+This section uses the kind of type-theoretic notation commonly used to
+present types and cotypes. Derived from Martin-Löf Type Theory by way
+of HoTT.
+
+\subsubsection{Logic of types and cotypes}
+
+This section presents types, cotypes, etc. using a sequent calculus
+commonly used to express various logics.
+
+\subsubsection{Algebraics of types and cotypes}
+
+Yet a third mode of presentation takes an algebraic perspective. This
+is a popular way of presenting and explaining induction and
+coinduction.
 
 \section{Coinduction}
 
@@ -4407,19 +4603,19 @@ the co-constructors must be defined over the results of the new
 operations.
 
 In other words, we start with co-constructors that are defined for
-arbitrary elements of the type. For any \(\tj{\seq{x}}{\Colist X}\) we have
-\(\tj{\head(\seq{x})}{X}\) and \(\tj{\tail(\seq{x})}{\Colist X}\).
+arbitrary elements of the type. For any \(\tj{\seq{x}}{\colist X}\) we have
+\(\tj{\head(\seq{x})}{X}\) and \(\tj{\tail(\seq{x})}{\colist X}\).
 
-Then to define a new function over \(\Colist X\), we have to give
+Then to define a new function over \(\colist X\), we have to give
 definitions of \(\head\) and \(\tail\) for outputs of the function.
 This is the exact opposite of induction, where we define the
 constructors once. It means that the co-constructors of a co-inductive
 type are never completely defined. They always operate on arguments of
-type \(\Colist X\), but their meaning (the way they function) depends
+type \(\colist X\), but their meaning (the way they function) depends
 on how those arguments were produced.
 
 For example, we can define \codefn{even} and \codefn{odd} over type
-\(\Colist{X}\):
+\(\colist{X}\):
 
 \begin{align}
   \coseq{\seq{x}} & \defeq [x_0, x_1, \ldots] \\
@@ -4450,9 +4646,9 @@ Compare the corresponding codefinitions. We have no base case, and we
 cannot start with \(x::seq{x}\), because \cons\ (\(::\)) is not a
 primitive constructor. Moreover we have to start by making
 \textit{two} assumptions: first that we're given an opaque token
-\(\tj{\coseq{x}}{\Colist{X}}\), and second that the function we're
+\(\tj{\coseq{x}}{\colist{X}}\), and second that the function we're
 codefining may already be applied to such a token to produce another
-value of type \(\Colist{X}\). Then we define the consequences of
+value of type \(\colist{X}\). Then we define the consequences of
 applying the function: the values taken by the co-constructors when
 applied to the function's output.
 
