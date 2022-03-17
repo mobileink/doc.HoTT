@@ -969,6 +969,7 @@ has no logical connectives in its conclusion.
 
 \begin{itemize}
 \item Logical calculi: natural deduction, sequent calculus, tableaux, fitch trees, lemmon
+\item Modal calculi: \(\mu\)-calculus
 \item Function calculi: lambda calculus, combinatory logic (misnamed, its
 about functions, combinatory function calculus). Differs from logical
 calculi by having a definite intended interpretation, the world of
@@ -1023,6 +1024,17 @@ intended domain of interpretation.
 
 Instead of antecedent/succedent, why not use protasis and apodosis? It
 is grammar, after all.
+
+if <protasis> then <apodosis>
+
+Protasis: the ``if'' part of a conditional. From Late Latin protasis,
+from Ancient Greek πρότασις (prótasis), from προτείνω (proteínō, “put
+forward, tender, propose”), from πρό (pró) + τείνω (teínō, “stretch”).
+\href{https://en.wiktionary.org/wiki/protasis}{protasis}
+
+Apodosis: the consequence part of a conditional. From Late Latin
+apodosis, from Ancient Greek ἀπόδοσις (apódosis), from ἀπό (apó, “back
+again”) and δόσις (dósis, “gift”).
 
 Good overview:
 https://users.cecs.anu.edu.au/~jks/LogicNotes/sequent-calculus.html
@@ -1425,9 +1437,32 @@ inference as the central notion and make the context explicit using
 the sequent calculus. This does involve inference (obviously) but not
 proof.
 
-\section{Inference Types}
+\section{Inferential Pluralism}
 
-Reasoning with types involves three distinct kinds of inference:
+We can classify inferences in at least the following ways:
+\begin{itemize}
+\item Qualitative kind (direct, inductive, and coinductive inference)
+\item Form (type, sequent, and proof inferences)
+\item Orientation (apomorphic, promorphic, endomorphic, etc)
+\end{itemize}
+
+\subsection{Varieties of Inference}
+
+Direct, inductive, and coinductive inference are species of a single
+genus.
+
+Examples:
+
+\begin{description}
+\item[Direct inference:]  \(\tj{\seq{x}}{\List{X}}\linfer \tj{\head(n)}{X}\)
+\item[Inductive inference:] x
+\item[Coinductive inference:] x
+\end{description}
+
+\subsection{Formal inference types}
+
+Reasoning with types in a formal calculus involves three distinct
+forms of inference:
 
 \begin{enumerate}
 \item type inferences (\(\tinfer\)) go from tokens to types; e.g. \(a\tinfer
@@ -1464,7 +1499,7 @@ set of practical skills. Type inference presupposes the ability to
 subsume particulars under general concepts. The ability to go from
 ``Rover'' to ``Rover is a dog'', for example.
 
-\subsection{Type Inference}
+\subsubsection{Type Inference}
 
 The standard symbol for type inference is the colon \(\ulcorner :\urcorner\).
 
@@ -1508,14 +1543,14 @@ Example: \(\land\text{-intro}\):
   %%         {A \supset \neg\neg A}
 %% \end{prfenv}
 
-\subsection{Sequent Inference}
+\subsubsection{Sequent Inference}
 Sequent inference presupposes the ability to combine such
 generalizations to form new generalizations, e.g. that ``Rover is a
 dog \textit{and} Mittens is a cat''. That is, the ability to master
 the practices involving the introduction and elimination of the
 ``logical'' constants.
 
-\subsection{Proof Inference}
+\subsubsection{Proof Inference}
 Finally, proof inference presupposes the ability to operate at a higher
 level of sequent inference management. A detailed argument would show
 how each level presupposes the previous level but adds new skills.
@@ -1548,6 +1583,11 @@ The forms according to \citetitle{martin1984intuitionistic} \parencite{martin198
 \end{itemize}
 
 Elsewhere he gives \(A \text{prop}\) and \(A \text{true}\).
+
+\subsection{Orientation}
+
+We can borrow the taxonomy of morphisms to classify inferences. See
+(\ref{morph:classes}) for more information.
 
 \section{Type Systems}
 
@@ -2273,12 +2313,12 @@ type unless we have a type abstraction operator, call it \(\tau\).
 Then we would have \(T\defeq \tau.\textsf{expr}\), meaning ``\(T\)
 names the type determined by the tau expression
 \(\tau.\textsf{expr}\)''.  Let's try this with \(\Nat\):
-\[\Nat\defeq\tau.\tj{\Znat}{\Nat}, \tj{n}{\Nat}\linfer\tj{Sn}{\Nat}\]
+\[\Nat\defeq\tau.\tj{\ZNat}{\Nat}, \tj{n}{\Nat}\linfer\tj{Sn}{\Nat}\]
 
 However, this is a recursive definition. To eliminate recursion, we need
 to be able to replace \(\Nat\) on the RHS with something that means
 ``the type under definition''.  Howsabout:
-\[\tau x.\tj{\Znat}{x}, \tj{n}{x}\linfer\tj{Sn}{x}\]
+\[\tau x.\tj{\ZNat}{x}, \tj{n}{x}\linfer\tj{Sn}{x}\]
 
 Here we use the bound variable \(x\) to mean not ``for all'', as is
 the case with lambda, but something like ``the type.'' A kind of
@@ -2292,15 +2332,15 @@ But wait, we don't need a bound variable. We're defining a type, all
 we need is a way to say ``the type we're defining'', and we can just
 use \(\tau\) for that. On the RHS it means ``it'', referring to ``the
 type''.
-\[\tau.\tj{\Znat}{\tau}, \tj{n}{\tau}\linfer\tj{Sn}{\tau}\]
+\[\tau.\tj{\ZNat}{\tau}, \tj{n}{\tau}\linfer\tj{Sn}{\tau}\]
 
 That gives us the desired ``anonymous'' type. It determines the type
-whose members are constructed by \Znat and \Snat. Now we can give it a
+whose members are constructed by \ZNat and \SNat. Now we can give it a
 name:
-\[\Nat\defeq\tau.\tj{\Znat}{\tau}, \tj{n}{\tau}\linfer\tj{Sn}{\tau}\]
+\[\Nat\defeq\tau.\tj{\ZNat}{\tau}, \tj{n}{\tau}\linfer\tj{Sn}{\tau}\]
 
 which we gloss ``\(\Nat\) names the type whose members are constructed
-by \Znat and \Snat''.
+by \ZNat and \SNat''.
 
 \(\tau\) is a kind of \textit{indirect abstraction} operator for
 types. It abstracts over the constructors and thus indirectly over the
@@ -4185,7 +4225,7 @@ Effect on the text:
 
 \section{Duction}
 
-The defining inference rules (for \Znat and \Snat) jointly define
+The defining inference rules (for \ZNat and \SNat) jointly define
 \(\Nat\). It is critically important to understand exactly what this
 means: they define the \textit{type} \(\Nat\). A type is not a set;
 although it is fine to say they define the natural number\textit{s},
@@ -4199,14 +4239,14 @@ infinities must not be thought of as completed totalities.
 
 Similarly, the codefining inference rules for \(\cohead\) and
 \(\cotail\) jointly codefine the cotype \(\colist{X}\) (infinite
-stream of \(X\)). They have the same form as the defining rules for
-\(\Nat\), but there is a fundamental semantic difference. The rules
-for \(\Znat\) and \(\Snat\) make no ontological presuppositions. The
-\(\Znat\) rule is an axiom; it licenses the inference to
-\(\tj{\Znat}{\Nat}\) from nothing. The rule for \(\Snat\) does assume
-an arbitrary \(\tj{n}{\Nat}\), but the assumption is that any such
-object has been built up by the rules themselves starting from
-\(\Znat\). So the assumption is warranted by the rules themselves.
+stream of \(X\)). They differ fundamentally from the defining rules
+for inductive types like \(\Nat\). The rules for \(\ZNat\) and
+\(\SNat\) make no ontological presuppositions. The \(\ZNat\) rule is
+an axiom; it licenses the inference to \(\tj{\ZNat}{\Nat}\) from
+nothing. The rule for \(\SNat\) does assume an arbitrary
+\(\tj{n}{\Nat}\), but the assumption is that any such object has been
+built up by the rules themselves starting from \(\ZNat\). So the
+assumption is warranted by the rules themselves.
 
 The codefinition rules for \(\colist{X}\) are different. They both
 assume that an arbitrary \(\tj{\coseq{x}}{\colist{X}}\) is already
@@ -4214,7 +4254,13 @@ available, so to speak, without having been constructed by the rules
 themselves. They license inferences, but those inferences have an
 indeterminate, undefined premise, namely
 \(\tj{\coseq{x}}{\colist{X}}\). They are purely formal, whereas the
-rules for \(\Nat\) have substance.
+rules for \(\List{X}\) have substance.
+
+Furthermore, defining rules for types are promorphisms (their domains
+are the types they define), while the codefining rules for cotypes a
+apomorphisms (their codomains are the cotypes they codefine). In fact
+that orientation is part of what makes an inference rule a primitive
+constructor or co-constructor.
 
 We might think of the inference rules for \(\colist{X}\) in
 counterfactual terms: \textit{if} we had arbitrary
@@ -4364,6 +4410,16 @@ we can \textit{approximate} them. Given a codefinition for
 inductively define a function that satisfies the specification and
 thereby approximates the (infinite) cofunction.
 
+\subsection{Notes}
+
+It's critical to maintain a clear distinction between syntax and
+semantics in thinking about coinduction et al. And to beware of
+semantic metaphors, which work fine until they don't.
+
+Co-stuff is truly dual to stuff. Thinking about it really does require
+not just an adjustment but a complete reversal of the usual inductive
+way of thinking.  And this goes all the way down.
+
 \section{Types and Cotypes}
 
 \paragraph{Duality}  Duality is an all-or-nothing affair. If you reverse one arrow, you must reverse all other arrows related to the first.
@@ -4403,11 +4459,18 @@ inferrable from the concept expressed by \textit{x}.
       \item[List and colist:] \(\List{X}\) \dual \(\colist{X}\)
 \end{description}
 
+NB: instead of ``token'' and ``cotoken'' most writers use ``term''
+(and ``coterm'') for syntax, and ``witness'', ``inhabitant'' etc. for
+semantics.
+
 %%%%%%%%%%%%%%%%
 \subsection{Semantics}
 
-Inferenctial semantics: upstream and downstream inferences determine
+Inferential semantics: upstream and downstream inferences determine
 conceptual content.
+
+Ctors and coctors as morphisms. Type ctors are promorphism, they go to
+the type. Cotype co-ctors are apomorphisms, they go from the type.
 
 Types are explained by upstream inferences (circumstances of
 application, production rules); cotypes, by downstream inferences
@@ -4417,6 +4480,8 @@ application, production rules); cotypes, by downstream inferences
 
 A token/cotoken is fully determined, or determinate, when it is both typed and defined.
 
+A token/cotoken is underdetermined if it lacks a type or a definition.
+
 A token/cotoken that has a type but not a definition is
 underdetermined, or partly determined.
 
@@ -4425,14 +4490,56 @@ A symbol with neither type nor definition is indeterminate.
 It follows that all tokens in a type universe are at least partly
 determined.
 
+What about a null token, like the empty list? Determinate?
+
+What is determinateness for types?
+
+A type/cotype is fully determined/determinate if all of its tokens are
+determinate.
+
+Intuitively, a type should be underdetermined if some (at least one?)
+of its tokens are underdetermined.
+
+Indeterminate type?
+
+What about an empty type. Determinate or indeterminate?
+
+\subsubsection{Classic v. Intuitionistic Interpretation}
+
+For the Platonist coinductive reasoning etc. presents some problems.
+Cotypes are assumed to already be populated etc.  As described elsewhere in this document.
+
+None of that will for the intuitionist. Co-constructors operate on
+co-data which are anti-constructive: do not and cannot exist. So how
+can an intuitionist make sense of this co-stuff?
+
+Same way they make sense of other infinitudes? E.g. real numbers, the
+continum, etc. They've figured out ways to finesse such stuff. E.g.
+fans, bar theorem, apartness, etc.
+
+\subsubsection{Type and cotype}
+
 \subsubsection{Definition and codefinition}
+
+\textquote[\cite{pierce2004advanced} ``Type Definitions'' p.
+  348]{[T]he addition of definitional mechanisms can change the
+  properties of type systems in ways that are not immediately
+  obvious... It is therefore useful to study type definitions as
+  primitive concepts.}
+
+
+[Here the arrows should be read semantically, not algebraically. These
+  are not functors, yet. Use a different arrow?]
 
 Types \textit{are determined by} their constructors: \(\ctor{0}\times\ldots\times\ctor{n} \rightarrow A\).
 
 Cotypes, by contrast, \textit{codetermine} their co-constructors:
-\(\coctor{0}\times\ldots\times\coctor{n} \leftarrow \cotype{A}\).
+\[\coctor{0}\times\ldots\times\coctor{n} \leftarrow \cotype{A}\]
 Equivalently, and perhaps more scandalously, co-constructors are
 determined by their cotype.
+
+[TODO: compare algebraic interpretation. It lacks the idea that these
+  things are related by a ``determinator'' relation.]
 
 This may seem counter-intuitive at first glance. According to the
 common way of speaking, what we call cotypes are ``defined by
@@ -4511,7 +4618,7 @@ fixing their types, co-constructors return the favor by expressing
 constraints on the ``behavior'' not of cotypes but of cotokens. Let's spell this out more explicitly with an example:
 
 \begin{itemize}
-\item The cotype \(\colist{X}\) (stream of \(X\)) fixes the type of
+\item The cotype \(\colist{X}\) (stream of \(X\)) determines the type of
   its \cohead{} co-constructor:
   \(\tj{\cotok{x}}{\colist{X}}\linfer\tj{\cohead(\cotok{x})}{X}\).
   \item The co-constructor in turn expresses a constraint on cotokens
@@ -4526,6 +4633,23 @@ definition, to which we now turn.
 
 Critically important: the partial determinations expressed by the
 co-constructors are global! They apply to every cotoken of the cotype.
+
+\subsubsection{Constructor and Co-constructor}
+
+Ctors and co-ctors determine (define?) a protocol. A functor tin CT
+terms. Cofunctions implement the protocol. Each has its own
+definitions for the co-ctors. So there's a naming issue in practice.
+If they all use the same name the we have name clashes.
+
+A way around this is to have each cofunction determine a type. Then
+the compiler can determine which co-ctor implementation is needed
+based on the type.
+
+The other way would be for each cofunction to define a unique name for
+the co-ctors. But then they would not be co-ctors for the type.
+
+Either way: do cotypes and cofunctions make sense without some kind of
+polymorphism?
 
 \subsubsection{Function and Cofunction}
 
@@ -4543,6 +4667,102 @@ interface or signature for cotokens of the cotype. Then cofunctions
 provide implementations\footnote{Co-implementations?}.
 
 (Compare: inheritance)
+
+\subsubsection{Note}
+
+Some writers seem to get it wrong, unless I've badly misunderstood something.
+
+For example:
+
+\textquote[\cite{nonwf_deduction}, p. 7]{A coinductively defined set
+  is also constructed by starting with a set of initial elements and
+  applying the constructor operators, possibly infinitely many times.
+  One example, which arises from the same initial element and
+  constructors as the inductive set of lists, is that of possibly
+  infinite lists, i.e. the set that also contains infinite streams.
+  The fact that we can apply the operators infinitely many times is
+  due to coinduction being the largest subset that can (potentially)
+  be constructed using the operators.} That makes no sense at all to
+me. The number of times you iterate a ctor in building a single
+element has nothing to do with the size of the set. Worse, what this
+writer has evidently completely missed is that coinduction does not
+construct things. The infinitely long lists in a stream type are
+\textit{given}, not constructed! Which is odd, considering how
+technical the paper is, he must know a thing or two.
+
+Even if we did construct some stuff, the original type would always be
+at least as big, just because it contains the most stuff possible.
+This is evident when you consider the co-ctors are apomorphisms. You
+cannot add a new, or longer stream term to a stream type! So any
+cofunctions you define will determine a set that is always less than
+or equal to the original stream set.
+
+
+%%%%%%%%%%%%%%%%
+\subsection{Morphism classes}\label{morph:classes}
+
+First some terminology. We classify morphisms for a type/cotype by the
+role played by the type in the type signature of the morphism. For
+example, if the type we're interested in is the domain of \(f\), then
+\(f\) is an apomorphism.
+
+If the type (or cotype) of interest is \(X\), then:
+
+\begin{description}
+\item[Endomorphism\footnotemark:]\footnotetext{Greek ἕνδον,
+  \textit{endon}, inside, within, internal} \(\tj{f}{X\func X}\)
+\item[Promorphism\footnotemark:]\footnotetext{Greek προσ, \textit{pros},
+  to, toward} \(\tj{f}{A\func X}\)
+\item[Apomorphism\footnotemark:]\footnotetext{Greek απο, \textit{apo},
+  from, away from} \(\tj{f}{X\func A}\)
+\item[Synthetic morphism:] the codomain is a polynomial type
+  (combination of products and sums) containing \(X\) e.g.
+  \begin{itemize}
+  \item \(\tj{f}{X\func X\times X}\) is a synthetic endomorphism
+  \item \(\tj{f}{X\func A\times B}\) is a synthetic apomorphism
+  \end{itemize}
+\item[Analytic morphism:] the domain is a polynomial type containing \(X\), e.g.
+  \begin{itemize}
+    \item \(\tj{f}{X\times X\func X}\) is an analytic endomorphism
+    \item \(\tj{f}{X\times X\func A}\) is an analytic apomorphism
+  \end{itemize}
+\item[Hybrid morphism:] anything that does not fit in the above categories:
+  \begin{itemize}
+  \item \(\tj{f}{X\func A\times X}\)
+  \item \(\tj{f}{X\func X\times B}\)
+  \item \(\tj{f}{X\func A\times B + C}\)
+  \item \(\tj{f}{A\times X\func X}\)
+  \item \(\tj{f}{A\times X\func B}\)
+  \item \(\tj{f}{X\func A\times B + C}\)
+  \item etc.
+  \end{itemize}
+\end{description}
+
+
+%%%%%%%%%%%%%%%%
+\subsection{Implementation}
+
+An implementation is an approximation.
+
+Example: constant lists, whose heads always return a constant c.
+
+How do we get the ball rolling? We need a cofunction whose head
+returns c. But it must be applied to a stream token; where do we get
+one, if they do not exist?
+
+Cotokens are underdetermined. We can approximate one in a real program
+by just ignoring it. We know how it would behave if we had it, so we
+can implement the behavior even if we do not have one.  So we don't just approximate the infinity, we approximate the existence.
+
+So we implement a \defn{constantly} function that takes a number to
+return. Instead of returning it we create and return a cofunction
+whose head returns it. But then to use it the client would need to use
+that head function.
+
+So we're forced to implement either some kind of object-oriented
+thing, or we have protocols, and our returned cofunction would
+implement the protocol. That fits. The cotype co-ctors define the
+protocol.
 
 
 %%%%%%%%%%%%%%%%
@@ -4581,6 +4801,10 @@ Conumbers
 
 
 \section{Fixed Points}
+
+If you add a constructor to a type, you expand its range. If you add a
+co-constructor to a co-type, you contract its domain. Because you're
+effectively adding a filter.  More info means narrower space.
 
 Resources:
 
@@ -4834,7 +5058,7 @@ textquote[p. 11]{Although the symbols that occur in the judgements
   their contribution to propositional content is determined by their
   associated modes of determination.}
 
-\section{Equality}
+\section{Equality (and Coequality?)}
 
 Equality is non-logical. That's why writers distinguish between logics
 and logics with equality.
@@ -5104,7 +5328,7 @@ the implemetations (\ref{natid:1}) and (\ref{natid:2}) are expressed
 by formulae of the same length, but they generate computations of
 different length. We know this, because their inputs are natural
 numbers, and natural numbers are defined inductively by two
-constructors, \Znat and \Snat. The instructions of a computation
+constructors, \ZNat and \SNat. The instructions of a computation
 correspond to the constructors of the type being computed.
 
 So each point in the intensional equality space associated with the
@@ -5929,7 +6153,9 @@ proven.
 
 Substitutability?
 
-\subsection{Codefining Equality}\label{codef_eq}
+\subsection{Codefining Coequality}\label{codef_eq}
+
+See ``apartness'' in intuitionistic mathematics.
 
 \begin{itemize}
 \item refl: \(x=y \rightarrow x=x\)
@@ -6556,7 +6782,221 @@ Conatural numbers? See
   and coinduction: what they are and how they relate to recursion and
   induction}
 
-\subsection{Finite and infinite Lists}
+\subsection{Dark Numbers}
+
+To demonstrate the minimality of types defined by induction, we can
+expand \(\Nat\) to \(\NDark\) by adding two ``dark'' constructors,
+\(\ZDark\) and \(\SDark\). Define \(\NDark\) by:
+
+\begin{align}
+  & \linfer \tj{\ZNat}{\NDark} \\
+  & \linfer \tj{\ZDark}{\NDark} \\
+  \tj{n}{\ZDark} & \linfer \tj{n\SNat}{\NDark} \\
+  \tj{n}{\ZDark} & \linfer \tj{n\SDark}{\NDark} \\
+\end{align}
+
+Our reasoning with these ``dark numbers'' will be the same as our
+reasoning with natural numbers, except that we have two more cases to
+consider when we reason by case analysis.
+
+Ordinary \(\Nat\) and its expansion \(\NDark\) have the same
+cardinality; they're both infinite (by construction), and their
+elements can be put in one-to-one correspondance. But \(\NDark\) has
+``more structure'' than \(\Nat\). We can express this vague notion
+mathematically by observing that there is a homomorphism from \(\Nat\)
+to \(\NDark\). We can draw a one-to-one map that respects construction
+from the former to the latter, but not from the latter to the former.
+There are ``too many'' elements in \(\NDark\), even though the sets
+have the same cardinality. We can map \(\ZNat\) from \(\Nat\) to its
+counterpart in \(\NDark\), but going the other way around we would
+need to map both \(\ZNat\) and \(\ZDark\) to \(\ZNat\).
+
+[TODO: make the homomorphsim explicit with a diagram or two]
+
+Homomorphisms induce an ordering. If we have a homomorphism \(A~\hmorph~B\), then we can make this ordering explicit by replacing the
+homomorphism arrow \(\hmorph\) by a more suggestive symbol, for
+example \(A\preceq B\). Then we can state the minimality principle
+more concisely: \(\Nat\) is the least element of the set \(\{A\ |\
+  \Nat\preceq A\}\).
+
+The point of this exercise is to provide a vivid demonstration of what
+it means for an inductively defined type to be the least of its kind.
+But we can have some fun with dark numbers too.
+
+Here are some examples. We use the standard numerals \(0, 1,\cdots\)
+to express the number of manifest \(\Nat\) subconstructions are in a
+construction that starts from \(\ZNat\), and a parallel set of ``dark
+numerals'' \(\dark{0}, \dark{1}, \cdots\) to count dark
+subconstructions in constructions starting from \(\ZDark\).
+
+We use \(\bot\) resp. \(\dark{\bot}\) to indicate ``improper''
+constructions. An improper construction is a hybrid that contains
+subexpressions that do not match the base case. For example
+\(\ZNat\SDark\) is \(0\) and \(\dark{\bot}\).
+
+Equation (\ref{dark:card}) demonstrates a function \textsf{abs} that
+counts the total number \(\SNat + \SDark\) of successor constructions.
+
+\begin{align}
+  & \ZS & = 1 \\
+  & \ZDark\SDark & = \dark{1}\\
+  & \ZNat\SDark & = 0 = \dark{\bot}\\
+  & \ZDark\SNat & = \dark{0} = \bot \\
+  & \ZDark(\SDark\SNat)(\SDark\SNat) & = \bot = \dark{2} \\
+  & \ZNat\SDark\SDark\SDark\SNat & = 1 = \dark{\bot} \label{dark:hybrid} \\
+  & \textsf{\slshape abs}(\ZNat\SDark\SDark\SDark\SNat) & = 4 \label{dark:card} \\
+  & \ZDark\SDark\SDark\SDark\SNat & = \bot = \dark{3} \\
+  & \textsf{\slshape abs}(\ZDark\SDark\SDark\SDark\SNat) & = 4
+\end{align}
+
+We could also design the constructor rules to force parallel successor
+operations, so that every \(\SNat\) is accompanied by a \(SDark\) and
+vice-versa.  Maybe \(\tj{n}{\ZDark} \linfer \tj{n\SDark\SNat}{\NDark}\)
+
+
+The real fun begins when we try to define operations like addition. We
+can easily define standard addition by ignoring dark numbers, but we
+could also define other kinds of addition, such as a total sum that
+sums the total number of manifest and dark constructions. Etc.
+
+[TODO:  A
+  filter to remove dark constructors, leaving a manifest number
+  (within \(\NDark\)). Dark numbers look wierd, but they behave like
+  manifest numbers if you squint.]
+
+
+We can play metaphysical games with dark numbers. You say the
+``ordinary'' natural numbers, \(0,1,2\cdots\) exist. The Dark Number
+theorist agrees, with a caveat: they're not the \textit{only} natural
+numbers that exist. The dark numbers also exist; you've just never
+noticed them.
+
+The intuitionist might remain unperturbed by dark numbers. The
+Fundamental Principle of Intuitionism says that the only numbers that
+exist are the ones we construct. \(\Nat\) exists by construction that
+does not involve dark numbers, so whether or not we can also construct
+dark numbers is irrelevant. But the Fundamental Principle makes a
+presupposition, namely that manifest construction is the only kind
+there is. This the Dark Theorist denies, arguing that dark
+construction is implicit in all manifest construction. A manifest
+construction like \(\ZSS\) conceals some dark construction, like
+\((\ZDark\ZNat)(\SDark\SNat)(\SDark\SNat)\) -- one dark construction
+for each manifest construction. We might even go so far as to claim
+that dark construction is primitive: without it we would not have
+manifest construction.
+
+Of course these are just games, intended to demonstrate something
+about coinductive reasoning. Mathematics gets along fine without dark
+numbers; we do not need them. But then again, if physicists think that
+the universe is full of dark matter, why shouldn't mathematicians
+think that the mathematical universe is full of dark numbers?
+Metaphysically, they make at least as much sense as manifest numbers.
+
+\subsection{Coinduction: stream contraction}
+
+Cotypes are the greatest elements of their class.  etc.
+
+To show what this means we show how to derive a ``smaller'' type from
+the type of streams.
+
+It's intuitively obvious that the type ``stream of \(X\)''
+(\(\colist{X}\)) is maximal, in the sense that it ``already'' contains
+all possible particular \(X\)-streams. But it's also minimal, in that
+its co-constructors are underdetermined. They are typed, but not
+defined.
+
+``Maximal'' means that it is the greatest element of the class of all
+types that are homomorphic to it. We give an example to illustrate
+just what that means.
+
+First let's consider a type that is homomorphic to \(\colist{X}\),
+without yet worrying about how to define it. The type
+\(\eqstream{X}\) is the type of all streams whose heads return a
+constant. In other words, streams whose elements are equal, such as
+\(\langle 1,1,\ldots\rangle\).
+
+The members of such a type will clearly form a subset of the members
+of \(\colist{X}\)\footnote{Types are not sets, but since we have not
+yet defined ``subtype'' we'll treat them as such for now.}, so if we
+can show that there is a homomorphism from \(\eqstream{X}\) to
+\(\colist{X}\), we'll have a better idea of what it is for the latter
+to be the greatest element of this class. To do so we need to
+(co-)define \(\eqstream{X}\) and show how this entails the
+homomorphism.
+
+The short version: cotypes like \(\eqstream{X}\) are codefined by
+refining the definitions of the co-constructors of \(\colist{X}\).
+Their meanings are underdetermined by the definition of
+\(\colist{X}\); in fact, their definitions give them no meaning at
+all. Their ``definitions'' merely declare their types, so there are no
+semantic constraints on them. They can be thought of as specifications
+that jointly determine a \textit{protocol} for their cotype. The
+definitions of cotypes like \(\eqstream{X}\) work by partially
+defining these co-constructors. They provide an implementation of the
+protocol, as it were. By giving the co-constructors specific meanings,
+they narrow their range. So the cotype they determine comes out as a
+kind of contraction of \(\colist{X}\).
+
+This is easily expressible in set theoretic terms. We start with a
+domain, an unconstrained set that contains ``everything'' we're
+interested in. We produce a subset by adding constraints on
+membership; this can be expressed as a characteristic function, or a
+list of ``such that'' clauses. In this particular case, we would have
+something like the following in informal terms: ``The set of all
+members of \(\colist{X}\) \textit{such that} their
+\(\ulcorner\head{}\urcorner\) operation always returns the same
+value''.
+
+Our task is thus to show how these and similar \textit{such that}
+constraints can be expressed in a type calculus. This requires more
+than merely working out the syntax. The informal example we gave above
+is expressed in the idiom of classical logic; it states conditions
+that must be \textit{true of} a stream in order for it to be a member
+of the set. We cannot do that, because the tools we have at our
+disposal are essentially \textit{inferential}. What we're after is a
+way to positively infer membership rather than simply observe it,
+which is what \textit{such that} conditions do. They just state a
+fact, that members have such-and-such a property \textit{in virtue of
+  being members}, not that they earn membership in virtue of having
+the property. So our more fundamental task is to show how such
+\textit{such that} constraints can be expressed inferentially. Then we
+will be able to infer membership from the (inferential) properties of
+the candidate stream. This is quite different than merely expressing
+\textit{such that} conditions. In fact we'll see below that the
+difference is vast.
+
+Co-constructors are \textit{apomorphisms}; the go from the cotype they
+define.
+
+\begin{align}
+ \cohead(\cotail(\coseq{x})) & = \cohead(\coseq{x}) & \text{equational} \\
+  \cohead(\cotail(\coseq{x})) & \linfer \cohead(\coseq{x}) & \text{inferential}
+\end{align}
+
+This expresses a genuinely coinductive inference. It cannot be
+expressed (or made) in any simply way. It is different than direct
+inference.
+
+Such ``definitional'' coinductive inference rules -- those that play a
+defining role, similar to an axiom -- express the internal structure
+of the streams whose cotype they define. The structure of those
+streams is expressed at the most abstract level by the co-ctors of
+\(\colist{X}\). The only structure they have is concatenation.
+Co-definitions like the one above express further structure - that the
+head of the whole is related in a particular way to the head of the
+tail\footnote{Note the difference with the \textit{such that} method,
+which says nothing about the structure of the things that satisfy the
+condition.}. And note that the co-ctors defined in the subtype are not
+the ctors of \(\colist{X}\). But they have the same names and type
+signatures, and that's what matters: it's what makes for the
+homomorphism, and it is what allows us to treat them as
+implementations of a protocol.
+
+
+
+\subsection{Finite Lists}
+
+\subsection{Streams}
 
 Examples of various types of functions/cofunctions.
 
@@ -6571,15 +7011,99 @@ To define:
 \item Sum, Sum(n)
 \end{itemize}
 
-evens, odds, merge
+
+\subsubsection{Construction operations}
+
+\subsubsection{Apomorphisms (projectors)}
+
+Apomorphisms
+
+\subsubsection{Generators}
+
+\begin{align}
+  \tj{n}{\Nat} & \linfer \tj{\codefn{upFrom}(n)}{\colist{X}} & \text{// declartion} \\
+  \codefn{upFrom}(n) & = \cocons(n, \codefn{upFrom}(n+1)) & \text{// corecursion} \\
+  \cohead(\codefn{upFrom}(n)) & = n & \text{// coinduction} \\
+  \cotail(\codefn{upFrom}(n)) & = \codefn{upFrom}(n+1) & \text{// coinduction}
+\end{align}
+
+For example, generate \(\langle 1,1,1\rangle\), \(\langle 1,1,\cdots\rangle\).
+
+\subsubsection{Pathological cases}
+
+\subsection{Transfinite Lists}
+
+The idea is that we start with ordinary infinite lists, and append
+transfinite ordinals. E.g. \(\langle 0, 1, \ldots, \omega, \omega+1,
+\ldots\rangle\). So our new lists will look like a pair of an infinite
+list of \(X\) and an infinite list of transfinite ordinals, but in
+theory they are concatenated infinities. This is expressed by the
+cotype discipline, which is different that that of pair types. The
+tails of the sublists have the same type as the whole list. That is,
+the sublists do not get their own types.
+
+Not much use except for demonstrating some things about coinductive
+reasoning.
+
+We can express this by expanding the stream type, just as we expanded
+\(\Nat\) to get \(\NDark\). We just add new co-constructors so that we
+can extract the transfinite ordinals. The \(\cohead\) co-constructor
+will not change; the new \(\xcohead\) co-constructor will project the
+head of the transfinite sublist. Similarly, the new \(\xcotail\) will
+return the tail of the transfinite sublist.
+
+But first we need a type for transfinite ordinals. We won't define it
+here (yet), we just need to declare it so we can express tokens of the
+type. We use \(\Omega\), and we'll use \(\omega_{i}\) for tokens so we
+can write \(\tj{\omega_0}{\Omega}\).\footnote{A subscripted \(\omega\)
+symbol as a variable must not be confused with its use as a constant
+to name the first transfinite ordinal.}
+
+\vspace{2ex}
+
+We need two list types, \(X^{\Nat}\) and \(X^{\Omega}\) and their
+concatenation \(X^{\Nat\Omega}\).
+
+Here are the defining inference rules for cotype \(\xcolist{X}\)
+(transfinite list of \(X\)).
+
+\begin{align}
+  & \linfer \tj{\Omega}{\Univ} & \Omega\ \text{is a type} \\
+  \tj{\seq{x}}{\xcolist{X}} & \linfer \tj{\head(\seq{x})}{X} & \\
+  \tj{\seq{x}}{\xcolist{X}} & \linfer \tj{\xcohead(\seq{x})}{\Omega} & \\
+  \tj{\seq{x}}{\xcolist{X}} & \linfer \tj{\tail(\seq{x})}{\xcolist{X}} & \\
+  \tj{\seq{x}}{\xcolist{X}} & \linfer \tj{\xcotail(\seq{x})}{\xcolist{X}} &
+\end{align}
+
+[But then we expect \(\tj{\xcohead(\xcotail(\seq{x}))}{\Omega}\). How can we ensure this?]
+
+\subsubsection{Notes}
+
+The infinite list type is less than the new transfinite list type. So
+the latter is not included in the ``terminal coalgebra'' set of the
+former. So this example does not demonstrate the maximality of the
+infinite list cotype.
 
 \section{Notes}
 
+\subsection{Infinities}
+
+\href{https://en.wikipedia.org/wiki/Axiom_of_infinity}{Axiom of Infinity}
+
+\href{https://en.wikipedia.org/wiki/Finitism}{Finitism}
+
+\subsection{Non-well-founded sets}
+
+\citetitle{nonwf_deduction} \cite{nonwf_deduction}
+
 \subsection{Recursion and Corecursion}
 
-\href{http://blog.ezyang.com/2013/04/the-difference-between-recursion-induction/}{The Difference between Recursion \& Induction}
+If you check for a base case, it's recursion; otherwise it's
+corecursion.
 
-Summary: induction over types, recursion over terms?
+Equivalently, if the domain type is defined by induction, it's recursion. Otherwise, it's corecursion.
+
+\href{http://blog.ezyang.com/2013/04/the-difference-between-recursion-induction/}{The Difference between Recursion \& Induction}
 
 Or: define types by induction, functions by recursion?
 
@@ -6851,57 +7375,57 @@ case; every \(\Stroke{1}\) is alike, and to construct a number, you
 start from nothing, not zero.
 
 Most presentations, though, follow Peano's example and define a base
-case and use a distinguished symbol for it (\Znat, \(\mathbb{0}\),
+case and use a distinguished symbol for it (\ZNat, \(\mathbb{0}\),
 etc.). This requires two axioms, one affirmative and one negative:
-\Znat{} is a natural number, and \Znat{} is not the successor of any
+\ZNat{} is a natural number, and \ZNat{} is not the successor of any
 natural number.
 
-We start with \Znat{} and \Snat{}, and we can build \ZS, \ZSS, etc.
+We start with \ZNat{} and \SNat{}, and we can build \ZS, \ZSS, etc.
 \textit{ad libitum}.
 
-But what do \Znat{} and \Snat{} denote? We have two options for \Znat:
+But what do \ZNat{} and \SNat{} denote? We have two options for \ZNat:
 either it denotes something, or it does not.
 
-If \Znat{} exists, then we're forced to concede that the number \(1\)
+If \ZNat{} exists, then we're forced to concede that the number \(1\)
 is actually a two, since it is the combination of two things:
-\(1\eqdef \ZS\). Under this operation, \Snat{} is also a thing:
-the successor \textit{operation} is not \Snat; rather it is what we do
-when we add \Snat{} to a natural number. But then \Snat{} would be a
+\(1\eqdef \ZS\). Under this operation, \SNat{} is also a thing:
+the successor \textit{operation} is not \SNat; rather it is what we do
+when we add \SNat{} to a natural number. But then \SNat{} would be a
 special kind of thing, something that cannot stand alone, since
-otherwise \Snat{} itself would be a number (maybe we need another
-axiom stating ``\Snat{} is not a natural number''.)
+otherwise \SNat{} itself would be a number (maybe we need another
+axiom stating ``\SNat{} is not a natural number''.)
 
-Or, we could treat \Snat{} as a kind of primitive, undefined,
+Or, we could treat \SNat{} as a kind of primitive, undefined,
 function-like thing that takes any natural number to its successor.
 Then we would have two ways to interpret it. The non-constructive way
 would presuppose that the successor of each \(n\) already exists, and
-the job of \Snat{} is to point to it, so to speak. The constructive
-interpretation would treat \Snat{} as some kind of mechanism that, given
+the job of \SNat{} is to point to it, so to speak. The constructive
+interpretation would treat \SNat{} as some kind of mechanism that, given
 an existing natural number (as a kind of raw material), produces a new
 one.
 
-Under a constructive interpretation, \Znat{} could not merely denote
+Under a constructive interpretation, \ZNat{} could not merely denote
 something that already exists; but for \ZS{} to be intelligible
-under this interpretation, \Znat{} would have to denote
-\textit{something}, so that \Snat{} would have the raw materials it
+under this interpretation, \ZNat{} would have to denote
+\textit{something}, so that \SNat{} would have the raw materials it
 needs to produce a new number. So we would be compelled to think of
-\Znat{} as a kind of productive machine just like \Snat, except that
-\Znat{} would need no raw materials to get started. It would create
+\ZNat{} as a kind of productive machine just like \SNat, except that
+\ZNat{} would need no raw materials to get started. It would create
 something from nothing.
 
 So the construction of \(\Nat\) is already metaphysically puzzling.
 
-So far we have a distinguished first natural number \Znat, but it does
+So far we have a distinguished first natural number \ZNat, but it does
 not yet behave like zero. In fact, under the rules we have so far, it
 behaves like \(1\). To make it behave like we expect zero to behave ,
-we need to add some constraints on addition: \(n + \Znat = n,\ \Znat +
+we need to add some constraints on addition: \(n + \ZNat = n,\ \ZNat +
 n = n\). And again there are two ways to interpret this. One is to
 think that the introduction of these axioms changes the meaning of
-\Znat. They confer a special property not on the \Znat machine itself,
-but on its output: when that ``\Znat-thing'' used in an addition it
+\ZNat. They confer a special property not on the \ZNat machine itself,
+but on its output: when that ``\ZNat-thing'' used in an addition it
 adds nothing. The other strategy is to think that the introduction of
 the axioms changes the meaning of addition: it now examines its
-operands, and discards any equal to \Znat.
+operands, and discards any equal to \ZNat.
 
 No matter how you cut it hermeneutically, zero is metaphysically
 puzzing.

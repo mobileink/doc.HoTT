@@ -3,6 +3,7 @@
 \usepackage[fleqn]{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{txfonts}
 \usepackage{relsize}
 \usepackage{stackengine}
 
@@ -41,11 +42,6 @@
 
 \newcommand{\modus}{\textit{modus ponens}}
 
-%% nat numbers
-\newcommand{\Znat}{\textsf{\slshape Z}}
-\newcommand{\Snat}{\textsf{\slshape S}}
-\newcommand{\ZS}{\textsf{\slshape ZS}}
-\newcommand{\ZSS}{\textsf{\slshape ZSS}}
 %% tally strokes
 \newcommand{\Stroke}[2][]{\begin{tikzpicture}[thick,baseline,#1]
 \foreach \X [evaluate=\X as \Y using {int(mod(\X,5))}]in {1,...,#2}
@@ -56,9 +52,27 @@
 \fi}
 \end{tikzpicture}}
 
+%% dark numbers
+\newcommand{\NDark}{\Nat_{\bullet}}
+\newcommand{\ZDark}{\textsf{\slshape Z}_{\bullet}}
+\newcommand{\SDark}{\textsf{\slshape S}_{\bullet}}
+\newcommand{\dark}[1]{#1_{\bullet}}
+
+\newcommand{\hmorph}{\hspace{-2pt}\rightsquigarrow}
+
+%% nat numbers
+\newcommand{\ZNat}{\textsf{\slshape Z}}
+\newcommand{\SNat}{\textsf{\slshape S}}
+\newcommand{\ZS}{\textsf{\slshape ZS}}
+\newcommand{\ZSS}{\textsf{\slshape ZSS}}
+
+%%%%
 \DeclareRobustCommand*{\Fusion}{$\boldmath\fusion$}
 
 \newcommand{\IBMMM}{\ensuremath{\textsf{IBM}^3}}
+
+\newcommand{\dom}{\ensuremath{\textsf{\slshape dom}}}
+\newcommand{\codom}{\ensuremath{\textsf{\slshape codom}}}
 
 \newcommand{\defn}[1]{\ensuremath{\textsf{\slshape #1}}}
 \newcommand{\codefn}[1]{\ensuremath{\overline{\textsf{\slshape #1}}}}
@@ -77,8 +91,8 @@
 
 %% finite lists
 %% NB: \list is already defined and used by e.g. itemize
-\newcommand{\List}[1]{\ensuremath{\underset{\rightarrow}{#1}}}
-\newcommand{\seq}[1]{\ensuremath{\underset{\rightarrow}{#1}}}
+\newcommand{\List}[1]{\ensuremath{{#1^{*}}}}
+\newcommand{\seq}[1]{\ensuremath{{#1s}}}
 
 \newcommand{\head}{\ensuremath{\textsf{\slshape head}}}
 \newcommand{\tail}{\ensuremath{\textsf{\slshape tail}}}
@@ -88,13 +102,23 @@
 \newcommand{\listld}{\ensuremath{\textsf{[}}}
 \newcommand{\listrd}{\ensuremath{\textsf{]}}}
 
-%% colists
-%% \newcommand{\Colist}[1]{\ensuremath{\textsf{\slshape Colist}\,#1}}
-\newcommand{\colist}[1]{\ensuremath{\underrightarrow{\overline{#1}}}}
-\newcommand{\coseq}[1]{\ensuremath{\overrightarrow{#1}}}
-\newcommand{\cohead}{\ensuremath{\overline{\textsf{head}}}}
-\newcommand{\cotail}{\ensuremath{\overline{\textsf{tail}}}}
-\newcommand{\cocons}{\ensuremath{\overline{\textsf{cons}}}}
+%% infinite lists (colists, streams)
+\newcommand{\colist}[1]{\ensuremath{{#1^{\omegaup}}}}
+\newcommand{\coseq}[1]{\ensuremath{\overline{#1s}}}
+\newcommand{\cohead}{\ensuremath{\textsf{\slshape head}}}
+\newcommand{\cotail}{\ensuremath{\textsf{\slshape tail}}}
+\newcommand{\cocons}{\ensuremath{\textsf{\slshape cons}}}
+
+%% demo
+\newcommand{\eqstream}[1]{\ensuremath{{#1^{=}}}}
+
+
+%% transfinite colists
+\newcommand{\xcolist}[1]{\ensuremath{{#1^{\Omega}}}}
+\newcommand{\xcoseq}[1]{\ensuremath{\overline{#1s}}}
+\newcommand{\xcohead}{\ensuremath{\textsf{\slshape head}}_{\Omega}}
+\newcommand{\xcotail}{\ensuremath{\textsf{\slshape tail}}_{\Omega}}
+\newcommand{\xcocons}{\ensuremath{\textsf{\slshape cons}}_{\Omega}}
 
 %% Inference types
 %% generic
