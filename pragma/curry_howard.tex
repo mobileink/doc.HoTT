@@ -1,0 +1,378 @@
+\section{Curry-Howard}\label{sec:curry-howard}
+
+First a caveat: the Curry-Howard isomorphism is often referred to as
+``propositions-as-types''. This is incorrect; it is not particular
+propositions that are types, but propositional formulae.
+
+It's very easy to see the relation between propositions (that is,
+formulae) and types even in a minimal \textit{untyped} calculus for
+first-order logic. Take for example the introduction rule for
+conjunction, which would look something like \(A, B\seqso A\lkand B\).
+The standard intended interpretation of such formulae is
+propositional: we are to treat \(A\) and \(B\) as meta-variables
+ranging over propositions, and we implicitly add ``...is true''.
+
+The standard intended interpretation in terms of propositions and
+truth is so common and so easily understood that it is easy to forget
+that it is optional, and to think that such calculi are
+\textit{essentially} about reasoning with propositions and truth. But
+the standard \textit{intended} interpretation is not the only one
+possible. We can draw on other semantic domains to provide
+interpretations; in particular, we can use the world of types and
+tokens.
+
+Under a types-and-tokens interpretation, we have two options. We can
+use types only, and gloss \(A, B\seqso A\lkand B\) as ``If A is a type
+and B is a type, then A\lkand B is a type''. This is straightforward.
+
+But we can also use tokens as our semantic domain; then we would gloss
+the same formula as ``If A is a token and B is a token then A\lkand B
+is a token''. This too is straighforward but not very useful. The
+obvious problem is it omits all information about types.
+
+In both cases, we also need to provide an alternate interpretation for
+\(lkand\). Instead of ``conjunction of propositions'', we use
+``product of types'' and ``pair of tokens''.
+
+We normally need both types and tokens, so the usual practice is to
+merge these to interpretations and add some new syntax, such as the
+standard \(a:A\) notation.
+
+What we need is an interpretation (and corresponding notation) that
+marries types and tokens. The usual strategy is to use special syntax
+such as \(a:A\) to express ``a is a token of type A''. We're not
+compelled to us such syntax. We could also us superscripting and write
+\(a^A\), for example. But we could also avoid such type annotations
+and settle on a particular convention of interpretation. For example,
+we can stipulate that \(A\) is to be read as ''arbitrary (and unnamed)
+token of type A'' - leaving implicit what is made explicit by \(a:A\).
+
+The difference between \(a:A\) and ``arbitrary token of type A'' is
+just the name symbol \(a\). We can make this explicit be defining a
+type abstraction operator analogous to the lambda abstraction
+operator.
+
+Under propositional semantics, \(\choice A\) means ``arbitrary
+proposition A'', i.e. ``let the symbol A designate an arbitrary
+proposition.''  The symbol \(A\) names the chosen proposition.
+
+\subsection{Type Abstraction}
+
+We need a type abstraction operator analogous to the \(\lambda\)
+operator.
+
+Why? Its what we need to provide an integrated about of types as sets
+and types as propositions. The problem is that propositions are
+particulars, so they cannot be types. What ``propositions as types''
+really means is that each proposition is associated with a type whose
+members are proofs of the proposition. We cannot express this concept
+with standard notation. All we have is \(p:P\), interpreted as ``\(p\)
+is a proof of proposition (type) \(P\)''. But if \(P\) is a
+proposition, it cannot be a type. So we need a notation that allows us
+to explicitly say ``the type associated with the proposition \(P\)''.
+
+Not ``propositions as types'', but ``propositions as proof-types''.
+
+There are two kinds of abstraction involved. We can abstract directly
+from tokens to types, and we can abstract indirectly from token
+construction rules to a type.
+
+Example: \(\Nat\). The definition of the type \(\Nat\) is given by two
+construction rules. Informally, \(\Nat = ...\). But we need to make a
+distinction between the symbol \(\Nat\) and the type, just as be make
+a distinction between a function name and the function it names.
+
+For functions, we can \textit{determine} functions without naming
+them, and this is what allows us to name them. To make \(f\) the name
+of a function, we write \(f\defeq\lambda x.M\). This means: ``\(f\)
+names the function determined by the lambda expression \(\lambda
+x.M\)''. Without lambda, we would have no way of naming functions.
+
+Similar considerations apply to types. We cannot name a (determinate)
+type unless we have a type abstraction operator, call it \(\tau\).
+Then we would have \(T\defeq \tau.\textsf{expr}\), meaning ``\(T\)
+names the type determined by the tau expression
+\(\tau.\textsf{expr}\)''.  Let's try this with \(\Nat\):
+\[\Nat\defeq\tau.\tj{\ZNat}{\Nat}, \tj{n}{\Nat}\linfer\tj{Sn}{\Nat}\]
+
+However, this is a recursive definition. To eliminate recursion, we need
+to be able to replace \(\Nat\) on the RHS with something that means
+``the type under definition''.  Howsabout:
+\[\tau x.\tj{\ZNat}{x}, \tj{n}{x}\linfer\tj{Sn}{x}\]
+
+Here we use the bound variable \(x\) to mean not ``for all'', as is
+the case with lambda, but something like ``the type.'' A kind of
+pronominal, or Russell's iota.
+
+A \(\lambda\)-bound variable ranges over the domain of the function. A
+lambda expression like \(\lambda x.M\) may be glossed ``the function
+that ...''
+
+But wait, we don't need a bound variable. We're defining a type, all
+we need is a way to say ``the type we're defining'', and we can just
+use \(\tau\) for that. On the RHS it means ``it'', referring to ``the
+type''.
+\[\tau.\tj{\ZNat}{\tau}, \tj{n}{\tau}\linfer\tj{Sn}{\tau}\]
+
+That gives us the desired ``anonymous'' type. It determines the type
+whose members are constructed by \ZNat and \SNat. Now we can give it a
+name:
+\[\Nat\defeq\tau.\tj{\ZNat}{\tau}, \tj{n}{\tau}\linfer\tj{Sn}{\tau}\]
+
+which we gloss ``\(\Nat\) names the type whose members are constructed
+by \ZNat and \SNat''.
+
+\(\tau\) is a kind of \textit{indirect abstraction} operator for
+types. It abstracts over the constructors and thus indirectly over the
+tokens. This is a different kind of abstraction than the ordinary
+token-to-type abstraction, which we can call \textit{token
+  abstraction}, because it generalizes over tokens. We see a token
+instance like ``the'' and abstract to the associated word-type (which
+we name ``the \(\ulcorner the\urcorner\) type'').
+
+So much for indirect abstraction from token construction rules to
+types. What about direct token abstraction? We should be able to
+abstract from a particular natural number to its type \(\Nat\).
+
+For starters, we can define a kind of naive token abstraction operator
+that expresses the type of any token. For example, using
+superscription, we might say that \(2^{\tau}\) determines the type of
+which \(2\) is a member. But that would be a pretty indeterminate
+type, because we would have no way of determining any other tokens of
+the type. Furthermore, each particular determines what we will call a
+``homoiconic'' type, for lack of a better term, whose tokens are
+``instances'' similar to the particular. In the case of \(2^{\tau}\),
+that would mean the type whose members include all instances of the
+figure \(\ulcorner 2\urcorner\) in the document you are reading; there
+are three such instances in this very paragraph.
+
+\subsection{Propositional Type Abstraction}
+
+Now since propositions are particulars, we need a we to abstract from
+a proposition to the type of its proofs.
+
+We need something like \(\tau.(a+b=b+a)\) to mean ``the type whose tokens are proof of the proposition \(a+b=b+a\)''.  Maybe:
+\[\tau.(a+b=b+a)^{\Pi}\]
+
+But to integrate with set-ish types like \(\Nat\), we need a more
+specific notion of constructors. \(\Nat\) is determined by the
+specific constructors express in its \(\tau\)-expression. For
+propositions, the constructors are all the constructors, primitive and
+derived, in the type logic. So if we call the logic \textsf{\slshape LJ}:
+\[\tau.(a+b=b+a)^{\textsf{\slshape LJ}}\]
+
+This gives us a kind of exponentiation that dovetails with that used
+in category theory, where \(A^B\) may be taken to mean ``functions
+from \(B\) to \(A\)''. So \(\tau\) would give us ``the type whose
+tokens are constructed \textit{from} the rules of \textsf{\slshape
+  LJ}''. But since the logic and rules will always be understood, we
+can use \(\Pi\) instead of naming the logic:
+\[\tau.(a+b=b+a)^{\Pi}\]
+
+Now we can directly express the relations between propositions,
+proofs, and types:
+\[P\defeq\tau.(a+b=b+a)^{\Pi}\]
+so \(\tj{p}{P}\) means that \(p\) is a token of the type of proofs of
+the proposition \(a+b=b+a\).
+
+Note that a proposition is not an element of its associated proof
+type.
+
+We can use this with set-ish tokens too; we just need to restrict the
+exponent, so we get ``the type whose tokens constructed from the rules
+for some type.''  E.g.
+\[\tau.2^{\Nat}\text{, or } 2^{\tau\Nat}\]
+
+would be glossed ``the type associated with \(2\) whose elements are
+constructed from the rules of type \(\Nat\)''.
+
+Of course, since we already know the type of \(2\) is \(\Nat\), we
+could write \(2^{\tau}\), meaning ``the type whose rules were used to
+determine \(2\)'', i.e. \(\Nat\).
+
+Note use of ``determine'' instead of ``construct''. That's because the
+tokens of cotypes (codefined, by coinduction) do not have
+constructors.
+
+Every type has a set of rules and corules that jointly determine the
+tokens of the type; and every token has a type. So superscript
+\(\_^{\Pi}\) applies to particular tokens always refers to the rules
+and corules of its type. For propositions this means the entire set of
+types.
+
+\subsection{Token Promotion and Type Demotion}
+
+The token promotion operator is \(\tau\).  It is analogous to the
+lambda abstraction operator. The idea is that it allows us to refer
+to the type of a token when we do not have a proper name for the type.
+So for any token \(a\) the expression \(\tau a\) means ``\textit{the} type of
+token \(a\)''; in a typed calculus: \(a: \tau a\).
+
+The type demotion operator is \(\choice\); it is analogous to
+``application'' in the lambda calculus. For any type \(A\) the
+expression \(\choice A\) means ``arbitrary token of type A''. In a
+typed calculus: \(\choice A: A\).
+
+Now we can give a types-and-tokens interpretation of untyped calculi.
+For example, \(\choice A, \choice B\seqso \riota A\lkand \riota B\) would
+mean ``if \(\choice\)A is a token type A and \(\choice\)B is a token
+type B, then \(\iota A \lkand\iota B\) is the token formed by
+combining them.''
+
+This is just an alternative notation to \(a:A\). It allows us to avoid
+naming token and/or type particulars. It's also too complicated, since
+\(\iota A\) must be bound to \(\choice A\).
+
+It looks like there is just no way to give a typed semantics to an
+untyped calculus. But that's ok, the goal here is just to show how
+propositions (formulae) and types go together.
+
+
+\subsection{Notes}
+
+Thinking out loud...
+
+``Snow is white'' is a proposition. It's counter-intuitive to call it
+a type. What would count as a token of such a type? It just does not
+make sense.
+
+The problem is that we routinely overload the term ``proposition''. We
+call expressions like \(A\land B\) and \(a+b=b+a\) propositions, but
+they are not propositions. What they are is \textit{propositional
+  schemas}. Propositions are particulars; propositional schemas are
+universals. So ``(Snow is white)\(\land\)(Roses are red)'' is a
+particular proposition that is an instance of the schema \(A\land B\).
+
+In fact Curry-Howard is often stated more accurately as ``formulae are
+types''; that is indeed the term Howard used in his landmark paper.
+
+It makes perfect sense to say that a propositional schema or formula
+is a type; both are generalizations.
+
+But wait, its more than a schema. More like a schematic
+meta-meta-variable. \(A\land B\) ranges over not just A and B, but
+over all tokens of its type, which need not necessarily match the form
+of the schema. So \(A\land B\) is just like A as a meta-variable, but
+its more than that.  Or its just a compound metavariable.
+
+But A and B are type metavariables, not token metavariables. They
+can't be instatiated as tokens of their type, but only as particular
+type symbols. So crap, all this schema reasoning is bogus.
+
+So instead of ``propositions as types'' we should say ``propositional
+schemas are types''. The the proofs of such types are instances of the
+schema, not proofs of a proposition. So \((2,3)\), being an instance
+of the schema \(\), counts as a proof of that type; but proving that
+it is an instance of the schema is involves a different kind of proof.
+
+Maybe this confusion is due to the fact that logicians usually prove
+propositional formulas, but they say they are proving propositions.
+What they are doing is providing a general proof for a class of
+particular propositions. Mathematicians too are mostly interesting in
+proving generalities, which they express by formulae.
+
+Well, to be fastidious, what logicians usually prove is a universal
+closure over a propositional formula. In effect, ``for all particular
+formulae P, Q, the following holds''; or ``for arbitrary
+formulae...''. So what gets proven is a universally quantified
+implication whose conclusion is the formula of interest. But ``proof
+of a schematic formula'' makes no sense; what the proof (of the
+closure) shows is that all \textit{instances} of the formula are true.
+
+But does this reading really work? What about the idea that the
+meaning of a proposition is given by all its proofs, esp. when there
+may be many ways to prove it? In that case we would be talking about a
+particular proposition? No, we could be talking about propositional
+formulae too. For example \(A\land B\rightarrow B\land A\). That's a
+schema. We say we can prove it. What that means is that we can prove
+it for arbitrary \(A, B\) - universal closure. And we do that by
+sticking with formula schemas and metavariables. And such a proof
+would not be an instance of the schema. Because it would not be a
+proof of the formula, it would be a proof of the universal closure
+over the proof structure. The concluding for of an instance of that
+proof would be an instance of the formula of interest. That token
+particular would represent the proof the produced it. So even
+different proofs would end up at the same token. And that's what
+programs do, compute a result. For propositional schemas, the result
+is a token instance of the schema; for functions, it is a token of a
+numeric type.
+
+It all depends on what you mean by proof. A logical proof builds its
+conclusion just as a function builds its result. So the proof is like
+the function implementation. Its the output that counts as
+proof-of-type (instance of schema). So ``program as proof'' or
+vice-versa really means ``output builder as conclusion builder''.
+Proof as machine to build conclusion, which is a particular
+proposition (instance of schema). Proof object.
+
+So proof shows how to build output, it does not build the output. To
+prove the proposition schema, show how you would build an instance in
+a particular case
+
+Some writers interpret \(a:A\) as ``a is a proof \textit{term} for
+proposition A''.
+
+Also the kind of proofs we're talking about only prove type
+correctness. Of a function, for example. We're not talking about proof
+of the correctness of an implementation. Only proof that it is correctly
+typed.  Or, for a dependent pair, that b is twice a.
+
+Also, compare Church's development of lambda. \(x+2\) is an open
+formula; \(\lambda x.x+2\) is a closed formula that ranges over all x.
+
+``Proofs are programs'' also overloads ``proof''. On the one hand, the
+idea is that tokens of a type are proofs. On the other, a proof of a
+proposition is a tree or chain of inferences expressed in a language.
+So we have two senses of proof: one meaning ``instance'', and the
+other meaning ``demonstration''.
+
+Tokens of a type are never \textit{demonstrative} proofs of a
+proposition. But we can offer demonstrative proof that a token is an
+instance of a type.
+
+Given a particular proposition, we can infer the type of which it is
+an instance. That's a primitive notion in a type system: every token
+particular has a type.
+
+\subsection{Equality Types}
+
+Things get a little more complicated when we consider equations. An
+equation like \(2+2=4\) is a particular proposition, which we can
+prove. From it we can infer the type it betokens. That is, we can
+infer its propositional schema, or formula. What should that look
+like? We need a symbol to generalize each side of the equation, and we
+also need to indicate their type, \(\Nat\). The HoTT convention is to
+write \(\Id{A}{a}{b}\) or \(\Eq{A}{a}{b}\). The important thing to
+remember whatever we write, it represents a schema or type.
+
+That would give us something like \(\ulcorner 2+2=4 :
+\Eq{A}{a}{b}\urcorner\), indicating that \(\ulcorner 2+2=4\urcorner\)
+is a token particular of the general schema
+\(\ulcorner\Eq{A}{a}{b}\urcorner\). But then \(2+2=4\), being a
+particular proposition, is the kind of thing we can proof by
+demonstration. We do that by reducing both sides, ending up with
+\(4=4\). But that in turn is another token particular, whose inferred
+type is \(\ulcorner\Eq{A}{a}{a}\urcorner\). And the only token of that
+type, by definition, is \(\refl{a}\).
+
+Types of the form \(\ulcorner\Eq{A}{a}{b}\urcorner\) have no defined
+constructors, which means that while we can say that some \(p\) is an
+instance of the type by writing \(p:\ulcorner\Eq{A}{a}{b}\urcorner\),
+we cannot express \(p\) as an inductively defined token, as we can do
+for natural numbers, for example. Every nat can be expressed as S...SZ
+for some number of S. We cannot do that with equality types. If we
+start with a token that is an equation, we can reduce it to get
+\(a=a\), from which we can infer the type
+\(\ulcorner\Eq{A}{a}{a}\urcorner\), which we can prove with
+\(\refl{a}\). But if we start with a variable like \(p\), then we have
+no equation to reduce. [FIXME: finish this. coinduction -
+  \textit{assuming} \(p:\ulcorner\Eq{A}{a}{b}\urcorner\), we can infer
+  \(\refl{a}:\ulcorner\Eq{A}{a}{a}\urcorner\). But how can we arrive
+  at the former as the conclusion of an inference in a proof?]
+
+A formula like \(a+b=b+a\) is a propositional formula. We can
+prove such propositional formulae by ...
+
+Then \(2+3=3+2\) would be a token (proof?) of the type. But that's the
+kind of particular that we can prove.
+

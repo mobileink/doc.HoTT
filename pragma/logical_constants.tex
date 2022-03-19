@@ -1,0 +1,331 @@
+\section{Logical Constants}\label{sec:logconsts}
+
+\subsection{Dyads}
+
+\subsection{Implication}
+
+Comes first because the rules themselves use consequence (implication).
+
+A \textit{dyad} is a conjunction: a composite of two things.
+
+Before we can have a dyad (a whole composed of two parts), we must
+have the parts individually. We do not have a single word to express
+this concept in English. So the best we can do is pick out a
+circumlocution and bless it as our designated way of expressing the
+idea. We will use ``and also'', so that \(\ulcorner A\) and also
+\(B\urcorner\) expresses the idea of A and B \textit{uncomposed};
+we'll also use the admittedly paradoxical term \textit{predyad} to
+refer to two things before (logically) they have been composed to form
+a whole.
+
+Dyads come in various flavors:
+
+\begin{itemize}
+\item conjunction: \(A\land B\)
+\item additive conjunction: \(A \addand B\). You have both A
+  \textit{and} B, but you can only use one: A \textit{or} B.
+\item multiplicative conjunction: \(A\fusion B\). You have both, and
+  you can only use both together to produce a single output.
+\item disjunction: \(A\lor B\)
+\item additive disjunction: \(A \addor B\)
+\item multiplicative disjunction: \(A\fusion B\). You have both, and
+  you can use A or B or both to produce either of two possible outputs.
+\end{itemize}
+
+With the dyad concept in hand we can easily see what is wrong with
+\ML's ``meaning explanations'' of the logical constants.
+
+According to [cite?], to understand a logical constant one must
+understand what counts as its proof; and according to
+[\parencite{martin1984intuitionistic} p. 7], ``a proof of the proposition
+\(A\&B\) consists of a proof of \(A\) and a proof of \(B\)''. But this
+also suffices to prove fusion (\(\fusion\)), so it is not sufficient
+to fully explain either conjunction or fusion. It explains how dyads
+may be proven/produced, but does not distinguish between the two functional
+roles a dyad can play.
+
+The problem is that \ML\ only explains one side of the inferential
+articulation of the logical constants, namely the constructors. An
+adequate explanation must do more that show how propositions involving
+the constants may be proved (or constructed, produced, computed,
+etc.). It must also explain the \textit{consequences} of such
+propositions - how they may be \textit{used}. The difference between
+different kinds of dyads is made clear by explaining how they may be
+used. Loosely, with a pair \(A\land B\) we can use \(A\) or \(B\) or
+both; with an additive conjunction \(A\&B\), we can use either \(A\)
+or \(B\), but not both; and with a multiplicative conjuction \(A\fusion
+B\) (fusion), we can only use both.
+
+\paragraph{Ontology}
+
+It is tempting to thing that the logical constants determine different
+\textit{kinds of things}. For example, that each conjunction
+determines a different kind of dyad. But this is problematic. Dyads
+are all formed in the same way, so it's hard to see how they could
+belong to different ontological categories.
+
+A better way to think about this is to view each logical constant as
+determining not an ontological category but a kind of (logical)
+\textit{game}, in which the constructions are the pieces. So a
+proposition like \(A\land B\) is a dyad that serves as a game piece in
+the conjunction game. Under this perspective, ontology is irrelevant.
+It does not matter what kind of a thing a game piece is, except that
+it must ``work'' for the game; only the rules of the game matter, and
+the same kind of piece may work for different games. Of course, one
+rule is that you have to have a game piece in order to play the game;
+but the construction rules allow us to produce those pieces, without
+regard to ontological status. For the various kinds of conjunction,
+the pieces are dyads, which are capable of playing different roles in
+the different games.
+
+This puts Linear Logic in a different light. Usually LL is presented
+as a ``logic of resources'', and intuitive explanations of the rules
+are based on the fiction that propositions represent resources that
+can be produced and consumed. So we get glosses like ``\(A\&B\) means
+you can consume A or B and you get to choose, and \(A\oplus B\) means
+you get only one, but you don't get to choose.''
+
+Or we get half-stories like the manifestly absurd interpretation of
+\(A\linfer B\&C\) as ``for A (qty of money) I can buy whichever I
+choose of B and C''; while that may contain some technical truth, it
+offers no clue as to why a conjunction (\(A\linfer B\&C\)) should
+behave like a disjunction (``whichever I choose'').
+
+But LL is is a \textit{logic}, and it traffics in the same stuff as
+any other logic, namely propositions, inferences, etc. It can be used
+to model the behaviour of resources, but it is a major mistake to
+think that the logic is in any way essentially connected to the
+concept of a resource. For example, the usage-rule for \(\&\),
+additive conjunction, says that the \textit{conjunct} \(A\&B\)
+suffices to prove anything that can be proven by A alone \textit{or} B
+alone.  That's very different than ``you can choose either A or B''.
+
+IOW, the rules show how propositions formed from the logical constants
+can serve a function that can also be accomplished in some other way;
+or put another way, that the conclusion of an elimination rule is a
+kind of abbreviation for some other rules that do the same thing.
+
+\subsubsection{Conjunction}
+
+If our language were to lack (prelogical) \textit{and}, then we would
+not be able to say things like ``He has a dog and a cat''. We would
+have to settle for two sentences ``He has a dog'' followed by ``He
+has a cat''.
+
+\paragraph{Distributivity
+\newline}
+
+Conjunction is distributive. ``He has a dog and a cat if and only if
+he has a dog and he has a cat.'' Symbolically: \(P(a\&b)\)\iff
+\(P(a)\,\&\,P(b)\). If the predicate P is ``...is true'', then since the
+propositional content of ``P is true'' is the same as the content of
+``P'', we can drop it. This yields \[(a\&b)\iff (a)\&(b)\] meaning
+``a\&b is true if and only if a is true \&\, b is true''.
+
+The grouping expressed by the parentheses is essential. If we omit the
+parentheses, we get \(a\& b\iff a\&b\), which fails to express the
+distribution of ``...is true'' over conjunction. We can express the
+grouping more concisely by writing \(a,b\) for \((a)\&(b)\) (a
+semicolon is also commonly used). This yields the equivalent
+propositions:
+
+\begin{align}
+  & \text{True}(a)\,\&\,\text{True}(b)\iff \text{True}(a\&b) \\
+  & (a)\,\&\,(b)\iff (a\,\&\,b) \\
+  & a,b\iff a\&b
+\end{align}
+
+\textbf{Important}: this is prelogic; it is not yet logic proper. In
+particular, conjunction is ambiguous. Intuitively, there is more than
+one way to combine two things to form a whole. We can \textit{pair}
+the inputs, such they remain distinct and can be retrieved by
+decomposing the pair. But we can also \textit{fuse} the inputs,
+resulting in a whole from which the individual inputs cannot be
+extracted. Real-world examples include color blends formed by mixing
+primary colors, a ``smoothie'' formed by mixing ingredients in a
+blender, and an alloy formed by melting and mixing two metals. Fusion
+can be expressed by formal logic; it is used in Linear Logic,
+Relevance Logic, and others. In any case, to get from our prelogical
+conjunction to a proper logic we will need to clarify exactly how
+conjunction works. So far we've only show that it is distributive for
+predicates.
+
+Summary: The rule for \(\&\) introduction expresses the material
+inference from ``A and also B, independently'' to ``Both A and B,
+together''. The former is expressed formally by a premise structure
+\(A ; B\), and the latter by logical conjuction \(A \& B\).
+
+The material inference is simple. If I say ``I have a dog and also I
+have a cat, independently'', you can infer that I have ``both a dog and a
+cat, together''. If you say it out loud, nobody will object. But ``A
+and also B, independently'' is conceptually distinct from ``Both A and B,
+together''. The distinction is the difference between a collection of
+parts and a whole composed of those parts.
+
+Assuming ``A and also B, independently'', we can infer ``Both A and B,
+together''. The \(\&\)-introduction rule makes this inference
+explicit. Formally: \(A ; B \linfer A \& B\). Logical \(\&\)
+expresses the notion ``both and, together''; it follows from
+structural \(;\), which in turn formally expresses the prelogical
+notion ``and also, independently''. The \(\linfer\) expresses the inference
+from the latter to the former.
+
+\paragraph{Notes\\}
+
+Critical concept is \textit{independence}. ``A suffices for C and also
+B suffices for C'' means they suffice independently; ``A and B suffice
+for C'' means they suffice together, as a whole, not independently.
+
+Explanatory vignettes for dialogisms: Bob \& Alice. The don't really
+explain, they illustrate.
+
+\subsubsection{Disjunction}
+
+It is fairly easy to see how inferential practices involving
+conjuction can explain prelogical \textit{and}. Its a bit more
+difficult to come up with a good story for \textit{or}.
+
+Our task is to explain what kind of prelogical inferential move is
+expressed by saying things like ``David is carved from wood or
+marble''. But what can we \textit{do} that involves \textit{or}? Its
+easy to see that saying one thing, and then saying another thing,
+suggests \textit{and}; after all, such sayings are already
+``conjoined'' in time, even if they are semantically independent.
+``Roses are red'' followed by ``violets are blue'' leads to ``Roses
+are red and violets are blue.'' What leads to ``Roses are red
+\textit{or} violets are blue''?
+
+A good start is \textit{travel}. To get from Rome to Paris one can
+travel by train, and one can travel by car. But one cannot travel buy
+car \textit{and} by train. A choice must be made; that is the nature
+of travel.
+
+In other words, some words in our vocabulary force choices on us,
+others do not. Or more likely, some parts of the world force choices
+on us. Given tea and honey, I can consume them them both at once by
+first combining them. Given two paths to a destination, I can only
+take one. Given a block of wood and a block of marble, I can sculpt a
+statue of one or the other, but not both. I can only watch one movie
+at a time. And so on.
+
+\begin{align}
+ & \text{Og can get from his cave to the watering hole by following path A} \\
+ & \text{Og can get from his cave to the watering hole by following path B}
+\end{align}
+
+Inference: Og can get there by path A or path B.
+
+This inference is underwritten by the material content of ``following
+a path''. If we know what it means, we know we cannot follow two paths
+simultanously. Specifically, we would criticize the inference to ``Og
+can get there by following both path A and path B.''
+
+But I don't think we need language to language transitions to explain
+inference to \textit{or}. We can make that inference from our
+\enquote{knowledge} of how the world works. A coin cannot land with both
+faces up. We ``know'' this not because we possess some kind of
+theoretical knowledge, but because that is our experience in the
+world. A very young child in the world of cave-men might not yet grasp
+this simple fact, but will learn it soon enough from experience. So we
+can say that the inference to ``heads or tails'' is underwritten by
+experience rather than by the content of any propositional premise.
+
+IOW, what is the propositional stimulus (excluding questions) to which
+the correct response is ``A or B''? For conjunction, ``A and B'' is the
+correct response to a sequence of sayings, ``A'' then ``B''.
+
+Disjunction seems to be tied to both choice and ignorance. You can
+choose train or car to get to Paris. Flip a coin and you don't know
+what you'll get, but you know it will be heads or tails. Calling a
+coin flip involves both choice and ignorance. So disjunction also
+seems to be tied to possibility (probability?).
+
+If I'm told a coin has two faces, heads and tails, I can respond by
+choosing heads or tails. I can also respond by saying ``So each face
+is either heads or tails'', or ``So if you flip it the upface will be
+heads or tails'', etc.
+
+Disjunction seems to be parasitic on conjunction. (duals?) For ``A or
+B'' to make sense, both A and B must be in play.
+
+Can the same stimulus work for both conjunction and disjunction? The
+response to ``he has a dog'' then ``he has a cat'' can be:
+
+he has a dog and a cat
+each is a dog or a cat(?)
+a question: which is bigger, dog or cat?
+a command: choose dog or cat!
+
+\subsubsection{Duality of conjunction and disjunction}
+Conjunction and disjunction are dual.
+
+The left-intro rule for \(\lor\) demonstrates (half of) the duality:
+
+%% \begin{prooftree}
+%% \AxiomC{$A,\Gamma\linfer C\kern-1.2em$}
+%% \AxiomC{$\medtriangleup\kern-1.2em$}
+%% \AxiomC{$B,\Gamma\linfer C$}
+%% \RightLabel{$\lor\linfer$}
+%% \TrinaryInfC{$A\lor B,\Gamma\linfer C$}
+%% \end{prooftree}
+
+Gloss: if A suffices for C, and independently B suffices for C,
+then \(A\lor B\) suffices for C. Informally: both A \textit{and} B
+independently suffice for C; and since \(A\lor B\) will always
+``contain'' at least one of A or B, it too suffices for C.
+
+Or: \(A\lor B\) suffices wherever A \textit{and} B (independently)
+suffice.
+
+For conjunction \(\land\) we have two left-intro rules:
+
+%% \begin{center}
+%% \AxiomC{$A,\Gamma\linfer C\kern-1.2em$}
+%% \RightLabel{$\land\linfer_1$}
+%% \UnaryInfC{$A\land B,\Gamma,\linfer C$}
+%% \DisplayProof
+%% \hskip 1.5em
+%% \AxiomC{$B,\Gamma\linfer C$}
+%% \RightLabel{$\land\linfer_2$}
+%% \UnaryInfC{$A\land B,\Gamma,\linfer C$}
+%% \DisplayProof
+%% \end{center}
+
+These rules say that \(A\land B\) suffices for C wherever either A
+(alone) suffices \textit{or} B (alone) suffices. In other words, each
+is independently sufficient for C, so we can chose either rule to get
+\(A\land B\). If we choose \(\land\linfer_1\), then we know that the
+inference to C ``uses'' the A part of \(A\land B\) (so to speak) to
+get to C. This is how it corresponds to the elimination rule of
+natural deduction: implicitly, it dismantles \(A\land B\) to obtain A,
+then uses it to get C.
+
+Note also that it does not follow from rule \(\land\linfer_1\) that B
+suffices for C. It may or may not, but we're not using it so we don't
+care. Similarly for \(\land\linfer_2\); if we use it, then A may or may
+not suffice for C, and we don't care either way, because we only need
+B to get C.
+
+Notice that the premises for \(\land\linfer_1\) and \(\land\linfer_2\)
+together are the same as those for \(\lor\linfer\), but they're split
+into two rules. We can bring out the symmetry more conspicuously by
+combining them. To do this we need another symbol to express the
+\textit{or}ing of the top sequents. We'll use \(\medtriangledown\):
+
+%% \begin{prooftree}
+%% \AxiomC{$A,\Gamma\linfer C\kern-1.2em$}
+%% \AxiomC{$\medtriangledown\kern-1.2em$}
+%% \AxiomC{$B,\Gamma\linfer C$}
+%% \RightLabel{$\land\linfer$}
+%% \TrinaryInfC{$A\land B,\Gamma\linfer C$}
+%% \end{prooftree}
+
+The intention here is that this one rule expresses exactly what the
+two rules \(\land\linfer_1\) and \(\land\linfer_2\) express together in
+disjunction. It shows more clearly the duality of sequent disjunction
+(\(\medtriangledown\) on the top) and propositional conjunction
+(\(\land\) on the bottom). Except for the connectives, it has the same
+structure as \(\lor\linfer\), which shows the duality in the other
+direction - sequent conjunction (\(\medtriangleup\)) on top, and
+propositional disjunction (\(\lor\)) on the bottom.
+

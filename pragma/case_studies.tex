@@ -1,0 +1,398 @@
+\section{Case studies in induction and coinduction}\label{sec:case_studies}
+
+\subsection{Numbers and Conumbers}
+
+Conatural numbers? See
+\href{https://www.cl.cam.ac.uk/archive/mjcg/plans/Coinduction.pdf}{Corecursion
+  and coinduction: what they are and how they relate to recursion and
+  induction}
+
+\subsection{Dark Numbers}
+
+To demonstrate the minimality of types defined by induction, we can
+expand \(\Nat\) to \(\NDark\) by adding two ``dark'' constructors,
+\(\ZDark\) and \(\SDark\). Define \(\NDark\) by:
+
+\begin{align}
+  & \linfer \tj{\ZNat}{\NDark} \\
+  & \linfer \tj{\ZDark}{\NDark} \\
+  \tj{n}{\ZDark} & \linfer \tj{n\SNat}{\NDark} \\
+  \tj{n}{\ZDark} & \linfer \tj{n\SDark}{\NDark} \\
+\end{align}
+
+Our reasoning with these ``dark numbers'' will be the same as our
+reasoning with natural numbers, except that we have two more cases to
+consider when we reason by case analysis.
+
+Ordinary \(\Nat\) and its expansion \(\NDark\) have the same
+cardinality; they're both infinite (by construction), and their
+elements can be put in one-to-one correspondance. But \(\NDark\) has
+``more structure'' than \(\Nat\). We can express this vague notion
+mathematically by observing that there is a homomorphism from \(\Nat\)
+to \(\NDark\). We can draw a one-to-one map that respects construction
+from the former to the latter, but not from the latter to the former.
+There are ``too many'' elements in \(\NDark\), even though the sets
+have the same cardinality. We can map \(\ZNat\) from \(\Nat\) to its
+counterpart in \(\NDark\), but going the other way around we would
+need to map both \(\ZNat\) and \(\ZDark\) to \(\ZNat\).
+
+[TODO: make the homomorphsim explicit with a diagram or two]
+
+Homomorphisms induce an ordering. If we have a homomorphism \(A~\hmorph~B\), then we can make this ordering explicit by replacing the
+homomorphism arrow \(\hmorph\) by a more suggestive symbol, for
+example \(A\preceq B\). Then we can state the minimality principle
+more concisely: \(\Nat\) is the least element of the set \(\{A\ |\
+  \Nat\preceq A\}\).
+
+The point of this exercise is to provide a vivid demonstration of what
+it means for an inductively defined type to be the least of its kind.
+But we can have some fun with dark numbers too.
+
+Here are some examples. We use the standard numerals \(0, 1,\cdots\)
+to express the number of manifest \(\Nat\) subconstructions are in a
+construction that starts from \(\ZNat\), and a parallel set of ``dark
+numerals'' \(\dark{0}, \dark{1}, \cdots\) to count dark
+subconstructions in constructions starting from \(\ZDark\).
+
+We use \(\bot\) resp. \(\dark{\bot}\) to indicate ``improper''
+constructions. An improper construction is a hybrid that contains
+subexpressions that do not match the base case. For example
+\(\ZNat\SDark\) is \(0\) and \(\dark{\bot}\).
+
+Equation (\ref{dark:card}) demonstrates a function \textsf{abs} that
+counts the total number \(\SNat + \SDark\) of successor constructions.
+
+\begin{align}
+  & \ZS & = 1 \\
+  & \ZDark\SDark & = \dark{1}\\
+  & \ZNat\SDark & = 0 = \dark{\bot}\\
+  & \ZDark\SNat & = \dark{0} = \bot \\
+  & \ZDark(\SDark\SNat)(\SDark\SNat) & = \bot = \dark{2} \\
+  & \ZNat\SDark\SDark\SDark\SNat & = 1 = \dark{\bot} \label{dark:hybrid} \\
+  & \textsf{\slshape abs}(\ZNat\SDark\SDark\SDark\SNat) & = 4 \label{dark:card} \\
+  & \ZDark\SDark\SDark\SDark\SNat & = \bot = \dark{3} \\
+  & \textsf{\slshape abs}(\ZDark\SDark\SDark\SDark\SNat) & = 4
+\end{align}
+
+We could also design the constructor rules to force parallel successor
+operations, so that every \(\SNat\) is accompanied by a \(SDark\) and
+vice-versa.  Maybe \(\tj{n}{\ZDark} \linfer \tj{n\SDark\SNat}{\NDark}\)
+
+
+The real fun begins when we try to define operations like addition. We
+can easily define standard addition by ignoring dark numbers, but we
+could also define other kinds of addition, such as a total sum that
+sums the total number of manifest and dark constructions. Etc.
+
+[TODO:  A
+  filter to remove dark constructors, leaving a manifest number
+  (within \(\NDark\)). Dark numbers look wierd, but they behave like
+  manifest numbers if you squint.]
+
+
+We can play metaphysical games with dark numbers. You say the
+``ordinary'' natural numbers, \(0,1,2\cdots\) exist. The Dark Number
+theorist agrees, with a caveat: they're not the \textit{only} natural
+numbers that exist. The dark numbers also exist; you've just never
+noticed them.
+
+The intuitionist might remain unperturbed by dark numbers. The
+Fundamental Principle of Intuitionism says that the only numbers that
+exist are the ones we construct. \(\Nat\) exists by construction that
+does not involve dark numbers, so whether or not we can also construct
+dark numbers is irrelevant. But the Fundamental Principle makes a
+presupposition, namely that manifest construction is the only kind
+there is. This the Dark Theorist denies, arguing that dark
+construction is implicit in all manifest construction. A manifest
+construction like \(\ZSS\) conceals some dark construction, like
+\((\ZDark\ZNat)(\SDark\SNat)(\SDark\SNat)\) -- one dark construction
+for each manifest construction. We might even go so far as to claim
+that dark construction is primitive: without it we would not have
+manifest construction.
+
+Of course these are just games, intended to demonstrate something
+about coinductive reasoning. Mathematics gets along fine without dark
+numbers; we do not need them. But then again, if physicists think that
+the universe is full of dark matter, why shouldn't mathematicians
+think that the mathematical universe is full of dark numbers?
+Metaphysically, they make at least as much sense as manifest numbers.
+
+\subsection{Coinduction: stream contraction}
+
+Cotypes are the greatest elements of their class.  etc.
+
+To show what this means we show how to derive a ``smaller'' type from
+the type of streams.
+
+It's intuitively obvious that the type ``stream of \(X\)''
+(\(\colist{X}\)) is maximal, in the sense that it ``already'' contains
+all possible particular \(X\)-streams. But it's also minimal, in that
+its co-constructors are underdetermined. They are typed, but not
+defined.
+
+``Maximal'' means that it is the greatest element of the class of all
+types that are homomorphic to it. We give an example to illustrate
+just what that means.
+
+First let's consider a type that is homomorphic to \(\colist{X}\),
+without yet worrying about how to define it. The type
+\(\eqstream{X}\) is the type of all streams whose heads return a
+constant. In other words, streams whose elements are equal, such as
+\(\langle 1,1,\ldots\rangle\).
+
+The members of such a type will clearly form a subset\footnote{Types
+are not sets, but since we have not yet defined ``subtype'' we'll
+treat them as such for now.} of the members of \(\colist{X}\), so if
+we can show that there is a homomorphism from \(\eqstream{X}\) to
+\(\colist{X}\), we'll have a better idea of what it is for the latter
+to be the greatest element of this class. To do so we need to
+(co-)define \(\eqstream{X}\) and show how this entails the
+homomorphism.
+
+The short version: a cotype like \(\eqstream{X}\) is codefined by
+refining the definitions of the co-constructors of \(\colist{X}\).
+Their meanings are underdetermined by the definition of
+\(\colist{X}\); in fact, their definitions give them no meaning at
+all. Their ``definitions'' merely declare their types, so there are no
+semantic constraints on them. They can be thought of as specifications
+that jointly determine a \textit{protocol} for their cotype. The
+definitions of cotypes like \(\eqstream{X}\) work by partially
+defining these co-constructors. They provide an implementation of the
+protocol, as it were. By giving the co-constructors specific meanings,
+they narrow their range. So the cotype they determine comes out as a
+kind of contraction of \(\colist{X}\).
+
+This is easily expressible in set theoretic terms. We start with a
+domain, an unconstrained set that contains ``everything'' we're
+interested in. We produce a subset by adding constraints on
+membership; this can be expressed as a characteristic function, or a
+list of ``such that'' clauses. In this particular case, we would have
+something like the following in informal terms: ``The set of all
+members of \(\colist{X}\) \textit{such that} their
+\(\ulcorner\head{}\urcorner\) operation always returns the same
+value''.
+
+Our task is thus to show how these and similar \textit{such that}
+constraints can be expressed in a type calculus. This requires more
+than merely working out the syntax. The informal example we gave above
+is expressed in the idiom of classical logic; it states conditions
+that must be \textit{true of} a stream in order for it to be a member
+of the set. We cannot do that, because the tools we have at our
+disposal are essentially \textit{inferential}. What we're after is a
+way to positively infer membership rather than simply observe it,
+which is what \textit{such that} conditions do. They just state a
+fact, that members have such-and-such a property \textit{in virtue of
+  being members}, not that they earn membership in virtue of having
+the property. So our more fundamental task is to show how such
+\textit{such that} constraints can be expressed inferentially. Then we
+will be able to infer membership from the (inferential) properties of
+the candidate stream. This is quite different than merely expressing
+\textit{such that} conditions. In fact we'll see below that the
+difference is vast.
+
+Co-constructors are \textit{apomorphisms}; the go from the cotype they
+define.
+
+\begin{align}
+ \cohead(\cotail(\coseq{x})) & = \cohead(\coseq{x}) & \text{equational} \\
+  \cohead(\cotail(\coseq{x})) & \linfer \cohead(\coseq{x}) & \text{inferential}
+\end{align}
+
+This expresses a genuinely coinductive inference. It cannot be
+expressed (or made) in any simply way. It is different than direct
+inference.
+
+Such ``definitional'' coinductive inference rules -- those that play a
+defining role, similar to an axiom -- express the internal structure
+of the streams whose cotype they define. The structure of those
+streams is expressed at the most abstract level by the co-ctors of
+\(\colist{X}\). The only structure they have is concatenation.
+Co-definitions like the one above express further structure - that the
+head of the whole is related in a particular way to the head of the
+tail\footnote{Note the difference with the \textit{such that} method,
+which says nothing about the structure of the things that satisfy the
+condition.}. And note that the co-ctors defined in the subtype are not
+the ctors of \(\colist{X}\). But they have the same names and type
+signatures, and that's what matters: it's what makes for the
+homomorphism, and it is what allows us to treat them as
+implementations of a protocol.
+
+[But that's not quite right. We're defining a cofunction over
+  \(\colist{X}\), so we \textit{must} use its co-ctors. We do, but we
+  also (re)define them. So cofunction definitions literally modify
+  (augment, extend) the semantics of the ``root'' co-ctors.]
+
+[Do we ever extend/redefine type ctors?]
+
+\subsection{Finite Lists}
+
+\subsection{Streams}
+
+Examples of various types of functions/cofunctions.
+
+To define:
+
+\begin{itemize}
+\item projection ops, e.g. second, butlast, nth, etc.
+\item pathological (co)functions: constant hd, tl, cons, etc.
+\item Take(n)
+\item Sum, Sum(n)
+\end{itemize}
+
+
+\subsubsection{Promorphisms (generators)}
+
+Generators are promorphisms.
+
+\paragraph{\(\texttt{upFrom}_{\scriptscriptstyle\top}\)}
+generates a stream that is a subsequence of \(\Nat\) starting from a
+given number. Usually we omit the coinduction subscript. E.g.
+\(\texttt{upFrom}(3) = \stream{3}{4}\).
+
+
+\begin{prooftree}
+  \AxiomC{$\Gamma\linfer\tj{\codefn{upFrom}}{\Nat\func\colist{X}}$}
+  \AxiomC{$\Delta\linfer\tj{n}{\Nat}$}
+  \BinaryInfC{$\Gamma,\Delta\linfer\tj{\codefn{upFrom}(n)}{\colist{X}}$}
+\end{prooftree}
+
+\begin{alignat}{2}
+  \codefn{upFrom}(n) &= \cocons(n, \codefn{upFrom}(n+1)) \\
+  \cohead(\codefn{upFrom}(n)) &= n \\
+  \cotail(\codefn{upFrom}(n)) &= \codefn{upFrom}(n+1)
+\end{alignat}
+
+
+General pattern:
+
+\begin{alignat}{2}
+  \cohead\circ\Lift{f}{\omega} &= \phantom{\Lift{f}{\omega}(}n \\
+  \cotail\circ\Lift{f}{\omega} &= \Lift{f}{\omega}(n+1)
+\end{alignat}
+
+
+For example, generate \(\langle 1,1,1\rangle\), \(\langle 1,1,\cdots\rangle\).
+
+\subsubsection{Apomorphisms (projectors)}
+
+%%%%%%%%%%%%%%%%
+\paragraph{\(\texttt{nth}_{\scriptscriptstyle\top}\)}
+projects the \textit{nth} element of a stream.
+
+\begin{prooftree}
+  \AxiomC{$\Gamma\linfer\tj{\texttt{nth}}{\Nat\times\colist{X}\func{}X}$}
+  \AxiomC{$\Delta\linfer\tj{n}{\Nat}$}
+  \AxiomC{$\Lambda\linfer\tj{\coseq{x}}{\colist{X}}$}
+  \RightLabel{\raisebox{4pt}{$\scriptstyle[nth\texttt{-intro}]$}}
+  \TrinaryInfC{$\Gamma,\Delta,\Lambda\linfer\tj{\texttt{nth}(n,\coseq{x})}{X}$}
+\end{prooftree}
+
+\begin{align} %%at}{2}
+  \cohead(\texttt{nth}(0,\coseq{x})) &= \cohead(\coseq{x}) \\
+  %% & \textit{\small base case, induction on n} \\
+  \cohead(\texttt{nth}(\SNat{}n,\coseq{x})) &= \cohead(\texttt{nth}(n,\coseq{x}))
+  %% \hspace{-18pt} & \textit{\small both \*ductions}\\
+\end{align} %%at}
+
+%%%%%%%%%%%%%%%%
+\paragraph{\(\texttt{drop}_{\scriptscriptstyle\top}\)}
+removes first \(n\) elements from a stream. Defined by coinduction.
+
+\begin{prooftree}
+  \AxiomC{$\Gamma\linfer\tj{\texttt{drop}}{\Nat\times\colist{X}\func{}\colist{X}}$}
+  \AxiomC{$\Delta\linfer\tj{n}{\Nat}$}
+  \AxiomC{$\Gamma\linfer\tj{\coseq{x}}{\colist{X}}$}
+  \RightLabel{\raisebox{4pt}{$\scriptstyle[drop\texttt{-intro}]$}}
+  \TrinaryInfC{$\Gamma,\Delta,\Lambda\linfer\tj{\texttt{drop}(n,\coseq{x})}{\colist{X}}$}
+\end{prooftree}
+
+
+%%%%%%%%%%%%%%%%
+\paragraph{\(\texttt{take}_{\scriptscriptstyle\top}\)}
+returns finite list of the first \(n\) elements of a stream. Defined
+by induction on the \(\Nat\) arg (it tests for the base case).
+
+E.g.
+\[\texttt{take}(3, \langle 5,6,\ldots\rangle) = [5,6,7]\]
+
+\begin{prooftree}
+  \AxiomC{$\Gamma\linfer\tj{\texttt{take}}{\Nat\times\colist{X}\func{}\Lift{X}{\Nat}}$}
+  \AxiomC{$\Delta\linfer\tj{n}{\Nat}$}
+  \AxiomC{$\Gamma\linfer\tj{\coseq{x}}{\colist{X}}$}
+  \RightLabel{\raisebox{4pt}{$\scriptstyle[take\texttt{-intro}]$}}
+  \TrinaryInfC{$\Gamma,\Delta,\Lambda\linfer\tj{\texttt{take}(n,\coseq{x})}{\Lift{X}{\Nat}}$}
+\end{prooftree}
+
+\texttt{take} must be inductively defined, since both head and tail
+are finite, by induction on the indexing arg.
+
+\begin{align} %%at}{2}
+  \texttt{take}(0,\coseq{x}) &= \nillist \\
+ \texttt{take}(\SNat{}n,\coseq{x})) &=
+ \defnup{\Cons}(\cohead(\coseq{x}),\texttt{take}(n,\cotail(\coseq{x}))) \label{take:ind}
+  %% \\
+  %% \cohead(\texttt{take}(\SNat{}n,\coseq{x})) &= \cohead(\coseq{x}) \\
+  %% \cotail(\texttt{take}(\SNat{}n,\coseq{x})) &=
+  %% \Cons(\cohead(\coseq{x}),\texttt{take}(n,\cotail(\coseq{x}))) \label{take:tail}
+\end{align} %%at}
+
+
+\subsubsection{Endomorphisms (transformers)}
+
+ evens, odds, merge
+
+\subsubsection{Pathological cases}
+
+\subsection{Transfinite Lists}
+
+The idea is that we start with ordinary infinite lists, and append
+transfinite ordinals. E.g. \(\langle 0, 1, \ldots, \omega, \omega+1,
+\ldots\rangle\). So our new lists will look like a pair of an infinite
+list of \(X\) and an infinite list of transfinite ordinals, but in
+theory they are concatenated infinities. This is expressed by the
+cotype discipline, which is different that that of pair types. The
+tails of the sublists have the same type as the whole list. That is,
+the sublists do not get their own types.
+
+Not much use except for demonstrating some things about coinductive
+reasoning.
+
+We can express this by expanding the stream type, just as we expanded
+\(\Nat\) to get \(\NDark\). We just add new co-constructors so that we
+can extract the transfinite ordinals. The \(\cohead\) co-constructor
+will not change; the new \(\xcohead\) co-constructor will project the
+head of the transfinite sublist. Similarly, the new \(\xcotail\) will
+return the tail of the transfinite sublist.
+
+But first we need a type for transfinite ordinals. We won't define it
+here (yet), we just need to declare it so we can express tokens of the
+type. We use \(\Omega\), and we'll use \(\omega_{i}\) for tokens so we
+can write \(\tj{\omega_0}{\Omega}\).\footnote{A subscripted \(\omega\)
+symbol as a variable must not be confused with its use as a constant
+to name the first transfinite ordinal.}
+
+\vspace{2ex}
+
+We need two list types, \(X^{\Nat}\) and \(X^{\Omega}\) and their
+concatenation \(X^{\Nat\Omega}\).
+
+Here are the defining inference rules for cotype \(\xcolist{X}\)
+(transfinite list of \(X\)).
+
+\begin{align}
+  & \linfer \tj{\Omega}{\Univ} & \Omega\ \text{is a type} \\
+  \tj{\seq{x}}{\xcolist{X}} & \linfer \tj{\head(\seq{x})}{X} & \\
+  \tj{\seq{x}}{\xcolist{X}} & \linfer \tj{\xcohead(\seq{x})}{\Omega} & \\
+  \tj{\seq{x}}{\xcolist{X}} & \linfer \tj{\tail(\seq{x})}{\xcolist{X}} & \\
+  \tj{\seq{x}}{\xcolist{X}} & \linfer \tj{\xcotail(\seq{x})}{\xcolist{X}} &
+\end{align}
+
+[But then we expect \(\tj{\xcohead(\xcotail(\seq{x}))}{\Omega}\). How can we ensure this?]
+
+\subsubsection{Notes}
+
+The infinite list type is less than the new transfinite list type. So
+the latter is not included in the ``terminal coalgebra'' set of the
+former. So this example does not demonstrate the maximality of the
+infinite list cotype.
+

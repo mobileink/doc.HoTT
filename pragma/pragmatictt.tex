@@ -1,0 +1,202 @@
+\documentclass{article}
+
+\usepackage{../hottmacros}
+
+%% load fonts before fontspec
+\usepackage{MnSymbol}
+\usepackage{dsfont}
+\usepackage{stmaryrd}
+\usepackage{unicode-math}
+\usepackage{cmll}
+
+%% \usepackage{xltxtra,xunicode}
+\usepackage{fontspec}
+\defaultfontfeatures{Scale=MatchLowercase}
+
+\setmainfont[Ligatures=TeX]{Times New Roman}
+%% \setromanfont[Mapping=tex-text]{Times New Roman}
+%% \setsansfont[Mapping=tex-text]{Arial}
+
+%% \setmainfont[Ligatures=TeX]{Palatino}
+%% \setmainfont[Ligatures=TeX]{TeX Gyre Pagella}
+%% \setmainfont[Mapping=tex-text]{TeX Gyre Pagella}
+%% \setromanfont[Mapping=tex-text]{TeX Gyre Pagella}
+%% \setsansfont[Mapping=tex-text]{TeX Gyre Heros}
+
+%% \setoperatorfont{rmfamily}
+
+\newfontfamily\greekfont[Scale=MatchLowercase]{Lucida Grande}
+
+\usepackage{polyglossia}
+\setmainlanguage{english}
+\setotherlanguage{greek}
+
+\usepackage[
+bibstyle=authoryear,
+citestyle=authoryear,
+%% style=alphabetic,
+natbib=true,
+hyperref,bibencoding=utf8,backref=true,backend=biber]{biblatex}
+\addbibresource{pragmatictt.bib}
+
+%% \usepackage[nottoc,notlot,notlof]{tocbibind}
+
+\usepackage{hyperref}
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    unicode=true,          % non-Latin characters in Acrobat’s bookmarks
+    pdftoolbar=true,        % show Acrobat’s toolbar?
+    pdfmenubar=true,        % show Acrobat’s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={My title},    % title
+    pdfauthor={Author},     % author
+    pdfsubject={Subject},   % subject of the document
+    pdfcreator={Creator},   % creator of the document
+    pdfproducer={Producer}, % producer of the document
+    pdfkeywords={keyword1} {key2} {key3}, % list of keywords
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=blue,          % color of internal links
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+\usepackage{bookmark}
+\bookmarksetup{numbered}
+
+\usepackage{pgfplots,tikz}
+\usetikzlibrary{decorations.markings,arrows.meta,backgrounds}
+\usetikzlibrary{math}
+\usepackage{../pragmasyms}
+
+\usepackage{circuitikz}
+
+\pgfplotsset{compat=newest}
+\usepackage{amsmath}
+
+%% \usepackage{pgffor}
+
+\usepackage{epigraph}
+\setlength\epigraphwidth{.5\textwidth}
+
+\usepackage{csquotes}
+\renewcommand{\mkcitation}[1]{\footnote{#1}}
+\newenvironment*{smallquote}
+  {\quote\sffamily\slshape}
+  {\endquote}
+\SetBlockEnvironment{smallquote}
+
+%% \setquotestyle
+\usepackage{titlesec}
+\usepackage{bussproofs}
+%% \usepackage[]{prftree}
+\usepackage{turnstile}
+\usepackage{changepage}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{cancel}
+
+\usepackage[xindy]{glossaries}
+\makeglossaries
+%% \makenoidxglossaries % use TeX to sort
+
+\input{glossentries}
+
+%% \floatstyle{boxed}
+%% \restylefloat{figure}
+
+\renewcommand{\mktextquote}[6]{#1\sffamily\slshape #2#4#3#6#5}
+
+%% \usepackage[only]{excludeonly} %% does not work
+%% \excludeonly{
+%%   equality,
+%%   helix
+%% }
+
+\includeonly{
+  %% logical_expressivism,
+  case_studies,
+  coinduction,
+  definition,
+  %% fixpoints,
+  notation,
+  glossary
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\title{Pragmatic Type Theory}
+\maketitle
+\tableofcontents
+
+\vfill
+\large
+
+\epigraph{Speculative informal interpretations of various logics can be very entertaining\ldots}
+         {Katalin Bimbó, \textit{Proof Theory} (\parencite{bimbo2014proof})}
+
+test:  \(\drawbaseline{2 + \rdotarrow 3}\)
+
+
+\include{pragmatism}
+
+\include{inferential_semantics}
+
+\include{logical_expressivism}
+
+\include{formal_calculi}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{modalities}
+
+\include{composition}
+
+\include{pluralism}
+
+\include{typesystems}
+
+\include{propositions}
+
+\include{definition}
+
+\include{types}
+
+\include{coinduction}
+
+\include{coalgebra}
+
+\include{fixpoints}
+
+\include{identity}
+
+\include{equality}
+
+\include{case_studies}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bookmarksetup{startatroot}
+\appendix
+\addcontentsline{toc}{section}{Appendices}
+\makeatletter
+\addtocontents{toc}{\let\protect\l@section\protect\l@subsection}
+\label{appendices}
+\makeatother
+
+%% setting bookmark level does not seem to work here
+%% \bookmarksetupnext{rellevel=2}
+
+\include{notation}
+
+\include{logic_systems}
+
+\include{helix}
+
+\include{notes}
+
+\include{biblio}
+
+\include{glossary}
+
+\end{document}

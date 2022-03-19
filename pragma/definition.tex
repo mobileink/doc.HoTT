@@ -1,0 +1,541 @@
+\section{Definition \& Codefinition}\label{sec:definition}
+
+To define a function \textit{from} a type, the function must
+\textit{use} the constructors of the type.
+
+To codefine a cofunction \textit{to} a cotype, the cofunction must
+\textit{be used by} the co-constructors.
+
+To define a function to a type, use the constructors.
+
+To codefine a function from a cotype, the cofunction must use the
+co-constructors. Example: projection ops like \textsf{second} or
+\textsf{nth}.
+
+So only functions to a cotype are used by coconstructors.
+
+What the codefinitions do is define the relation between the input and
+output of the cofunction from the outside, as it were. This is the
+coinductive analog to the inductive method of treating the value of a
+function at \(n+1\) as a function of \(n\). Codefinitions do not
+define the next codatum, but they do define the ``next'' value
+produced by the cofunction as a function of the coconstructors
+operating on the input. So this is like a homomorphism: the coctor
+applied to the output of a cofunction is function of the same ctor
+applied to the input.
+
+But that's wrong. We are free to codefine e.g. a constant head:
+\mbox{\(\cohead(\coseq{x}) = 7\)}.
+
+The codefinition for a cofunction defines the co-constructors for
+elements of the codomain of the cofunction, which is the cobase of the
+type.
+
+With codefinitions we get a different meaning for the co-ctors for
+each cofunction. That makes sense because a codefinition defines the
+co-ctors over the codomain of the cofunction, not its domain.
+
+Which in effect means that what codefinitions ``define'' is not a
+function, but the cotype itself. The cotype with its co-constructors
+alone is ``least defined''; adding cofunctions by codefinition refines
+the type by making it more defined.
+
+Coinduction thus goes very well with concepts like Refinement calculus
+and program refinement.
+
+By contrast, constructors have the same meaning always, because their
+domain is fixed.
+
+It's like the codefinition is telling the cofunction ``I don't care
+how you do it, but the head of your output had better match what I
+produce operating on the same input.'' For induction, this would be
+something to be proved; for coinduction, its stipulated, from the
+outside: a kind of axiom.
+
+With induction, the ctors determine the least you need to generate the
+entire type.
+
+With coinduction, the entire type is already given. The co-ctors
+determine the most you can do with an arbitrary element of the type,
+that's what makes it the ``greatest''. Its not about the type, but
+about elements of the type. This is a symmetry since each element is
+infinite, just as the inductive type is infinite.
+
+With an arbitrary colist, you can get the whole thing in its original
+state using the co-ctors. But with the output of a func, thats the
+most you can get; in the case of e.g. \defn{evens} you get a lot less
+than that. So maybe thats the ordering principle. The most you can
+ever get out of a colist is expressible in terms of the co-ctors. Any
+other functions will give you that or less. (What about functions that
+combine two colists, like merge?)
+
+Genuine induction induces an order on the members of the type.
+Elements of a colist are unordered. Is that true for all coinductively
+defined types? We know they don't have a bottom element, but what
+about ordering? Well, we can impose and ordering on e.g.
+\(\colist{\Nat}\). But there's not internal order induced by
+construction. They're not structurally ordered; if they can be ordered
+its because of the parameter type.
+
+\paragraph{Consistency}
+
+Cofunction codefinitions must to more than give values. They must also
+integrate the cofunction into the co-constructor system to ensure
+consistency. They do this by codefining how they interact with the
+co-constructors.
+
+Take \Cons{} for colists as an example. The primitives are the
+co-constructors \head{} and \tail{}; \cons{} must be a cofunction.
+Step one is to declare the type: \(\tj{x}{X},
+\tj{\coseq{x}}{\colist{X}}\lso \tj{(x\cons\coseq{x})}{\colist{X}}\).
+This is not enough, because it does not tell us how the resulting
+\(X\)-colist interacts with the primitives. Remember that colists are
+opaque, and strings of characters like \cons have no intrinsic
+meaning. So we have no reason to think that the \head of such
+construction has any particular value. Consider the following
+pathological definitions:
+
+\paragraph{Constant cons}
+\[\head(x\cons\coseq{x}) = c\]
+
+\paragraph{Forgetful cons}
+\[\head(x\cons\coseq{x}) = \head(\coseq{x})\]
+
+And a proper definition: \(\head(x\cons\coseq{x}) = x\)
+
+The same considerations apply to functions. Consider \head{} and
+\tail{}; these must be functions, since the only primitives are nil
+and \Cons. Since they have no intrinsic meaning, we could give
+pathological definitions like we did above, a constant \head{} that
+always returns \(c\) and a forgetful \head{} that returns the head of
+the tail. So we have to be explicit. A common strategy is to define
+these functions for arguments of the form \(x\cons xs\), but such a
+definition is inadequate, since we cannot assume arguments will always
+have that form. The proper type declaration is
+\(\tj{\seq{x}}{\List{X}} \linfer \tj{\head(\seq{x})}{\List{X}}\)
+
+And the definition. Maybe.
+\(\head(\seq{x}) = \head(\head(\seq{x})\cons\tail(\seq{x}))\)
+
+\subsection{Definitional Equations}
+
+Definitions are often expressed in equational form, as
+\textit{defining equations}. The symbol used may be the standard
+equality symbol (``\(=\)''), or some variant, such as \(\eqdef,
+\equiv\), or \(\coloneqq\). Schematically:
+\[\textit{definiendum}\equiv\textit{definiens}\]
+
+Definitional equations look like equations, but strictly speaking they
+do not express a relation of equality between two things.
+Semantically, they are asymmetric. By convention, the meaning of the
+\textit{definiens} on the right-hand side (``RHS'') is antecedently
+determined, and the meaning of the \textit{definiendum} on the LHS is
+determined by the RHS.
+
+Because of this asymmetry, it is generally not a good idea to use the
+equality sign \(=\) in such expressions.
+
+\subsection{Fiat Definition}
+
+Fiat definition gives us a way to enrich our vocabulary without
+disturbing its inferential structure. It introduces new names, but not
+new concepts. Fiat definitions are not inferentially justified, nor do
+any new inferences follow from a fiat definition. When we begin by
+stipulating, for example, that symbol \(\ulcorner 2\urcorner\) is to
+be taken to represent the second non-negative natural number, we've
+given a fiat definition. There is no inference involved.
+
+Of course, inductive and coinductive definitions are also adopted by
+fiat, but we reserve the term for non-inferential definitions.
+
+Fiat definitions and axioms may look alike, but they must be formally
+distinguished. Fiat definitions cannot be expressed as inference
+rules, nor are they propositional formulae (we cannot define
+propositions by fiat). Axioms are formulae (propositions), so they can
+be used in inferences.
+
+\subsection{Inductive Definition}
+
+In formal languages, definitions express binding, not equality.
+
+Definitions do not express propositions. Since equations express
+propositions, it follows that definitions cannot express equations,
+and so cannot express equality.
+
+Propositions may be asserted. Linguistically, assertion is in the
+indicative mood. This is true even for ``modal'' propositions
+expressing necessity or possibility.
+
+Propositions may be false, or wrongly asserted. Definitions cannot be
+wrong, unless we're trying to define something that already defined.
+That is, an incorrect definition is not a definition, it's a theorem
+that looks like a definition.
+
+Definitions cannot be asserted. The functional role of definitions is
+to set the rules of the game, and in doing so they express a kind of
+\textit{deontic conditional}\footnote{Note that ``deontic'' already
+implies a kind of conditionality; obigation is always conditional on
+obligee's willingness to accept the obligation.}: \textit{if} you want
+to play the game, \textit{then} you are \textit{obligated} follow the
+rules. If you don't follow the rules, then - by definition - whatever
+it is you do do will not count as playing the game.
+
+Thus definitions can only be uttered in the \textit{deontic mood},
+expressing a normative rule. Definitions may have grammatical form of
+other kinds of utterance:
+
+\begin{itemize}
+\item Imperative: ``Define f = sqrt''
+\item Optative: ``Let  f = sqrt''
+\item Indicative: ``By definition, f = sqrt''
+\end{itemize}
+
+But grammatical form is notoriously deceiving. What all three of these
+forms express is a rule that players are obligated to follow if they
+want to be counted as playing the game.
+
+Definitions often do include equational forms, as in the examples
+above; they may even be expressed \textit{as} equations. For example,
+a paper might have a section entitled ``Definitions'', containing a
+list of equations (statements). But that is mere convention, an
+(acceptable) abuse of notation. What the definitions express in spite
+of their form are deontic conditionals: rules of the game.
+
+Aside from this argument from grammatical mood, there is a more
+substantial argument from semantics against definition-as-equation (at
+least in formal languages). The \textit{definiendum} of a definition
+has no free-standing denotation; indeed the very purpose of the
+definition is to give it such a denotation. But in order for an
+equation to be meaningful the symbols on both sides of the equals sign
+must denote. The proposition \(x = sqrt(2)\) is meaningless if \(x\)
+is free. It follows that \textit{defining} x by writing \(x :=
+sqrt(2)\) does not involve finding a proof that \(x = sqrt(7)\). We
+may \textit{read} it that way, e.g. ``Let x be defined by the equation
+\(x = sqrt(7)\)''; but what that really means is ``Let x be bound to a
+value such that \(x = sqrt(7)\) is true'', which in turn entails(?)
+that \(x\) \textit{should} be bound to whatever \(sqrt(7)\) is bound
+to.
+
+\subsection{Codefinition}
+
+Codefinition relies essentially on the assumption that co-constructors
+and cofunctions already ``exist'' in good working order.
+
+Coinductively defined types, or cotypes as we will call them, are
+determined by their co-constructors, just as inductively defined types
+are determined by their constructors (and eliminators, maybe). But
+neither constructors nor co-constructors are defined; they're just
+stipulated as primitives.
+
+[Well, not quite. Codefinitions do in fact define co-constructors, at
+  least partly.]
+
+For example, here's an inductive definition of the constructors for
+type \(\List{X}\) (using \(\mathpunct{::}\) as the \textit{cons}
+constructor):
+
+\begin{align}
+  & \linfer \tj{\listld\,\listrd}{\List{X}} \\
+  \tj{x}{X}, \tj{\seq{x}}{\List{X}} &\linfer \tj{x\cons{}\seq{x}}{\List{X}} \\
+\end{align}
+
+These constructors are not \textit{defined}; we have not said what
+they are or how they work (no algorithm here). We've only shown that
+they observe a kind of type discipline and left it at that. But we do
+say that together they ``define'' the type \(\colist{X}\), by which
+we mean they \textit{determine} the type.
+
+The constructors are primitive; \head{} and \tail{} are not. For them
+we have two options. We can define them inductively as functions or we
+can codefine them by coinduction:
+
+\begin{align}
+  \tj{\seq{x}}{\List{X}} & \linfer \tj{\head(\seq{x})}{X} \\
+  \tj{\seq{x}}{\List{X}} & \linfer \tj{\tail(\seq{x})}{\List X}
+\end{align}
+
+\begin{align}
+  \tj{x}{X},\tj{\seq{x}}{\List{X}} & \linfer \tj{\tail(x\cons{}\seq{x})} = \seq{x} \\
+  \tj{x}{X},\tj{\seq{x}}{\List{X}} & \linfer \tj{\head(x\cons{}\seq{x})} = x
+\end{align}
+
+Here's the corresponding codefinition of the cotype \(\colist{X}\).
+Dual to the inductive type, \head{} and \tail{} are primitives, codefined
+as co-constructors, and \textit{cons} is defined as a function.
+
+\begin{align}
+  \tj{\coseq{x}}{\colist{X}} & \linfer \tj{\head(\coseq{x})}{X} \\
+  \tj{\coseq{x}}{\colist{X}} & \linfer \tj{\tail(\coseq{x})}{\colist{X}}
+\end{align}
+
+
+
+Codefinitions do not define a function; rather, they (re-)define the
+co-ctors of the type for the range of the function. Which is why we
+say ``codefinition'' and ``cofunction''. So the meaning of the
+co-ctors depends not on the type they are applied to - that does not
+vary - but on which cofunction produced the value (cotoken?).
+
+Codefined functions are cofunctions. They are not defined the way
+inductively defined functions are defined. For the latter we specify
+an algorithm that determines the function, and we can ``see'' how it
+works. We cannot do that for cofunctions. They can only be codefined,
+by specifying what can be done with their outputs. They remain opaque
+and indeterminate.
+
+If you are beset by metaphysical longings, you can thing of a
+cofunction as a producer of typed of ``stuff'', such as phlogiston, or
+ylem, the primordial matter of the cosmos, or even a dark number that
+cannot be observed. The coconstructors extract a blob of it and give
+it form. But in general it's a bad idea to think like this. We do not
+need to posit the existence of cofunctions or their inputs and outputs
+in order to understand them. In fact it is better not to, because doing so needlessly complicates things.]
+
+For example, the codefinitions of \codefn{evens} and \codefn{odds} over
+colists do not say how they work their magic. All they do is specify
+how their output is related to their input. Codefinition just assumes
+that the cofunction is ``good'', that it takes its input to its
+output. [\textbf{Wrong! to be revised:}
+The codefinition then says how the output relates to the
+input, expressed using the co-constructors of the type. Those
+co-constructors in turn are also opaque and literally undefined. It's
+all purely structural.]
+
+In other words, the codefinition of the coconstructor \cohead{} tells
+us only that it produces an \(X\) from a token of type \(\colist{X}\).
+It only determines the type, leaving the coctor underdetermined.
+
+Here's a codefinition of the coconstructors for type \(\colist{X}\):
+
+\begin{align}
+  \cohead(\codefn{evens}(\coseq{x})) & = \cohead(\coseq{x}) \\
+  \cotail(\codefn{evens}(\coseq{x})) & = \cotail(\cotail(\coseq{x})) \\
+  \cohead(\codefn{odds}(\coseq{x})) & = \cohead(\cotail(\coseq{x})) \\
+  \cotail(\codefn{odds}(\coseq{x})) & = \cotail(\cotail(\cotail(\coseq{x})))
+\end{align}
+
+\subsubsection{Sequent Calculus for Cotypes}
+
+Inference rules for cotypes cannot be expressed with the usual sequent
+calculus.
+
+For inductive types, the sequent calculus is powerful enought to
+express a basic pattern: if the environment suffices for a
+construction, and a proof depends on a component of the construction,
+then the environment suffices for the proof. For example, if the
+environment suffices to prove \(A\lkand B\), and \(B\) suffices to
+prove \(C\), then the environment suffices to prove \(C\). This does
+not require an elimination rule; it just reflects the basic insight
+that if the environment provides the components \(A\) and \(B\) that
+you need to build \(A\lkand B\), then you can use that environment to
+directlyl build anything that needs either \(A\) or \(B\), without
+going through the detour of assembling and then disassembling
+\(A\lkand B\).
+
+For coinductive types, by contrast, this reasoning does not hold,
+because codata are not constructed; instead we always assume that they
+are already available (and we do not concern ourselves with their
+provenance). So it makes no sense to say that if an environment
+suffices for an \(X\)-colist, then it must suffice for something that
+needs an X. The environment may suffice for something that needs an
+\(X\) colist, but it does not follow that it suffices for something
+that needs an X. The reason for this is that \(X\)-colists are not
+constructed. An environment can deliver an \(X\)-colist if it already
+has one, but that doen't mean it can also deliver a stand-alone \(X\).
+
+In short, reasoning with cotypes, codata, cofunctions etc. requires an
+entirely different set of assumptions.
+
+So what would a fully fleshed-out inference rule for a coconstructor
+look like?
+
+\begin{prooftree}
+\AxiomC{$\Gamma\linfer \tj{\coseq{x}}{\overrightarrow{X}}$}
+\AxiomC{$\Delta,\tj{b}{B}\linfer \tj{c}{C}$}
+\RightLabel{$\linfer\head_{_{\overrightarrow{X}}}$}
+\BinaryInfC{$\Gamma,\Delta,\head(\coseq{x})\linfer \tj{c}{C}$}
+\end{prooftree}
+
+I don't think this works. The \(\coseq{x}\) in the premise is on the wrong side of the \(\linfer\).  Try this:
+
+\makebox[\textwidth]{\parbox{1.8\textwidth}{%
+\begin{center}
+\AxiomC{$\Gamma,\tj{\coseq{x}}{\overrightarrow{X}} \linfer\Lambda$}
+\AxiomC{$\Delta,\tj{x}{X}\linfer \tj{c}{C}$}
+\RightLabel{$\head_{_{\overrightarrow{X}}}\linfer$}
+\BinaryInfC{$\Gamma,\Delta,\tj{\head(\coseq{x})}{X}\linfer \tj{c}{C},\Lambda$}
+\DisplayProof
+\hspace{1.5em}
+\AxiomC{$\Gamma,\tj{\coseq{x}}{\overrightarrow{X}} \linfer\Lambda$}
+\AxiomC{$\Delta,\tj{\coseq{x}}{\overrightarrow{X}}\linfer \tj{c}{C}$}
+\RightLabel{$\tail_{_{\overrightarrow{X}}}\linfer$}
+\BinaryInfC{$\Gamma,\Delta,\tj{\tail(\coseq{x})}{\overrightarrow{X}}\linfer \tj{c}{C},\Lambda$}
+\DisplayProof
+\end{center}
+}}
+
+\vspace{1ex}
+
+Right-rules are trivial:
+%% \makebox[\textwidth]{\parbox{1.8\textwidth}{%
+\begin{center}
+\AxiomC{$\Gamma \linfer \Lambda$}
+\AxiomC{$\Delta \linfer \tj{\coseq{x}}{\overrightarrow{X}}$}
+\RightLabel{$\linfer\head_{_{\overrightarrow{X}}}$}
+\BinaryInfC{$\Gamma,\Delta \linfer \Lambda,\tj{\head(\coseq{x})}{X}$}
+\DisplayProof
+??
+\hspace{1.5em}
+\AxiomC{$\Gamma \linfer \tj{\coseq{x}}{\overrightarrow{X}}$}
+\RightLabel{$\linfer\head_{_{\overrightarrow{X}}}$}
+\UnaryInfC{$\Gamma \linfer \tj{\head(\coseq{x})}{X}$}
+\DisplayProof
+\end{center}
+%% }}
+
+\vspace{1ex}
+
+Note that these rules work for both finite and infinite lists.
+
+Compare the LK rule for \(\lkand\):
+
+%% Logical And
+\begin{center}
+\AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
+\AxiomC{$\seqand\kern-1.2em$}
+\AxiomC{$\Gamma\linfer \Delta, B$}
+\RightLabel{$\linfer\land$}
+\TrinaryInfC{$\Gamma\linfer \Delta, A\land B$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
+\AxiomC{$\seqor\kern-1.2em$}
+\AxiomC{$B,\Gamma\linfer \Delta$}
+\RightLabel{$\land\linfer$}
+\TrinaryInfC{$A\land B,\Gamma\linfer \Delta$}
+\DisplayProof
+\end{center}
+
+\subsection{Lamba Definability}
+
+
+\subsection{Martin-Löf's Doctrine of Judgmental Equality}
+
+And it is a doctrine, not a theory or definition.
+
+It follows that ``judgmental equality'' as defined by Martin-Löf is
+incoherent. If \(a=b:A\) expresses a judgment, then it cannot also
+express an equality; if it expresses an equality, then it cannot be a
+definition.
+
+What it expresses can be stated clearly in terms of binding. \(a=b:A\)
+expresses a rule of the (local) game, that \(a:A\) and \(b:A\) must be
+bound to the same value in the game (of reasoning or programming)
+under way; and that in turn expresses an obligation that players of
+the game (such as compilers) must agree to. If you do not want to bind
+yourself to that obligation, then you are not playing the game, and
+you have no right to complain if things do not turn out the way you
+expect. If you decide to bind \(a\) and \(b\) to different values (or
+different types), your program may break, and if it does it will be
+your fault.
+
+This means that sentences in the HoTT book containing ``judgmental
+equality'' or ``definitional equality'' are effectively meaningless.
+Those expressions are not just misleading, or even wrong; they are
+meaningless. So to restore meaning, we need to reinterpret these
+expressions.
+
+``Judgmental'' must be discarded; definitions are not judgments.
+
+Definitional binding?
+
+Once we see that ``judgmental equality'' really means ``definitional
+binding'', it becomes easy to see why the former cannot be synonymous
+with propositional equality (which is the only kind there is).
+
+It also means we can discard the doctrine of Two Equalities
+(propositional and judgmental). There is only one equality.
+
+Side-effect: removing ``judgmental equality'' simplifies the text
+considerably.
+
+Effect on the text:
+
+
+\subsection{notes}
+
+\paragraph{Plan of attack \\}
+
+Most attempts to explain the concept of equality or identity in
+mathematics and logic start with a presupposition that equality has
+some kind of objective reality that we want to grasp and explain. This
+is true both of representationalist and anti-representationalist
+accounts.  Etc.
+
+A pragmatist order of explanation turns this around. The task for the
+pragmatist is not to explain objective equality, but to give an
+account of the role the concept plays in our (mathematical, logical)
+practices: how we \textit{use} it to do the things we want to do.
+
+\textquote[\citetitle{Peirce+2011+50+65} \cite{Peirce+2011+50+65}]{It appears, then, that the rule for attaining the third grade of clearness of apprehension is as follows: Consider what effects, that might conceivably have practical bearings, we conceive the object of our conception to have. Then, our conception of these effects is the whole of our conception of the object.}
+
+That is not to say that the pragmatic approach \textit{denies
+  altogether} other approaches, be they Platonic, Representationalist,
+or whatever. It remains agnostic with respect to metaphysics. Rather
+it says that such approaches cannot be truly explanatory, that they
+are the wrong sort of game. For the pragmatist, the ultimate
+ontological status of equality is of no relevance, unless it can be
+shown to have a practical effect on how we use the concept of
+equality.
+
+So our task is to give a pragmatic account of the role played by the
+concept of equality in HoTT. A very good way to start is by examined
+the way the concept has been used historically. Just as the concept
+``number'' has changed over the course of the centuries, so have the
+(mathematical) concepts of equality and identity.
+
+The core of the argument is that traditionally, starting from the
+Greeks and maybe even the Babylonians there was no problem saying that
+two different things were equal. In effect their notion of equality
+was relative, not absolute. Equal meant equal in some key respect. For
+example, Euclid postulates \enquote{[t]hat all right angles are equal
+  to one another.}(\cite{euclid}) That should not be construed as the
+metaphysical claim that they are all \textit{the same thing}. Rather,
+from a pragmatic perspective, it just tells us that ``equal'' is the
+right word to use when comparing the magnitudes of \textit{any} right
+angles, \textit{regardless} of their ontological distinctiveness or
+lack thereof. Notice that this does not entail postulation of an
+equality relation or property; i.e. it does not say anything like
+``any two right angles have the property of being equal'', or ``a
+relation of equality obtains between any two right angles''.
+
+We can explain this in terms of material inference. If we see or know
+that each of two things is a right angle, then we are entitle to
+\textit{infer} that they are equal. This inference is underwritten by
+the concept ``right angle'', and that is what makes it a material
+inference. Indeed, the validity of such an inference is partly
+consitutive of the meaning of ``right angle''. And the ultimate
+justification is normative practice; that's just the way we talk
+around here.
+
+More generally, practical inferences to and from equality contribute
+to the institution of the meaning of whatever it is we equate.
+
+Ok, then maybe we talk a bit about modern concepts, in particular
+Leibniz's Law. What effect did this have on the practical norms of use
+of the concept?
+
+We note that equality axioms (reflexivity, substitutionality,
+transitivity, symmetry, whatever) do not explain the concept; they are
+not a theory of equality. Rather they should be deemed criteria of
+adequacy for such a theory, just as Tarski's Convention T is a
+criterion of adequacy for theories of truth.\footnote{A theory of
+truth that does entail ``\(\ulcorner P\urcorner\) is true if and only
+if P is true'' is inadquate.} E.g. ``\(\ulcorner a = b\urcorner\) iff
+\(a=b ↔ b=a\), etc...'' tells us how a relation must behave if it is
+to serve adequately as the denotation of ``=''.
+
+Our technical ``equality'' need not correspond to ordinary equality,
+and may even be very different. But the former should at least subsume
+the latter, if only to justify use of the same word.
+

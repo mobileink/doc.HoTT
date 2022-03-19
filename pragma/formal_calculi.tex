@@ -1,0 +1,283 @@
+\section{Formal Calculi}\label{sec:formal_calculi}
+
+\begin{itemize}
+\item Logical calculi: natural deduction, sequent calculus, tableaux, fitch trees, lemmon
+\item Modal calculi: \(\mu\)-calculus
+\item Function calculi: lambda calculus, combinatory logic (misnamed, its
+about functions, combinatory function calculus). Differs from logical
+calculi by having a definite intended interpretation, the world of
+functions.
+\item Process calculi: \(\pi\) calculus, CCS, etc.
+\item Refinement calculus
+\item Protocol/security calculi: Spi calculus
+\item Other kinds?  See \href{https://en.wikipedia.org/wiki/List_of_formal_systems}{List of Formal Systems}.
+\end{itemize}
+
+What do they all have in common? Only syntax, probably. Plus an
+intended domain of interpretation.
+
+\citetitle{spi_calculus} \cite{spi_calculus}
+
+
+\subsection{Logical Calculi}
+
+\begin{itemize}
+\item \citetitle{bimbo2014proof} \cite{bimbo2014proof}
+\item \citetitle{troelstra2000basic} \cite{troelstra2000basic}
+\item \citetitle{negri2008structural} \cite{negri2008structural}
+\item \citetitle{Restall2000-RESAIT-4} \cite{Restall2000-RESAIT-4}
+\item \citetitle{takeuti2013proof} \cite{takeuti2013proof}
+\item \citetitle{kleene2009introduction} \cite{kleene2009introduction}
+\item \citetitle{Kleene1967-KLEML} \cite{Kleene1967-KLEML}
+\item \citetitle{Fitch1952-FITSL} \cite{Fitch1952-FITSL}
+\item \citetitle{Lemmon1965-LEMBL} \cite{Lemmon1965-LEMBL}
+\item \citetitle{Quine1940-QUIML} \cite{Quine1940-QUIML}
+\item \citetitle{Quine1950-QUIMOL} \cite{Quine1950-QUIMOL}
+\item \citetitle{Church1944-CHUITM} \cite{Church1944-CHUITM}
+\item \citetitle{Gentzen1964-nat-deduc} \cite{Gentzen1964-nat-deduc}
+\item \citetitle{Gentzen1969-GENTCP} \cite{Gentzen1969-GENTCP}
+\end{itemize}
+
+\subsubsection{Natural Deduction}
+
+
+\begin{itemize}
+\item \citetitle{Prawitz1965-PRANDA}, \cite{Prawitz1965-PRANDA}
+\item \citetitle{Gentzen1964-nat-deduc} \cite{Gentzen1964-nat-deduc}
+\end{itemize}
+
+%% \begin{prooftree}
+%% \AxiomC{$A$}
+%% \AxiomC{$;$}
+%% \AxiomC{$B$}
+%% \TrinaryInfC{$A\land B$}
+%% \end{prooftree}
+
+\subsubsection{Sequent Calculus}
+
+Instead of antecedent/succedent, why not use protasis and apodosis? It
+is grammar, after all.
+
+if <protasis> then <apodosis>
+
+Protasis: the ``if'' part of a conditional. From Late Latin protasis,
+from Ancient Greek πρότασις (prótasis), from προτείνω (proteínō, “put
+forward, tender, propose”), from πρό (pró) + τείνω (teínō, “stretch”).
+\href{https://en.wiktionary.org/wiki/protasis}{protasis}
+
+Apodosis: the consequence part of a conditional. From Late Latin
+apodosis, from Ancient Greek ἀπόδοσις (apódosis), from ἀπό (apó, “back
+again”) and δόσις (dósis, “gift”).
+
+Good overview:
+https://users.cecs.anu.edu.au/~jks/LogicNotes/sequent-calculus.html
+
+
+The tool of choice for substructural logic is the \textit{sequent
+  calculus}. The sequent calculus is much more refined and expressive
+than natural deduction, although they are logically equivalent.
+
+In the sequent calculus, sequents express (goodness of) prelogical
+inferences. They move from a prelogical conjunction on the left to a
+prelogical disjunction on the right. The symbol \(\linfer\) expresses
+validity; since validity only applies to inference, validity
+automatically means ``validity of inference''. It is the composition
+that is prelogical; the components of the pre-conjunction and
+pre-disjunction are logical propositions.
+
+The RHS of a sequent is always (by rule) a pre-logical disjunction of
+propositions, some of which may be logical composites. So the
+conclusion is always one or more propositional conjunctions.
+Particular logical calculi may place restrictions on either the
+antecedent or the succedent or both. For example, the logic LJ for
+intuitionisic logic stipulates that the conclusion of an inference may
+be only one proposition. This is easily reconciled with the sequence
+calculus rules, by simply declaring (conceptually at least) that all
+but one of the propositions in the succedent disjunction are false.
+
+Sequents express; do they also denote? Consider \(\ulcorner
+A;B\urcorner\). I would argue that in this expression \(A\) and \(B\)
+denote, but that the expression itself does not. It's a prelogical
+expression, whose sense is something like ``A and separately B,
+unconjoined''; that is, it does not (or is not intended to) express a
+synthesis of A and B. So it does not express one composite thing.
+Since sequents are themselves composed of such expressions, it follows
+that sequences do not denote.
+
+Does \(\linfer\) denote? It may, but it does not seem useful to think
+so. It's hard to see how ``validity of inference'' could be something
+that could be denoted.
+
+In any case, under an inferential, expressivist perspective,
+denotation is simply irrelevant. Whether our expressions denote things
+makes no difference. That is not to deny that they denote; it's just a
+matter of indifference.
+
+Sequents do not express inference rules.
+
+The premises of an inference rule are also conjoined, prelogically.
+The conclusion is always a single sequent.
+
+The antecedent of a sequent is a pre-conjunction of propositions - a
+list of propositions joined by the semicolon operator. The premise of
+an inference (the upper part) is a conjunction of sequents. Is that
+the same kind of conjunction?
+
+This suggests we need a new kind of conjunction operator. The
+traditional \(\ulcorner\land\urcorner\) logically conjoins propositions; the
+(sub)structural \(\ulcorner ;\urcorner\) prelogically conjoins propositions; we need a
+``sequent conjoiner'' to form premises from sequents.
+
+We have corresponding disjunction ops \(\ulcorner\lor\urcorner\) and
+\(\ulcorner\structor\urcorner\). We could also use an operator to
+express disjunctions of premises. Premise disjunction happens when we
+have two rules with the same conclusion, and each with a single
+sequent premise. Traditionally this is expressed by writing two rules, as in the \(\land\text{-exit}\) rules above.
+But that just leaves the disjunction implicit.
+
+What about composition multi-sequent premises?
+
+Notation: pairs or rules can be merged using \(\seqor\), which is
+exclusive or. For example, elimination may be split into two left
+rules. Since premises can only be used once, we have to pick one of
+the two rules to use.
+
+FIXME: we need another OR operator for or-ing rules. Implicitly all
+the rules are or-ed, we pick which ones to use. This gives us a
+structural or (used in consequents), rule or, and the logical ors.
+
+
+\begin{prooftree}
+\AxiomC{$X\linfer A$}
+\AxiomC{$;$}
+\AxiomC{$X\linfer B$}
+\TrinaryInfC{$X\linfer A\land B$}
+\end{prooftree}
+
+\begin{prooftree}
+\AxiomC{$\Gamma,A\land B \linfer \Delta$}
+\UnaryInfC{$\Gamma,A,B\linfer \Delta$}
+\end{prooftree}
+
+\begin{prooftree}
+\AxiomC{$\Gamma\linfer A,\Delta$}
+\AxiomC{$\Sigma\linfer B,\Pi$}
+\RightLabel{R$\land$}
+\BinaryInfC{$\Gamma,\Sigma\linfer A\land B, \Delta,\Pi$}
+\end{prooftree}
+
+Same thing, merging the two premise sequents into one sequent:
+
+\begin{prooftree}
+\AxiomC{$\Gamma,\Sigma\linfer A,B,\Delta,\Pi$}
+\RightLabel{$\linfer\land$}
+\UnaryInfC{$\Gamma,\Sigma\linfer A\land B, \Delta,\Pi$}
+\end{prooftree}
+
+Oops, that won't work, since the RHS comma means ``or''. The calculus
+does not allow us to infer ``and also, independently'' as a conclusion.
+Which makes sense, because that would make it a whole (i.e. both and).
+So we must have two premises, to express two inferences (not
+propositions), independently. Which means we need the $;$ structure
+operator, to express a conjunction of premise sequents.
+
+So we have two structure ops, one for the antecedents of sequents
+(context A and also context B), and one for whole sequents (sequent A
+and also sequent B, independently). That's because we have two kinds of
+inference, one for propositions and one for sequents.
+
+On the other hand, we can have ``and also'' premises, from which we
+can infer a ``both and'' premise.
+
+\begin{prooftree}
+\AxiomC{$\Gamma,A,B\linfer\Delta$}
+\RightLabel{$\land\linfer$}
+\UnaryInfC{$\Gamma,A\land B\linfer\Delta$}
+\end{prooftree}
+
+And we can express this using separate sequents instead of separate
+propositions:
+
+\begin{prooftree}
+\AxiomC{$\Gamma,A\linfer\Delta$}
+\AxiomC{$;$}
+\AxiomC{$\Sigma,B\linfer\Delta$}
+\RightLabel{$\land\linfer$}
+\TrinaryInfC{$\Gamma,\Sigma,A\land B\linfer\Delta$}
+\end{prooftree}
+
+Left-intro rules hold the RHS fixed and vary the LHS. Well not quite. RHS has no logical constants.  Right-intro rules omit logical constants from LHS.
+
+Linear logic can be mystifying to the newcomer, but it turns out it is
+quite easy to grasp. The trick is to know how the read the rules.
+
+Normally one reads the premises and then the conclusion of an
+inference rule, and tries to figure out how the former lead to the
+latter. But for LL it can be more enlightening to read the premises of
+the intro rule and then the premises of the elimination rule, before
+reading the conclusion of the intro-rule followed by the conclusion of
+the elimination rule. If you do it this way, a clear pattern of
+transitivity emerges: build something, then use what you have built to
+build something else. This is different than the picture you get from
+natural deduction, in which involves putting something together and
+then taking it apart. With the sequent calculus, we do not take things
+apart. Instead we use things to build yet more things. Doing this
+depends implicitly suggests that we have to dismantle things in order
+to do this, but that's not an explicit part of the logic.
+
+Warning: Wadler's vignettes don't really work, since they do not make
+the difference between intro and elim rules clear. It's the elim rules
+that express resource constraints. Or: affordances. \(A\&B\) affords
+use of A or B but not both; \(A\circ B\) affords use of both together
+but not singly; \(\multimap\) affords a single application per input.
+
+We could also use ``affords'' instead of ``suffices for''.
+
+\subsubsection{Tableau}
+
+\begin{itemize}
+
+\item \citetitle{Smullyan1968-SMUFL} \cite{Smullyan1968-SMUFL}
+
+\end{itemize}
+
+\subsubsection{Fitch Diagrams}
+
+\citetitle{Fitch1952-FITSL} \cite{Fitch1952-FITSL}
+
+\subsubsection{Lemmon}
+
+\citetitle{Lemmon1965-LEMBL} \cite{Lemmon1965-LEMBL}
+
+%%%%%%%%%%%%%%%%
+\subsection{Functional Calculi}
+
+%%%%%%%%%%%%%%%%
+\subsubsection{Combinatory Logic}
+
+\begin{itemize}
+\item \citetitle{bimbo2011combinatory} \cite{bimbo2011combinatory}
+\item \citetitle{Smullyan1985-SMUTMA-2} \cite{Smullyan1985-SMUTMA-2}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%
+\subsubsection{Lambda Calculus}
+
+%%%%%%%%%%%%%%%%
+\subsection{Process Calculi}
+
+\begin{itemize}
+\item \citetitle{sangiorgi2003pi} \cite{sangiorgi2003pi}
+\item \citetitle{milner1999communicating} \cite{milner1999communicating}
+\item \citetitle{Honda00secureinformation} \cite{Honda00secureinformation}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%
+\subsection{Refinement Calculus}
+
+\begin{itemize}
+  \item \citetitle{irefinement_calc} \cite{irefinement_calc}
+  \item \citetitle{back2012refinement} \cite{back2012refinement}
+  \item \citetitle{refinement_types_ml} \cite{refinement_types_ml}
+  \item \citetitle{morgan1990programming} \cite{morgan1990programming}
+\end{itemize}

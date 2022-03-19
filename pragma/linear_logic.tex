@@ -1,0 +1,590 @@
+\section{Linear Logic}\label{sec:linearlogic}
+
+General patterns where two premises (sequents) are used:
+
+\begin{itemize}
+\item each premise is in a different rule
+\item both premises are in one rule (implicitly conjoined)
+\item different premises go to same conclusions
+\item different premises go to different conclusions
+\item same premise goes to different conclusions
+\end{itemize}
+
+The terminology ``additives'' and ``multiplicatives'' are derived from
+the conherence spaces Girard used to provide semantics. So they
+reflect the structure of a particular semantic model.
+
+We can do better by thinking in terms of simple logical (or rather
+prelogical) intuitions. Then we get a distinction between inclusive
+and exclusive combinations. The additives are exclusive and and
+exclusive or.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Implication}
+
+Name: ``lollipop''.  Symbol: \(\lollipop\)
+
+\paragraph{Vignette\\}
+
+\ContextG is a factory, \(A\) is oil, \ContextD is tires, \ContextT is a
+kerosene heater, \(B\) is kerosene, and \ContextL is heating our house.
+
+The intro rule says that \textit{if} a factory and some oil suffice to
+give us kerosene and a warm house, \textit{then} the factory alone
+will suffice to give us \textit{either} a method to turn the oil into
+kerosene, \textit{or} some tires.
+
+The elimination rule says: \textit{if} the factory can produce oil and
+tires, and the heater and kerosene together can heat the house,
+\textit{then} the factory, and the heater, and a method of producing
+kerosene from oil together suffice for either producing tires or
+heating the house.
+
+The critical bit here is that oil can only be used once; it is
+consumed in producing kerosene.
+
+Linear implication is like classical implication, except that each
+argument can be used only once. Question: do the rules themselves
+express this, or is it an external constraint?
+
+\paragraph{Rules} Implication
+
+The linear implication operator is not a primitive constant; it is
+defined the same way classical implication is:
+
+\[A\lollipop B \coloneq A^\bot\fission B \hspace{3em} A\rightarrow B\coloneq \neg A\lor B\]
+
+The difference being that arguments to linear implication can only be
+used once.
+
+\[A\rightarrow B \coloneq (\ofcourse A)\lollipop B\]
+
+
+If we want to be able to construct and use implications we need inference
+rules for it:
+
+%% Implication rules
+\begin{center}
+\AxiomC{$\Gamma;A\linfer B\structor\Delta\kern-1.2em$}
+\RightLabel{$\linfer\lollipop$}
+\UnaryInfC{$\Gamma\linfer A\lollipop B\structor\Delta$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma\linfer A\structor\Delta\kern-1.2em$}
+\AxiomC{$\seqand\kern-1.2em$}
+\AxiomC{$\Theta; B\linfer \Lambda$}
+\RightLabel{$\lollipop\linfer$}
+\TrinaryInfC{$\Gamma;\Theta;A\lollipop B\linfer\Delta\structor\Lambda$}
+\DisplayProof
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Negation}
+
+\textquote[\parencite{Girard94lla} 3]{The most important linear connective is linear negation...}
+
+Name: ``nil''.  Symbol: \((\cdot)^{\bot}\)
+
+\textquote[\parencite{Girard94lla} 3]{\nil{A} negates (i.e. reacts
+  to) a single action of type \(A\), whereas usual negation only
+  negates some (unspecified) iteration of \(A\)...}
+
+
+\textquote[\parencite{Girard94lla} 3]{The main property of \((\cdot)^{\bot}\) is
+  that \nilnil{A} can, without any problem, be identified with \(A\)
+  like in classical logic.}
+
+\subsubsection{Rules}
+
+%% Negation rules
+\begin{center}
+\AxiomC{$\Gamma,B\linfer\Delta\kern-1.2em$}
+\RightLabel{$\linfer\ (\cdot)^{\bot}$}
+\UnaryInfC{$\Delta\linfer B^{\bot}\structor\Delta$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma\linfer B,\Delta\kern-1.2em$}
+\RightLabel{$(\cdot)^{\bot}\ \linfer$}
+\UnaryInfC{$\Gamma;B^{\bot}\linfer\Delta$}
+\DisplayProof
+\end{center}
+
+\subsubsection{Defining Equations}
+
+\textquote[\parencite{Girard94lla} 10]{Negation is defined by De Morgan equations...}
+
+\begin{align*}
+   \nil{(p)} &\coloneq \nil{p} & (\nil{p})^{\bot} &\coloneq p \\
+   \nil{(A\fusion B)} &\coloneq \nil{A}\fission \nil{B} & \nil{(A\fission B)} &\coloneq \nil{A}\fusion\nil{B} \\
+\end{align*}
+
+%%%%%%%%%%%%%%%%
+\subsection{Multiplicative Dyads}
+
+Here ``conclusions'' means a disjunct containing one or more true
+propositions.
+
+\subsubsection[Conjunction: both but not each (fusion)]{Conjunction: \Fusion}
+
+Name: ``fusion''.  Symbol: \(\fusion\) (Girard: \(\otimes\))
+
+Both but not each. All or nothing; there is no rule allowing
+extraction of a single conjunct.
+
+Compare exclusive conjunction: each but not both.
+
+\paragraph{Vignette\\}
+
+It takes two hands to clap. To shoot a bow and arrow, you need both a
+bow and an arrow.
+
+Bi-metalic coin;
+
+Caveat: ``fusion'' is not a good metaphor; it suggests that each
+component loses its identity in the fusion. That's not necessarily the
+case.
+
+Multiplicative conjunction is not a pairing but a fusion of two
+things. It does not allow extraction of one or the other, only of both
+at once. But we cannot express this as a conclusion in our logic
+language, since a conclusion can only be a single proposition. The
+elim rule for \(\circ\) suggests that we can only use it to provide A
+and B in a premise structure, not in a logical formula:
+
+\begin{prooftree}
+\AxiomC{$\Gamma\linfer A\circ B$}
+\AxiomC{$\Delta,\langle A\rangle,\langle B\rangle\linfer C$}
+\RightLabel{$\circ\ \text{elim}$}
+\BinaryInfC{$\Gamma,\Delta\linfer C$}
+\end{prooftree}
+
+NB: this is Wadler's (based on natural deduction). In the sequent calc
+it looks different.
+
+Informal justification (explanation) for this rule: in order for
+\ContextG to suffice for \(A\circ B\), it must suffice for A and also
+B, so that the the intro rule can be used to produce \(A\circ B\). So
+since \ContextG suffices for A and B, and A and B together with
+\ContextD suffice for C, it follows by transitivity that \ContextG
+with \ContextD must suffice for C. In other words, the exit rule moves
+backwards from conclusion \(A\circ B\) of the intro rule to its
+premises.
+
+Note that \(A\&B\) would not work since we cannot extract
+\textit{both} A and B from it.
+
+Instead of ``fusion'' we could call this ``sticky conjunction''.
+
+Maybe we could say that \(a\&b\) can be inferred from
+\(a\circ b\)? Actually we can do that derivation using \(\circ\)-elim,
+but not directly.
+
+An alternative left (elim) rule showing more conspicuously the
+relation between meta-symbol ',' and \(\circ\), or between antecedent
+structure \(A,B\) and logical formula \(A\circ B\):
+
+\begin{prooftree}
+\AxiomC{$A,B,\Gamma\linfer \Delta$}
+\RightLabel{$\circ\linfer$}
+\UnaryInfC{$A\circ B,\Gamma\linfer\Delta$}
+\end{prooftree}
+
+TODO: compare different variants of intro/elim rules. Wadler, which
+I've been using, is really natural deduction (it has elim rules). The
+sequent calc has left-intro rules instead of elim rules. Left-intro
+rules make more sense, the are rules of use rather than elimination.
+
+\paragraph{Rules} Conjunction (``fusion'')
+
+%% Fusion (multiplicative conjunction) rules
+\begin{center}
+\AxiomC{$\Gamma\linfer A\structor\Delta\kern-1.2em$}
+\AxiomC{$\seqand\kern-1.2em$}
+\AxiomC{$\Theta\linfer B\structor\Lambda$}
+\RightLabel{$\fusion\linfer$}
+\TrinaryInfC{$\Gamma;\Theta\linfer A\fusion B\structor\Delta\structor\Lambda$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma;A;B\linfer\Delta$}
+\RightLabel{$\linfer\fusion$}
+\UnaryInfC{$\Gamma;A\fusion B\linfer\Delta$}
+\DisplayProof
+\end{center}
+
+\subsubsection[Disjunction: both or either (fission)]{Disjunction: \(\fission\)}
+
+Name ``fission''; Symbol: \(\fission\) (Girard: \(\parr\))
+
+Both or either.
+
+If you can produce \(A\) or \(B\) \textit{or both} from the same
+source, then you can produce \(A\fission B\) from either \(A\) or \(B\)
+or both. (More accurately, you can produce it from that same source.)
+
+Now, if \(A\) suffices to produce \(A'\), and also \(B\) suffices to
+produce \(B'\), or both, you can instead use \(A\fission B\) to produce
+\(A'\) or \(B'\) or both.
+
+\paragraph{Vignette\\}
+
+To make coffee you need a method and some coffee beans; to make tea,
+you need a method and some tea leaves. So suppose you have the
+methods; now you need your ``resources''.
+
+You join a beverage club that sends you a box every few weeks. The
+box is labeled
+\(\ulcorner\text{Coffee}\ \fission\ \text{Tea}\urcorner\); it contains
+either a package of coffee beans or a package of tea leaves, or both.
+
+Now even if you do not know what is in the box, you know that you can
+use (the contents of) the box to make coffee, \textit{or} tea, or
+both. The critical concept is that the two components of \(A\fission
+B\) can be used, singley, to do two \textit{different} things or both,
+also expressible as an informal disjunct, e.g. \(A' \textit{or}\ B'
+\textit{or} both\). So if you have \(A\fission B\) you have one or the
+other or both, and you can use it (whichever it is) to do \textit{either}
+\(A'\) \textit{or} \(B'\) or both.
+
+Put differently: you can only use \(A\fission B\) (a kind of
+\textit{or}) when you a method that uses \(A\) to achieve \(A'\)
+\textit{and} a method that uses \(B\) to achieve \(B'\) (and \(A'\)
+and \(B'\) are different). In other words, the \textit{multiplicative
+  or} \(\ulcorner\fission\urcorner\) (which is logical) and the
+\textit{structural or} \(\ulcorner\structor\urcorner\) (which is
+pre-logical) are symmetric.
+
+This structure of\ \enquote{parallel} \textit{or}s is directly evident in the
+introduction rule used to produce \(A\fission B\). The company running
+the beverage club can only produce a
+\(\ulcorner\text{Coffee}\ \fission\ \text{Tea}\urcorner\) box if it can
+obtain beans, \textit{or} it can obtain tea leaves, \textit{or} it can
+obtain both. Only then is it in a position to put one or the other
+or both in the box.
+
+\paragraph{Rules} multiplicative disjunction
+
+%% Fission (multiplicative disjunction) rules
+\begin{center}
+\AxiomC{$\Gamma\linfer A\structor B\structor\Delta$}
+\RightLabel{$\linfer\fission$}
+\UnaryInfC{$\Gamma\linfer A\fission B\structor\Delta$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$\Gamma,A\linfer \Delta\kern-1.2em$}
+\AxiomC{$\seqand\kern-1.2em$}
+\AxiomC{$\Theta, B\linfer \Lambda$}
+\RightLabel{$\fission\linfer$}
+\TrinaryInfC{$\Gamma;\Theta;A\fission B\linfer \Delta\structor\Lambda$}
+\DisplayProof
+\end{center}
+
+Note that consequent part of a sequent is a disjunction; we use a
+mirrored semicolon to suggest this. So in rule \(\linfer\fission\) the
+consequent \(A\structor B\structor\Delta\) means \(A\) \textit{or}
+\(B\) \textit{or} \(\Delta\).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Additive Dyads}
+
+Examples:
+
+\begin{itemize}
+\item grammar: a noun and a verb can be combined to form a pair, or fused to form a sentence
+  \item cuisine: ham and eggs combine to form a pair, ham\&eggs, and
+    can be fused to form a ham and cheese omelete.
+\end{itemize}
+
+That's not quite right. In linear logic, an additive conjunct \(a\&b\)
+is a pair of a and b, but we have two elim rules. If we extract a,
+what are we left with? Not \(b\), but \(\&b\), and we do not have a
+rule for extracting \(b\) from \(\&b\). So the intro rule gives us
+\(a\&b\), which pairs \textit{both} a and b; but the elim rules allow
+us to retrieve only one of a or b. IOW, intro is a one-time
+conjunction, and elim is a one-time disjunction, i.e. exclusive or -
+``choose a or b but not both''.
+
+
+
+\subsubsection[Conjunction: each but not both]{Conjunction: \(\xand\)}
+
+Name: ``xand''.  Symbol: \(\addand\) (Girard: \(\with\), ``with'')
+
+Each but not both.
+
+Exclusive conjunction may seem nonsensical at first glance; how can
+each of to propositions be true unless both are true?
+
+Two ways to explain: philosophically (show how it expresses a primitive
+material inference) and by ostension, with examples involving
+temporality or change.
+
+Philosophically, it makes perfect sense when you consider that to form
+a pair like \(\ulcorner\)apple and orange\(\urcorner\), you must first
+obtain each of an apple \textit{and} an orange, \textit{un}paired.
+
+Ex: machine states, C can be reached from states A and B but not both
+together.  Relation of xand and xor.
+
+Exclusive \textit{and} solves the chicken and egg problem for pairs:
+you cannot form a pair unless you already have a pair. Since
+``oneness'' is (presumably) prior to ``twoness'' (Brouwer), we
+evidently need to start with one thing, then obtain another one thing,
+giving us ``each of A and B but not both'', and only then can we make
+the move (inference?) to ``both A and B''.
+
+This conveys within the formal logic the sense of the prelogical and,
+where we have two things but they do not yet form a whole (conjunct).
+I.e. a kind of preconjunction.
+
+Brouwer takes the opposite tack, starting with a splitting of an
+original (tempporal) whole into two:
+
+\textquote[\parencite{brouwer1981}, 4-5]{Completely separating mathematics from mathematical language and hence from the phenomena of language described by theoretical logic, recognizing that intuitionistic mathematics is an essentially languageless activity of the mind having its origin in the perception of a move of time. This perception of a move of time may be described as the falling apart of a life moment into two distinct things, one of which gives way to the other, but is retained by memory. If the twoity thus born is divested of all quality, it passes into the empty form of the common substratum of all twoities. And it is this common substratum, this empty form, which is the basic intuition of mathematics.}
+
+So for him, evidently, ``twoity'' is primitive.
+
+Fortunately we do not need the mysticism of intuitionism. We can
+explain the emergence of the concept of ``both and'' by appealing to
+pragmatics: ``both and'' is what we (can) say when confronted by each
+of two separate things. If our vocabulary lacked this locution, could
+not say ``and'', we would have to just utter a bunch of sentences
+connected only temporally, like ``to hunt you need a bow; to hunt you
+need an arrow'' instead of ``to hunt you need a bow and an arrow.''
+
+So \(A\xand B\) is an ``exclusive conjunction''.
+
+This is not as outlandish as it may sound; in fact its very common in
+programming, where we can implement a function on two args as either a
+binary function (taking an exclusive conjunction) or a unary arg
+taking a pair (inclusive conjunction).
+
+The meaning of exclusive and can easily be seen in terms of
+dependencies. Consider
+%% \AxiomC{$A\linfer \Delta\kern-1.2em$}
+%% \AxiomC{$\seqand\kern-1.2em$} \AxiomC{$B\linfer \Delta$} \TrinaryInfC{}
+%% \DisplayProof.
+This means that each of A and B afford (or suffice for)
+\ContextD. It does \textit{not} say that \textit{both together}
+suffice. This does not mean that both together would fail to suffice
+for \ContextD; rather it says that \ContextD does not \textit{depend}
+on both together.
+
+Exclusive conjunction allows us to express exclusive disjunction in a
+consequent. Compare the following:
+
+%% \begin{center}
+%%   \AxiomC{$\Gamma\linfer A\kern-1.2em$}
+%%   \AxiomC{$\seqand\kern-1.2em$}
+%%   \AxiomC{$\Gamma\linfer B$}
+%%   \TrinaryInfC{}
+%%   \DisplayProof
+%%   \hskip 1.5em
+%%   \AxiomC{$\Gamma\linfer A\structor B$}
+%%   \UnaryInfC{}
+%%   \DisplayProof
+%%   \hskip 1.5em
+%%   \AxiomC{$\Gamma\linfer A\xor B$}
+%%   \UnaryInfC{}
+%%   \DisplayProof
+%% \end{center}
+
+On the left we have two sequents merged into one expression by the
+prelogical symbol \(\seqand\). It says that \ContextG affords each of
+A and B, but not both, from which we main infer (informally) that it
+affords A \textit{or} B but not both. But we have no way of expressing
+exclusive-or in the consequent, except using a logical operator. The
+most we can do with our prelogical meta-operators is say that a
+context affords A or B or both, as the middle sequent does. The
+rightmost sequent is a translation of the leftmost into formal logical
+vocabulary. They have the same meaning [WRONG], but the leftmost is
+not really one sequent, it is two joined by the (prelogical)
+meta-operator \(\seqand\).
+
+Eliminator: if either A or B or both suffice for C, then A with B
+suffices.
+
+Instead of ``either A or B or both'' we can say ``at least one of A
+and B''. So: if at least one of A and B suffices for C, the A with B
+suffices.
+
+But this clashes with the usual gloss, which is that \(A\addand B\) means we have a choice between A and B.
+
+\paragraph{Vignette\\}
+
+Exclusive conjunction is generally not needed in classical logic?
+
+The usefulness of exclusive conjunction is most easily demonstrated by
+examples involving change or time. For example, you can only travel by
+one path, no matter how many paths lead to your destination. Or, you
+can travel by plane, and you can travel by train, but you cannot
+travel by both together.
+
+\paragraph{Rules} additive conjunction
+
+%% (additive conjunction) rules
+%% \begin{center}
+%% \AxiomC{$\Gamma\linfer A\structor\Delta\kern-1.2em$}
+%% \AxiomC{$\seqand\kern-1.2em$}
+%% \AxiomC{$\Gamma\linfer B\structor\Delta$}
+%% \RightLabel{$\linfer\addand$}
+%% \TrinaryInfC{$\Gamma\linfer A\addand B\structor\Delta$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma; A\linfer \Delta\kern-1.2em$}
+%% \AxiomC{$\seqor\kern-1.2em$}
+%% \AxiomC{$\Gamma; B\linfer \Delta$}
+%% \RightLabel{$\addand\linfer$}
+%% \TrinaryInfC{$\Gamma;A\addand B\linfer\Delta$}
+%% \DisplayProof
+%% \end{center}
+
+\subsubsection[Disjunction: either but not both]{Disjunction: \(\addor\)}
+
+Symbol: \(\addor\) (Girard: \(\oplus\))
+
+Either but not both.
+
+If you can produce \(A\) or \(B\) but not both from the same source,
+then you can produce \(A\addor B\) from that source.
+Then, provided that each of \(A\) and \(B\) suffice to produce
+the same thing, you can instead use \(A\addor B\) to produce it.
+
+
+\paragraph{Vignette\\}
+
+\paragraph{Rules} additive disjunction
+
+%% (additive disjunction) rules
+%% \begin{center}
+%% \AxiomC{$\Gamma\linfer A\structor\Delta\kern-1.2em$}
+%% \AxiomC{$\seqor\kern-1.2em$}
+%% \AxiomC{$\Gamma\linfer B\structor\Delta$}
+%% \RightLabel{$\linfer\addor$}
+%% \TrinaryInfC{$\Gamma\linfer A\addor B\structor\Delta$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$\Gamma; A\linfer \Delta\kern-1.2em$}
+%% \AxiomC{$\seqand\kern-1.2em$}
+%% \AxiomC{$\Gamma; B\linfer \Delta$}
+%% \RightLabel{$\addor\linfer$}
+%% \TrinaryInfC{$\Gamma;A\addor B\linfer\Delta$}
+%% \DisplayProof
+%% \end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Quantifiers}
+
+\subsubsection{Universal}
+
+\subsubsection{Existential}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Modals (exponentials)}
+
+\begin{itemize}
+\item !A - replicable and erasable (exponential conjunction)
+\item ?A possibly contracted or weakened (exponential disjunction)
+\end{itemize}
+
+\textquote[https://ncatlab.org/nlab/show/linear+logic ]{The terms
+  “exponential”, “multiplicative”, and “additive” come from the fact
+  that “exponentiation converts addition to multiplication”: we have
+  \(!(𝐴\&𝐵)≡\ !𝐴\otimes!𝐵\) and so on (see below).}
+
+\textquote[same]{One sometimes thinks of the exponentials as coming from infinitary applications of the other operations. For example:
+
+\[!𝐴≔1\&𝐴\&(𝐴\otimes𝐴)\&(𝐴\otimes𝐴\otimes𝐴)\&⋯,\]
+\[!𝐴≔(1\&𝐴)\otimes(1\&𝐴)\otimes(1\&𝐴)\otimes⋯,\]}
+
+They are dual:
+
+\begin{align}
+  \llnil{(!𝐴)} &∶= ?(\llnil{𝐴}) \\
+  \llnil{(?𝐴)} &∶= !(\llnil{𝐴})
+\end{align}
+
+\textquote[]{The introduction rule for ? is usually called
+  “dereliction”, as it is a kind of regression: the linearity
+  information is lost. e introduction rule for !, usually called
+  “promotion”, is very particular since it imposes a constraint on the
+  context, indeed if we use the proof with conclusion 𝐵 several times
+  later in our proof, we will have to use the other conclusions the
+  same number of times, hence these cannot be linear.}
+(Emmanuel Beffara. Introduction to linear logic. Master. Italy. 2013. ffcel-01144229f)
+
+``These modalities are called exponential because they have the
+fundamental property of turning additives into multiplicatives.''
+(Beffara)
+
+But the structures in LL are multisets. So we can treat the
+exponentials as true exponents. !A means A occurs infinitely times in
+a multiset. So we could write \(A^{\infty}\) instead. On the LHS, this
+means conjunction; on the RHS, disjunction.
+
+But ?A means the same thing, on the RHS. So we could write instead
+\(A^{+\infty}\), where \(+\) means disjoint sum (disjunction); and for
+the LHS, \(A^{\times\infty}\).
+
+Multiset notation: \(b^n\) := \((b, n)\) means \(b\) occurs \(n\) times.
+
+Compare disjoint union. Each element is a pair tagged to indicate
+which set it came from, e.g. \({(a, 0), (b, 0), (a, 1)}\). We can
+treat \(n\) copies of \(b\) as a disjoint union by using \(n\) unique
+tags. We can also use exponential notation for this.
+
+So what does \(\ulcorner\Gamma\linfer A,?B,C\urcorner\) mean? Here
+\(\ulcorner A,?B,C\urcorner\) is a disjunction. But \(\ulcorner
+?B\urcorner\) is a multiset or disjoint sum. How do we interpret that
+in a disjunction? Is it a disjunction within a conjunction? I think
+rather it must expand the disjunction. We can treat it as a multiset
+interpreted as a disjunction. Then each copy of each element is one
+disjunct. E.g. \({a,b^n,c}\) means \(a\lor b_0\lor b_1\lor ... \lor
+c\), with the caveat that the subscripts do not indicate order; they
+need only be unique identifiers.
+
+So \(\linfer ?A\) would mean the conclusion is the \textit{inclusive
+  or} of the copies of A, as in ``this A or that A or both''; that is, any number of the As, separately (independently).
+
+This could be used for example to express the idea that a process
+spawns some number of copies of a subprogram as concurrent
+subprocesses.
+
+Resources:
+
+\begin{itemize}
+\item \citetitle{Tzouvaras_ll_multisets} \parencite{Tzouvaras_ll_multisets}
+\item \citetitle{Tzouvaras_logic_of_multisets} \parencite{Tzouvaras_logic_of_multisets}
+\end{itemize}
+
+\subsubsection{Necessity (of course !)}
+
+\textquote{...the “of-course” exponential ! permits contraction and weakening to be applied to the formula !B in the left-hand sequent context while the “why-not” exponential ? permits contraction and weakening to be applied to the formula ?B on the right-hand sequent context. This leads to the full propositional linear logic and to a very nice connection with computer science.}
+%% https://plato.stanford.edu/entries/logic-linear
+
+\textquote[\parencite{Girard94lla} 12]{\textit{exponentials} : ! and ?
+  are modalities : this means that !A is simultaneously defined on all
+  formulas : the \textit{of course} rule mentions a context with ?Γ,
+  which means that ?Γ (or !Γ⊥) is known.}
+
+\[A\implies B = (!A)\lollipop B\]
+
+Read this as ``use but don't consume'', i.e. a mode of use, not
+possibility or necessity.
+
+
+\textquote[\parencite{Girard94lla} 12]{!A indicates the possibility
+  of using A ad libitum ; it only indicates a potentiality, in the
+  same way that a piece of paper on the slot of a copying machine can
+  be copied . . . but nobody would identify a copying machine with all
+  the copies it produces !}
+
+\subsubsection{Possiblity (why not ?)}
+
+
+If ? is (De Morgan) dual !, what does ``not(usage but not consumption)'' mean?
+
+\textquote[[\parencite{Girard94lla}] 12]{The rules for the dual
+  (\textit{why not}) are precisely the three basic ways of
+  \textit{actualizing} this potentiality [i.e. of \nil{A}] : erasing
+  (weakening), making a single copy (dereliction), duplicate ... the
+  machine (contraction).}

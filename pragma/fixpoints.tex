@@ -1,0 +1,142 @@
+\section{Fixed Points}\label{sec:fixpoints}
+
+Think of a function as expressing denotation of names. It takes a name
+to the thing it names, which is another name. Then a fixed point is
+self-reference. Hence the connection to recursion/induction etc.
+
+If you add a constructor to a type, you expand its range. If you add a
+co-constructor to a co-type, you contract its domain. Because you're
+effectively adding a filter. Except not a filter: filters do not
+change anything; coinduction changes the meanings of co-ctors. More
+info means narrower space.
+
+Resources:
+
+\begin{itemize}
+\item \citetitle{lawvere1997conceptual} \cite{lawvere1997conceptual}
+\item \citetitle{davey2002introduction} \cite{davey2002introduction}
+\item \citetitle{stoy1977denotational} \cite{stoy1977denotational}
+\end{itemize}
+
+\subsection{Least Fixed Points}
+
+LFP of an inductive type is the constructors. Any operations you add
+going \textit{into} the underlying set can be reduced to the
+contructors. Whatever you can do with the new ops could also be done
+without them, just using the constructors. IOW, the LFP is a basis.
+
+\subsection{Greatest Fixed Points}
+
+It's not the constructors that are least, it's the type they
+determine. Inductive types are built up from their base cases by
+expansion. Coinductive cotypes are greatest, because their
+co-constructors allow us to ``shrink'' them.
+
+Functions automatically expand, they add new stuff. Cofunctions
+automatically contract, the exclude stuff. So \(\defn{evens}\) creates
+a new finite list from an old one, by construction. But
+\(\codefn{evens}\) can't create a new colist, because they already
+exist, and because we have no colist constructors. Instead it
+contracts an old one. Remember that a codefinition does not define
+\textit{how} a cofunction manages to do whatever it does, it just
+specifies \textit{what} must be done. So we interpret the ``action''
+of a cofunction as essentially subtractive. Furthermore subtraction or
+contraction is the only thing cofunctions can ``do''.
+
+Outdated:
+
+GFP of a coinductive type is the co-constructors. You can add
+operations going out of the underlying set, but such operations cannot
+be reduced to the co-constructors. On the contrary, the operation of
+the co-constructors must be defined over the results of the new
+operations.
+
+In other words, we start with co-constructors that are defined for
+arbitrary elements of the type. For any \(\tj{\seq{x}}{\colist X}\) we have
+\(\tj{\head(\seq{x})}{X}\) and \(\tj{\tail(\seq{x})}{\colist X}\).
+
+Then to define a new function over \(\colist X\), we have to give
+definitions of \(\head\) and \(\tail\) for outputs of the function.
+This is the exact opposite of induction, where we define the
+constructors once. It means that the co-constructors of a co-inductive
+type are never completely defined. They always operate on arguments of
+type \(\colist X\), but their meaning (the way they function) depends
+on how those arguments were produced.
+
+For example, we can define \codefn{even} and \codefn{odd} over type
+\(\colist{X}\):
+
+\begin{align}
+  \coseq{\seq{x}} & \defeq [x_0, x_1, \ldots] \\
+  \codefn{even}(\coseq{\seq{x}}) & = [x_0, x_2, \ldots] \\
+  \codefn{odd}(\coseq{\seq{x}})  & = [x_1, x_3, \ldots]
+\end{align}
+
+Note first of all that we cannot define such functions by induction.
+There is no base case for infinite colists, so we cannot inductively
+construct them. For a finite list, we would define \defn{even} and
+\defn{odd} by pattern-matching against the internal structure of the
+argument, expressed by constructor patterns starting with the base case:
+
+\begin{align}
+  \defn{even}([]) & = [] \\
+  \defn{odd}([]) & = [] \\
+  \defn{even}(x::seq{x}) & = x::\defn{even}(\tail(\seq{x})) \\
+  \defn{odd}(x::seq{x}) & = \head(\seq{x})::\defn{odd}(\tail(\seq{x}))
+\end{align}
+
+Here we give the meaning of the function applied to constructors of
+the type. We define the \textit{circumstances of application} of the
+function: what constructions it may be applied to, with what result.
+And there are only two possibilities, corresponding to the two
+constructors, nil (\([]\)) and cons (\(::\)).
+
+Compare the corresponding codefinitions. We have no base case, and we
+cannot start with \(x::seq{x}\), because \cons\ (\(::\)) is not a
+primitive constructor. Moreover we have to start by making
+\textit{two} assumptions: first that we're given an opaque token
+\(\tj{\coseq{x}}{\colist{X}}\), and second that the function we're
+codefining may already be applied to such a token to produce another
+value of type \(\colist{X}\). Then we define the consequences of
+applying the function: the values taken by the co-constructors when
+applied to the function's output.
+
+\begin{align}
+  \cohead(\codefn{even}(\coseq{xs})) & = \cohead(\coseq{xs}) \\
+  \cotail(\codefn{even}(\coseq{xs})) & = \cotail(\cotail(\coseq{xs})) \\
+  \cohead(\codefn{odd}(\coseq{xs})) & = \cohead(\cotail(\coseq{xs})) \\
+  \cotail(\codefn{odd}(\coseq{xs})) & = \cotail(\cotail(\cotail(\coseq{xs})))
+\end{align}
+
+For co-inductive codefinitions, we give the meaning of the
+co-constructors of the type when applied to the results of the
+function. In other words, we never actually \textit{define} the
+function; instead we define the \textit{consequences} that use of the
+function has for the co-constructors - thereby extending the meaning
+of the co-constructors.
+
+So there's a perfect symmetry the corresponds exactly to the tenets of
+inferential semantics: meanings are determined jointly by both
+\textit{circumstances} (upcolist) and \textit{consequences}
+(downcolist) of application. Put differently, rules of construction
+and rules of use.
+
+Now back to greatest fixed point. The idea is that the co-ctors are
+the greatest fixed point, or greatest solution set, or some such. Such
+that they would subsume any added functions. In what way? For
+induction, the new functions reduce to the base ctors. In coinduction,
+reduction is the wrong concept. The relation is some other kind of
+subsumption.
+
+The coconstructors are just type specifications. We can treat them as
+maximally general. Then we codefine some cofunctions - that narrows
+the meanings of the co-ctors, for particular cases. So the raw
+co-ctors subsume the function-specific meanings assigned by the
+codefinitions.
+
+What precisely is the relation between the raw co-ctors and the
+codefinitions given them for particular cofunctions?
+
+Key point is that the codefinitions do not define values for the
+co-ctors, they only relate them to the input colist. So they confer
+structure, not content.  Although they could add content.

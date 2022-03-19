@@ -1,0 +1,110 @@
+\section{Inferential Modalities}\label{sec:modalities}
+
+The logical constants do not in themselves determine how to produce
+and use the propositions containing them. It's the other way around:
+the rules governing production and use determine the constants. In a
+sense, the constant symbols are just abbreviations, concise
+representations of the rules. Using them saves us a lot of words.
+Consider how we could say that \(P\) is true because \(P\land Q\)
+implies \(P\).. We would have to state the construction rule, saying
+something like ``If \(P\) is true and \(Q\) is true, then \(P\) is
+true; but \(P\) is in fact true, and so is \(Q\), so \(P\) is true.''
+We wouldn't get much logic done that way.
+
+Inference rules essentially involve the modalities of possibiility and
+necessity. These modalities are almost never explicitly addressed in
+accounts of inference.
+
+Inference preserves modality? \(P\rightarrow Q\) means Q necessarily
+follows from P. Which means that it is possible to get Q by
+providing P.
+
+The inference rule for products may be glossed: ``if
+context \ContextG\ suffices for a:A and also b:B, then it also suffices for \( (a,b):A\times B\)''.
+
+``Suffices for'' expresses \textit{possibility}; ``then'' expresses
+\textit{necessity}. So the rule may be expressed more explicitly as
+``if it is \textit{possible} to produce A and also B from \Gamma\,
+then \textit{necessarily} it follows that it is (also)
+\textit{possible} to produce \( (a,b):A\times B \) from \Gamma.''
+
+This is hard to express symbolically, since possiblity and necessity
+are already implied by the symbols we use.
+
+Glosses for \(\Gamma\linfer B\):
+
+\begin{itemize}
+\item \Gamma\ suffices for B
+\item Inference from \Gamma\ to B is licensed/valid
+\item \Gamma\ entails B
+\item B is a consequence of \Gamma
+\end{itemize}
+
+They key idea is that using this (or any sentence) as premise of an
+inference rule automatically endows it with the modality of
+\textit{possibility}.
+
+Put differently: in \(A\rightarrow B\) (and \(A\linfer B\) the
+component propositions A and B are not \textit{asserted}. To
+\textit{assert that} A we just write \(A\) as a standalone sentence.
+To assert that something follows from A, we embed it in a composite
+proposition like \(A\rightarrow B\). Then the composite depends on the
+\textit{propositional content} of A, but it does not \textit{assert}
+A.
+
+Incidentally, this is where Martin-Lof's account of ``judgment'' goes
+off the rails. His judgment is assertion, and he puts judgments in
+both the premises and conclusion of inference rules. But inference
+rules do not assert their premises or conclusions, so they cannot be
+``judgments'' in Martin-Lof's sense. At best they can be possible
+judgments.
+
+Symbolically, using \( \Diamond \) for \textit{possibly}, \(\Box\)
+for \textit{necessarily}, and \(\models\) for ``actually produces'':
+
+%% \begin{prooftree}
+%% \AxiomC{$\Diamond\Gamma\models a:A$}
+%% \AxiomC{$;$}
+%% \AxiomC{$\Diamond\Gamma\models b:B$}
+%% \LeftLabel{$\Box$}
+%% \TrinaryInfC{$\Diamond\Gamma\models (a,b): A\times B$}
+%% \end{prooftree}
+
+(Here the necessity symbol is just a reminder that consequences are
+always necessary.)
+
+Important: the inference symbol \(\linfer\) does \textit{not} mean that
+the context \textit{does in fact} produce something; it expresses
+validity of inference, so it just means that it is \textit{sufficient}
+to do so, that it is \textit{possible} to do so (because the inference
+is valid). In other words, the modality is built-in; adding the modal
+symbol \(\Diamond\) is intended to make this (redundantly) explicit.
+Under a strictly reading, \(\Diamond\Gamma\linfer B\) would mean ``it
+is possible that (it is possible that \Gamma\ produces B)'', which is
+not the intended reading. To make the modality explicit, we need
+another symbol \(\models\) to complement \(\linfer\); we gloss
+\(\models\) as ``actually produces'' rather than ``suffices for''
+(thus it is not an inference symbol).
+
+Note the difference between rules with and without contexts:
+
+%% \begin{prooftree}
+%% \AxiomC{$a:A$}
+%% \AxiomC{$;$}
+%% \AxiomC{$b:B$}
+%% \TrinaryInfC{$(a,b): A\times B$}
+%% \end{prooftree}
+
+%% \begin{prooftree}
+%% \AxiomC{$\Gamma\linfer a:A$}
+%% \AxiomC{$;$}
+%% \AxiomC{$\Gamma\linfer b:B$}
+%% \TrinaryInfC{$\Gamma\linfer (a,b): A\times B$}
+%% \end{prooftree}
+
+The former involves ``if \textit{something} then ..''; it expresses
+inference from ``judgment'' to ``judgment''. The latter involves ``if
+something \textit{suffices for} something else, then ...''; it
+expresses an inference whose premises and conclusion are also
+inferences (sequents).
+

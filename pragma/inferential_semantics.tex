@@ -1,0 +1,391 @@
+\section{Inferential Semantics}\label{sec:isemantics}
+
+\subsection{Explaining Inference}
+
+Inferential semantics explains propositional content by inferential
+role. But how can we explain inference itself? Brandom does not do
+this; he treats inference as a kind of primitive. That makes sense,
+because this task is elicidate what is presupposed by rational
+behavior. But we can give an account of how the notion of inference
+presupposes other stuff, such dialogicality, responsivity, etc.
+
+We can also augment such philosophical arguments with scientific
+evidence that we are innately prosocial.
+
+\subsection{Dialogical Discursivity}
+
+\subsubsection{Addressivity}
+
+Dunno if we need this, it's also from Bakhtin and dialogism, and
+complements responsivity.
+
+\subsubsection{Responsivity}
+
+See \parencite{bakhtin_problem_1986} and also Tomasello
+\parencite{tomasello2009we}, \parencite{tomasello_origins_2010} for
+scientific evidence of innate prosociality.
+
+In addition, the norm is that the second proposition be treated as a
+\textit{response} to the first. If it is not, then we get a
+conjunction rather than an implication.
+
+This suggests that there are two stages involved: first, claim B is
+responsive to claim A, and second, conditionality: if claim A, then
+claim B is the or an appropriate response.
+
+Treating good inference as appropriate response allows us to avoid
+psychologizing and/or reifying inference. We say that inference is
+something we do. For one person, we end up saying it is a ``mental
+act'', whetever that means. We do not know what it means, because we
+do not know what ``mental'' means. But the mystery goes away if we
+treat inference in terms of discursive responsivity. Dialogical
+interactions are public; we can witness them. Monological ``mental''
+acts are private, so we can speculate about them but we cannot inspect
+them.
+
+\begin{enumerate}
+\item Discursivity
+\item Dialogism
+\end{enumerate}
+
+1 presupposes 2. Discourse presupposes dialog. ``Autonomous discursive
+agent'' is an oxymoron.
+
+1. is explicit in Brandom; 2 is only implicit. ``The game of giving
+and asking for reasons'' cannot be played by a single autonomous
+player. If we can play the game ``mentally'' (privately), as an
+internal monologue, it is only because the legal moves in the game are
+instituted socially, dialogically.
+
+Both presuppose agency. But agency does not imply rationality.
+Non-human animals exhibit agency; or at least we attribute agency to
+them. Rational agency is instituted by the game of giving and asking
+for reasons: an agent capable of discursive behavior (playing the game
+of giving and asking for reasons) is \textit{ipso facto} a rational
+agent.
+
+And from ``appropriate response'' we can move to ``logical
+implication''.
+
+For ``appropriate response'', use \(\linfer\); for conditionality,
+\(\rightarrow\).
+
+Hmm, conditionality is already there in appropriateness? Compare
+
+\begin{align}
+ & \text{B \textit{is responsive to} A}\hskip2em A\linfer B \\
+ & \text{\textit{if} A, \textit{then} B}\hskip2em A\rightarrow B
+\end{align}
+
+Take ``is responsive'' as ``responds appropriately''.
+
+Read \(A\linfer B\) as ``The claim B is responsive to the claim A''.
+That is, responsivity here is about assertion. But conditionals do not
+assert their components, so the move from responsivity to inference is
+the move from actual appropriate assertion to conditionally
+appropriate propositional content without assertion: ``asserting B
+\textit{would be} an appropriate response to an assertion that A''.
+
+Or is responsivity already about content but not assertion? No,
+because only acts like assertion can be said to respond at all. Mere
+content is inert.
+
+What about counterfactuals?
+
+The logical operators must be seen as parasitic on the vernacular
+operators.
+
+This is a particular inference/implication; to arrive at
+generalized logical implication, i.e. A -> B for all A, B, we will need some additional machinery; we return to this below.
+
+
+\subsection{Notes}
+
+Explanatory strategy is discursive, dialogical. The concept of
+inference emerges from discursive responsivity. This is a start on the
+chicke-and-egg problem: if concepts are inferentially articulated, how
+did we get to the concept of inference in the first place? Answer: we
+can respond appropriately even before we have a concept of inference.
+
+
+We're using \(\linfer\) as the inference operator. Or we could call it
+the consequence or entailment etc. op. In every presentation of logic
+I've ever seen, the same symbol is used for all inferences. In
+particular, for the intro rules of standard set of logical operators.
+
+But why should we think that all such consequence relations are the
+same? It may be (probably is) the case that there is only one
+\textit{logical} consequence relation; but the inference rules of
+logic and type theory do not express logical consequence. Or do
+they? Is \(A\&B\) a \textit{logical} consequence of A and B?
+
+Why should we not treat each logical constant as involving its own
+specialized consequence relation?  I don't see a prima facie reason to
+assume there is only one universal consequence relation.
+
+And does it have to be a relation? Why not a function?
+
+E.g. \(\sststile{\land}{}\), \(\sststile{\lor}{}\),
+\(\sststile{\rightarrow}{}\), etc. That would allow us to associate
+additional functionality (``modality''?) to the consequence symbol.
+For example, compositionality would have it that \(\land\) contributes
+a ``mode of combining'' or similar to the composite \(A\land B\). But
+if we have
+%% \AxiomC{$\ContextG\linfer a:A$} \AxiomC{$;$}
+%% \AxiomC{$\ContextG\linfer b:B$} \TrinaryInfC{$\ContextG\linfer(a,b):
+%%   A\times B$} \DisplayProof
+then we are not compelled to think the
+conclusion is a composite of a:A and a:B. Precisely, \(\llbracket
+(a,b): A\times B\rrbracket\) need not be a composite just because
+\(\ulcorner (a,b): A\times B\urcorner\) is. Even it it is composite,
+it could be that \ContextG\ already contains \(\llbracket (a,b):
+A\times B\rrbracket\), which it may use to produce a:A and also b:B,
+but would not need to do so to produce the pair. Which means that we
+do not need to produce a:A and b:B from the context as intermediates.
+
+So we can write
+
+%% \begin{prooftree}
+%% \AxiomC{$\Gamma\linfer a:A$}
+%% \AxiomC{$;$}
+%% \AxiomC{$\Gamma\linfer b:B$}
+%% \TrinaryInfC{$\Gamma\linfer p=(a,b): A\times B$}
+%% \end{prooftree}
+
+and our inference is not merely to \((a,b):A\times B\), but to
+something equal to that. Which means that that conclusion cannot be
+merely the composite of A and B and their mode of combination. Plus
+the ``judgmental equality'' is (probably?) not compositional. So then
+we would need a consequence relation that is specific to this
+inference rule to make sense of things.
+
+One possible approach would be to treat the consequence symbol as a
+kind of processor: it expresses not a sterile logical consequence
+relation but a production relation. This harmonizes well with the BHK
+interpretation. I think. Of course the pair formation operator can
+also be viewed as a processor.
+
+But using p=(a,b) means that the inference can either use the pair
+operator to transform \ContextG\ to a pair, or it could use some other
+transform operator. We could write something like
+\(\Gamma\sststile{\mu}{} p=(a,b): A\times B\) to indicate that the
+construction may not involve the pair op. Then a programming language
+implication could give a definition, just as a function definition
+gives a lambda expression for a function type.
+
+Or:
+
+%% \begin{prooftree}
+%% \AxiomC{$\Gamma\sststile{\alpha}{}a:A$}
+%% \AxiomC{$;$}
+%% \AxiomC{$\Gamma\sststile{\beta}{}b:B$}
+%% \TrinaryInfC{$\Gamma\sststile{\alpha,\beta}{} p=(a,b): A\times B$}
+%% \end{prooftree}
+
+This is intended to capture the notion that, if we want to produce
+output equal to (a,b) we will still need the inputs that would produce
+a and b, even if we do not produce them as intermediate values.
+
+The inference rule abstracts over the ways of producing the conclusion
+from the premises. It says that the context suffices to produce the
+output, but says nothing about how this is accomplished. In particular
+it does \textit{not} say that the introduced operators are substantial
+modes of combination.
+
+We should treat implication and consequence as a symmetric or dual
+pair, in just the way that we treat premise structure ops and logical
+constants as dual pairs (e.g. ``;'' and ``\(\land\)''). So consequence
+is function-like and needs an implementation just like a function
+does.
+
+So maybe we just need the idea of a parameterized consequence
+relation. Just like a function. Hmm, the Deduction Theorem suggest
+this might not be so crazy. Alternatively we could express
+parameterization in the antecedent structure? E.g.
+\(\Gamma,a:A,b:B\sststile{}{} p=(a,b): A\times B\)? Nah, that's the
+same as producing a and b as intermediate results.
+
+
+Inference is primitive. We come to understand (know?) something by
+mastering the inferential practices that determine its meaning. For
+ML, it seems, knowledge comes before inference (although I'm not sure
+he ever explicitly said as much). OTOH, ML does construe knowledge in
+terms of know-how, ie. as something we do.
+
+\begin{displayquote}
+What is characteristic of this whole analysis, intuitionistic or
+verificationistic analysis, of the notions of proposition and truth is
+that the notion of proof of a proposition is conceptually prior to the
+notion of truth... there can be no question of a proposition's being
+true except as the result of someone's knowing it to be true. In this
+precise sense, the notion of truth is knowledge dependent.
+(\parencite{martin1987truth}, p. 413)
+\end{displayquote}
+
+So for ML, both proposition and knowledge come before truth.
+
+But how does ML situate knowledge and inference? Which is primary?
+They seem to go together in the idea of ``knowing a proof''. But of
+course ``proof'' and ``inference'' are distinct notions. ML does not
+really analyze the latter.
+
+\begin{displayquote}
+...it is the concept of knowing that a proposition is true, that is, of
+knowing a proof of the proposition, which is the conceptually prior
+notion, and then the notion of truth is extracted from it by saying
+that a proposition is true if it is directly provable, that is, if it
+can be proved by the most direct means. Moreover, the truth conditions
+for the logical constants, which have the same wording as you are used
+to, are interpreted in such a way that they appear as direct proof
+conditions.
+(\parencite{martin1987truth}, p. 413)
+\end{displayquote}
+
+\begin{displayquote}
+My answer to the questions, What is a judgement? and, What is a proof
+of a judgement? is simply that a proof of a judgement is an act of
+knowing and that the judgement which it proves is the object of that
+act of knowing, that is, an object of knowledge... the proper explanation of the notion of proof of a judgement is that a proof is that which makes an assertion or judgement evident, or, if you prefer, simply that a proof of a judgement is the evidence for it...
+And what is it that makes a judgement evident to you? Before you have understood or grasped the judgement, it is not evident to you, and, when you have grasped it, it is obvious or evident to you. Thus it is simply your act of understanding or grasping it which confers evidence on the judgement, that is, which makes it evident to you. This is one way of seeing that the proof of a judgement is nothing but the act of knowing, or, perhaps better, the act of understanding or grasping, and that what you grasp, namely, the object of knowledge, is the same as what you prove, namely, the assertion or judgement.
+(\parencite{martin1987truth}, p. 417)
+\end{displayquote}
+
+Hmm. Seems circular. Clearly he's not talking about formal proof.
+``act of understanding'' is what \textit{makes} the judgment evident,
+``confers'' evidence on it - that seems odd. Seems that what is
+understood is the evidence, not the act of understanding it. There
+must be something beyond the pychology of understanding. Proof of a
+judgment must transcend the ``grasp'' of an individual. So ML must be
+speaking in code here, when he says ``you'' he means an ideal rational
+actor.
+
+\begin{displayquote}
+...third path, namely, that the evidence for a judgement is the very act of knowing it.
+(\parencite{martin1987truth}, p. 417)
+\end{displayquote}
+
+A problem with this is that one's own ``act of knowing'' cannot be presented to others as justification for a judgment. It cannot play a role in the game of giving and asking for reasons.
+
+
+\begin{displayquote}
+As should be clear from what I have just said, this notion of validity
+or conclusiveness or correctness of a proof is a very fundamental
+notion. Indeed, it is the most fundamental one of all, the one of all
+the notions that I have digcussed which has no other notion before
+it... validity is nothing but the notion of truth or reality applied
+to the particular acts and objects with which we are concerned in
+logic, namely, acts of knowing and objects of knowledge.
+(\parencite{martin1987truth}, p. 418-419)
+\end{displayquote}
+
+
+\subsection{From Material Inference to Material Implication}
+
+A == Pittsburgh is west of Princeton.
+
+B == Princeton is east of Pittsburgh.
+
+The explicit material implication A -> B expresses the (goodness of) implicit
+material inference from A to B.
+
+To make this a little more realistic, we should say that the explicit
+part is a vernacular if...then, whatever form it happens to take. The
+\(\rightarrow\) symbol is part of formal logic and it does not express
+material inference, since it can be relate propositions that have no
+related conceptual content (such as ``east'' and ``west'').
+
+``Pittsburgh is west of Princeton, so Princeton is east of
+Pittsburgh''. This is a material inference, because it depends on the
+content of the subsentences. If we can re-use ``east'' and ``west'' to
+form other sentences, involving say the Rocky mountains and the
+Smokey mountains, then we can get to ``A is west of B, so B is east of
+A''. That's a material inference \textit{rule}, in that it depends on the
+meanings of ``east'' and ``west''.
+
+But we cannot take the next step, to fully general logical \(A\linfer
+B\). Material inference does not give us logical implication, because
+the former is not equivalent to ``not A or B''. So material inference
+can only give us genuine material implication, where B follows from A
+because of the non-logical content of each.
+
+Intuitionism says you prove \(A\rightarrow B\) by assuming A and then
+proving B with assumed A as a premise. But this leaves open the
+possibility that B could be proven even without A. So the
+intuitionistic model won't work for a pragmatist explanation. And a
+pragmatist explanation based on material inference will not work for
+logical implication. That kind of explanation would have to add a
+constraint, namely that the proof of B depends essentially on A. Which
+is another way of saying that the inferential relation from A to B
+must be material. But logical implication does not require this.
+
+
+A pragmatist explanation of \(A\rightarrow B\) would have to involve
+moving beyond material inference. It would need a way to make
+practical sense of inferring B from A in the absence of a content-based
+material relation between the two.
+
+Once the propriety of ``if A, then B'' (\(A\linfer B\)) is in place, we can replace ``so''
+with ``if...then''. Of course there would be not point in doing so if
+we could not also generalize:
+
+\begin{itemize}
+\item We cannot go from ``A, \textit{so} B'' to ``B, \textit{so} A'';
+  but we can go from ``\textit{if} A \textit{then} B'' to
+  ``\textit{if} B \textit{then} A''.
+  \item Once we have if/then, then if we also have modals, we can form
+    counterfactuals like ``If Pittsburgh \textit{were} east of
+    Princeton, then Princeton \textit{would} be west of Pittsburgh''.
+  \item If we can master abstraction (universal quantification), then
+    we can say ``If one city is west of another city, then the latter
+    is east of the former.'' (What skills are required to attain such
+    mastery?)
+  \item Once we have abstraction down, we can learn to reverse it
+    (particularization), substituting names of actual cities for the
+    ``one city'' and ``another city''.
+    \item With both abstraction and particularization in place, we can
+      get to modus ponens, and form syllogisms.
+\end{itemize}
+
+\subsection{From Material Implication to Logical Implication}
+
+To prove A -> B, the usual procedure is to assume A and (then) give a
+proof of B from A. Then conclude that A->B.
+
+We need to refine the premises to bring out the entry transition. We
+actually have two assumptions: A, and ``B follows from A''. We do
+\textit{not} assume that we have a proof of B from A. That would be a
+formal, logical notion, and we want to start from prelogical concepts.
+
+We can express the same assumptions more conspicuously as follows.
+Assume A and also B, such that B follows from A. But in order to
+highlight the compositional structure of the (binary) logical
+operators, we want to express the premises formally as a kind of
+variant of ``and''. So we write instead ``assume A and therefore B'';
+this is just a more concise way of expressing the notion that we're
+assuming A and also B and also that B follows from A. Formally we use
+symbol \(;>\) for ``and therefore'', so our premises ``A and therefore
+B'' will be written \(A ;> B\).
+
+All of our premises will fit this schema: ``A and x B'', where x is a
+kind of ``mode'' word that expresses some constraint; symbolically,
+\(A ;y B\), where y is the symbol for x. Special case: for ``and
+also'' we may use \(;\) without the ``mode'' symbol ',' for ``also''.
+
+\begin{itemize}
+\item \(A ;, B\): A and also B, meaning A and B independently, such that they are given independently.
+\item \(A ;> B\): A and therefore B; A and B such that B follows from A
+\item \(A ;= B\): A and equally B; A and B such that A equals B
+\end{itemize}
+
+NB: when we add types, the ':' operator will bind more strongly that
+these structural ops; e.g. \(a:A ;= b:A\) for ``assume a:A and equally
+b:A'' for ``assume a:A and also b:A such that a equals b''. This
+expresses the same thing as the traditional MLTT judgment ``a=b:A''.
+
+The corresponding logical operators:
+
+\begin{itemize}
+\item \(\&\): Both A and B (together)
+\item \(\->\): From A infer B, B follows from A, etc.
+\item \(;=\): A equals B
+\end{itemize}

@@ -16,7 +16,23 @@
     linkcolor=blue,
     urlcolor=blue
 }
+\usepackage{xcolor}
+\usepackage{mathtools}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% https://tex.stackexchange.com/questions/341261/draw-baseline-in-equation
+\newcommand*\drawbaseline[2][orange]
+ {\begingroup\sbox0{$\displaystyle#2$}\mathrlap{\color{#1}\rule{\wd0}{.4pt}}\endgroup#2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% for typesetting math formulae supporting internal arrows
+%% from https://tex.stackexchange.com/questions/232425/tikz-node-positioning-in-math-environment-especially-frac
+
+\newcommand{\mytikzmark}[2]{%
+  \tikz[remember picture,inner sep=0pt,outer sep=0pt,baseline,anchor=base]
+    \node (#1) {\ensuremath{#2}};}
+
+%%%%%%%%%%%%%%%%
 \newcommand{\ML}{Martin-Löf}
 
 \newcommand{\Univ}{\mathcal{U}}
@@ -71,11 +87,29 @@
 
 \newcommand{\IBMMM}{\ensuremath{\textsf{IBM}^3}}
 
-\newcommand{\dom}{\ensuremath{\textsf{\slshape dom}}}
-\newcommand{\codom}{\ensuremath{\textsf{\slshape codom}}}
+\newcommand{\dom}{\ensuremath{\texttt{\upshape dom}}}
+\newcommand{\codom}{\ensuremath{\texttt{\upshape codom}}}
 
-\newcommand{\defn}[1]{\ensuremath{\textsf{\slshape #1}}}
-\newcommand{\codefn}[1]{\ensuremath{\overline{\textsf{\slshape #1}}}}
+\newcommand{\defn}[1]{\ensuremath{\texttt{\upshape #1}_{\scriptscriptstyle\bot}}}
+\newcommand{\defnup}[1]{\ensuremath{#1_{\scriptscriptstyle\bot}}}
+%% \newcommand{\defn}[1]{\ensuremath{\texttt{\upshape #1}}}
+\newcommand{\codefn}[1]{\ensuremath{\texttt{\upshape #1}_{\scriptscriptstyle\top}}}
+\newcommand{\defndn}[1]{\ensuremath{#1_{\scriptscriptstyle\top}}}
+
+%% \newcommand{\codefn}[1]{\ensuremath{\texttt{\upshape #1}^{\omegaup}}}
+%% \newcommand{\codefn}[1]{\ensuremath{\overline{\texttt{\upshape #1}}}}
+
+
+\newcommand{\prop}[1]{\ensuremath{#1}}
+\newcommand{\stmt}[1]{\ensuremath{\mathcal{#1}}}
+
+%% infinities
+%% natural numbers w/o: \Nat
+%% with zero
+\newcommand{\NatZ}{\ensuremath{\Nat_0}}
+\newcommand{\ONat}{\ensuremath{\omega}}
+%% lifting
+\newcommand{\Lift}[2]{\ensuremath{#1^{#2}}}
 
 %% identity function
 \newcommand{\idfun}{\ensuremath{\textsf{\slshape Id}}}
@@ -92,25 +126,27 @@
 %% finite lists
 %% NB: \list is already defined and used by e.g. itemize
 \newcommand{\List}[1]{\ensuremath{{#1^{*}}}}
-\newcommand{\seq}[1]{\ensuremath{{#1s}}}
+\newcommand{\seq}[1]{\ensuremath{#1s}}
+\newcommand{\nillist}{\ensuremath{\texttt{[\,]}}}
 
-\newcommand{\head}{\ensuremath{\textsf{\slshape head}}}
-\newcommand{\tail}{\ensuremath{\textsf{\slshape tail}}}
+\newcommand{\head}{\ensuremath{\texttt{\upshape head}}}
+\newcommand{\tail}{\ensuremath{\texttt{\upshape tail}}}
+\newcommand{\Cons}{\ensuremath{\texttt{\upshape cons}}}
 \newcommand{\cons}{\ensuremath{{\mathpunct{::}}}}
-\newcommand{\Cons}{\ensuremath{\textsf{\slshape cons}}}
 %% ld = left delim
 \newcommand{\listld}{\ensuremath{\textsf{[}}}
 \newcommand{\listrd}{\ensuremath{\textsf{]}}}
 
 %% infinite lists (colists, streams)
+\newcommand{\stream}[2]{\ensuremath{\langle{}#1,#2\ldots\rangle}}
 \newcommand{\colist}[1]{\ensuremath{{#1^{\omegaup}}}}
 \newcommand{\coseq}[1]{\ensuremath{\overline{#1s}}}
-\newcommand{\cohead}{\ensuremath{\textsf{\slshape head}}}
-\newcommand{\cotail}{\ensuremath{\textsf{\slshape tail}}}
-\newcommand{\cocons}{\ensuremath{\textsf{\slshape cons}}}
+\newcommand{\cohead}{\ensuremath{\texttt{\upshape head}^{\omegaup}}}
+\newcommand{\cotail}{\ensuremath{\texttt{\upshape tail}^{\omegaup}}}
+\newcommand{\cocons}{\ensuremath{\texttt{\upshape cons}^{\omegaup}}}
 
 %% demo
-\newcommand{\eqstream}[1]{\ensuremath{{#1^{=}}}}
+\newcommand{\eqstream}[1]{\ensuremath{{#1^{c}}}}
 
 
 %% transfinite colists

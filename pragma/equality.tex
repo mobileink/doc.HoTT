@@ -1,0 +1,1314 @@
+\section{Equality (and Coequality?)}
+
+Equality is non-logical. That's why writers distinguish between logics
+and logics with equality.
+
+Why? Because logic is about inference, and equality does not involve
+inference? Not quite. The essential problem is we do not have a well-understood, widely-shared prelogical notion of equality.
+
+Logical inference is underwritten by ordinary, extra-logical
+intuition. For example, the inference to logical \(A\lkand B\) is
+underwritten by our intuitions about ordinary, nonlogical ``A and B''.
+Similarly for the other logical constants, and the reason this works
+is because the background intuitions are uncontroversial.
+
+With equality things are a little different. We can easily write an
+inference rule to introduce a logical equality operator in the same
+way we introduce operators like \(\lkand\): from ``A is equal to B''
+infer logical \(A=B\). The problem is that this would only be widely
+accepted if we had a widely accepted and uncontroversial prelogical
+notion of what ``A is equal to B'' means. And while this \textit{may}
+be the case for ``medium sized dry goods'' (Austin), it is undeniably
+not the case for propositions. What is it for one proposition to be
+equal to another? We don't even have widespread agreement on the
+nature of propositions, so unsurprisingly we don't have agreement on
+equality of propositions. The same can be said for other logical
+concepts essential to type systems, such as proof.
+
+On the other hand, the \textit{properties} that characterize equality
+(once you have it) are uncontroversial. If we cannot agree on what it
+is that \textit{constitutes} equality, we can and do agree on some
+intuitions about the \textit{consequences} of equality. This gives us
+criteria of adequacy: any notion of equality must exhibit the
+following:
+
+\begin{itemize}
+\item Reflexivity: \(a=b\)
+\item Symmetry: \(a=b \dashVdash b=a\)
+\item Transitivity: \(a=b, b=c \vdash a=c\)
+\item Substitutability: equals may be substituted for equals in
+  expressions/propositions (Leibniz's law)
+\end{itemize}
+
+
+There are at least two possible ways of treating equality in type
+systems. One can derive an equality type for each base type that
+``contains'' all the pairs of equal elements of the base type; and one
+can define a type for each pair of equal elements, where the members
+of the type represent proof of the equality. For clarity, we call the
+former ``equality types'', and the latter ``equational types''.
+
+\subsection{Semantic Pluralism}
+
+How can we have \(a=b\) if \(a\) and \(b\) are distinct?  Old problem.
+
+Frege: ...
+
+A common way to finesse this problem, following Frege, is to take
+\(a=b\) to mean that the symbols \(a\) and \(b\) are
+\textit{co-referential}: they both denote the same thing.
+
+This approach reflects semantic monism.
+
+Semantic monism is not compulsory. It's open to us to interpret
+\(a=b\) differently, by saying that the distinct symbols denote
+distinct things that are nonetheless indistinguishable and thus equal.
+
+For this to work all we need do is treat identity as something
+special, neither a relation nor a property. Every distinct thing has a
+unique identity, independent of its properties and any relations it
+may have with other things. Then two things can be indistinguishable
+but distinct.
+
+We already have a well-known example of this kind of semantic (or
+ontological) pluralism: geometry. The points in a space are
+indistinguishable. The have the same properties, if they have any
+properties at all, but each has a unique location. For ``location'',
+read ``identity''. Then we can say that all points are
+identi\textit{cal}, if we mean by that indistinguishable
+\textit{except} for identity.  Separate but equal.
+
+Now if we say that \(a\) and \(b\) name different points in a space,
+what we mean is that they name points with distinct identities, not
+points with different properties. Under the traditional
+interpretation, \(a=b\) means \(a\) and \(b\) denote the same point -
+i.e. same identity. But we can reinterpet equality to mean
+indistinguishable except for identity. Of course, that would mean that
+all points in a space are equal. We can make this work by treating
+each distinct token \(a\) of type \(A\) as determining its own
+``equality space'' with \(a\) at the origin, in which every point is
+equal to (but distinct from) \(a\).
+
+Now consider the HoTT interpretation of equality. Equality is treated
+as a path, so \(a=b\) means there is a path between \(a\) and \(b\).
+We just need to refine this a bit, and say that such paths only occur
+in equality spaces. So if \(a\neq b\), then they determine two
+distinct equality spaces, and there is no way to draw a line from one
+to the other.
+
+The traditional approach puts equality first. A line between \(a\) and
+\(b\) in an equality space denotes the relation of equality between
+the two points. The presupposition is that they are already equal. It
+is true that we then say that the expression \(a=b\) denotes a line
+between \(a\) and \(b\), but that only comes \textit{after} the idea
+that lines express equality. \(a=b\) means equality because the path
+it denotes means equality. This strategy ends up in a viscious circle,
+because it forces us to say that equality is a path between two equal
+points.
+
+But we can reverse this order of explanation, and say that the paths
+come first. If there is a path between two points in an equality
+space, \textit{then} we say they are equal. Note that ``equality
+space'' does not presuppose a an antecedent concept of equality; it
+just relies on the notions ``distinct'' and ``indistinguishable. Paths
+within such a space institute the notion of equality rather than the
+other way around. Then we can explain the notion of equality without
+circularity: two points are equal if they are connected by a path,
+full stop.
+
+This solves the paradox of reflexivity rather nicely. Relations relate
+two things, so how can reflexivity be a relation between a thing and
+itself? We can resolve this by abandoning the idea that reflexivity is
+a relation. Instead we can treat ``reflexivity'' as another word for
+``identity''. Then forms like \(a=a\) denote identity rather than a
+relation. Not the proposition ``a equals a'' or even ``a is equal to
+itself'', but ``a has a distinct identity''.
+
+In other words, under traditional usage, the symbol \(=\) is
+semantically overloaded.
+
+But we can draw loops in a space. If we want to treat a loop as
+reflexivity, this would mean reflexivity is not unique: we would have
+infinitely many reflexivities. Which would be in keeping with the
+theme of semantic pluralism. The problem is not plurality, it's
+disentangling the notions of equality, identity, and reflexivity.
+They're not the same, but clearly they are related. Identities are
+unique, so treating loops as reflexivities would drive a wedge between
+reflexivity and identity. Maybe that would be a good thing.
+
+Of course, we could institute a ``no loops allowed'' rule, but it
+would be better to provide a reasonable way of conceptualizing loops
+in terms of equalities and identities. We still want loops starting
+and ending at \(a\) to represent reflexivity.
+
+A line between distinct points means ``indistinguishable but
+distinct''. A loop anchored at a point means ``indistinguishable and
+not distinct'', i.e. same point. So a loop always implicates one
+identity.
+
+I like the idea that expressions like \(a=a\) involve one identity,
+whereas \(a=b\) involves two identities.
+
+A possible way out is suggested by the observation that loops do not
+have start and end points, so in a sense a loop cannot (or should not)
+be viewed as a line between two points. In which case a loop would not
+generate an equality. On the other hand, standard notation
+unequivocally makes reflexivity look like an equality: \(a=a\). But
+this just means that the symbol \(\ulcorner = \urcorner\) is
+overloaded. We can treat \(a=a\) as expressing reflexivity without
+thereby committing to the notion that reflexivity is a relation, let
+alone and equality relation. HoTT already does this to some extent,
+since the constructor for \(a=_A a\), \textsf{refl}, does not contain
+the equality sign.
+
+I think we can just set it down as an axiom that loops institute the
+concept of reflexivity. Not that loops are justified by reflexivity,
+but that the concept of reflexivity is justified by loops.
+
+We could say that loops generate reflexivity, and the limit of
+reflexity (as the loop shrinks) is identity.
+
+One way to finesse this might be to treat such loops as denoting the
+identity of their endpoint. But that would be cheating, since it would
+treat the loops as symbols. If we're going to say that paths institute
+the concept of equality, we'd better be prepared to say that loops
+institute the concept of reflexivity. How can we reconcile this with
+the idea that reflexivity is another name for identity? The identity
+of a point cannot be a loop.
+
+Since we're thinking geometrically, one possible strategy would be to
+invoke the concept of a limit. Lines and loops have a length. The
+limit of a loop as its length goes to zero is a point. We could
+restate this and say the limit is the identity of the point to which
+it collapses.
+
+Maybe we should say that reflexivity \textit{reduces} to identity.
+
+In HoTT, \(a=b\) ``reduces'' to reflexivity. It's critical that our
+account accomodate something like this if we want to use equalities in
+proofs. The HoTT way is to observe that each line from \(a\) to \(b\)
+has an inverse, forming a loop that can be ``retracted'' to the base
+loop, which is evidently the limit we mentioned above. From \(a=b\) we
+have \(b=a\), and by transitivity (a kind of ``cut'' for equalities?)
+we get \(a=a\).
+
+All reflexivities for a point have exactly one thing in common, the
+point.
+
+Goal: derive concept of reflexivity from loops. Maybe intersection?
+Each point is the intersection of infinitely many loops. How does the concept of reflexivity emerge from that?
+
+Etymology: reflexive: "reflective, capable of bending or turning
+back". Sounds like circularity to me. Why not just declare ``loop
+means reflexivity''?
+
+Let's take the pragmatic approach: what role does reflexivity play in
+our normative reasoning practices? Regardless of ontological status.
+
+Once this idea of an equality space is in place, we can assign extra
+meanings to the points. For example, in the 5-eqspace, one point could
+be assigned \(2+3\); another, ``one less than the number of
+Liverpudlians in the Fab Four''. The points would remain equal with
+respect to number, but intensionally distinct.
+
+\subsection{Extensional v. Intensional Equality}
+
+The equality spaces sketched above can be thought of as indirectly
+expressing extensional equality. The indistinguishability of the
+points represents sameness of denotation. So if we strip them of
+identity, the space collapses to a single point.
+
+If we collapse all such spaces (for a given type), then we have an
+\textit{extensional equality space}. Each point in such a space
+represents a different token of the type, and each type \(A\)
+determines a unique extensional equality space containing one point
+for each token \(\tj{a}{A}\).
+
+We can turn our original equality spaces into \textit{intensional
+  equality spaces} by replacing identity with some set of properties.
+Then the difference between two points is determined by the difference
+in properties.
+
+For example, consider the identity function over \(\Nat\), \(\lambda
+x.x\). If we think of this as a program, it's easy to see that we can
+define infinitely many implementations; for example
+
+\begin{align}
+  & \lambda x.x \label{natid:lfp} \\
+  & \lambda x.x + 0 - 0 \\
+  & \lambda x.x + 1 - 1 \label{natid:1} \\
+  & \lambda x.x + 2 - 2 \label{natid:2} \\
+  & ... \nonumber
+\end{align}
+
+Now each of these functions has the same type, \(\Nat\func\Nat\). That
+type determines an extensional equality space whose points represent
+such functions. The function definitions above are all represented by
+a single point in that space -- recall that functions are
+extenstionally equal if they produce the same outputs for the same
+inputs. But if infinitely many implementations count as the same
+function, how can we name \textit{the} function to which they are all
+extensionally equal? Easy: we pick the \textit{least} such function and
+designate it as the \textit{canonical} function for that family of
+implementations. More on this below.
+
+Turning back to intensionality, it's clear that the function
+definitions given above are distinct. We can make this more concrete
+by specifying the particular property or properties that serve to
+distinguish them. Since they are programs, each generates a
+\textit{computation} for each input. A computation is a sequence of
+\textit{instructions}, where an instruction is a minimal, indivisible
+unit of computation. This gives us a property, length of computation,
+that distinguishes the different implementations. For a given input
+\(a\), different implementations will generate computations of
+different lengths.
+
+Note that length of computation is not the same as length of formula -
+the implemetations (\ref{natid:1}) and (\ref{natid:2}) are expressed
+by formulae of the same length, but they generate computations of
+different length. We know this, because their inputs are natural
+numbers, and natural numbers are defined inductively by two
+constructors, \ZNat and \SNat. The instructions of a computation
+correspond to the constructors of the type being computed.
+
+So each point in the intensional equality space associated with the
+identity function represents a distinct implementation. All compute
+the same outputs for the same inputs (they are extensionally equal),
+be each generates a computation of different length for a given input
+(they are intensionally unequal).
+
+\subsubsection{Functional Pluralism and Fixed Points}
+
+If all the points in the intensional equality space for a given
+function \(f\) are extensionally equal, then is that function one or
+many? If it is unique, then we are compelled to say that each
+implementation represents (in some sense) the same function. If it is
+not unique, then we are compelled to give an account of how a
+plurality of implementations manage to implement ``the same''
+function.
+
+This is a very common situation in mathematics, and a common idiom has
+emerged to express it: two things are said to be equal \textit{up to}
+isomorphism (or homotopy, or whatever). In this case, we can accept
+that each distinct implementation is a different thing, but they are
+all \textit{equivalent} with respect to computation. In other words,
+we can think of them as forming an equivalence class. All elements of
+an equivalence class are ``equal''. However, we can and do nominate
+one element as a kind of first-among-equals. In this case, we can see
+that (\ref{natid:lfp}) is the \textit{least} implementation: the
+computations it generates will be shorter than those generated by any
+other implementation.
+
+[TODO: connect this to the concept of least fixed point. Y combinator?]
+
+This gives us a distinguished name for the class of implementations:
+\(\lambda x.x\). We can use it to label the origin of its intensional
+equality space (which can thus be taken to represent the equivalence
+class of implementions). We can also use it to label the point in the
+extenional equality space of all functions, where it denotes not
+\textit{the} identity function, but the equivalence class of
+implementations.
+
+\subsection{Co-data, co-computation, co-equality}
+
+We also need to accomodate infinite structures and computations, for
+both mathematics and programming. Infinite sequences are common in
+mathematics, and real-world computation almost always involves
+colists, which are theoretically infinite lists.
+
+We handle infinite structures pretty much the same way we handle
+finite structures. But there is one critical difference, which is most
+easily explained by example.
+
+Above we used a constant function over the natural numbers to
+illustrate the difference between extensional and intensional
+equality for finite values, i.e. natural numbers.
+
+To show how it works for infinite structures we'll use infinite lists
+of natural numbers. We'll show the difference between the identify
+function over finite lists and over infinite lists. So we'll start by
+examining finite lists.
+
+Our definitions of implementations for the identity function over
+finite lists looks very similiar to the definitions for constant
+functions over natural numbers. Assuming \(xs:\textsf{List}\,X\), and
+\(::\) is the \textit{cons} operator:
+
+\begin{align}
+  & \lambda xs.xs \label{finid:lfp} \\
+  & \lambda xs.\textsf{tail}(0::xs) \\
+  & \lambda xs.\textsf{tail}(0::\textsf{tail}(0::xs) \label{finid:1}) \\
+  & \lambda xs.\textsf{tail}(0::\textsf{tail}(0::\textsf{tail}(0::xs) \label{finid:2})) \\
+  & ... \nonumber
+\end{align}
+
+Each of these implementations returns its input unchanged, and all but
+the first perform some addition work. So they are extensionally equal,
+but intensionally unequal. The primitive operators for finite lists
+are \textit{cons} (or \(::\), meaning prepend a new element to the list),
+\textit{hd} (return the first element of the list), and \textit{tail}
+(return all but the first element). So the computations generated by
+these implementations will consist of sequences of these primitive
+operations, and (\ref{finid:lfp}) will be the least implementation.
+
+So the identity function over finite lists is exactly like the
+identity function over \(\Nat\) with respect to extensional and
+intensional equalities.
+
+Now let's look at infinite lists. First some notation. For finite
+lists we used \(\tj{xs}{\textsf{List}\,X}\); for infinite lists, we use
+\(\overrightarrow{xs}:\textsf{List}^* X\).
+
+To define implementations of the identity function over infinite
+lists, we use exactly the same equations as for finite lists, except
+for the notation change:
+
+\begin{align}
+  & \lambda \overrightarrow{xs}.\overrightarrow{xs} \label{infinid:lfp} \\
+  & \lambda \overrightarrow{xs}.\textsf{tail}(0::\overrightarrow{xs})  \label{infinid:1}\\
+  & \lambda \overrightarrow{xs}.\textsf{tail}(0:\textsf{tail}(0::\overrightarrow{xs}))  \label{infinid:2}\\
+  & \lambda \overrightarrow{xs}.\textsf{tail}(0:\textsf{tail}(0:\textsf{tail}(0::\overrightarrow{xs}))) \label{infinid:3} \\
+  & ... \nonumber
+\end{align}
+
+Now the critical point is that the computations generated by these
+implementations all have the same length: infinity! Or more
+accurately, the computations they generate are unlimited, so they do
+not even have a determinate length. Adding some instructions to an
+unlimited computation does not increase its length; it remains
+unlimited. So these implementations are indistinguishable
+computationally, because they're computing on infinite lists. In
+particular, (\ref{infinid:lfp}) is not the least implementation.
+
+It may be tempting to think that these are in fact finite
+computations, since for example (\ref{infinid:1}) performs just two
+operations, a \textit{cons} and then a \textit{tail}, which gives it
+the input \(\overrightarrow{xs}\), and since the input was already
+packaged up, it can just return the package in one fell swoop. The
+syntax makes it look that way, after all. But that is wrong.
+Infinities are not complete, by definition, so it is not possible to
+``package up'' an infinity in a single, complete (and thus finite)
+bundle. So in principle both the conveying of an infinite list as
+input to the function, and the returning of an infinite list as the
+value of a function, must involve unlimited computation. So there's a
+paradox here: the input can never be \textit{completely} delivered to
+the function, nor can the function ever \textit{completely} deliver
+its output. So implicitly any computation involving infinities must
+proceed piecemeal.
+
+On the other hand, there is another way of thinking about infinite
+lists.
+
+An easy way to think metaphorically about finite lists is by imagining
+a physical stack of something, say bricks. The internal structure of
+such a stack is inspectable. You can build a stack by starting at the
+ground and stacking bricks one at a time. Take the top brick off the
+stack and you're left with a stack of bricks, or the ground if it's the
+last brick.  The internal structure is always visible.
+
+It's tempting to borrow this metaphor to think about infinite lists:
+an infinite list is like a bottomless stack of bricks. But it's a bad
+metaphor. One problem is that it is difficult to imagine a bottomless
+stack of anything. A bottomless stack is like a Euclidean line: it's
+easy to \text{say} that a line has infinite length, but it's very hard
+or impossible to picture such a thing in the mind's eye.
+
+The more fundamental problem with the bottomless stack metaphor is
+that it suggests that the internal structure of an infinite list is
+visible. But a fundamental property of infinite lists (and of co-data
+in general) is that its internal structure is hidden. The
+\textit{only} thing we know about an infinite list is that we can take
+its head and its tail. That tells us precisely nothing about its
+internal structure.
+
+Incidentally, this suggests that ``list'' is itself the wrong term,
+insofar as it suggests internal structure. ``Colist'' is better.
+
+A better strategy is to think of an infinite list as a kind of
+machine. Think of an infinite list of bricks an \textit{Inexhaustible
+  Brick-Making Meta-Machine}, or \IBMMM. An \IBMMM is a brick-making
+machine: if you pull the \textsf{head} lever, you get a brick. It is a
+meta-maching: if you pull the \textsf{tail} lever, you get another
+\IBMMM. It is inexhaustible because you can pull either lever as many
+times as you like.
+
+The \IBMMM comes in a pro model. The pro model contains a cache that
+can hold one finite stack of bricks. To add a brick to the cache, you
+must use the \textsf{CONS} machine that comes with the \IBMMM. Give
+the \textsf{CONS} machine an old brick and an old \IBMMM, and it will
+open the cache on the \IBMMM and set the old brick on top of the cache
+stack. If you then pull the \textsf{head} lever, the \IBMMM will
+dispense the top brick of its cache, or create a new brick if the
+cache is empty.
+
+There is no after-market for these machines; only the \textsf{CONS}
+machine that came with the \IBMMM can add bricks to its stack. It's
+like a printer that only works with toner cartridges made by the
+printer manufacturer.
+
+An \IBMMM is entirely opaque. There is no way to open it up and
+inspect its internals.
+
+An \IBMMM is inexhaustible, but it is also finite. That means we would
+indeed be able to pass one in its entirety to a function and return
+one as the result of a function.
+
+In any case, our implementations of the identity function on colists
+are all clearly different, so the task is to find what is that makes
+them different and express it explicitly. That requires a fundamental
+shift of perspective; in fact, a reversal of perspective. In brief, we
+will still end up with (\ref{infinid:lfp}) as the distinguish element
+of the equivalence class of implementations, but it will be the
+\textit{greatest} implementation rather than the least.
+
+For finite lists, the difference between implementations is determined
+by what the function implementation does with its (finite) input. For
+colists, the difference is characterized by what finite
+computations do with the \textit{output} of the implementation.
+
+Alternatively, if we use the machine metaphor, the difference between
+the minimal implementation (\ref{infinid:lfp}) and the others is the
+use of the cache. All the computations for the colist are actually on
+the cache stack. That's where the extra work is. By contrast, the
+extra work for finite lists is on the list itself.
+
+Hmm. It looks like the difference is maybe computation length after
+all. The tricky part is how to thing of the ``minimal'' implementation
+(\ref{infinid:lfp}) as the greatest fixed point. It looks like the
+least. How does it subsume all the other implementations? Why does
+``no extra computation'' count as greater than some?
+
+\subsection{Equality Types}
+An equality type \(\EQ_A\) is a type derived from a base type \(A\)
+whose tokens express equality of a pair of \(A\)-tokens.\footnote{This is our terminology, not necessarily used in the literature.}
+
+Let's try to define an equality type in our type system. Equality is a
+relation, and relations are expressed as products. So to start we'll
+define an abbreviation: \(\EQ_A\defeq A\times A\). The problem with
+this is that it puts all A pairs in the equality relation, e.g.
+\(\pair(2,3):\EQ_{\Nat}\).
+
+We need a way to constrain the constructor, so that
+\(\pair(a,b):\EQ_A\) if and only if a equals b. The only way to
+express this in the type system is to define a new constructor. This
+is trivial for the special case of reflexivity; it's intuitively
+axiomatic that every thing is equal to itself, so we are justified in
+defining a reflexivity constructor: \(a\type A\linfer\refl(a):\EQ_A\).
+We will usually express this using a subscript, \(\refl_a:\EQ_A\).
+
+This only gets us half-way to the goal. The problem is that \(\EQ_A\)
+is still the (unconstrained) product \(A\times A\); we still have
+\(\pair(2,3):\EQ_{\Nat}\). All we've done is extend the definition of
+product type by adding a new constructor, \(\refl\). Which would be
+pointless, since we can already express the same thing by writing
+\(\pair(a,a)\).
+
+So we need to constrain the type, just as we constrained the
+constructor. Again the only way to do that is to define a new type
+that only admits equality pairs. Unfortunately there is no way to
+express such a type in our system.\footnote{We might be able to design
+a new type system in which it is possible, but that would be a
+different project.} If we try, we'll end up in a viscious circle. To
+see why, consider the ``base case'', a reflexive type
+\(\textsf{REFLEQ}_A\) whose only constructor is \(\refl\). That
+would be easy to define: \(A:\Univ\linfer \textsf{REFLEQ}_A:\Univ\),
+with \(\refl\) defined as above. But it would not be very useful; it
+is not enough to be able to express \(a=a\); we also need to be able
+to express \(a=b\), because we often need to prove such equalities.
+For example, for addition we need to prove \(a+b = b+a\), and we could
+not even express that if we were limited to the form \(a=a\).
+
+So we need to extend \(\textsf{REFLEQ}_A\) with a constructor that
+allows us to express membership of \(a=b\) in the type; and since that
+changes the type, we'll also rename it to \(\EQ_A\). The ordinary
+product type uses the generic constructor \(\pair(a,b)\); what we need
+is a constrained version, so we have to use a different syntax. Let's
+try \([\_=\_]_A\), giving \([a=b]_A:\EQ_A\). But that lands us right
+in the middle of a viscious circle. Membership in the equality type is
+limited to pairs of equal elements, but ``pair of equal elements'' is
+defined by membership in the equality type.
+
+The standard way to deal with such circularity is by recursion. And
+there are two varieties: recursion and corecursion, corresponding to
+induction and coinduction. We'll show below that induction does not
+work for defining equality, and that coinduction does. For now we want
+to focus on the type structure. In HoTT, equalities for a type \(A\)
+are not expressed as one type, but as a family of types, parameterized
+by the members of \(A\). We get one equality type (usually written
+\(a=_A b\)) for every pairing of \(a\type A\) and \(b\type A\). Why not
+have a single type \(\EQ_A\) that works for all pairs of equals?
+
+Suppose that such a type \(EQ_A\) were well-defined. We still could
+not use \([\_=\_]_A\) except for the reflexivity case, since we still
+would have no way of justifying it, except to ``know'' that the
+operands are equal. But if that were the case, then their pairing
+would ``already'' be in the type, and that would mean that they do not
+need to be and indeed \textit{cannot} be constructed.
+
+This is a critically important point. Constructors \textit{introduce}
+tokens into the type; they pour new wine into an old bottle. What is
+\textit{already} in the type \textit{cannot} be constructed, by
+definition. Constructed elements are new elements; if a newly
+constructed element were the same as an old element, how would we
+know? We would need again some notion of equality, and to use such a
+notion, we would need to somehow obtain the old token so we could see
+if it is the same as the new token.
+
+The notion that a type could be ``pre-inhabited'' may seem
+counter-intuitive, but we rely on such types all the time. The
+canonical example is the infinite list. We cannot construct an
+infinite list, but we can and do use them, by taking their
+\(\textsf{hd}\) and \(\textsf{tail}\). All of which presupposes that
+types like ``infinite list of \(\Nat\)'' are pre-inhabited. Such types
+may be \textit{codefined} by coinduction.
+
+HOWEVER, we can still have a reflexivity constructor. We can use the
+unary \textsf{refl} constructor or we can define \(a\type A\linfer
+[a=a]_A:A\) (effectively making \([\_=\_]\) a unary constructor). This makes
+  \(\EQ_A\) a hybrid type, partly defined and partly codefined.
+
+Now back to \(\EQ_A\). Let's assume it is pre-inhabited: it contains
+all pairs \((a,b)\) where \(a=b\). That means we can assume
+\(p\type\EQ_A\), but we cannot then infer that some or any expression
+constructs \(p\).
+
+ We cannot use a constructor like \([\_=\_]_A\) to introduce new
+ elements (except for \([a=a]_A\)). But we can \textit{use} the
+ elements it already contains. However -- another critical point --
+ all we know about such elements is that they are indeed elements of
+ the type. In particular, we do not know their internal structure. If
+ we have a unary repl constructor, we do not even know that they
+ combine two elements. But we do know that from such elements we can
+ project two elements of \(A\) (we will express this by rule below).
+ But we do not know \textit{how} they came to be combined - we know
+ nothing of the constructors, or even if there are constructors.
+
+ So the question becomes: what can we derive or infer, given
+ \(p\type\EQ_A\). One obvious thing we can do is just what we can do
+ with an ordinary pair, namely project its components: given
+ \(p\type\EQ_A\), we can infer \(\textsf{\slshape proj}_0(p)\type A\)
+ and \(\textsf{\slshape proj}_1(p)\type A\).
+
+[We said above that we cannot assume that elements of \(\EQ_A\) are
+  constructed. That means we cannot assume \([a=b]_A:\EQ_A\). But with
+  the projection operators codefined, we can use \([a=b]_A:\EQ_A\) as
+  a kind of abbreviation for \(\ulcorner p\type \EQ_A\linfer
+  [\textsf{proj}_0(p) = \textsf{proj}_1(p)]:\EQ_A\urcorner\).]
+
+\paragraph{Symmetry and Transitivity}
+If \(\EQ_A\) is an equality relation, it must exhibit symmetry and
+transitivity (satisfy the criteria of adequacy). The assumptions we've
+made so far are not sufficient to support this. We know by assumption
+that \((p,q)\) and \((q,p)\) are both in \(\EQ_A\); but we have no
+rule that tells us we can infer either from the other.
+
+Put differently, even if we know \(\EQ_A\) contains all pairs of
+equals, merely knowing that \((p,q)\) is such a pair does \textit{ipso
+  facto} entail that \((q,p)\) is also such a pair. That might be
+intuitively obvious, but that is not enough for a formal system. A
+principle of symmetry must be \textit{explicitly} expressed. There are
+two ways to do that, by definition or by proof. One can encode
+symmetry as a primitive by defining it in the construction rules, or
+one can prove it as a derived property. HoTT takes the latter
+strategy.
+
+Still: why a family of types?
+
+[TODO: finish this story]
+
+The upshot: equality types like this are unsuitable for HoTT because
+they do not acommodate the notion of proof of a particular equation.
+They also don't work for one of the most basic features of HoTT,
+namely the hierarchy of types.
+
+\paragraph{Definitional equality}
+
+Since definition is not equality, we need a bridge between definition
+and equality. If \(a\) is definitionally bound to \(b\), infer that
+\(a=b\) is inhabited. This must be made explicit if we want to be able
+to appeal to defined bindings in our logic. Something like:
+
+\[a\defeq b:A \linfer\exists\,p\ |\ p : a=_A b\]
+
+We can eliminate the quantifier by following the standard pattern in
+sequent calculus, and show that if C can be proven by assuming
+\(p:a=_A b\), then it can be proven by \(a\defeq b:A\). For this to
+work we must admit \(\defeq\) as a structural operator in the logic.
+
+The problem is that the
+\(\textsf{refl}_A\) constructor is only defined for \(a=_A a\):
+
+\begin{displayquote}[\cite{hottbook} p.48; emph. added]
+    The basic \textbf{way to construct} an element of \(a=b\) is
+    \textbf{to know that} \(a\) and \(b\) are the same. Thus, the
+    introduction rule is a dependent function
+  \[\textsf{refl} : ∏_{a:A}(a=_A a)\]
+
+  called reflexivity, which says that every element of \(A\) is equal
+  to itself (in a specified way)...
+
+  In particular, this means that if \(a\) and \(b\) are judgmentally
+  equal {\upshape [definitionally bound]}, \(a\defeq b\), then we also
+  have an element \(\textsf{refl}_a : a=_A b\). This is well-typed
+  because \(a\defeq b\) means that also the type \(a=_A b\) is
+  judgmentally equal {\upshape [definitionally bound]} to \(a=_A a\),
+    which is the type of \(\textsf{refl}_a\).
+\end{displayquote}
+
+Note the dependency here on Martin-Löf's philosophical doctrine of
+epistemic logic. But ``the way to construct... is to know that...''
+makes no sense for a variety of reasons, the most obvious of which is
+that \textit{knowing that} is non-constructive.\footnote{Martin-Löf
+simply changes the meaning of ``to know'' in a way that conflates
+knowing that, knowing how, and making things so, so that his doctrine
+appears to work. But the only way to prove something is to prove it:
+to actually \textit{do} the deed.} Saying that the way to construct an
+element of equality type is to know that two elements are equal is
+exactly like saying that the way to construct an element of type
+\(A\times B\) is to know that two element of types \(A\) and \(B\) are
+a pair.
+
+In addition to the dubious justification, the problem is that HoTT
+does not provide an explicit inference rule to support this informal
+argument. The inference
+\[a\defeq b \linfer (a=_A b) \defeq (a=_A a)\]
+
+may be intuitively obvious, but it is not formally licensed.
+
+Here's a try. If \(a\defeq_A b, p:a=_A b \linfer q:Q\), then \((a\defeq_A b):Q\).
+
+%% \begin{displaymath}
+%%   \prftree[r]{$\linfer\,=$}
+%%           {\Gamma,}
+%%           {p\type a=_A b\linfer q\type Q,}
+%%           {a\defeq b\type A}
+%%           %% {\Gamma,a\defeq b\type A \linfer a\type Q}
+%%           {\Gamma\linfer p\type a=_A a,\ p\type b=_A b}
+%% \end{displaymath}
+
+Note that we cannot do this, in spite of what the HoTT Book says:
+\mbox{\(a\defeq_A b\linfer\textsf{refl}_a:a=_A a\)}. For that we would
+need another rule saying that \(\textsf{refl}_a\) is unique.
+
+This is essentially modus ponens for definitions. Or maybe a
+distributive law, that p distributes over each of the two terms of a
+definition.
+
+Hey, I think explicit inference to both equalities is much more
+revealing than settling for just one.
+
+In effect what we need is a rule that says substition works for
+co-defined symbols.
+
+\subsection{Equational Types}
+
+The primary motivation for equational types is the Curry-Howard
+isomorphism, whose slogan is ``Formulae are types''.\footnote{Often
+also expressed as ``propositions-as-types'', meaning something like
+``propositional-formulae-as-types''. Obviously \textit{particular}
+propositions cannot be types, since types are general.} By defining a
+type for each equation (i.e. equational formula), we make it possible
+to express a proof of the equation as a token of the type.
+
+The equations we're talking about are actually equational formulae,
+not particular equations. For example, \(a+b=b+a\) is an equational
+formula, but \(2+3=3+2\) is a particular equation. We commonly call
+both ``proposition'', but it is critical to remember that the former
+expression is a kind of generalization and the latter is a particular.
+A formula is already a kind of type; a particular is never a type.
+
+
+And the only way to do that is to define a dependent product type. Our
+equality type must still be a product type (to express relationality),
+but
+
+We use the notation \(\EQN_A(a,b)\), or equivalently \(\EQN(A,a,b)\)
+for equational types.
+
+\[\EQN \defeq \prod\limits_{\tjsmall{a,b}{A}}\Univ\]
+
+  %% \[\textsf{refl} : ∏_{a:A}(a=_A a)\]
+
+
+Informally, this dependent function takes two tokens of type A and
+produces a type that depends on them (so a different type is produced
+for each \(a,b\)).
+
+\subsubsection{Reflexive Types}
+
+We could define reflexive types as special cases of equational types.
+So instead of \( \tj{\refl_a}{\EQN_A(a,a)}\), we could have something like
+\(\tj{\refl_a}{\REQN_A(a)}\).
+
+
+\subsection{Defining Equality by Induction}
+
+Suppose we could define equality by induction. What would that look
+like?
+
+We would start they way HoTT starts, by inductively defining a family
+of types: \textquote[\cite{hottbook} 47]{...\textbf{equality types} or
+  \textbf{identity} types must be type families dependent on two
+  copies of A. We may write the family as \mbox{\(\textsf{Id}_A : A → A →
+  U\)}}. Following the HoTT book, we define
+\(a=_Ab\eqdef\textsf{Id}_A(a,b)\).
+
+This is already problematic, since equality does not entail identity,
+but for our purposes we can ignore that detail. What matters is that
+the types in such a family are indistinguishable from any other
+\textit{dyadic} type - a type formed by combining two type. If we
+ignore token construtors, the type \(a=_Ab\) is indistinguishable from
+\(A\times B\), for example. The symbol
+\(\ulcorner\textsf{Id}\urcorner\) is of course chosen to convey the
+notion of identity, but that's just for the human reader; so far it is
+just a piece of syntax, with no intrinsic meaning.
+
+Dyadic types (like all types) are individuated by their introduction
+and elimination rules: token constructors for inductively defined
+types, and co-constructors for co-inductively defined types. Since we
+want an inductive definition of our \(\textsf{Id}\) types, the next
+task is to define constructors.
+
+The first constructor for equality is easy: since every value is equal
+to itself, we define a constructor to express reflexivity:
+
+\begin{align}
+  & a:A\linfer\textsf{refl}_a: a=_Ab
+\end{align}
+
+That gives us a definition for a subset of the \(\textsf{Id}\) family,
+types of the form \(a=_A a\). This is analogous to defining
+\(\textsf{Z}: \Nat\) for the natural numbers. For \(\Nat\), our next
+task would be to define the remaining numbers, which we would do by
+defining the successor constructor, \(n:\Nat\linfer \textsf{S}n:\Nat\).
+But for equality we have a unique type for each pair \(a,b\), so we
+need to define a constructor for each such type. Note that we need a unique
+type for each pair of tokens, whether we use induction or coinduction.
+[We are not defining a generic equality type; we're not treating
+  equalities like \(a=b\) as proofs of a global equality type. TODO:
+  why not?]
+
+So our next step, following the example of \(\Nat\), is to define the
+analog to the successor constructor. This is the pattern for all
+inductive definitions: start by defining the \textit{base case(s)}
+(here, \(\textsf{refl}_a\)), and then define the \textit{inductive
+  step} (sometimes call the \textit{inductive hypothesis} or similar).
+The inductive step always involves an assumption (or ``hypothesis'') -
+e.g. ``assume \(n\) has type \(\Nat\)'' - and then derives (infers,
+constructs) a new value from that assumed value: ``then it follows
+that \(\textsf{S}n\) has type \(\Nat\)''.\footnote{Note that the
+inductive step may be expressed logically, as an inference rule, or
+mathematically, as a function.}
+
+The problem is it is not possible to define an inductive step for
+equality. It does not make much sense intuitively; there does not seem
+to be any kind of order on the \textsf{Id} family of types, so there's
+no \textit{formal} way to express a relation from one to another. In
+other words, there is no way to express \(p:a=_A b\) as a function of
+an assumed \(q:x=y\). We do have \(\textsf{refl}_a:a=_A a\), which
+looks like a base case, but there is no analog to the successor
+operation that is characteristic of mathematical induction.
+
+The HoTT Book addresses this by arguing that ``path induction'' is a
+genuine form of induction. The core argument is expressed in terms of
+sufficiency: the base case is ``sufficient'' for path induction, so
+the inductive step is not needed. We will argue below that this
+argument is unconvincing, but for now let's assume that it is valid.
+We can ignore the technical details and just assume that path
+induction gives us a constructed inhabitant of each \(a=_A b\) type.
+More specifically, path induction constructs each \(p:a=_A b\) by
+induction from the base case \(\textsf{refl}_a:a=_A a\). That's the
+claim.\footnote{On the other hand: \textquote[\cite{hottbook} 80q]{It
+  is important to note that not all identity types can be “determined”
+  by induction over the construction of types.}}
+
+So with \(\textsf{refl}_a\) and path induction we have a constructed
+witness for each type in the \textsf{Id} family. That serves to
+individuate the members of the family, but it is not sufficient to
+capture the semantics of equality. So far the \textsf{Id} types are
+just like any other dyadic types that have a single constructor.
+
+In fact, we can define as many type families of this form as we like.
+For example, just change \(\textsf{Id}\) to \textsf{Foo}, and change
+\(\textsf{refl}_a\) to \(\textsf{bar}_a\). This gives us a
+\textsf{Foo} family that is indisinguishable from the \textsf{Id}
+family except for their (arbitrary) names. But that is enough to make
+them distinct types, and we do not (so far) have any reason to think
+they are the same, that is, to think that the \textsf{Id} family is
+unique.
+
+\textquote[\cite{hottbook} 154]{If we have an inductively defined type \(W\), say, and some other type \(W′\) which satisfies the same induction principle as \(W\), then it follows that \(W ≃ W′\), and hence \(W = W\)}
+
+Is this enough to show that \textsf{Id} is unique? I don't think so.
+Univalence is about types, \textsf{Id} is a family of types. So the
+question becomes whether \(\textsf{Id}(A,a,b)\) and
+\(\textsf{Foo}(A,a,b)\) satisfy the same induction principle. But the
+more basic problem is that equalities are not inductively defined,
+they're codefined by co-induction.
+
+ We have reflexivity, but we have
+neither symmetry nor transitivity.
+
+\paragraph{Summary}
+An inductive definition of equality would entail the following
+debatable propositions:
+
+
+\begin{enumerate}
+\item Symmetry and Transitivity are theorems. This clashes with the
+  intuition that they should be primitives of the equality relation.
+\item The equality relation is not unique.
+\end{enumerate}
+
+\subsubsection{Pathology of Path Modus Ponens}
+
+We can construct proofs of reflexivity types for different numbers,
+e.g. \(\refl_2:\EQN_{\Nat}(2,2)\) and \(\refl_3:\EQN_{\Nat}(3,3)\).
+But we can also form the type \(\EQN_{\Nat}(2,3)\) expressing \(2=3\);
+this type is well-formed. We do not have constructors for any
+equational types beyond the reflexivity types \(\EQN_A(a,a)\), so
+there is no danger that we could deliberately construct a proof
+\(\tj{p}{\EQN_{\Nat}(2,3)}\). But nothing prevents us from
+\textit{assuming} \(\tj{p}{\EQN_{\Nat}(2,3)}\); and how do we know
+that such a \(p\) could not be derived?
+
+\textquote[\cite{hottbook}, p.61]{Informally, the induction principle
+  for identity types says that if we want to construct an object (or
+  prove a statement) which depends on an inhabitant \(\tj{p}{x=_A y}\)
+  of an identity type, then it suffices to perform the construction
+  (or the proof) in the special case when \(x\) and \(y\) are the same
+  (judgmentally) [by definition] and \(p\) is the reflexivity element
+  \(\tj{\refl_x}{x = x}\) (judgmentally) [by definition].}
+
+I believe what this is trying to say is that the rule follows the
+common pattern of defining the something indirectly, by setting out
+how it can be \textit{used} to do something, as opposed to exhibiting
+it structure via an elimination rule. For example, the elimination
+rule for \(\lkor\) may be expressed using this pattern:
+
+\begin{prooftree}
+\AxiomC{$A \lkor B$}
+\AxiomC{$[A]$}
+  \noLine
+  \UnaryInfC{$\vdots$}
+  \noLine
+  \UnaryInfC{$C$}
+\AxiomC{$[B]$}
+  \noLine
+  \UnaryInfC{$\vdots$}
+  \noLine
+  \UnaryInfC{$C$}
+    \TrinaryInfC{$C$}
+\end{prooftree}
+
+Compare this to the simpler version often found in introductory material:
+
+\begin{center}
+\AxiomC{$A \lkor B$}
+\UnaryInfC{$A$}
+\DisplayProof
+\hspace{1.5em}
+\AxiomC{$A \lkor B$}
+\UnaryInfC{$B$}
+\DisplayProof
+\end{center}
+
+Here's how the previous explanation might be expressed formally:
+
+\begin{prooftree}
+\AxiomC{$[\tj{p}{x=_Ay}]$}
+  \noLine
+  \UnaryInfC{$\vdots$}
+  \noLine
+  \UnaryInfC{$\tj{b}{B}$}
+\AxiomC{$\tj{\refl_x}{x=_A x}$}
+\BinaryInfC{$\tj{b}{B}$}
+\end{prooftree}
+
+Informally: if we can prove \(\tj{b}{B}\) by \textit{assuming} that
+\(p\) is a proof of \(a=_Ab\), and we have a proof \(\refl_x\) of
+\(x=x\), and then we can infer \(\tj{b}{B}\). In other words, this is
+pathological \modus\ rule.
+
+Expressed in sequent calculus with implicity tokenization:
+
+\begin{prooftree}
+\AxiomC{$\Gamma\linfer{(x=_Ay)}\lkso B$}
+\AxiomC{$\Delta\linfer{(x=_A x)}$}
+\BinaryInfC{$\Gamma,\Delta\linfer{B}$}
+\end{prooftree}
+
+With explicit tokenization:
+
+\begin{prooftree}
+\AxiomC{$\Gamma\linfer\tj{p}{(x=_Ay)}\lkso\tj{b}{B}$}
+\AxiomC{$\Delta\linfer\tj{\refl_x}{(x=_A x)}$}
+\BinaryInfC{$\Gamma,\Delta\linfer\tj{b}{B}$}
+\end{prooftree}
+
+Formally this makes no sense. But ordinary \modus{} is justified by
+intuition; why shouldn't intuitions about path induction suffice for
+this specialized kind of \modus?
+
+\subsubsection{HoTT Equality - Critique}
+
+Objection: substitutability is a consequence of ``the induction principle for identity types'' (i.e. path induction).  It should be primitive.
+
+Objection: path induction is based on a pathological \modus (see above)
+
+Objection: symmetry and transitivity are theorems. Should be primitives.
+
+Objection: enthymemes. For example, on p. 48: \(a\defeq_A
+b\linfer\textsf{refl}_a:a=_A a\) is not supported by an inference rule.
+
+Objection: says nothing about uniqueness of equality types.
+
+Objection: basic logical flaw. the claim is that refl:a=a suffices to
+define all a=b. even if that were the case, there's no reason to take
+these as equality proofs. Just because we call the types a=b does not
+mean they express equality. And just because refl generates a witness
+for eah type does not mean equality. They could have other tokens as
+well, and no reason to thing they are equal to refl. after all, every
+token of every type is equal to itself. having x=y types whose sole
+ctors are refl does not entail that they are equalities. For that
+matter, just because we call it refl does not mean anything. It's just
+a constructor.
+
+The HoTT book argues that HoTT equality is defined by induction. This
+is wrong. The family of equality types is defined inductively, but the
+types themselves are codefined, by co-induction.
+
+\textquote[\cite{hottbook}, 62]{If a sequence \((a_n)_{n\in\Nat}\) is
+  defined by giving \(a_0\) and specifying \(a_{n+1}\) in terms of
+  \(a_n\), then in fact the 0th term of the resulting sequence is the
+  given one, and the given recurrence relation relating \(a_{n+1}\) to
+  \(a_n\) holds for the resulting sequence.}
+
+This is a shockingly bad argument. It goes off the rails immediately:
+\enquote{If a sequence \((a_n)_{n\in\Nat}\) is defined by giving...}
+is already incoherent. The sequence \((a_n)_{n\in\Nat}\) is infinite,
+so it \textit{cannot} be defined, even in principle: ``defined
+infinity'' is an oxymoron, as the etymologies of ``define'' and
+``infinite'' suggest. The inductive definition of \(\Nat\) defines the
+natural numbers; it does \textit{not} define an infinite sequence of
+natural numbers. This is elementary.
+
+The text goes on to say, in the same paragraph, \textquote{The rule
+  (2.0.1) ... says that if we define an object \(f(p)\) for all \(p :
+  x = y\) by specifying what the value should be when \(p\) is
+  \(\textsf{refl}_x : x = x\), then the value we specified is in fact
+  the value of \(f(\textsf{refl}_x)\).}
+
+But this too is wrong, for more subtle reasons. The \(f\) it refers to
+is a \textit{partial} function. It is only defined for arguments of
+the form \(f(a,a,refl_a\)). It is \textit{undefined} for arguments of
+the form \(f(x,y,p\) where \(p:x=y\). And you cannot give a total
+definition of a function by specifying only ``what the value should be
+when'' for a subset of its domain.
+
+Problem is that definition is not a species of equality. We use the
+equals sign to express definitions, but that does not mean that
+equality is involved. It could just be an abuse of notation.
+
+The HoTT book tries to finess this by appealing to the ``path
+induction'' principle. But that suffers from exactly the same defect:
+it merely \textit{declares} that a partial definition of a function is
+sufficient to make it a total function. It offers the following by way
+of explanation: \textquote[\cite{hottbook}, 62]{This reduction to the
+  “reflexivity case” is analogous to the reduction to the “base case”
+  and “inductive step” in an ordinary proof by induction on the
+  natural numbers, ...} But is in fact \textit{not at all} analogous!
+Path induction lacks precisely what makes mathematical induction
+inductive, namely the inductive hypotheses that links one thing to the
+next.
+
+Also: the path induction formula is designed to look like the other
+induction formulae used in the book. But that does not make it
+inductive; in fact it cheats. It's a fake induction formula. [TODO:
+  explain]
+
+In short, the HoTT Book's ``explanation'' of equality completely
+misses the mark. That does not mean that HoTT is broken, though. It
+still works, because coinduction (which is can explain equality, see
+\ref{codef_eq}) works, and the HoTT machinery gets the right results.
+The problem is in the explanation offered by the HoTT book.
+
+But:
+
+\textquote[\cite{hottbook} 102]{[O]ur identity types are those that
+  belong to intensional type theory, rather than extensional type
+  theory. In general, a notion of equality is said to be “intensional”
+  if it distinguishes objects based on their particular definitions,
+  and “extensional” if it does not distinguish between objects that
+  have the same “extension” or “observable behavior”. In the
+  terminology of Frege, an intensional equality compares sense, while
+  an extensional one compares only reference.}
+
+Two problems. ``Intensional'' and ``definition'' don't really match,
+and Equating ``extension'' and ``observable behavior'' seems so very
+wrong.  This passage is not wrong so much as weak.
+
+\textquote[\cite{hottbook} 102]{Intensional type theory is so named
+  because its judgmental equality, \(x ≡ y\), is a very intensional
+  equality: it says essentially that \(x\) and \(y\) “have the same
+  definition”, after we expand the defining equations of functions. By
+  contrast, the propositional equality type \(x = y\) is more
+  extensional, even in the axiom-free intensional type theory of
+  Chapter 1: for instance, we can prove by induction that \(n + m = m
+  + n\) for all \(m\), \(n : \Nat\), but we cannot say that \(n + m ≡
+  m + n\) for all \(m, n : \Nat\), since the definition of addition
+  treats its arguments asymmetrically.}
+
+So we cannot infer \(x ≡ y\) from \(x = y\). that makes sense.
+
+I don't think intensional equality is captured by the idea ``same
+definition''. There is no definition involved in observing that
+\(1+4\) and \(2+3\) are intensionally distinct (not identical). Seems
+better to say that definitional equality expresses synonymy. Not that
+two distinct things have the same definition, but that two distinct
+names have the same denotation. Or are inter-substitutional.
+
+Some of the confusion arises from the conflation of equality and
+identity.
+
+\textquote[\cite{hottbook} 103]{As mentioned before, extensional type
+  theory includes also a “reflection rule” saying that if \(p : x =
+  y\), then in fact \(x ≡ y\). Thus extensional type theory is so
+  named because it does not admit any purely intensional equality: the
+  reflection rule forces the judgmental equality to coincide with
+  the more extensional identity type. Moreover, from the reflection
+  rule one may deduce function extensionality (at least in the
+  presence of a judgmental uniqueness principle for functions).
+  However, the reflection rule also implies that all the higher
+  groupoid structure collapses (see Exercise 2.14), and hence is
+  inconsistent with the univalence axiom (see Example 3.1.9).
+  Therefore, regarding univalence as an extensionality property, one
+  may say that intensional type theory permits identity types that are
+  “more extensional” than extensional type theory does.}
+
+Agree with this.
+
+As path induction, symmetry and transitivity are theorems that must be
+proven.
+
+Substitutability?
+
+\subsection{Codefining Coequality}\label{codef_eq}
+
+See ``apartness'' in intuitionistic mathematics.
+
+\begin{itemize}
+\item refl: \(x=y \rightarrow x=x\)
+\item sym:  \(x=y \rightarrow y=x\)
+\item trans: \(x=y, y=z \rightarrow x=z\)
+\item substitutability: equals may be substituted for equals in
+  expressions/propositions (Leibniz's law)
+\end{itemize}
+
+
+
+Refl is not enough. From any \(p:x=y\) we can derive \(refl:x=x\), but
+we have no way to obtain \(q:y=x\) from either, since we have no
+constructors for \(x=y\). So we need a co-constructor
+\(\mathsf{sym}(p): y=x\).
+
+Ditto for transitivity. We need \(\mathsf{trans}(p,q): x=z\) for
+\(p:x=y\) and \(q:y=z\).
+
+These three co-constructors suffice to codefine the entire family of
+equality types.
+
+\subsection{Euclidean Equality \\}
+
+Start with the Greeks. First, number. The Greeks had three kinds of
+number: quantity, magnitude, and ratio. They did not have an abstract
+concept of number that stands apart from these three concepts. A
+number was always a number \textit{of} something - length, area, or
+volume.
+
+What about angles? We think of them as measureable, but Euclid did
+not.
+
+Book I Definition 8 says \enquote{A plane angle is the
+  inclination to one another of two lines in a plane which meet one
+  another and do not lie in a straight line.}
+
+Book I Definition 10: \enquote{When a straight line set up on a
+  straight line makes the adjacent angles equal to one another, each
+  of the equal angles is right, and the straight line standing on the
+  other is called a perpendicular to that on which it stands.} This
+definition presupposes a concept of ``equal angles'', but since
+construction of right angles is a basic operation, this amounts to a
+definition of both equality and right angle.
+
+Book I Postulate 4: \enquote{That all right angles are equal to one another.}
+Obviously a generalization of Book I Definition 10.
+
+But notice that this does not mention \textit{measurement} of angles.
+Why not? Presumably because of the way they are constructed.
+Measurement of areas and volumes is derived from linear measurement,
+starting from a unit length. The unit angle is the right angle; you
+don't measure it any more than you measure a unit length. The angle of
+a straight line (i.e. 180 degrees) is the sum of two right angles. So
+for example a 45 degree angle could not be viewed as a multiple of the
+unit angle; it would have to be expressed as a ratio of two angles,
+and angular ratios where the unit is the right angle are much more
+complicated than linear ratios, where the unit is an arbitrary length.
+Note that units cannot be partitioned, so a 45 degree angle cannot be
+measured by halving a right angle: ``half'' means ``ratio of two units
+to one''.
+
+So in the case of angles, at least, we can have equality without measurement.
+
+
+Lines, areas, and volumes are incomensurable. A line of length 2 is
+not equal to a triangle of area 2. The numbers are different: 2
+(units) of length v. 2 (units) of area.
+
+\textquote[\cite{euclid} Book V, ``Theory of Proportions'',
+  Proposition 1]{If there be any number of magnitudes whatever which
+  are, respectively, equimultiples of any magnitudes equal in
+  multitude, then, whatever multiple one of the magnitudes is of one,
+  that multiple also will all be of all.}
+
+This tells us we can compare magnitudes of the same kind (lengths,
+areas, volumes) by using ratios (``multiples''), and we can compare
+ratios across kinds. Proposition 11 makes the latter more explicit:
+\enquote{Ratios which are the same with the same ratio are also the
+  same with one another.}
+
+Ratios are what allowed the Greeks to compare quantities and
+magnitudes. From ``line of length two'' we can derive ``ratio of two
+units of length to one unit of length'', and similarly for areas and
+volumes. Then we can say that a line and a region have equal measures,
+meaning they have equal ratios to their respective unit measures.
+
+Equalities are like ratios. We can ``see'', at least with the mind's
+eye, quantities and magnitudes; we cannot see ratios (at least not in
+the same direct way). Nor can we see equalities. Moreover, equality is
+a concept that applies (equally) to quantities, magnitudes, and
+ratios.
+
+\citetitle{euclid} \parencite{euclid}
+
+\begin{enumerate}
+\item Things which equal the same thing are also equal to one another.
+\item If equals be added to equals, the wholes are equal.
+\item If equals be subtracted from equals, the remainders are equal.
+\end{enumerate}
+
+Notice that these are not definitions of equality. He never actually
+\textit{defines} equality; that is, he does not say what it is for
+things to be equals. [TODO: verify] He just tells us what follows from
+equality, what inferences we allowed to make \textit{from} equality.
+
+In any case, the point is that for Euclid it makes sense to say of two
+\textit{different} things that they are equal. Linear and areal ratios
+are ratios \textit{of} different kinds of things, but they may be said
+to be equal. So while a line and a square can never be the same thing,
+they can be the same ``equimultiple'' of their unit measures.
+
+Modern mathematics began when number was liberated from the prison of
+quantity and magnitude. This happened surprisingly late, in the 19th
+century, well after mathematicians had begun to use number concepts
+that were not easily construed as either quantity or magnitude. For
+example, the imaginary number \(i = \sqrt{-1}\) was well-established
+before this shift in number concept occurred. Which is to say, that
+mathematicians were able to acheive many important results without
+having a complete grasp of what they had accomplished. This is
+well-known in the case of Euler.
+
+\subsection{Leibniz}
+
+identity of indiscernables v. indiscernability of identicals
+
+\begin{itemize}
+\item \citetitle{Abel2020LeibnizEI} \parencite{Abel2020LeibnizEI}
+\item \citetitle{10.2307/20016085} \parencite{10.2307/20016085}
+\end{itemize}
+
+
+\subsection{Russell}
+
+\citetitle{russell_denoting} \cite{russell_denoting}
+
+\textquote[\cite{russell_denoting}]{If we say ``Scott is the author of
+  Waverley,'' we assert an identity of denotation with a difference of
+  meaning. I shall, however, not repeat the grounds in favour of this
+  theory, as I have urged its claims elsewhere (loc. cit.), and am now
+  concerned to dispute those claims.}
+
+\textquote[\cite{russell_denoting}]{(1) If a is identical with b,
+  whatever is true of the one is true of the other, and either may be
+  substituted for the other in any proposition without altering the
+  truth or falsehood of that proposition. Now George IV. wished to
+  know whether Scott was the author of Waverley; and in fact Scott was
+  the author of Waverley. Hence we may substitute Scott for the
+  autlior of " Waverley," and thereby prove that George IV. wished to
+  know whether Scott was Scott. Yet an interest in the law of identity
+  can hardly be attributed to the first gentleman of Europe.}
+
+\subsection{Church}
+
+“things are identical if the name of one can be substituted for
+that of the other without loss of truth” (Church 1956, p. 300).
+
+\subsection{Wittgenstein}
+
+Roughly speaking: to say of two things that they are identical is
+nonsense, and to say of one thing that it is identical with itself is
+to say nothing. (Tractatus?)
+
+\subsection{Martin-Löf}
+
+\begin{displayquote}[\cite{Martin-Lof-1972}, p. 14]
+  2.4.2 Rules of contraction.
+  \begin{align*}
+    & (\lambda x)(b[x])(a)\hspace{2em}\text{contr}\hspace{2em} b[a], \\
+    etc.
+  \end{align*}
+  ... An expression \(a\) {\upshape reduces} to an expression \(b\),
+  abbreviated \(\ulcorner a\ \text{\upshape red}\ b\urcorner\), if
+  \(b\) can be obtained from \(a\) by repeated contractions of parts
+  of the expression \(a\), and an expression \(a\) is said to be
+  {\upshape irreducible} or {\upshape normal} if it cannot be further
+  reduced. Finally, an expression \(a\) is said to {\upshape convert}
+  into an expression \(b\), abbreviated \(\ulcorner a\ \text{\upshape
+    conv}\ b\urcorner\), if there is an expression \(c\) such that
+  both \(\ulcorner a\ \text{\upshape red}\ c\urcorner\) and \(\ulcorner
+  b\ \text{\upshape red}\ c\urcorner\).
+\end{displayquote}
+
+\vspace{2ex}
+
+\begin{displayquote}[\cite{Martin-Lof-1972}, p. 17; emphasis and scare quotes]
+    2.4.3  Church-Rosser property.  If \(a\ \text{\upshape red}\ b\) and \(a\ \text{\upshape red}\ c\), then there is an expression \(d\) such that
+    \(b\ \text{\upshape red}\ d\) and \(c\ \text{\upshape red}\ d\).
+\end{displayquote}
+
+\vspace{2ex}
+
+\begin{displayquote}[\cite{Martin-Lof-1972}, p. 17; emphasis and scare quotes
+    added] 2.4.6 Definitional equality. Two types \(A\) and \(B\) are
+  said to be {\upshape definitionally equal} provided \(\ulcorner
+  A\ \text{\upshape conv}\ B\urcorner\). Also a term \(a\) of type
+  \(A\) is definitionally equal to a term \(b\) of type \(B\) if both
+  \(\ulcorner a\ \text{\upshape conv}\ b\urcorner\) and \(\ulcorner\ A
+  \text{\upshape conv}\ B\urcorner\). Note that, because of the rule of type
+  conversion, two terms are definitionally equal types if and only if
+  they are of the same type. Two definitionally equal types denote the
+  same abstract type, and similarly, two definitionally equal terms
+  denote the same object of the abstract type denoted by their types.
+  Thus, \textbf{definitional equality is a relation between linguistic
+    expressions and not between the abstract entities which they
+    denote} (and which are the same).
+\end{displayquote}
+
+So is definitional equality (convertability) the same as confluence?
+Even if it isn't we should use \(a\downarrow b\) instead of \(a = b\).
+Or we should have an inference rule from the former to the latter.
+
+\subsection{Codefinition \& Coequality}
+
+Treat \(\defeq\) as codefinition?
+

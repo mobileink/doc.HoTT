@@ -1,0 +1,100 @@
+\section{Algebra \& Coalgebra}\label{sec:coalgebra}
+
+It's much easier to find algebraic/coalgebraic treatments of induction
+and coinduction than it is to find logical treatments. Much
+\textit{much} easier.
+
+What such treatments lack (at least, all that I have found) is
+\textit{explanation}. They do show how to recognize inductive and
+coinductive definitions (by their algebraic properties), and they may
+offer guidance as to how to write one's own inductive or coinductive
+definitions, but they to not explain what they are. They do not
+address the question of how or why reasoning by induction and
+coinduction seems to work. That's understandable, given that such
+explanation is generally not the goal.
+
+A logical treatment -- specifically, an inferential treatment -- can
+do more. By treating induction and coinduction as species of
+reasoning, we can hope to uncover something more fundamental than the
+algebraic and coalgebraic structures that characterize uses of such
+reasoning.
+
+For example, many texts start off by characterizing inductive and
+coinductive definitions in terms of set inclusion:
+
+\begin{displayquote}[\cite{Gordon94atutorial}, p. 1]
+  To say a set is inductively defined just means it is the least
+  solution of a certain form of inequation. For instance, the set of
+  natural numbers \(\Nat\) is the least solution (ordered by set
+  inclusion, \(\subseteq\)) of the inequation
+  \begin{align}
+    \{0\} \cup \{S(x)\ |\  x\in X\} \subseteq X.
+  \end{align}
+
+  ...
+
+  Dually, a set is co-inductively defined if it is the greatest
+  solution of a certain form of inequation. For instance, suppose that
+  \(\rightsquigarrow\) is the reduction relation in a functional
+  language. The set of divergent programs, \(\uparrow\), is the
+  greatest solution of the inequation
+  \begin{align}
+    X \subseteq \{a\ |\ \exists b(a\rightsquigarrow b \& b\in X)\}
+  \end{align}
+\end{displayquote}
+
+\vspace{1ex}
+
+They go on to offer definitions based on fixed points:
+
+\begin{displayquote}[\textit{ibid.}, p. 3,4]
+  Let \(U\) be some universal set and \(F :
+  \wp(U)\rightarrow\wp(U)\) be a monotone function (that is,
+  \(F(X)\subseteq F(Y)\) whenever \(X\subseteq Y\)). Induction and
+  co-induction are dual proof principles that derive from the
+  definition of a set to be the least or greatest solution,
+  respectively, of equations of the form \(X = F (X)\).
+  \vspace{1ex}
+
+  [...definition of \(\mu X.F(X)\) and \(\nu X.F(X)\) omitted for brevity...]
+  \vspace{1ex}
+
+  We say that \(\mu X.F(X)\), the least solution of \(X = F(X)\), is
+  the set \textbf{inductively defined} by \(F\) , and dually, that
+  \(\nu X.F(X)\), the greatest solution of \(X = F(X)\), is the set
+  \textbf{co-inductively defined} by \(F\).
+\end{displayquote}
+
+\vspace{2ex}
+
+\blockquote[\cite{sangiorgi2011introduction}, p. 28]{The central ingredient for our explanation of induction and coinduction is the Fixed Point Theorem, which says that monotone functions in complete lattices have a least and a greatest fixed point.}
+
+[Note the problem with the fixed point perspective: it depends not
+  only on the non-trivial concept of fixed points, but also on the
+  concepts ``complete lattice'' and ``monotone function''.]
+
+Chapter 2 of \citetitle{sangiorgi2011introduction} gives no fewer than
+six different characterizations of inductively and coinductively
+defined sets.
+
+They're not all technical, though. Another good tutorial offers this:
+
+\blockquote[\cite{Jacobs1997ATO}, p. 7]{In an \textit{inductive definition} of a function \(f\), one defines the value of \(f\) on all constructors.
+
+In a \textit{coinductive definition} of a function \(f\), one defines
+  the values of all destructors on each outcome of \(f\).}
+
+Many authors include a treatment based on the concept ``polynomial
+functor'' from Category Theory. Another tutorial
+
+\paragraph{Resources}
+
+\begin{itemize}
+\item \citetitle{Jacobs1997ATO} \cite{Jacobs1997ATO}
+\item \citetitle{2017intro_coalgebra} \cite{2017intro_coalgebra}
+\item \citetitle{sangiorgi2011introduction} \cite{sangiorgi2011introduction}
+\item \citetitle{sangiorgi2011advanced} \cite{sangiorgi2011advanced}
+\item \citetitle{Gordon94atutorial} \cite{Gordon94atutorial}
+\item \citetitle{rutten_uni_coalgebra} \cite{rutten_uni_coalgebra}
+\end{itemize}
+

@@ -1,0 +1,366 @@
+\section{Types and Cotypes}\label{sec:types}
+
+\paragraph{Duality}  Duality is an all-or-nothing affair. If you reverse one arrow, you must reverse all other arrows related to the first.
+
+Formally, duality is expressed by simply reversing the arrows:
+\(A\rightarrow B\) is the dual of \(A\leftarrow B\), and vice-versa.
+But there is much more to the duality of types and cotypes than this.
+It also involves semantic reversals that must be explicated in order
+to render the duality fully intelligible. This in turn will make
+evident the fully articulated inferential semantics of the concepts
+``type'' and ``cotype''.
+
+We use a regimented vocabulary in order to emphasize dualities; we
+always use the prefix \textit{co} the express a dual. The drawback of
+this practice is that the meanings of such \textit{co}-terms may not
+be simple, direct variants of the original term. For example,
+codefinition is not merely a variant kind of definition; rather, the
+intended meaning of the term is \textit{underdetermines}, for reasons
+that will soon become clear. Therefore reader is hereby forewarned
+that the concept expressed by \textit{co-x} may not be directly
+inferrable from the concept expressed by \textit{x}.
+
+\paragraph{Notation}
+
+\begin{description}
+\item[Duality:] \dual
+\item[Type and cotype:]\hspace{2em}\(A\dual \cotype{A}\)
+\item[Token and cotoken:] \(\tj{a}{A}\dual
+  \tj{\cotok{a}}{\cotype{A}}\)
+    \item[Constructor and co-constructor:] \(\ctor{i}\dual \coctor{i}\)
+    \item[Definition and codefinition:]
+
+      \begin{align}
+       \ctor{0}\times\ldots\times\ctor{n} & \rightarrow A \nonumber \\
+       \coctor{0}\times\ldots\times\coctor{n} & \leftarrow \cotype{A} \nonumber
+      \end{align}
+      \item[List and colist:] \(\List{X}\) \dual \(\colist{X}\)
+\end{description}
+
+NB: instead of ``token'' and ``cotoken'' most writers use ``term''
+(and ``coterm'') for syntax, and ``witness'', ``inhabitant'' etc. for
+semantics.
+
+%%%%%%%%%%%%%%%%
+\subsection{Semantics}
+
+Inferential semantics: upstream and downstream inferences determine
+conceptual content.
+
+Ctors and coctors as morphisms. Type ctors are promorphism, they go to
+the type. Cotype co-ctors are apomorphisms, they go from the type.
+
+Types are explained by upstream inferences (circumstances of
+application, production rules); cotypes, by downstream inferences
+(consequences, usage rules).
+
+\paragraph{Determinateness}
+
+A token/cotoken is fully determined, or determinate, when it is both typed and defined.
+
+A token/cotoken is underdetermined if it lacks a type or a definition.
+
+A token/cotoken that has a type but not a definition is
+underdetermined, or partly determined.
+
+A symbol with neither type nor definition is indeterminate.
+
+It follows that all tokens in a type universe are at least partly
+determined.
+
+What about a null token, like the empty list? Determinate?
+
+What is determinateness for types?
+
+A type/cotype is fully determined/determinate if all of its tokens are
+determinate.
+
+Intuitively, a type should be underdetermined if some (at least one?)
+of its tokens are underdetermined.
+
+Indeterminate type?
+
+What about an empty type. Determinate or indeterminate?
+
+\subsubsection{Classic v. Intuitionistic Interpretation}
+
+For the Platonist coinductive reasoning etc. presents some problems.
+Cotypes are assumed to already be populated etc.  As described elsewhere in this document.
+
+None of that will for the intuitionist. Co-constructors operate on
+co-data which are anti-constructive: do not and cannot exist. So how
+can an intuitionist make sense of this co-stuff?
+
+Same way they make sense of other infinitudes? E.g. real numbers, the
+continum, etc. They've figured out ways to finesse such stuff. E.g.
+fans, bar theorem, apartness, etc.
+
+\subsubsection{Type and cotype}
+
+\subsubsection{Definition and codefinition}
+
+\textquote[\cite{pierce2004advanced} ``Type Definitions'' p.
+  348]{[T]he addition of definitional mechanisms can change the
+  properties of type systems in ways that are not immediately
+  obvious... It is therefore useful to study type definitions as
+  primitive concepts.}
+
+
+[Here the arrows should be read semantically, not algebraically. These
+  are not functors, yet. Use a different arrow?]
+
+Types \textit{are determined by} their constructors: \(\ctor{0}\times\ldots\times\ctor{n} \rightarrow A\).
+
+Cotypes, by contrast, \textit{codetermine} their co-constructors:
+\[\coctor{0}\times\ldots\times\coctor{n} \leftarrow \cotype{A}\]
+Equivalently, and perhaps more scandalously, co-constructors are
+determined by their cotype.
+
+[TODO: compare algebraic interpretation. It lacks the idea that these
+  things are related by a ``determinator'' relation.]
+
+This may seem counter-intuitive at first glance. According to the
+common way of speaking, what we call cotypes are ``defined by
+coinduction'', and what we call co-constructors (often called
+``destructors'') are what do the defining. But how can something we
+are defining be said to determine the instruments that do the
+defining? How can the \textit{definiendum} determine the
+\textit{definiens}?
+
+The beginning of wisdom here is to notice that coinduction does
+\textit{not} define anything; that's one reason we use the term
+``codefinition''. Codefinition always presupposes that the
+\textit{(~co-~)definiendum} is antecedently available; that is, we are
+to assume that cotypes and their cotokens are already ``defined'' in
+some dark inscrutable way.
+
+Fastidious anti-realists may be dissatisfied with this kind of
+presupposition. For them, counter-factuals provide a way out. We can
+think of a codefinition as expressing something like ``\textit{if}
+this cotype were to exist, \textit{then} it would behave like so''.
+Here a caveat is in order. From this perspective, codefinition may
+look like a kind of contingent definition. But even if it is
+contingent, it still would not count as a kind of definition. The key
+word in our counter-factual is \textit{behave}. We did not say ``if it
+were to exist, it would have such and such an internal structure''.
+That is not how codefinition works. It says what the definiendum's
+behavior must be, but does not specify the mechanism that enables the
+behavior. It does not \textit{define} the cotype, it only
+\textit{specifies} its behavior.
+
+However you slice it, what comes out is that in codefinition we start
+with an antecedently available notion of what the definiendum is, or
+how it behaves, and from that we infer the shape of its
+co-constructors. For example, to codefine streams (infinite lists), we
+start with our intuitive notion of what an infinite stream would be
+like, and from that we derive the notions ``head of stream'' and ``tail
+of stream''. In that sense, the concept ``stream'' determines the
+concepts ``head'' and ``tail''. Which makes sense: clearly it would be
+rather difficult to come up with the concept ``head'' if we did not
+already have an answer to ``head of what?''. It would be a little
+like conceiving of the inside of a square without also coming up with
+the notion of outside of a square.
+
+With definitions, by contrast, we start out with our constructor
+concepts. To define a type of finite lists of type \(X\), we start by
+thinking of an empty list and a concept of combining \(X\) tokens --
+which we can do even if we lack the concept ``list of \(X\)'' -- and
+from that we derive the concept of a list. This is made clear by a
+simple metaphor: start with a clear space on the ground and a pile of
+bricks. If you can imagine stacking the bricks one upon the other, one
+at a time, then you can arrive at the concept ``stack of bricks''.
+
+Incidentally, another duality should be clear here: for finite lists,
+the composition operation (``cons'') is primitive, and the
+complementary operations, \head{} and \tail{}, are derivative, to be
+expressed as functions. Dually, for colists, \cohead{} and \cotail{}
+are the primitive operations, and \cocons{} is derived.
+
+So cotypes ``codetermine'' their co-constructors. What exactly does
+that mean? It means precisely that they fix their type signatures.
+That leaves them undefined but not entirely undetermined; rather, they
+are \textit{under}determined. They're partly determined, since their
+types are fixed, and partly undetermined, since they are undefined. So
+we use ``codetermined'' to mean ``partly determined by a fixed
+type''.
+
+Co-constructors, in turn, serve to codetermine the cotokens of the
+cotype. Now this seems circular. We said that codefinition starts out
+by assuming we already have the cotype; now we seem to be saying that
+co-constructors, having been codetermined by their cotype, turn around
+and codefine that very cotype. How does that work?
+
+There's no paradox here if we remember that codefinition does not mean
+definition. Just as cotypes codetermine their co-constructors by
+fixing their types, co-constructors return the favor by expressing
+constraints on the ``behavior'' not of cotypes but of cotokens. Let's spell this out more explicitly with an example:
+
+\begin{itemize}
+\item The cotype \(\colist{X}\) (stream of \(X\)) determines the type of
+  its \cohead{} co-constructor:
+  \(\tj{\cotok{x}}{\colist{X}}\linfer\tj{\cohead(\cotok{x})}{X}\).
+  \item The co-constructor in turn expresses a constraint on cotokens
+    of the cotype: their \cohead{} must be of type \(X\).
+\end{itemize}
+
+And here again ``codefine'' means ``partly determine''. The
+co-constructor fixes the type of its output but does not define it.
+That leaves it underdetermined,, and it will remain underdetermined
+until the co-constructor becomes fully determined by a cofunction
+definition, to which we now turn.
+
+Critically important: the partial determinations expressed by the
+co-constructors are global! They apply to every cotoken of the cotype.
+
+\subsubsection{Constructor and Co-constructor}
+
+Ctors and co-ctors determine (define?) a protocol. A functor tin CT
+terms. Cofunctions implement the protocol. Each has its own
+definitions for the co-ctors. So there's a naming issue in practice.
+If they all use the same name the we have name clashes.
+
+A way around this is to have each cofunction determine a type. Then
+the compiler can determine which co-ctor implementation is needed
+based on the type.
+
+The other way would be for each cofunction to define a unique name for
+the co-ctors. But then they would not be co-ctors for the type.
+
+Either way: do cotypes and cofunctions make sense without some kind of
+polymorphism?
+
+\subsubsection{Function and Cofunction}
+
+Domain and codomain.
+
+At the cotype level, the co-constructors express type constraints on
+\textit{all} cotokens of the co-type.
+
+Cofunctions refine the co-constructors by defining them. But this
+refinement is \textit\textit{local}! It only applies to cotokens
+produced by the cofunction.
+
+We can think of the co-constructors as expressing a generic or global
+interface or signature for cotokens of the cotype. Then cofunctions
+provide implementations\footnote{Co-implementations?}.
+
+(Compare: inheritance)
+
+\subsubsection{Note}
+
+Some writers seem to get it wrong, unless I've badly misunderstood something.
+
+For example:
+
+\textquote[\cite{nonwf_deduction}, p. 7]{A coinductively defined set
+  is also constructed by starting with a set of initial elements and
+  applying the constructor operators, possibly infinitely many times.
+  One example, which arises from the same initial element and
+  constructors as the inductive set of lists, is that of possibly
+  infinite lists, i.e. the set that also contains infinite streams.
+  The fact that we can apply the operators infinitely many times is
+  due to coinduction being the largest subset that can (potentially)
+  be constructed using the operators.} That makes no sense at all to
+me. The number of times you iterate a ctor in building a single
+element has nothing to do with the size of the set. Worse, what this
+writer has evidently completely missed is that coinduction does not
+construct things. The infinitely long lists in a stream type are
+\textit{given}, not constructed! Which is odd, considering how
+technical the paper is, he must know a thing or two.
+
+Even if we did construct some stuff, the original type would always be
+at least as big, just because it contains the most stuff possible.
+This is evident when you consider the co-ctors are apomorphisms. You
+cannot add a new, or longer stream term to a stream type! So any
+cofunctions you define will determine a set that is always less than
+or equal to the original stream set.
+
+
+%%%%%%%%%%%%%%%%
+\subsection{Morphism classes}\label{morph:classes}
+
+First some terminology. We classify morphisms for a type/cotype by the
+role played by the type in the type signature of the morphism. For
+example, if the type we're interested in is the domain of \(f\), then
+\(f\) is an apomorphism.
+
+If the type (or cotype) of interest is \(X\), then:
+
+\begin{description}
+\item[Endomorphism\footnotemark:]\footnotetext{Greek ἕνδον,
+  \textit{endon}, inside, within, internal} \(\tj{f}{X\func X}\)
+\item[Promorphism\footnotemark:]\footnotetext{Greek προσ, \textit{pros},
+  to, toward} \(\tj{f}{A\func X}\)
+\item[Apomorphism\footnotemark:]\footnotetext{Greek απο, \textit{apo},
+  from, away from} \(\tj{f}{X\func A}\)
+\item[Synthetic morphism:] the codomain is a polynomial type
+  (combination of products and sums) containing \(X\) e.g.
+  \begin{itemize}
+  \item \(\tj{f}{X\func X\times X}\) is a synthetic endomorphism
+  \item \(\tj{f}{X\func A\times B}\) is a synthetic apomorphism
+  \end{itemize}
+\item[Analytic morphism:] the domain is a polynomial type containing \(X\), e.g.
+  \begin{itemize}
+    \item \(\tj{f}{X\times X\func X}\) is an analytic endomorphism
+    \item \(\tj{f}{X\times X\func A}\) is an analytic apomorphism
+  \end{itemize}
+\item[Hybrid morphism:] anything that does not fit in the above categories:
+  \begin{itemize}
+  \item \(\tj{f}{X\func A\times X}\)
+  \item \(\tj{f}{X\func X\times B}\)
+  \item \(\tj{f}{X\func A\times B + C}\)
+  \item \(\tj{f}{A\times X\func X}\)
+  \item \(\tj{f}{A\times X\func B}\)
+  \item \(\tj{f}{X\func A\times B + C}\)
+  \item etc.
+  \end{itemize}
+\end{description}
+
+
+%%%%%%%%%%%%%%%%
+\subsection{Implementation}
+
+An implementation is an approximation.
+
+Example: constant lists, whose heads always return a constant c.
+
+How do we get the ball rolling? We need a cofunction whose head
+returns c. But it must be applied to a stream token; where do we get
+one, if they do not exist?
+
+Cotokens are underdetermined. We can approximate one in a real program
+by just ignoring it. We know how it would behave if we had it, so we
+can implement the behavior even if we do not have one.  So we don't just approximate the infinity, we approximate the existence.
+
+So we implement a \defn{constantly} function that takes a number to
+return. Instead of returning it we create and return a cofunction
+whose head returns it. But then to use it the client would need to use
+that head function.
+
+So we're forced to implement either some kind of object-oriented
+thing, or we have protocols, and our returned cofunction would
+implement the protocol. That fits. The cotype co-ctors define the
+protocol.
+
+
+%%%%%%%%%%%%%%%%
+\subsection{Calculi}
+The concepts of types and cotypes may be presented in a variety of forms.
+
+\subsubsection{Typed calculus of types and cotypes}
+
+This section uses the kind of type-theoretic notation commonly used to
+present types and cotypes. Derived from Martin-Löf Type Theory by way
+of HoTT.
+
+\subsubsection{Logic of types and cotypes}
+
+This section presents types, cotypes, etc. using a sequent calculus
+commonly used to express various logics.
+
+\subsubsection{Algebraics of types and cotypes}
+
+Yet a third mode of presentation takes an algebraic perspective. This
+is a popular way of presenting and explaining induction and
+coinduction.
+

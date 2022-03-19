@@ -1,0 +1,885 @@
+\section{Notes}
+
+\subsection{Infinities}
+
+\href{https://en.wikipedia.org/wiki/Axiom_of_infinity}{Axiom of Infinity}
+
+\href{https://en.wikipedia.org/wiki/Finitism}{Finitism}
+
+\subsection{Non-well-founded sets}
+
+\citetitle{nonwf_deduction} \cite{nonwf_deduction}
+
+\subsection{Recursion and Corecursion}
+
+If you check for a base case, it's recursion; otherwise it's
+corecursion.
+
+Equivalently, if the domain type is defined by induction, it's recursion. Otherwise, it's corecursion.
+
+\href{http://blog.ezyang.com/2013/04/the-difference-between-recursion-induction/}{The Difference between Recursion \& Induction}
+
+Or: define types by induction, functions by recursion?
+
+Some writers say the opposite: recursion defines, induction proves.
+
+Better: induction defines types, recursion defines functions on types.
+
+Or: induction is semantic, recursion is syntactic. In which case we would express induction by writing recursion.
+
+Does recursive merely mean self-referential? Note there is no
+self-reference in the standard definition of \(\Nat\) by induction.
+Except maybe insofar as the ctor definitions refer to the type name.
+
+Etymology: recursion = running \textit{back}, i.e. back to the
+beginning, returning to the base case. ``Recursion'' cannot mean
+``self-referential'', so maybe it was coined specifically to the
+``iterating back to base'' process. Then induction would only refer to
+building up new from old, without self-reference.
+
+Makes sense. Function definitions analyze their arguments and then
+possibly recur on part of the arg.
+
+\subsection{Programming}
+
+\citetitle{goguen1996algebraic} \cite{goguen1996algebraic}
+
+\subsection{Assumptions}
+
+Compare: reasoning with counterfactuals v. reasoning from assumptions
+
+Counterfactuals make no assumptions.
+
+\subsection{Dark Logic}
+
+Compare coinductive and probabilistic thinking. Both involve reasoning
+with imperfect information.
+
+Coinduction assumes the definiendum is already determined. Like dark
+matter.
+
+We can express coinduction as inference rules in a logic. And
+reasoning by coinduction seems qualitatively different than inductive
+reasoning.
+
+Does a co-logic make sense?
+
+We have cofunction, a function defined co-inductively. By
+Curry-Howard, that gives us co-implication. What about co-conjuction,
+co-disjunction etc.?
+
+Conjunction. Elimination rule assumes that we can be given a token
+\(p\) where \(\tj{p}{A\lkand B}\), such that the meaning of \(p\) is
+determinate, but it does not assume that \(p\) has the form of a pair.
+
+We can \textit{define} as many distinct function implementations as we
+like for a given function type, say \(\Nat\func\Nat\). What about
+conjuction and disjunction?
+
+Linear logic shows that we need at least two distinct
+``implementations'' for both. Or does it. It has different inference
+rules, so its not a matter of different implementations of the same
+type.
+
+But then under what circumstances would it make sense to have more
+than one implementation of \(\lkand\)? Or: when would it make sense to
+say \(A \lkand B\) is not unique? More precisely that it has only one
+ctor?
+
+We can have many function implementations because of the way we
+interpret \(\func\). It must be a procedure capable of producing a B,
+given an A, an A-to-B machine. That makes it a meta-machine. But all
+inference rules are meta in this way. But \(\func\) starts with a
+token-producing machine, not a meta-matchine. Can we think of
+conjunction like this? Start with a pair of machines capable of
+producing A and B tokens out of ylem; the \(\lkand\) machine turns
+those machines into \(A\lkand B\) tokens. Then we can have different
+implementations of those machines. One that produces tokens out of
+unicorn blood, for example.
+
+So the type of all A-to-B machines is \(A\func B\). To produce one we
+must build it ourselves, using the lambda calculus as a tool.
+
+Leprechaun lambdas.
+
+But we do not have a lambda calculus, or any calculus, that will allow
+us to build an implemention of a cofunction cotype. Such machines can
+only be built by leprechauns, according to leprechaun engineering
+standards, and they are permanently sealed, so it is impossible for us
+to open one up and inspect the construction.
+
+So if we need to do something useful with a machine of such a type, we
+just assume that we can pick out an arbitrary unit from the limitless
+stock of prebuilt machines.
+
+No, better is, we go down to the leprechauns and tell them what we
+want: we give them the equations specifying how the head and tail
+should work, and they build us one from spec. That's how we can think
+of the codefining equations for a cotype as specifications rather than
+axioms. Giving us three ways to think of them: as axiomatic truths, as
+rules of interence, and as engineering specifications.
+
+Leading to the idea that induction is semantic, and coinduction is
+syntactic.
+
+We only need the lambda leprechaums if we insist on metaphysics.
+Classically, for computable functions, we have the idea that they
+exist, and Turing Machines or some other model allows us to express
+them formally. So there remains an ontological gap between a function
+and its representation as, say, a lambda definition. Since our models
+of computation work so well, and since they are constructive, we have
+little compunction thinking that the functions expressed by lambda
+definitions exist, either eternally, or in virtue of our construction.
+
+Things are different for cofunctions, however. We don't have a good
+reason for thinking they exist. We cannot construct them after all; we
+cannot even imagine what it would take to construct them, since the
+very concept of construction seems to mean finitude.
+
+Actually the logic is similar to the way we think about the infinities
+associated with our constructions. We're inclined to think the natural
+numbers exist \textit{in toto}, because we know that we can construct
+any particular natural number. So we make a kind of metaphysical leap
+from the existence of each natural number to the existence of their
+infinitude. Of course, intuitionism rejects the possibility of a
+``completed infinity''. Usually we just abuse the language, and say
+``\(\Nat\) exists'' when what we really mean is that each number
+exists or can be constructed. In any case, the critical point is that
+we need not presuppose the existence of the totality \(\Nat\) in order
+to think that \textit{each} natural number exists.
+
+We can \textit{almost} think about colists in the same way. Each
+colist is isomorphic to \(\Nat\), and we can extract each prefix as a
+finite list, just as we can construct each natural number. But
+extraction of a prefix depends on use of the co-constructors and the
+assumption that the colist antecedently exists - if it did not, then
+the co-constructors would have nothing to work with, and we would not
+be able to extract a finite list. So it looks like the logic of
+coinduction inescapably presupposes some metaphysical commitments.
+
+How can we get around this, and ``explain'' such codata without
+metaphysics? I think the intuitionist approach is to think in terms of
+approximations. We do not need ontological commitments to understand
+codefinitions etc. as specifications. In other words, if we think
+syntactically instead of semantically. Then we can approximate a
+colist by constructing successive prefixes, without any metaphysical
+presuppositions about the existence or otherwise of the whole colist.
+
+But note: we're not quite thinking entirely syntactically. We're just
+treating syntax as primary. We then endow the syntax with meaning.
+I.e. its not empty syntax, its more like syntax with contingent or
+implied semantics. We work with the syntax on the understanding that
+it has a kind of approximative semantics.
+
+Counter-factual semantics: if colists were to exist, then we would be
+able to extract finite prefixes. But the converse does not hold: if we
+can extract prefixes, then colists exist. So our ability to extract
+prefixes is rendered intelligible by the counter-factual, but we
+cannot then conclude that colists exist. We can say that the syntax
+has counter-factual semantics. Meaning that the counter-factual makes
+the things we say about colists meaningful, but does not entail
+metaphysical commitments.
+
+This would require that we reject the usual reading of ``semantic'' as a
+synonym of ``denotational'' or ``representational''.
+
+Sadly, the logic and semantics of counterfactuals is very complex. But
+they're easy enough to understand informally and that's enough for
+present purposes.
+
+\citetitle{sep-counterfactuals} \cite{sep-counterfactuals}
+
+
+
+\subsection{Coinduction Rules}
+
+Double entendre: rules of coinduction v. dominance of coinduction
+
+The logic of coinduction is the logic of empirical science.
+
+Difference between scientific induction and mathematical induction:
+the latter involves an element of necessity that is completely lacking
+in the former. Modality of necessity v. possibility. The inferences
+delivered by scientific induction are always contingent. They may be
+undermined in two ways. Additional experimental evidence may render
+them invalid, and changes to theory may render them inappropriate, for
+lack of a better term. Einstein gave us a vivid example of the latter
+when he redefined the concept of gravity, and thereby forced a
+reconceptualization of the entire body of inferences underwriting
+theoretical physics.
+
+But if scientific and mathematical induction differ in this
+fundamental way, why do we call them both ``induction''. One reason is
+historical: the concept of induction is much older and more familiar
+than the concept of coinduction, which only began to emerge as a
+distinctive concept relatively recently.
+
+Once we have a clear understanding of coinduction, it becomes clear
+that what we all scientific induction is actually coinduction.
+
+Latent variables and measurement. What's the difference between a
+``latent variable'' in the social sciences, like the Big 5 personality
+traits (extraversion, agreeableness, openness, consientiousness, and
+neuroticism), and a concept like ``mass'' in physics? After all, mass
+is just as ``latent'' as neuroticism. We cannot directly observe mass;
+the best we can do is observe measurements whose results, we theorize,
+are ``caused'' by mass. Those measurements are so precise and reliable
+(replicable), and the predictions we make based on those experimental
+results are so good, that we have seen fit to elevate the concept of
+mass to a kind of axiomatic status. That's an example of co-inductive
+reasoning: we use observations to draw inferences about the machinery
+behind the appearances.
+
+From this perspective, the only difference between such (mostly)
+undisputed concepts like mass and very debatable concepts like the
+latent variables of psychology is measurement. The problem with
+``neuroticism'' is that we have no good way to measure it. That could
+be because we do not have a good theory that would enable us to
+explain how neuroticism affects observable properties or behaviors, or
+it could be because we lack the instruments of measurement we need to
+make good observations. But if we did have a good way of measuring
+neuroticism, and such measurements allowed us to make reliable
+predictions about future measurements, then we would be justified in
+bestowing on the concept of neuroticism the same status we grant to
+the concept of mass. And the kind of reasoning involved would be
+coinduction.
+
+Pavlov's dog.
+
+\subsection{Imaginary Numbers}
+
+The imaginary number is \(i\), the square root of negative one. The
+acceptance of \(i\) as a genuine number marked a radical shift in our
+concept of number, a movement away from number as magnitude and
+quantity to a more abstract notion in which measurement plays no
+essential role. It threw a spanner in the metaphysical works of
+traditional mathematics. Trying to imagine \(\sqrt{-1}\) is like
+trying to imaging a round square.
+
+But it was not the first imaginary number, if by ``imaginary'' we mean
+something metaphysically puzzling, something whose existence we have a
+hard time imagining.
+
+But \(i\) is only the most famous imaginary number. Zero and negative
+numbers are just as metaphysically puzzling.
+
+[What's the point? Aside from historical interest, demonstrate how a
+  pragmatic order of explanation can account for such things. Does
+  this have any implications for how we do type theory? Other than
+  clarify and refine meanings?  Also: make the relation between logic and mathematics more clear.]
+
+\subsubsection{Zero}
+
+The Greeks lacked zero for a reason. Their mathematics was
+demonstrative and constructive: the way to prove something was to
+demonstrate its construction. But you cannot demonstrate nothing.
+Hence, no zero concept.
+
+If zero \textit{exists}, then it cannot be nothing.
+
+Consider the usual inductive methods of constructing the natural
+numbers. The most primitive way to do it is to concatenate a tally
+mark. The successor operation is something we do -- add another tally
+mark -- which we need not make explicit. So we have \(1\eqdef\Stroke{1},
+2\eqdef\Stroke{2}, 3\eqdef\Stroke{3}\) etc.
+
+This is fine if we do not need zero. We can define addition, for
+example. Notice in particular that there is no distinguished base
+case; every \(\Stroke{1}\) is alike, and to construct a number, you
+start from nothing, not zero.
+
+Most presentations, though, follow Peano's example and define a base
+case and use a distinguished symbol for it (\ZNat, \(\mathbb{0}\),
+etc.). This requires two axioms, one affirmative and one negative:
+\ZNat{} is a natural number, and \ZNat{} is not the successor of any
+natural number.
+
+We start with \ZNat{} and \SNat{}, and we can build \ZS, \ZSS, etc.
+\textit{ad libitum}.
+
+But what do \ZNat{} and \SNat{} denote? We have two options for \ZNat:
+either it denotes something, or it does not.
+
+If \ZNat{} exists, then we're forced to concede that the number \(1\)
+is actually a two, since it is the combination of two things:
+\(1\eqdef \ZS\). Under this operation, \SNat{} is also a thing:
+the successor \textit{operation} is not \SNat; rather it is what we do
+when we add \SNat{} to a natural number. But then \SNat{} would be a
+special kind of thing, something that cannot stand alone, since
+otherwise \SNat{} itself would be a number (maybe we need another
+axiom stating ``\SNat{} is not a natural number''.)
+
+Or, we could treat \SNat{} as a kind of primitive, undefined,
+function-like thing that takes any natural number to its successor.
+Then we would have two ways to interpret it. The non-constructive way
+would presuppose that the successor of each \(n\) already exists, and
+the job of \SNat{} is to point to it, so to speak. The constructive
+interpretation would treat \SNat{} as some kind of mechanism that, given
+an existing natural number (as a kind of raw material), produces a new
+one.
+
+Under a constructive interpretation, \ZNat{} could not merely denote
+something that already exists; but for \ZS{} to be intelligible
+under this interpretation, \ZNat{} would have to denote
+\textit{something}, so that \SNat{} would have the raw materials it
+needs to produce a new number. So we would be compelled to think of
+\ZNat{} as a kind of productive machine just like \SNat, except that
+\ZNat{} would need no raw materials to get started. It would create
+something from nothing.
+
+So the construction of \(\Nat\) is already metaphysically puzzling.
+
+So far we have a distinguished first natural number \ZNat, but it does
+not yet behave like zero. In fact, under the rules we have so far, it
+behaves like \(1\). To make it behave like we expect zero to behave ,
+we need to add some constraints on addition: \(n + \ZNat = n,\ \ZNat +
+n = n\). And again there are two ways to interpret this. One is to
+think that the introduction of these axioms changes the meaning of
+\ZNat. They confer a special property not on the \ZNat machine itself,
+but on its output: when that ``\ZNat-thing'' used in an addition it
+adds nothing. The other strategy is to think that the introduction of
+the axioms changes the meaning of addition: it now examines its
+operands, and discards any equal to \ZNat.
+
+No matter how you cut it hermeneutically, zero is metaphysically
+puzzing.
+
+[What's the point? To motivate a pragmatic order of explanation.]
+
+\subsubsection{Negative Numbers}
+
+It's equally easy to see why the Greeks had no truck numbers. Negative
+quantities and magnitudes are unimaginable. ``Line of length \(-2\)''
+is absurd.\footnote{I distinctly remember first encountering negative
+numbers in my first Algebra class in junior high school, and being
+puzzled as to how a number could possibly be negative. Subtraction is
+one thing; a negative number is a whole `nother thing.}
+
+Historically, the negative numbers emerged in tandem with zero. The
+Arabic-speaking mathematicians who invented algebra did so for
+practical reasons: algebra is a tool that makes it easier to balance
+the books. Negative quantities may be inconceivable, but
+\textit{deficits} are easily understandable, nor do they presuppose
+any metaphysical commitments. Zero is what you get with balanced
+books: no difference between debits and credits. Negative numbers? You
+owe somebody. Positive? Sombody owes you.
+
+The algebraic perspective is compatible with number-as-quantity. A
+negative number represents a quantitative deficit. It's still ``...of
+something''; not just \(-3\), but \(-3\ \textit{dirhams}\) (or goats
+or acres or whatever), that is, a deficit of \(3\) \textit{of
+  dirhams}, the quantity you need to balance your books. If they had had
+formal logic, they would have invented Linear Logic.
+
+\subsection{Games}
+
+The games we're talking about are not the games of game theory. Those
+games have winners and losers. Our games are deontic: they involve a
+set of rules that players are obligated to follow if they want to
+count as playing the game at all. You cannot lose that kind of game;
+if you do not follow the rules, then you are not playing the game.
+
+You can push chess pieces around, but if you do not obey the rules of
+chess, then you are not playing chess. An invalid inference is not an
+inference; a program that fails to compile is not a program. A proof
+that does not obey the rules of inference is not a proof.
+
+\subsection{Logical Pluralism}
+
+Is logic one or many? These days there are many logics to choose from.
+The question is whether they are all species of a single genus.
+
+To really understand a logic, you must master the use of a calculus. A
+calculus for a logic defines the language you use to express reasoning
+within the logic. But there are many calculi to choose from, each of
+which can be used for different logics. The calculi themselves have
+various properties, so they offer different perspectives on reasoning.
+So the really \textit{really} understand a logic, you should master
+multiple calculi.
+
+We can also ask whether all logical calculi are species of a single
+genus. This suggests that the calculi themselves are worthy objects of
+study, and the answer is clearly yes. The study of such calculi
+usually falls under the rubric ``Proof theory'', but be forewarned
+that, as its name suggests, Proof Theory also studies other things,
+such the nature of proofs.
+
+We can ask again: are all proofs species of a single genus?
+
+Is there more than one consequence relation? And is consequence the
+same as inference?
+
+Finally, we can ask whether all inferences are species of a single
+genus. This, like our other questions about logical plurality, is a
+philosophical question, whose answer is by no means obvious. For
+example, take Classical and Intuitionistic logics. One of the main
+differences between them is that the latter includes the Law of
+Excluded Middle (LEM)\footnote{Sometimes called the Principle of
+Excluded Middle (PEM)}. This law says that every proposition is either
+true or false; there is no middle option. So if we do not know whether
+a particular proposition \(P\) is true or false, at least we know that
+it \textit{must} be one or the other. This means that if we assume it
+is false and then prove a contradiction, we not only can but must
+\textit{infer} that it is true. Under Intuitionistic logic, things are
+different. We can infer that it is not true, but we must not infer
+that it is false. Does this difference reflect a \textit{difference in
+  kind} of the inferences involved in the two logics?
+
+Variety of form does not entail plurality of content. FOL can be
+expressed in many calculi whose forms vary greatly, but they all
+express FOL.
+
+See \citetitle{sep-logical-pluralism} \parencite{sep-logical-pluralism}
+for more information.
+
+
+\subsection{Centrality of Inference}
+
+The one thing all logical calculi have in common is a notion
+inference. It should be obvious that any calculus we want to use to
+express reasoning must have a means of expressing inference, since
+inference is the central concept of reasoning. But it's less obvious
+that this should be the \textit{only} thing they must have in common.
+
+What about proof? No, that's an add-on; you can have a logical
+calculus that does not define what counts as a proof. Most do define
+proof formally, but it is not required. Remember that logic is about
+consequence, not proof. The concept of proof is parasitic on the
+concept of consequence.
+
+
+\subsection{Residuation}
+
+Deduction theorem: inter-convertability between consequence and
+implication.
+
+Implication requires modus ponens to detach the conclusion.
+Consequence does not. So this is a kind of asymmetry between the two.
+
+
+Bimbó says that operators are residuals of operators, for example
+p. 120 says \(\lollipop\) is the residual of \(\circ\) in linear
+logic.
+
+But Restall makes it look like residuation is about operands, not
+operators.
+
+Must be that \(\linfer\) is the residual of \(→\), or vice versa?
+
+
+\textquote[\citetitle{sep-logic-substructural} \cite{sep-logic-substructural}]{
+Logic is about logical consequence. As a result, the conditional is a central notion in logic because of its intimate connection with logical consequence. This connection is neatly expressed in the residuation condition (also known as the deduction theorem):
+
+\[p,q\linfer r\ \text{if and only if}\ p\linfer q\rightarrow r\]
+
+It says that \(r\) follows from \(p\) together with \(q\) just when \(q→r\)
+follows from p alone. The validity of the transition from \(q\) to \(r\)
+(given \(p\)) is recorded by the conditional \(q→r\).
+
+This connection between the conditional and consequence is called
+residuation by analogy with the case in mathematics. Consider the
+connection between addition and substraction. \(a+b=c\) if and only if
+\(a=c−b\). The resulting \(a\) (which is \(c−b\)) is the residual,
+what is left of \(c\) when \(b\) is taken away. Another name for this
+connection is the deduction theorem.}
+
+The term makes perfect sense for arithmetic. It is a standard term in
+statistics, where the residual is the difference between an predicted
+and observed values. But its harder to see how to give it an intuitive
+reading in logic. It seems to be motivated by formal analogy:
+
+\begin{align}
+  a+b &= c & \text{arithmetic sum equals c} \\
+  a &= c - b & \text{arithmetic residual equals difference} \\
+  b &= c - a \\
+  p,q &\linfer c & \text{sum entails c} \\
+  p &\linfer q→r & \text{residual p entails implication} \\
+  q &\linfer p→r
+\end{align}
+
+The formal analogy is clear, but it's hard to see how arithmetic
+difference and implication are related. But I think the formal analogy
+does reflect substantial analogy.
+
+The arithmetic residual is what you get when you ``undo'' a sum. Just
+focus on the LHS: the residual is what you get when you remove a
+summand. But what makes it a ``residual'', instead of just a summand?
+The relation of addition and subtraction on the one hand, and equality
+on the other. Residuation expresses that link.
+
+Or: residuation preserves equality. If you remove one of the summands,
+what do you need to do to restore equality? Make that move and the remaining summand is a residual.
+
+So in logic: residuation preserves entailment. If you remove one of
+the conjuncts from the antecedent, what do you need to do to preserve
+the entailment?  You convert the conclusion to an implication. So conjunction is the residual of implication.
+
+Better: residuation as an algebraic (-like) operation whose purpose is
+to restore inferential equilibrium. If you break the whole, by
+removing a part on the left, then to mend (al-jabr) and restore the
+balance (al-muqabala) you must treat the RHS. In the case of ``and''
+on the LHS, the remedy is to introduce a new operator, \(→\), on the
+RHS.
+
+Restall seems to get this wrong, calling residuation a relation
+between the conditional and consequence. I think it is a relation
+between two operators mediated by consequence. After all the
+conditional is not the only operator that can be entailed; in fact
+they are all essentially related to entailent. The general form: if
+you remove an operand on the LHS, what do you need to do on the RHS in
+order to preserve the entailment? The answer will involve another
+operation.
+
+For logic, the residual \(p\) is what you get when you remove the
+summand (or ``factor''?) \(q\) from the sum \(\ulcorner
+p,q\urcorner\). What makes it a residual instead of a mere premise?
+The relation between summing (\(\ulcorner ,\urcorner\)) and
+implication.
+
+In a real sense is it is a lack. Remove one of the conditions of
+production and the output lacks something.
+
+Treat \(p,q\linfer r\) as a binary function. If you want to convert it
+to a unary function, you remove one of the parameters, and you output
+another unary function that takes the removed parameter as its arg.
+
+In other words, this kind of residuation is just currying. Which makes
+the deduction theorem a kind of currying. The residual is the
+second-level (``wrapped'') unary function.
+
+How nice, this gives us a piece of terminology we can use to talk
+about currying. For each parameter of any binary function, we have a
+residual, which is the unary function that takes the other parameter
+as an argument. E.g. if we have \(f(a,b)→c\), then the residual of
+\(a\) is the unary function that takes \(b\) as an argument (and may
+also use a, but not as an arg) and returns \(c\).
+
+For arithmetic, residuals are numbers. For logic, they are operators.
+Implication is the residual of conjunction, because it is what you
+need to restore entailment after you remove conjunction. Its ``what's
+left over'' after removal of conjunction.
+
+This is incredibly obvious once you see it. Why did it take me so long
+to see it?
+
+Are residuals always implication operators? Seems they must be; to
+restore entailment, you must add implication.
+
+\begin{itemize}
+\item \(a + b = c\) the arithmetic sum of a and b equals c.
+\item \(a = c - b\) the residual a is what's left when you subtract b from c
+\item \(p,q\linfer r\) the logical sum of p and q entails r
+\item \(p\linfer q→r\): p is what is left when you ...?
+\end{itemize}
+
+Here ``logical sum'' does not mean ``logical conjunction''
+(\(\land\)). It is meant to convey the ``structural'' concept of ``p and
+q together'' \textit{outside} of the logic.
+
+The algebraic operation that yields the residual is the same on both
+sides of the equation symbol. But the logical operation is not; it's
+not even symmetrical.  To get the residual, we need to:
+
+\begin{itemize}
+\item remove \(q\) from the sum on the LHS
+\item combine it (``add'' it?) on the RHS in a particular way
+\end{itemize}
+
+\subsection{Arbitary Choice Operator}
+
+These calculi depend heavily on assumptions. The premises of inference rules are assumptions. For type systems, they look like \(a:A\), i.e. assume a is of type A.  More explicitly, assume A is non-empty and a is an \textit{arbitrary} token of type A.
+
+Currently square brackets are used to make assumptions explicit, but
+they are also used for other purposes.
+
+We can make this more explicity by defining a choice operator. For
+example, we can borrow Hilbert's epsilon. Then \(\epsilon \phi\) would
+mean ``choose arbitrary proposition \(\phi\)'', and \(\epsilon a:A\)
+would mean ``choose arbitrary a of type A''. Same as the assumption
+above, but explicit.
+
+Examples:
+
+\begin{center}
+\AxiomC{$\Gamma$}
+\AxiomC{$[\phi]$}
+\noLine
+\UnaryInfC{$\vdots$}
+\noLine
+\UnaryInfC{$\psi$}
+\BinaryInfC{$\phi\rightarrow\psi$}
+\DisplayProof
+\hskip1em
+\rightarrow
+\AxiomC{$\Gamma$}
+\AxiomC{$\epsilon\phi$}
+\noLine
+\UnaryInfC{$\vdots$}
+\noLine
+\UnaryInfC{$\psi$}
+\BinaryInfC{$\phi\rightarrow\psi$}
+\DisplayProof
+\end{center}
+
+With types:
+
+\begin{center}
+\AxiomC{$\Gamma$}
+\AxiomC{$[\phi:A]$}
+\noLine
+\UnaryInfC{$\vdots$}
+\noLine
+\UnaryInfC{$\psi:B$}
+\BinaryInfC{$\phi\rightarrow\psi:$}
+\DisplayProof
+\hskip1em
+\rightarrow
+\AxiomC{$\Gamma$}
+\AxiomC{$\epsilon\phi$}
+\noLine
+\UnaryInfC{$\vdots$}
+\noLine
+\UnaryInfC{$\psi$}
+\BinaryInfC{$\phi\rightarrow\psi$}
+\DisplayProof
+\end{center}
+
+\subsection{Strategies}
+
+A common technique is to define use of a connector indirectly.  Instead of showing what follows directly, use an intermediary.
+
+\subsection{Disjunction}
+
+We actually need a choice operator to make sense of disjunction, or
+more precisely, to make our calculus work for disjunction.
+
+To see why, start with conjunction: \(A, B\linfer A\lkand B\). The
+usual way to gloss this is something like ``If A is true and B is
+true, then A\(\lkand\) B is true''. But we need to be more explicit.
+Implicit in the standard gloss is that A and B are
+propositions.\footnote{TODO: note on Martin-Löf}. Also implicit is
+universal quantification; what we really mean is ``For all
+propositions A and B, if A is true and B is true, then A\(\lkand\) B
+is true''.
+
+Note that in \(A, B\linfer A\lkand B\) the only symbol in the
+conclusion that is not in the premises is \(\lkand\).
+
+To make the interpretation of such formulae fully explicit, we have
+two options. We can use the universal quantifier, and write something
+like \(\forall A, B: A, B\seqso A\lkand B\). Or we can use our choice
+operator, and write \(\choice A, \choice B\seqso A\lkand
+B\).\footnote{Read ``if arbitrary A is true and arbitrary B is true
+then A\lkand B is true''.} But this leaves the domain of
+quantification implicit; the be really explicit, we would have to find
+a way to indicate that A and B range over propositions (for
+\(\forall\)), and that \(\choice A\) means ``for arbitrary proposition
+A''.
+
+Now look at the standard introduction rules for disjunction. We have
+two, one for the left disjunct and one for the right: \(A\seqso A\lkor
+B\) and \(B\seqso A\lkor B\). The problem is immediately evident:
+\(B\) appears in the conclusion but not in the premises. The rules
+introduce more than just \(\lkor\); they also introduce \(B\). But
+\(B\) is a non-logical symbol, so this makes no sense.
+
+The implicit logic is simple enough. We take \(A\seqso A\lkor B\) to
+mean ``If A is true, then A\lkor B is true whether B is true or not'';
+more precisely, ``For all propopsitions A, if A is true, then for all
+propositions B, \(A\lkor B\) is true''. In other words, to make sense
+of the introduction rules for disjunction, we're forced to commit to
+\textit{two} implicit universal quantifications. Symbolically, using
+\(\ulcorner :\mathbb{P}\urcorner\) to mean ``ranging over
+propositions'':
+
+\[\forall A:\mathbb{P}, A\seqso\forall B:\mathbb{P}, A\lkor B\]
+
+But this is cumbersome.  Using \(\choice\) we get a more concise expression
+
+\[\choice A\seqso A\lkor \choice B\]
+
+But now we're back where we started: the conclusion contains symbols
+that are not in the premises. What we need is a way to mention \(B\)
+in the premises. If we try \(\choice B\), then we get the same
+premises as the introduction rule for \(\lkand\). That's because we
+read the meta-symbol \(\ulcorner ,\urcorner\) as ``and'', so when use
+as premise(s) \(\ulcorner\choice A,\choice B\urcorner\) must be
+glossed ``if arbitrary A is true and arbitrary B is true'', and this
+gives us the wrong scope of quantification for disjunction. We need to
+quantify B \textit{after} A, or choose arbitrary \(B\) \textit{after}
+we've chosen arbitrary \(A\). But that means that \(B\)
+\textit{cannot} be involved in the premise, which in turn suggests
+that it must be the introduction rule itself that injects, not just
+symbol \(B\), but also its quantification.
+
+In other words, ``natural'' \(\lkor\), the kind defined by
+introduction and elimination rules, presupposes a subordinate
+quantification. It follows that the introduction rules do more than
+just introduce the logical constant. But that's ok. Nothing says that
+such rules must introduce the constant \textit{and nothing else}. The
+only constraint is that the additional ``stuff'' introduced must not
+have any ``side effects'', that is must not turn any other good
+inferences into bad ones or vice-versa. Which is to say, each
+introduction rule must be a \textit{conservative extension} of the
+language.
+
+Who cares? Why bother, except to make the logic fully explicit? Well,
+a finer degree of explicitation is not nothing. In this case, it will
+help us better understand typed calculi.
+
+\subsection{Vernacular}
+
+The vernacular is the language of prelogic.
+
+The vernacular is not meta-logic. It uses logic, but is not
+\textit{about} logic.
+
+\subsection{Proof Theory}
+
+\textquote[\citetitle{DBLP:journals/sLogica/Prawitz19} \cite{DBLP:journals/sLogica/Prawitz19}]{I see the question
+  what it is that makes an inference valid and thereby gives a proof
+  its epistemic power as the most fundamental problem of general proof
+  theory.
+  \vskip-2em
+  \[\vdots\]
+  \vskip-1em
+  ``In my plea for general proof theory, I suggested a number of obvious topics: the question of defining the concept of proof, investigations of the structure of proofs, the representation of proofs by formal derivations, and the finding of identity criteria of proofs that answered the question when two derivations represent the same proof.
+  \vskip-2em
+  \[\vdots\]
+  \vskip-1em
+  ``But I still think that the problem of defining the concept of proof or the validity of inference is the most fundamental problem of general proof theory...
+}
+
+Remember that the concept of proof presupposes a concept of
+consequence (or inference), so a theory of proof lives or dies by its
+notion of consequence.
+
+Proof is usually defined as (roughly) a tree or chain or anyway
+structure of ``connected'' inferences, expressed as derivation
+structure in the calculus.
+
+\subsection{Proof Identity}
+
+We can have different proofs for the same proposition. How can we tell
+if they are equal? This is an unsolved problem. But it accounts for
+the complexity of equality in HoTT.
+
+Compare: deciding when two functions are equal, that is, when two
+implementations of the same function are equal. We know the criteria
+for deciding: same outputs for same inputs. But its possible that two
+different algorithms could accomplish that. Would they count as the
+identical? Extensionally, yes; intensionally, no. Do they need to be
+the same program?
+
+\subsection{Proof-irrelevance}
+Propositions are forgetful. They do not remember how they came to be.
+E.g. \(A\land B\) does not know that it was formed using the intro
+rule. In fact there is no reason to assume that it was. This is easier
+to see in a type system, where we would have \(p:A\times B\), meaning
+that \(p\) is a token (term, instance, etc.) of type \(A\times B\), or
+equivalently \(p\) is a proof of the type. This tells us nothing about
+how \(p\) came to be.
+
+\subsection{Closed-World Assumption}
+
+
+
+\subsection{Codefinition}
+
+Introduction (right) rules define; elimination (left) rules co-define.
+Elimination rules make an assumption, that the proposition they are
+using is ``defined''. But that is just an assumption. The elimination
+rule itself says what can be done with the propositon, but this cannot
+count as a definition \textit{of} the proposition. Definitions, under
+this perspective, tell us how things are put together. They do not
+tell us how to \textit{use} what we have put together; in particular
+they to not tell us how to disassemble composites.
+
+Codefinitions do that. They tell us what we can do with the composite,
+\textit{on the assumption} that it is already ``defined'' in some
+indeterminate way. But they do \textit{not} assume that is was
+constructed by an introduction rule.
+
+Take \(\land\) for example. Here is the way the rules are often
+presented, with the context and \(\linfer\) omitted for simplicity's
+sake:
+
+%% Logical And
+%% \begin{center}
+%% \AxiomC{$A$}
+%% \AxiomC{$B$}
+%% \BinaryInfC{$A\land B$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$A\land B$}
+%% \UnaryInfC{$A$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$A\land B$}
+%% \UnaryInfC{$B$}
+%% \DisplayProof
+%% \end{center}
+
+The rule on the left defines \(A\land B\): you build a conjunct
+\(A\land B\) from an A and a a B. The two on the right jointly
+co-define it: given (that is, \textit{assuming}) \(A\land B\), you
+can extract A or B or both.
+
+This example is a bit misleading, though, since the syntax \(A\land
+B\) suggests that the elimination rules operate by extracting A or B
+syntactically. That is not the case. We can make this more evident by
+rewriting the rules as follows to make the assumptions explicit:
+
+%% \begin{center}
+%%   \AxiomC{$P$}
+%%   \LeftLabel{$\scriptstyle\text{[P a \(\land\) conjunct]}$}
+%%   \UnaryInfC{$first(P)$}
+%%   \DisplayProof
+%%   \hskip 1.4em
+%%   \AxiomC{$P$}
+%%   \LeftLabel{$\scriptstyle\text{[P a conjunction]}$}
+%%   \UnaryInfC{$second(P)$}
+%%   \DisplayProof
+%% \end{center}
+
+In type theories, conjunction corresponds to product types:
+
+%% \begin{center}
+%%   \AxiomC{$p:A\times B$}
+%%   \UnaryInfC{$first(p):A$}
+%%   \DisplayProof
+%%   \hskip 1.4em
+%%   \AxiomC{$p:A\times B$}
+%%   \UnaryInfC{$second(p):B$}
+%%   \DisplayProof
+%% \end{center}
+
+In other words, the elimination rules tell us that we can extract a ``first'' element and a ``second'' element from any conjunct.
+
+To make this work we also need to \textit{harmonize} the definition
+and co-definition. In this case that means ensuring that we can
+control which element we extract. The definitional introduction rule
+says we can combine A and B; the codefinitional rules must allow us to
+reliably retrieve either one. In other words, we need to ensure that
+if we construct \(A\land B\), then \(first\) will extract A.
+
+In the case of our first example, this is already evident from the
+syntax of the rules. But if we want to use the second style, we cannot
+depend on the meanings of \(first\) and \(second\) to guarantee this;
+after all, we could have used some other terms, such as \textit{left}
+and \textit{right}, \textit{red} and \textit{blue}, or even
+\textit{foo} and \textit{bar}. Whatever terms we use, we need to
+establish a corresponds between the eliminator terms and the
+constructor. The only way to do this is by setting down a meta-axiom
+that says that the first argument to the constructor corresponds to
+one extractor, and the second to the other. Something like this
+\(red(A\land B)\eqdef A\), \(blue(A\land B)\eqdef B\)
+
+Note: the extractors (\textit{first}, \textit{second}, or whatever)
+use function application syntax, but they are not functions. They are
+codefiners \textit{by} definition, but do not themselves \textit{have}
+definitions.
+
+Usually this harmonization is taken for granted, because its obvious
+and tedious to write out.
+

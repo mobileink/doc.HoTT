@@ -1,0 +1,639 @@
+\section{Type Systems}\label{sec:typesystems}
+
+\subsection{Typing ``judgments''}
+
+The standard way to express ``a has type A'' is \(\tj{a}{A}\). But that is
+not the only way. Some authors write the type symbol as a superscript:
+\(a^A\). Another way would be to harmonize with the sequent calculus
+and write \(a\linfer A\).
+
+We could just define \(\tj{a}{A}\eqdef a\linfer A\). Then what would our
+rules look like?
+
+%% \AxiomC{$A\seqso a$}\AxiomC{$B\seqso b$}\BinaryInfC{$A,B\seqso (a,b)$} \DisplayProof
+
+One problem is we would need one structure connector on the LHS for
+each logical connector. In this case \(A,B\) would have to be read
+\(A\times B\); for disjunction it would have to be \(A\plus B\). In
+other words our structures would have to be replaced with types. I'm
+not so sure that would work, but it might. From context of a
+conjunction of propositions to a product of types?
+
+%% \AxiomC{$A\seqso a$}\AxiomC{$B\seqso b$}\BinaryInfC{$A\times B\seqso (a,b)$} \DisplayProof
+
+If this works out, we would get a notation that is dual to the
+standard one. If so it should be easy.
+
+The problem with \(a\linfer A\) is that it severs the link between type
+and token. If we have multiple types and tokens, it would be
+impossible to see which tokens have which types.
+
+But as an explanatory device \(a\lso A\eqdef \tj{a}{A}\) works rather
+well. Then reasoning from premises of that form to conclusion that
+form looks like sequent reasoning. So if our conclusion is
+\((a,b):A\times B\), we get \( (a,b)\lso A\times B\).
+
+Even better: \(a\lso A\pso\tj{a}{A}\) or \(a\lso A\Vdash\tj{a}{A}\) or
+\(a\lso A\,\Vert\,\tj{a}{A}\). Here the second inference op corresponds
+the the horizontal rule in a sequent proof.
+
+\subsection{Propositions: free-standing and embedded}
+
+Is the concept ``proposition'' primitive?  It is for Brandom.
+
+Do calculi presuppose a semantic domain of propositions? Not
+necessarily. ML's talk about A prop first then A true tries to address
+this. If we do not want a representationalist logic, where
+propositions are supplied from outside, then we need to account for
+them in some other way. For Brandom they would be presupposed by the
+very ability to reason and vice-versa, since they are instituted by
+normative inferential practices. The way out of the apparent
+circularity is to appeal to practice.
+
+ML does not have such a refined theory, he makes A prop a judgment we
+have to make before we can get to A true, but his account of that kind
+of judgment is not very convincing. He does seem broadly within the
+pragmatist current, though.
+
+In other words, A prop is ML's way of bootstrapping an uninterpreted
+calculus into a meaningful language of logic.
+
+Brandom: proposition is fundamental unit of accountability. Same for
+logic. You can use a calculus to derive formulae, but you are not
+reasoning if no propositions are involved.
+
+The logical constants come to have meaning in virtual of their rules
+of use. The task is to account for the meanings of the non-logical
+symbols. If they are to be propositions, must they be supplied by some
+external source? Well yes, but that source can be the same set of
+normative practices that provide the fuel for the logical constants.
+
+The status of ``proposition'' is a fundamental issue.
+
+Bifurcation Principle: propositions have two ``roles'', free-standing
+and ingredient (as premise or conclusion of a proof). Propositional
+content is the same.
+
+Martin-Lof's ``judgment'' stuff tries to reconcile these?
+
+
+\subsection{Proofs}
+
+
+ \(a:A\) is true (horizontally) iff \(a:A\) is
+proven (vertially).
+
+ \(a:A\) is true as a free-standing proposition iff \(a:A\) is the
+ conclusion of a valid proof (ingredient sense).
+
+Or \(a:A\) is true iff it is the end sequent of a proof (object).
+
+Or \(a:A\) is true iff it is correctly constructed.
+
+
+This bifurcation of proof/truth is what motivated ML to develop the
+distinction between propositions and judgments.
+
+\subsection{Notes}
+A theory of types should explain types. But type calculi are logical
+calculi. Since logic is the science of proof and consequence, ...
+
+We use type systems to prove things. What kind of things? The
+conclusion of a proof always has the form \(p:P\). What kind of thing
+is that? We can interpret it as a proposition, glossed as ``p is a
+proof of P''. Or we can treat it as an inference and gloss it as ``p
+entails P''. ML calls it a ``judgment'', or ``form of judgment''.
+
+If we treat it as a proposition, then all proofs in a type system are
+meta-proofs. They prove a proof claim. This is starkly different from
+untyped calculi, which place no substanstial constraints on the
+propositions they prove.
+
+Maybe that's why ML felt the need to call them judgments instead of
+propositions.
+
+What is a proof? We can prove that a proposition is true; can we also
+prove that an inference is valid? We can certainly \textit{claim} that
+an inference is valid; that's what inference rules do. A proof of a
+proposition proves its conclusion, but it does not prove its own
+validity. If an inference step is licensed by an inference rule, we
+take that as proof of the validity of that step. But that does not
+give us a proof \textit{object}; if we think of a proof as a tree or
+chain of inferences, then the justification of an inference step by
+reference to an inference rule cannot count as a proof. To do that we
+would have to write a meta-proof that displays the inference step
+itself as the conclusion of a proof that starts from the inference
+rule.  That seems like a tall order.
+
+On the other hand, if we take \(a:A\) as an inference, then a proof in
+a type calculus \textit{does} prove the validity of an inference. The
+inference steps in the proof are themselves meta-inferences; they go
+from inference to inference. So again, a proof in a type system is
+essentially a meta-proof.
+
+But that would also mean that \(a:A\) is not a judgment.
+
+Of course, this is based on the propositions-as-types interpretation.
+Even if we treat propositions as types, we are not thereby compelled
+to treat tokens of such types as proofs of a proposition. We can just
+say that they are tokenings and leave it at that. After all, when we
+say that 3 is a token of type Nat, we don't ordinarily think of it as
+proof, and we certainly do not thing of Nat as a proposition.
+
+Then a proof in a type system would prove a ``tokening'', and we could
+gloss \(a:A\) as ``a is a token(ing) of A''.
+
+If a proposition is a type, then what is a token of such a type, if
+not a proof? For example, if the proposition is \(2<3\), we might
+express its type as something like \(T_{2<3}\), or \(\overline{2<3}\).
+In other words, we could come up with the equivalent of the
+\(\lambda\) operator. The latter turns an open formula into the name
+of a function; our new operator would turn it into the name of a type.
+E.g. \(p: \overline{2+2=4}\).  But we already have equality types!
+
+What about something like ``every n is odd or even''? Or just a
+complex logical expression?
+
+If propositions are types, then we can think of the proposition's
+formula as the name of the type?
+
+Consider the intro rule for products. The conclusion is
+\((a,b):A\times B\). If we read this as \((a,b)\) is proof of
+\(A\times B\), then something is off, because what we have proven
+directly is the type inference \((a,b):A\times B\). The proof is the
+entire proof tree, and that gets forgotten if we treat \((a,b)\) as
+the (principle) proof. So there's an issue of ``proof objects''
+involved. Why should we treat \((a,b)\) as a proof object, when proofs
+are trees?
+
+IOW, Curry-Howard induces an inconsistency that goes beyond mere
+terminology. On the one hand, our proof objects are trees; on the
+other hand, what our proof-trees prove is that a token, which is not a
+tree, is a proof.
+
+Curry-Howard is based on calculi? It says something about formal
+representations, from which we infer it says something about the real
+stuff. Propositions and types end up looking the same in the calculi,
+so we infer they are the same. And that's probably based on the
+isomorphism between implications and functions. It's harder to see if
+you start with equations.
+
+Remember: propositions-as-types means \textit{logical} propositions.
+Mathematical or other propositions must be first converted to logical
+form.
+
+BTW, proof-trees also construct (and thus ``prove'') the type part of
+the concluding inference.
+
+NB: \(A\land B\) is a logical proposition; typed, it is a product.
+Suggesting we can read \(A\times B\) as a proposition. But proof of
+\(A\land B\) is a tree, whereas a ``proof'' of \(A\times B\) is a
+token, \((a,b)\) which is not a tree. To see it as a proof, we have to
+view it as representing a proof-tree.
+
+We're forced to adopt two notions of proof, one for proof trees, and
+one for tokens. There's an epistemic/cognitive difference. A token of
+a type is ipso facto a kind of non-demonstrative proof of the type.
+
+But proof-as-program must refer to proof-trees?
+
+The ``proofs'' in proofs as programs are meta-proofs; their
+conclusions are the type ``judgments'' saying the token instantiaes
+(``proves'') the type. So it should be ``typing metaproofs as
+programs''.
+
+\subsection{Martin-Lof}
+
+\textquote[\cite{psh_judgments_martin_lof} 494-5]{According to
+  Martin-Löf, [propositional logic] does not deal with
+  ``propositions'' which are given as a domain of discourse from
+  outside. Whether a closed expression is a proposition is something
+  that is to be established within the theory... Therefore
+  Martin-Löf's theory distinguishes two forms of categorical
+  judgments, A is a proposition (A prop) and A is true (A true) which
+  are explained in such a way that the latter presupposes the former.}
+
+But doesn't ``closed expression'' already presuppose denotation?
+
+And doesn't truth always presuppose proposition?
+
+\textquote[\cite{psh_judgments_martin_lof} 495]{To know A prop
+  means to know what one must do in orfer to verify A, i.e. what
+  counts as a verification of A. So if I have grasped what a
+  verification of A looks like, I have proved A prop.}
+
+This seems preposterous. If it were so, we would be unable to reason
+about conjectures, for example, by assuming them true and following
+out the consequences.
+
+HoTT p. 18: \enquote{Note that the judgment “A has a proof” exists at
+  a different level from the proposition A itself, which is an
+  internal statement of the theory.} This notion of ``internal
+statement of the theory'' seems to reflect the notion that we cannot
+be ``given'' propositions from the outside to serve as denotatums; we
+have to construct them somehow within the theory. I don't think that
+works very well. Anyway the difference between \(a:A\) and \(A\) is
+pretty obvious, both syntactically and semantically. But why are we
+compelled to think that ``the proposition A itself'' is ``an internal
+satement of the theory''? This seems to be trying to make fine
+metaphysical distinctions. Propositions are types, so what does it
+mean to say that a type is ``an internal statement of the theory''?
+
+What
+
+Brandom: propositions are primitive and articulated and indeed
+instituted inferentially. There's no sense in which propisitions could
+form an ``external'' domain for reasoning, and no need for a judgment
+A prop in order to support A true. ``A true'' is just another way of
+saying ``A'' (prosentential account of ``is true'').
+
+\subsubsection{Notes}
+
+Kant's concept of judgement: ML makes it out to be epistemic (or
+doxastic). Brandom makes it out to be deontic.
+
+\paragraph{\textit{On the meanings of the logical constants and the justifications of the logical laws} (\parencite{martin1996meanings})
+  \newline}
+
+This paper goes off the rails almost immediately, when it claims that
+the introduction rule for logical conjuction,
+%% \AxiomC{$A$}\AxiomC{$B$}\BinaryInfC{$A\& B$} \DisplayProof
+``...takes us from the affirmation of \(A\) and the affirmation of \(B\) to
+the affirmation of \(A\&B\)...''. He later hedges a bit, using
+``assertion'' or ``judgment'' instead of ``affirmation''. But the
+claim is patently false, for all three terms.
+
+First, introduction rules, like all rules, are conditionals, and
+conditionals assert neither their premises nor their conclusion. ``If
+P then Q'' does not assert either P or Q. So the premises and
+conclusions of rules cannot be affirmations (or assertions or
+judgments).
+
+Less obviously, introduction rules use propositional variables (like
+\(A, B, P, Q\), etc.) that range over propositions. But it is a
+category mistake to affirm or assert a propositional variable; we can
+only assert propositions, and a variable is not a proposition. If
+we replace the propositional variables in a rule with particular
+propositions, we get a particular proposition, not a rule. Going from
+\(A; B \linfer A\land B\) to ``Snow is white and also roses are red, so
+both snow is white and roses are red'' is a proposition; to assert it
+is \textit{ipso facto} to assert its component subpropositions. But it
+is not a rule.  Nor is it a conditional.
+
+\paragraph{\textit{Truth of a proposition, evidence of a judgement, validity of a proof}}
+
+\begin{displayquote}
+  My answer to the questions, What is a judgement? and, What is a proof of a judgement? is simply that a proof of a judgement is an act of knowing and that the judgement which it proves is the object of that act of knowing, that is, an object of knowledge.
+  \parencite{martin1987truth} 417
+\end{displayquote}
+
+Of course, this does not tell us what a judgment \textit{is}, it just
+tells us that it is something we can know.
+
+But he does tell us, on p. 409, that ``A is true'' is a judgment, in
+which A is a proposition. That would make not A but ``A is true'' an
+object of knowledge. Evidently the idea is that the truth of A is the
+object of knowledge? Can we ``know'' just A? It doesn't make sense to
+say that we know a proposition; we can only know \textit{that} it is
+true or false.
+
+The entire thing falls apart if the premises and conclusion are not
+judgments. What a muddle!
+
+\begin{displayquote}
+  [T]he proof of a judgement is nothing but the act of knowing, or,
+  perhaps better, the act of understanding or grasping, and that what
+  you grasp, namely, the object of knowledge, is the same as what you
+  prove, namely, the assertion or judgement. \parencite{martin1987truth}
+  417
+\end{displayquote}
+
+Needless to say, this is at odds with the proof-theoretic approach
+that treats a proof as an object. He's effectively just playing with
+words here; calling proof an ``act of knowing'' just avoids the
+question of what is a proof. It's kind of a meta-claim, that by
+recognising that a purported proof does in fact prove its conclusion
+puts you into a state of knowing. But that's not saying much about
+what a proof is, beyond ``it proves something''.
+
+\medskip
+
+Other problems:
+
+Illocutionary force. He uses it (incorrectly) to explain ``I know'',
+but does not seem to realize that illocutionary force is precisely
+what distinguishes assertion from interrogation, command and the other
+various kinds of ``speech act''. You cannot write down an assertion;
+you can only write down a sentence, and count on your reader to
+observe the (universal?) norm that declares a written sentence should
+be granted (by the reader) assertional force.
+
+Judgment and ``evident judgment''. Very muddled.
+
+The source of the troubles would seem to be the perceived need to cast
+logic as an essentially epistemic enterprise. Hence the presentation
+of judgment etc. in terms of knowledge. But knowledge in the sense of
+being in possession of some kind of abstract knowledge thing, or
+having some kind of special ``knowing'' property, really has very
+little to do with it. Logic is a matter of mastery of normative
+practices. You can call that ``knowing'' \textit{how to do} things in
+the logic game, but that's just a way of speaking, as when we say that
+somebody who has mastered chess ``knows'' how to play chess. It's
+practical mastery that matters.. It's not psychology, and it will not
+do to \textit{explain} logic in terms of knowledge. You just end up
+going in circles. To know something is ... to know that it is true.
+
+Assertion: plays no role in logic, although it does play a role in
+metalogic. That is, we do assert that our inference rules (as
+propositions) are true (valid), but we need not assert that any
+formulas in our proofs are true. We just need to make sure our
+inferences/proofs are valid, and that does not require assertion of
+propositional forms.
+
+A proof is a kind of conditional assertion license - if it is valid,
+then it licenses assertion of its conclusion \textit{provided that}
+its premises are true (we're entitled to assert them).
+
+So there are no judgments in logic.
+
+No wait. It depends on how we think of a proof. If we think of it as
+an instance of rules, then it is a proposition that is not a
+conditional. Of the form ``A and B ... therefore C''. Then the
+horizontal line in the steps means not ``implies'' or ``entails'' but
+``therefore''. This is evident in modus ponens. Schematically, stated
+as a rule, we have ``If \(A\rightarrow B\) and A then \(B\)''.
+Asserting this does not assert A or B (nor the implication). But if we
+instantiate it we get ````\(A\rightarrow B\) and A, therefore \(B\)'',
+which asserts both A and B (and \(A\rightarrow B\)).
+
+But we do not reason with asserted propositions; we reason with
+assumptions and rules. To use a rule in a proof is not to instantiate
+it. Is it? Rules legitimize inferences, they do not assert the
+components of the inferences. We can think of the uses of a rule as
+construction of another rule. We always work schematically, so when we
+build a proof using the inference rules what we do is create another
+schema. All the metavariables remain metavariables, and the inferences
+therefore remain general (the do not become particular
+``therefores''). We only instantiate it when we apply it to concrete
+premises.
+
+After all, when we use a rule in a proof, it looks just like the rule.
+We just copy the rule into the proof, so to speak. It remains schematic.
+
+Were that not the case, then the inference line would be overloaded.
+It would mean licensed inference in the inference rules, but actual
+inference in proofs.
+
+Plus, to reason we would have to continually go back and forth between
+the particular propositions and inferences in our proof and the
+generalities of the inference rules to see what applies. That would be
+a very unnatural kind of deduction. Who does it? It's much more
+efficient to reason entirely in terms of generalities - rules and
+metavariables.
+
+All inference rules are implicitly universally quantified. We can
+express this in two ways. On is to say ``for all propositions A, B,
+etc...''. But that would be cheating, since we have not yet defined
+``for all''. The other way is to say ``for arbitrary propositions A,
+B, ...etc.'' That's a little bit better, since we do not have a formal
+way to say ``for arbitrary''. By using it we implicitly acknowledge
+that the quantification is of an informal, undefined sort.
+
+\paragraph{HoTT Book (\parencite{hottbook})\newline}
+
+p. 20:
+\begin{displayquote}
+``Judgments may depend on assumptions of the form x :
+A, where x is a variable and A is a type... Note that under this
+meaning of the word assumption, we can assume a propositional equality
+(by assuming a variable p : x = y), but we cannot assume a judgmental
+equality x ≡ y, since it is not a type that can have an element.''
+\end{displayquote}
+
+But this is plainly false, or at least inconsistent with the preceding
+discussion, which lists ``x ≡ y : A'' (``judgemental equality'') as a
+primitive form of judgment. And ``x ≡ y'' is an abbreviation for ``x ≡
+y : A''. If we can assume one primitive form of judgment, a:A, why can
+we not assume the other, a=b:A? It is true that we cannot assume x ≡
+y, but that is because it is syntactically ill-formed (it is not a
+judgmental equality).
+
+This claim that ``we cannot assume a judgmental equality x ≡ y'' is
+also contradicted on page 19, where we have `The best way to represent
+this is with a rule saying that given the judgments a : A and A ≡ B,
+we may derive the judgment a : B.''. But ``given'' is just another way
+of saying ``assuming'', so this says that we can assume A ≡ B. We're
+not told what A ≡ B means; presumably it abbreviates A ≡ B : U, but in
+any case if it is not a judgmental equality, then we have no
+indication of what it is.
+
+Same page:
+
+\begin{displayquote}
+``By the same token, we cannot prove a judgmental equality
+either, since it is not a type in which we can exhibit a witness.''
+\end{displayquote}
+
+But this too must be false. If we can prove \(a:A\) then why not
+\(a≡b:A\)? They're both judgments.
+
+In both cases the text seems to be making a fundamental error, namely
+it forgets that x ≡ y is an abbreviation for x ≡ y :A. By itself, x ≡
+y is the \textit{premise} (or \textit{antecedent}, if you prefer to
+think of judgments as sequents) of the judgment x ≡ y :A, just as a is
+the premise of a:A. And since the ``unit of reasoning'' so to speak,
+is the judgment, we can neither assume nor prove premises alone. But
+if that's the intended meaning, then it is a category error to call x
+≡ y a judgment.
+
+HoTT book says judgmental equality is definitional. But is it really a
+good idea to treat judgments and definitions as the same thing?
+
+Martin-Loff makes a distinction. His ``definitional equality'' is
+purely syntactic and not the same as a=b:A.
+
+We can treat \(=\) the same way we treat logical operators like
+\(\&\), on the the principle that logical operators recapitulate the
+(prelogical) structure of the premises. Example: \(\&-intro\).
+Premises are the structure \(A ; B\), read ``A and also B''; this
+structural operator \(;\) expresses the prelogical concept of
+\textit{and}. From this we infer \(A \& B\). Glossing: the logical
+combination \(A\&B\) expresses the prelogical combination \(A;B\).
+Reversing direction, from \(A\&B\) we can infer \(A\) and also we can
+infer \(B\); that is, the prelogical combination \(A;B\) follows from
+the logical combination \(A\&B\). So the entry/exit rules for \(\&\)
+serve to bridge the prelogical and the logical. (Caveat: \(A;B\) is
+formal, structured syntax, but it expresses prelogical rather than
+logical concepts.)
+
+This justifies entry/exit nomenclature, instead of intro/elim. The
+latter idiom describes syntactic operations; but what the rules
+express is entry and exit transitions between prelogic and logic. The
+entry rule expresses the transition from a prelogical notion of
+aggregation to a logical notion of conjunction; the exit rule expresses
+the reverse transition.
+
+Compare Sellars' concepts of language entries and exits.
+
+We can the same for the equality operator. First we need to unpack \(x
+≡ y : A\), which gives us two simple judgments \(x:A\) and \(y:A\), a
+structural combinator, and something that expresses the concept that x
+and y are (prelogically) equal. The aggregation operator \(;\) used
+above for \(\&\) expresses simple aggregation of one thing \textit{and
+  also} another thing, or one thing \textit{together with} another thing.
+But for \(=\) mere aggregation of premises is not sufficient; we need
+an additional notion of equality, which moreover must be a prelogical
+concept. That is, our ``ordinary'', intuitive notion of equality.
+We'll use the traditional ``such that'' notation, which captures the
+idea that we have an aggregation under a constraint. So instead of \(x
+≡ y : A\) we will write \(x:A ; y:A | x≡y\), which we gloss ``x:A and
+also y:A such that x equals y''. (or: and also the assumption that
+x=y). The point of this is just to express the conceptual structure
+more conspicuously. The problem is that this seems to have the wrong
+form.
+
+Alternatively, we could express the equality as an assumption rather
+than a constraint. Might be better, since then the inference to
+logical equality would discharge the assumption. I.e. the explicit
+equality \( =_A(a,b) \) recapitulates (and discharges) the prelogical
+assumption that a equals b.
+
+[Note that \(;\), \(|\), and \(≡\) are metasymbols.]
+
+From this we can infer logical (or at least quasi-logical) equality;
+the conclusion is \( =_A(x,y) : Id_A(x,y) \).
+
+Glossing: from the prelogical aggregation of x:A and also y:A, under
+the constraint that they are (prelogically) equal, we can infer the
+(logical) eq-junction of x and y as a token of the (logical) identity
+combination type \(Id_A(x,y)\).
+
+This gives us a primitive binary constructor \( =_A(\ ,\ ) \)
+
+Just as with \(\&\), we can reverse this, and infer the ``equality
+judgment'': from \( p: Id_A(x,y) \) we can infer \(x ≡ y : A\). This
+is exactly analogous to \(\&\) (i.e. product types): [todo...]
+
+Untyped:  from assumption \(x, y | x≡y \) infer \(x = y\).
+
+We're reading '=' as a kind of constrained combinator: x together with
+y under constraint = (prelogically) entails equality combination of x
+and y.
+
+HoTT p. 20: ``By the same token, we cannot prove a judgmental equality
+either, since it is not a type in which we can exhibit a witness.''
+But this too must be false. If we can prove \(a:A\) then why not
+\(a=b:A\)? They're both judgments. The trick is to discard the idea
+that judgmental equality is definitional. The ``such that equality''
+is a constraint, not a definition. We cannot assume definitions, but
+we can assume judgments, including equality judgments. Actually
+
+
+\subsection{HoTT}
+
+The claim is that equality types are inductively defined. Where's the
+induction?
+
+\textquote[\cite{Hintikka1992-HINTCO}]{[I]nduction means, in the first
+  place, inference from particular cases to general truths and,
+  secondarily, inference from particular cases to other particular
+  cases... If inferences from particulars to particulars satisfy
+  certain conditions, the principles according to which they are made
+  are logically equivalent to principles governing inferences from
+  particulars to generalizations.}
+
+He disregards the second since it is equivalent to the first.
+
+Mathematical induction reasons from two particular cases: the base
+case and the inductive case. The inductive case is itself an inference
+from one particular case (i.e. arbitrary n) to another particular case
+(n+1). Coinduction reasons only from particular to particulars (e.g.
+hd and tl of an arbitrary infinite list). In both cases, the inference
+goes to the general (universal quantification). This is compatible
+with Hintikka's characterization of induction.
+
+How can we account for inductive inference pragmatically, under an
+inferentialist expressivist order of explanation? Our (first order)
+logical calculi do not have formal rules for inductive inference. But
+we do make such inferences, not only in mathematics but also in
+defining the syntax of our logical calculi. So our formalized
+reasonings presuppose inductive reasoning. Maybe our inference rules
+do too, since they express ``general truths''.
+
+So our question translates to: once we have instituted \(\rightarrow\)
+or \(\linfer\) for particular cases (like Pittsburgh-Princeton), how do
+we get to a general rule, e.g. \(P\rightarrow Q\) where P and Q are
+metavariables? \(P_{\alpha}\linfer Q_{\beta}\) is the
+\textit{vernacular} expression of the correctness of a
+\textit{particular} inference; \(P\rightarrow Q\) is the
+\textit{logical} expression of the correctness of a \textit{general}
+rule. Getting from the former to the latter involves two transitions,
+one from the vernacular to the logical language, and one from a
+particular case to a general rule. How can we explain this
+pragmatically?
+
+It looks like we're compelled to think that some kind of inductive
+reasoning is implicitly at work. Intuitionistic logic makes it
+explicit: to justify the rule, one must demonstrate a particular case,
+that is, one must pick an arbitrary (but particular) case P and show
+that it entails Q. We can express this as the
+\(\rightarrow\scriptstyle{\text{-intro}}\) rule. But that rule is
+again a general rule, so we have not yet explained how we get from
+particular to universal. After all ``arbitrary but particular'' is
+itself a generalization, which we express using a metavariable and
+brackets.
+
+Does the generality of inference rules presuppose inductive reasoning?
+Only if there is no other way to generalize. But e.g. lambda
+abstraction does not seem to involve induction. A lambda abstraction
+is a kind of general rule that is not justified by induction.
+
+But \(\rightarrow\scriptstyle{\text{-intro}}\) does involve induction.
+Maybe the general principle is that any rule that starts with an
+assumption uses induction. Since assumption means ``arbitrary
+particular case''. But then, all rules, being conditionals, start with
+an assumption, in a sense: ``if the premises are true'' means ``if
+they are true for an arbitrary particular case'', then the conclusion
+follows for that case. But that's the inverse of induction, it goes
+from universal to particular. Deduction, dual to induction.
+
+But the rules must be instituted by induction.
+
+This makes ``assumption'' the key to induction. Assume a particular
+case, show another particular case follows, conclude a general rule.
+So our ability to generalize by induction presupposes the ability to
+assume a particular case.
+
+Nat and for all n:Nat are generalizations; ``arbitrary n:Nat'' is a
+particular. But it is an indeterminate particular. No, it's
+determinately a Nat. Arbitrary means arbitrary, not indeterminate. But
+its also an assumption, so in fact it is not a particular in hand.
+
+We can express this as a counterfactual: ``if n were an arbitrary Nat,
+then ...''. This is a counterfactual, because n is not a Nat, its an
+unbound variable, or at least a variable not bound to a particular
+value (variables bound by a quantifier are not bound to particular
+values, they're bound to the quantified parameter; iow ``bound'' means
+``not free'', as opposed to ``bound to a particular value'', that is
+what allows its meaning to be overloaded.).
+
+The concept ``arbitrary particular'' would seem to implicate an axiom
+or principle of choice. It must be at least possible to settle on an
+arbitrary particular. What is the pragmatic account of the Axiom of
+Choice? Pragmatic does not mean intuitionistic.
+
+Maybe we can just say that the rule
+expresses the inductive inference of which it is the conclusion. Just
+like \(apple\land orange\) expresses the conclusion of an
+\(\land\scriptstyle{\text{-intro}}\) rule.
+
+%% \bookmark[named=CH,level=0]{Curry-Howard}
+\include{curry_howard}
+%% \bookmarksetup{startatroot}
+
+\include{proof}
+
+\include{logical_constants}
+
+\include{linearlogic}
+

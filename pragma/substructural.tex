@@ -1,0 +1,154 @@
+\section{Substructural Logic}\label{sec:substructural}
+
+By tradition, logic is the science of consequence, and that is the way
+it is usually presented in introductory material. But in recent
+decades it has become clear that proof is at least as important as
+consequence.
+
+So: logic as Proof and Consequence. Traditional logic focussed on
+consequence; substructural logics focus on the (sub)structural
+properties of inference/proof. Or their rules.
+
+On the other, logic is an instrument we use to reason. That's why it
+makes sense to speak of \textit{logics} in the plural: there's more
+than one way to build logical instrumentation. So we can think of pure
+logic as the science of consequence, and applied logic as the use of
+pure logic to design instruments of reasoning (symbolic logic
+systems).
+
+Subdisciplines of logic: proof theory, the study of proofs in their
+own right.
+
+Of course there's a circularity here. Logic uses logic to study the
+consequence relation.
+
+Then there's philosophy of logic, which studies... logic itself?
+
+Under this perspective, pure substructural logic is a subdiscipline of
+pure logic, and applied substructural logic designs logical systems
+that make structural features of reasoning explicit.
+
+We could say that substructural logic studies the prelogical part of
+logic. (One thing it makes clear is that we build logical stuff, even
+the constants, out of non-logical stuff.)
+
+\subsection{Logic Entries \& Exits}
+
+The core idea is that consequence always relates prelogical structures
+to logical ones. Rules of inference can be viewed as logic entries and
+exits, licensing transitions between these two different worlds. This
+is easy to see with conjunction. A typical presentation of
+propositional conjunction using Natural Deduction looks like this:
+
+%% Logical And
+%% \begin{center}
+%% \AxiomC{$A\kern-1.2em$}
+%% \AxiomC{$B$}
+%% \RightLabel{$\scriptstyle{[\land\text{-intro}]}$}
+%% \BinaryInfC{$A\land B$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$A\land B$}
+%% \RightLabel{$\scriptstyle{[\land\text{-exit}_{\text{L}}]}$}
+%% \UnaryInfC{$A$}
+%% \DisplayProof
+%% \hskip 1.4em
+%% \AxiomC{$A\land B$}
+%% \RightLabel{$\scriptstyle{[\land\text{-exit}_{\text{R}}]}$}
+%% \UnaryInfC{$B$}
+%% \DisplayProof
+%% \end{center}
+
+What is left implicit in such expressions:
+
+\begin{itemize}
+\item The premise of the intro rule conjoins \(A\) and \(B\) in a single expression
+%%   \mbox{%%
+%% \AxiomC{$A\kern-1.2em$}
+%% \AxiomC{$B$}
+%% \BinaryInfC{$A\land B$}
+%% }
+  with an unstated \textit{and}.
+  \item The exit rules are implicitly conjoined by an unstated
+    \textit{or}: given a conjunction \(A\land B\), you can extract
+    \(A\) and (or?) \(B\)
+  \item The implicit \textit{or} supports a third exit move, namely
+    \textit{or both}: given \(A\land B\), you can extract \(A\) or
+    \(B\) or both. Standard natural deduction calculus provides no way
+    to make this option explicit. We could try%%
+%% {\small
+%% \AxiomC{$A\land B$}
+%% \RightLabel{$\scriptstyle{[\land\text{-exit}_{\text{LR}}]}$}
+%% \UnaryInfC{$A\hspace{1.5em}B$}
+%% \DisplayProof},
+but that would violate the rule of the calculus stating that
+conclusions may have only a single proposition. The best we can do
+with it is show that we can reconstitute \(A\land B\) by extracting
+\(A\) and \(B\) and then using the entry rule to recompose them.
+\end{itemize}
+
+What these unexpressed features have in common is that they involve
+conjunctions and disjunctions \textit{outside} of logic, so to speak.
+The \(\land\text{-intro}\) rule expresses the concept that inference
+to logical conjunction using \(\land\) starts from a non- or
+pre-logical conjunction; call it a \textit{preconjunction}. The
+propositional components of this preconjunction may themselves be
+logical propositions, but their conjunction is non-logical - there is
+no \textit{logical} ``and'' involved. This is difficult to express
+concisely in English, which has only one ``and''; but its easy to make
+it explicit in a logical calculus. The usual practice is to use a
+comma or semi-colon.
+
+[What about the exit rules? They seem to express transitions from
+  logical proposition to logical proposition, not logic exits. One way
+  to finesse this is to make conclusions prelogical disjuncts. The fly
+  in that ointment is that LJ for intuitionist logic uses only single
+  propositions as conclusions. But we can treat them as always
+  disjoined with the empty proposition.]
+
+[Plus, the sequence calculus does not have elimination rules; instead
+  it of saying to to decompose a composite, it says how composites can
+  be used, without implying anything about decomposing.
+
+Substructural logic is quite simple and straightforward once you grasp
+a few basic ideas. The sequent calculus makes it easy to express the
+core ideas. (But remember the sequent calculus is just one of many
+possible calculi.)
+
+The central problem is two-fold: explain (and enable, in a calculus)
+the various ways of both constructing and using prelogical structures.
+(We already have rules for logical composites; we just want to make
+the implicit stuff explicit.)
+
+Intuitively this is very simple. To obtain the logical disjunct
+\(\ulcorner A\land B\urcorner\), we start from the prelogical
+disjunct, which we express as \(\ulcorner A\ ;\, B\urcorner\).
+Conversely, we can \textit{use} \(\ulcorner A\land B\urcorner\) not to
+\textit{obtain} \(\ulcorner A\ ;\, B\urcorner\), but as a substitute
+for it: if we can draw an inference from \(\ulcorner A\ ;\,
+B\urcorner\), then we can draw the same inference from \(\ulcorner
+A\land B\urcorner\).
+
+Once we have our concepts and expressive tooling in place, we can talk
+about the various ways prelogical and logical structures can be built
+and used. We can think about what kind of constraints we might put on
+these for various purposes. We can ask how propositions are composited
+in premises, etc... The expressiveness of the calculus allows us to
+ask lots of questions we would otherwise have a hard time expressing
+or even coming up with.
+
+Since we can express prelogical conjunction formally, we can treat it
+mathematically and talk about associativity, commutativity, etc.
+
+Remember: practical logic as a game, with game rules expressed by inference
+rules. Not a competitive game, more like solitaire.
+
+As a simple example, traditional logic allows ``thinning''
+of a premise: if your premise is \(A\), you can another proposition to
+get \(A; B\). Since ';' means \textit{and}, and \(A\) is already true,
+adding another true proposition (by preconjunction) has no effect on
+the inference. Traditionally this possibility was simply taken for
+granted; but with the sequent calculus we can make this concept
+explicit in the form of a structural rule, and that in turn makes it
+easier to reason about it.  I.e. substructural logic involves meta-logic.
+

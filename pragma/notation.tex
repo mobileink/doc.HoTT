@@ -1,0 +1,115 @@
+\section{Notation \& Terminology}\label{appendix:notation}
+
+The \gls{devonian}.
+
+\subsection{Infinities}
+
+\begin{itemize}
+\item Nat w/o zero: \(\Nat\)
+\item Nat w/zero: \(\NatZ\)
+\end{itemize}
+
+\subsection{Lifting}
+
+\begin{itemize}
+\item Finite lists: \(\Lift{X}{\Nat}\)
+\item Streams: \(\Lift{X}{\omega}\)
+\item \(f\) lifted over finite lists: \(\Lift{f}{\scriptscriptstyle\Nat}\)
+\item \(f\) lifted over streams: \(\Lift{f}{\omega}\)
+\end{itemize}
+
+See \ref{notation:definition} below for decorations that add even more
+detail.
+
+
+\subsection{Meta-variables}
+
+Statements: \(\stmt{A}, \stmt{B}, \ldots\)
+
+Propositions: \(\prop{A}, \prop{B}, \ldots\)
+
+
+\subsection{Definition}\label{notation:definition}
+
+\begin{itemize}
+\item Definition operator: \(\equiv\) or \(\eqdef\)
+\item Inductive definition annotation: subscript
+  \(\bot\). E.g. \(\defnup{f}\) indicates that
+  \(f\) is defined by induction. Same for sets: \(\defnup{X}\) means
+  that the set \(X\) is defined by induction. (Latex:
+  \texttt{\textbackslash{}defnup\{X\}})
+\item Coinductive definition annotation: subscript \(\top\). E.g.
+  \(\defndn{f}\) indicates that \(f\) is defined by coinduction. Same
+  for sets: \(\defndn{X}\) means that the set \(X\) is defined by
+  coinduction. (Latex: \texttt{\textbackslash{}defndn\{X\}})
+\end{itemize}
+
+More specific information may be given by superscripts; for example,
+to indicate that function \(f\) is defined by coinduction over the
+type of infinite streams of \(X\):
+\(\tj{\defndn{f}^{\omegaup}}{\defndn{X}^{\omegaup}}\). Needless to
+say, this level of detail is usually not needed, but it is available
+if absolute clarity is required.
+
+\subsection{Determinateness}
+
+\begin{itemize}
+\item Indeterminacy: \(\xcancel{a}\) or \(\overset{\times}{a}\) - two
+  strokes meaning untyped and undefined; an empty, unclassified symbol
+\item Underdetermined: ??
+\item Partially determined (i.e. typed): \(\cancel{a}_{\scriptscriptstyle A}\) (if \(\tj{a}{A}\), but \(a\) is not defined.)
+\item Fully determinate: \(\overbar{\underbar{a}}\) (or: \fbox{\(a\)})
+  -- typed and defined. In display environments like diagrams we may
+  use the ground symbol; see (\ref{depgraph:coinduction}) for an
+  example.
+\end{itemize}
+
+Possibly: three-sided box for underdetermined? Box suggests category,
+so sym in open box suggests typing.
+
+\subsection{Symbols}
+
+TODO: use \(\supset\) for implication, \(\rightarrow\) for function.
+(make Curry-Howard explicit)
+
+\begin{itemize}
+\item Equality: \(=\)
+\item approx: \(\approx\)
+\item sim: \(\sim\)
+\item simeq: \(\simeq\)
+\item cong: \(\cong\)
+\item Eqdef: \(\eqdef\)
+\item Coloneqq: \(\coloneqq\)
+\item Questeq: \(\questeq\)
+\item bumpeq: \(\bumpeq\)
+\item Congruence: \(\equiv\) (\texttt{\textbackslash{}equiv})
+\item Triangle eq: \(\triangleq\)
+\item triangle: \(\triangle\)
+\item triangledown: \(\triangledown\)
+\item smalltriangledown: \(\smalltriangledown\)
+\item medtriangledown: \(\medtriangledown\)
+\item largetriangledown: \(\largetriangledown\)
+\item Wedge eq: \(\wedgeq\)
+\item owedge: \(\owedge\)
+\item varowedge: \(\varowedge\)
+\item ovee: \(\ovee\)
+\item varovee: \(\varovee\)
+%% \item Corresponds: \(\corresponds\)
+\item Dot eq: \(\doteq\)
+\item Circle eq: \(\circeq\)
+\item Semantic brackets: \(\llbracket a\rrbracket\) refers to semantic
+  object denoted by symbol ``a''. Useful for disambiguation. For
+  example ``the structure of \(A\land B\)'' is ambiguous, since it
+  could refer to either the syntactic or semantic structure. But ``the
+  structure of \(\llbracket A\land B\rrbracket\) refers unambiguously
+  to semantic structure.
+\item Corner quotes: \(\ulcorner a\urcorner\) to disambiguate
+  reference to syntax.
+\item Syntactic entailment: \(\linfer\)
+\item Particular entailment: \(\linfer_\alpha\) or
+  \(\sststile{\alpha}{}\). E.g. \(A;B\sststile{\land}{}{A\land B}\).
+  Another example: \(\Gamma\sststile{(a,b)}{=}{p:A\times B}\) for
+  \(\Gamma\linfer p=(a,b):A\times B\).
+\item Semantic entailment: \(\models\), \(\sdtstile{}{}\) (Ebbinghaus also uses this for the satisfaction relation)
+\end{itemize}
+

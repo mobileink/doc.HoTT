@@ -1,0 +1,91 @@
+\section{Compositionality}\label{sec:composition}
+
+Virtually all treatments of logical and functional calculi take a
+function-oriented approach. They treat \modus as a rule of (function)
+application.
+
+We can also take a composition-oriented perspective. Then \modus
+becomes a rule of composition. This requires that we treat arguments
+as arrows. Under this perspective ctors and co-ctors are also treated
+as arrows that compose rather than functions that apply.
+
+The composition-oriented approach is basically a category-theoretic
+interpretion. So we can use the diagrammatic methods of CT. This gives
+a nice picture of lists, for example: for \(x\) we have
+\(rightarrow\), for \(\tj{seq{x}}{\List{X}}\) we have \(
+
+\subsection{Semantic Compositionality}
+We are not obligated to asssume semantic compositionality.
+
+Notation:  [X] refers to whatever ``X'' denotes.
+
+From A and also B we get A\&B. The latter is syntactically composite;
+it does not follow that [A\&B] is semantically composite.
+
+This matters because in the sequent calculus the key idea is inference
+from context, not from consequents (conclusions of a sequent). We get
+A\&B not from A and B, but from the context that suffices for them:
+
+
+%% \begin{prooftree}
+%% \AxiomC{$\Gamma\linfer a:A$}
+%% \AxiomC{$\medtriangleup$}
+%% \AxiomC{$\Gamma\linfer b:B$}
+%% \TrinaryInfC{$\Gamma\linfer (a,b): A\times B$}
+%% \end{prooftree}
+
+If we write this as a natural deduction, without sequents and thus
+without context \ContextG , we get
+%% \AxiomC{$a:A$} \AxiomC{$\medtriangleup$}
+%% \AxiomC{$b:B$} \TrinaryInfC{$(a,b): A\times B$} \DisplayProof ,
+which
+makes it look like the conclusion is constructed directly from the
+pieces of the premises. But with sequents and antecedents it becomes
+clear that it is built from the context, so long as the context is
+sufficient for A and also B. It does not follow that building
+\(\llbracket (a,b):A\times B\rrbracket\) from \ContextG\ involves
+building either \semantic{A} or \semantic{B} (e.g. as intermediate
+results). The conclusion only says that the context
+\ContextG\ \textit{alone} is sufficent for \((a,b):A\times B\). It
+does not say or imply that ``getting'' the conclusion from
+\ContextG\ involves first getting a:A and also b:A, that is, that
+\(\llbracket (a,b):A\times B\rrbracket\) must be a composite.
+
+In other words, nothing says or implies a principle of semantic
+compositionality.
+
+On the other hand, the conclusion does use the symbols a,b,A,B, and
+they must come from somewhere. And they cannot be merely syntactic,
+since we want the conclusion to mean something.
+
+To resolve this apparent paradox we can appeal to the notion of
+equality. We can say that the context is sufficient for producing
+\textit{some} \(p:A\times B\), such that \(\llbracket p\rrbracket\) =
+\(\llbracket(a,b)\rrbracket\). I.e. instead of depending on a
+Principle of Semantic Compositionality we use a notion of equality. We
+can make this explicit:
+
+%% \begin{prooftree}
+%% \AxiomC{$\Gamma\linfer a:A$}
+%% \AxiomC{\(\medtriangledown\)}
+%% \AxiomC{$\Gamma\linfer b:B$}
+%% \TrinaryInfC{$\Gamma\linfer p=(a,b): A\times B$}
+%% \end{prooftree}
+
+Intuition pump: colors. Set the context to the primary colors \(\Gamma
+= R,G,B\), and make A and B mixed colors. Then A\&B is a mix of mixes,
+which can be produced directly from R,G,B without first producing A and
+B.
+
+Also, without context Truth becomes the central notion. ``Assume A''
+can only mean assume A is true, not ``assume there exists a p that
+proves A''.
+
+ML's concept of judgment as involving both truth and proof is not
+essential; he needs it though, because he wants to treat Logic as
+essentially epistemic. So his judgments and assumptions always involve
+some kind of (implicit) proof. This is not necessary if we start with
+inference as the central notion and make the context explicit using
+the sequent calculus. This does involve inference (obviously) but not
+proof.
+

@@ -1,0 +1,431 @@
+\section{Induction \& Coinduction}\label{sec:coinduction}
+
+Coinduction is usually presented as a means of handling infinite
+datatypes such as colists. But it is more general than that. Better to
+think of it as a means of reasoning about and computing with
+\textit{indeterminate} or \textit{non-deterministic} data. Examples
+are, in addition to infinite structures like colist, state,
+randomness, etc.
+
+Compare probability as a way of dealing with imperfect information.
+
+Many ways to characterize: least/greatest solutions to inequations;
+least/greatest fixed points, etc.
+
+But these (all?) depend on set theory. If we want to characterize
+induction and coinduction as modes of inference, then we cannot appeal
+to set theory to do it. Ditto if we want an intuitionistic
+explanation.
+
+Besides, types are not sets. It's one thing for ctors to determine a
+type, its another thing to say they generate a set. I think.
+
+Symmetries:
+
+
+\begin{enumerate}
+\item least/greatest fixed point
+\item type ctors constitutee smallest ``protocol'' sufficient to
+  construct the entire type.
+\item cotype co-ctors are also the smallest protocol sufficient to
+  characterize the entire cotype.
+\item functions expand, cofunctions contract.
+\item codefinitions ``within'' the scope of a supertype redefine or
+  refine its ctors. definitions use the base ctors.
+\end{enumerate}
+
+Items 2 and 3 suggest an alternative to the least/greatest set theory.
+I.e. the difference is to be found in what they do with or to the
+primitive ctors of the ``base type''.
+
+Then of course there's the base case within the type. You have/use it
+or you don't, that's a pretty stark difference. If it is truly
+fundamental maybe we can ``define'' induction and coinduction based
+just on this difference in protocols. At the very least, we should
+understand how the presence/absence of a base case relates to other
+characteristics.
+
+Induction: introduce new meanings by adding new names (ctors).
+Coinduction: introduce new meanings for old (undefined) names.
+
+I think the rest of it grows from there. New meanings for
+underdetermined names (i.e. implementation for signature) contracts
+the meaning. New names with new meanings expands.
+
+In any case, we need not define these concepts in terms of least or
+greatest sets. We \textit{do} need ordering - we could not have either
+duction without order. But it does not have to be cardinality. It
+could be structural, more or less ``structure''. Or any other kind of
+order.
+
+\subsection{Locally commutative composition}
+
+We've interpreted codefinition as involving refinement of ``more
+definition'' of the co-ctors. Another interpretation is possible, at
+least for streams.
+
+\begin{align}
+  \Lift{f}{\omega} &: {\colist{X}\func\colist{X}} & \text{type decl} \\
+  \cohead\circ\Lift{f}{\omega} & = f\circ\cohead
+  & \text{codefinition of}\ (\cohead\circ\Lift{f}{\omega})
+  \label{commute:cohead}\\
+  \cotail\circ\Lift{f}{\omega} & = \Lift{f}{\omega}\circ \cotail &
+  \text{codefinition of}\ (\cotail\circ\Lift{f}{\omega})
+  \label{commute:cotail}
+\end{align}
+
+Here the \(\cotail\) rule (\ref{commute:cotail}) is clearly commutative.
+The \(\cohead\) rule (\ref{commute:cohead}) is ``quasi'' commutative:
+it looks like commutation, but it switches between
+\(\Lift{f}{\omega}\) on the LHS and \(f\) on the RHS.
+
+Maybe this is the essence of coinduction. It's not about the co-ctors,
+its about the way they compose with the function.
+
+Are the co-ctors themselves fixed points of some function?
+
+What about \(\Lift{f}{\omega}\), is it a fixed point? Well, if
+induction and coinduction essentially involve fixed points, they must
+be. So we need \(\mathfrak{F}\) such that
+\(\mathfrak{F}(\Lift{f}{\omega}) = \Lift{f}{\omega}\). So
+\(\mathfrak{F}\) must be a monotone function whose domain contains
+\(\Lift{f}{\omega}\), whose type is \(\colist{X}\func\colist{X}\).
+This is the type of transformers like \(\codefn{evens}\) and
+\(\codefn{odds}\). It is also the type of \cotail.
+
+But cofunctions like \(\Lift{f}{\omega}\) are not well-defined, so how can
+we have a function like \(\mathfrak{F}\)? It would presumably have to
+be a limit of a series of finite functions.
+
+\subsection{Semantic dependency graphs}
+
+What essentially characterizes induction and coinduction is (circular)
+\textit{dependency structure}. The key difference between the two is
+the relation between the primitive operators and the derived function
+under definition. For induction, they are independent; for
+coinduction, they are mutually dependent.
+
+\paragraph{Induction}
+
+The function under definition is self-dependent: the occurance on the
+LHS depends on the occurance on the RHS, and vice-versa. It does not
+depend on the primitive ctors, nor they on it. Schematically:
+
+\begin{align}
+  \Lift{f}{\omega} & = \Cons\circ \langle f\circ\head\times \Lift{f}{\omega}\circ\tail\rangle \label{deps:ind} \\
+  \Lift{f}{\omega}\circ \Cons & = \Cons\circ f
+\end{align}
+
+Here (\ref{deps:ind}) is the correct form, with only the
+\textit{definiendum} on the RHS.
+
+Semantic dependency graph:
+
+\begin{center}
+
+  \begin{equation}
+\mytikzmark{fstarlhs}{\Lift{f}{\omega}} =
+\mytikzmark{cons}{\Cons}\circ \langle
+\mytikzmark{frhs}{f}\circ
+\mytikzmark{hd}{\head}\times%
+\mytikzmark{fstarrhs}{\Lift{f}{\omega}}\circ
+\mytikzmark{tl}{\tail}\,\rangle
+\label{depgraph:coinduction}
+  \end{equation}
+
+\begin{tikzpicture}[
+    overlay,remember picture,
+    inner sep=1.5pt,
+    shorten <=4pt,
+    shorten >=4pt,
+    font=\footnotesize
+  ]
+      %% [transform canvas={xshift=6pt}]
+  %% \draw[->] (fstarlhs.north east) to[
+  %%   ->,
+  %%   shorten >=6pt,
+  %%   to path={
+  %%     .. controls +(0,0.8) and +(0,0.8) .. (\tikztotarget) \tikztonodes}
+  %% ] (frhs);
+
+  \draw[->] (fstarlhs)
+  to[->,to path={
+      .. controls +(0,1.3) and +(0,1.3) .. (\tikztotarget) \tikztonodes}]
+  (fstarrhs);
+
+  \draw[->] (fstarrhs)
+  to[to path={
+      .. controls +(0,-1.3) and +(0,-1.3) .. (\tikztotarget) \tikztonodes}]
+  (fstarlhs);
+
+  \draw (cons) to +(0,-0.6) node[tlground] {};
+  \draw (frhs) to +(0,-0.6) node[tlground] {};
+  \draw (hd) to +(0,-0.6) node[tlground] {};
+  \draw (tl) to +(0,-0.6) node[tlground] {};
+
+\end{tikzpicture}
+\end{center}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph{Coinduction}
+
+The primitive co-ctors and the derived function under definition are
+mutually dependent. Schematically:
+
+\begin{align}
+  \cohead\circ \Lift{f}{\omega} & = f\circ \cohead \\
+  \cotail\circ \Lift{f}{\omega} & = \Lift{f}{\omega}\circ \cotail
+\end{align}
+
+\begin{center}
+\[
+\mytikzmark{lhstl}{\cotail}\circ
+\mytikzmark{lhsf}{\Lift{f}{\omega}} =
+\mytikzmark{rhsf}{\Lift{f}{\omega}}\circ
+\mytikzmark{rhstl}{\cotail}
+\]
+
+\tikzmath{\arcx = 0.8; \arcxx = 1.2;}
+
+\begin{tikzpicture}[
+    overlay,remember picture,
+    inner sep=1.5pt,
+    shorten <=4pt,
+    shorten >=4pt,
+    font=\footnotesize
+  ]
+  \draw[->] (lhstl)
+  to[->,to path={
+      .. controls +(0,\arcx) and +(0,\arcx) .. (\tikztotarget) \tikztonodes}
+  ] (lhsf);
+
+  \draw[->] (lhsf)
+  to[to path={
+      .. controls +(0,\arcx) and +(0,\arcx) .. (\tikztotarget) \tikztonodes}]
+  (rhsf);
+
+  \draw[->] (rhsf)
+  to[to path={
+      .. controls +(0,-\arcx) and +(0,-\arcx) .. (\tikztotarget) \tikztonodes}]
+  (lhsf);
+
+  \draw[->] (rhsf)
+  to[to path={
+      .. controls +(0,-\arcx) and +(0,-\arcx) .. (\tikztotarget) \tikztonodes}]
+  (rhstl);
+
+  \draw[->] (rhsf)
+  to[to path={
+      .. controls +(0,-\arcx) and +(0,-\arcx) .. (\tikztotarget) \tikztonodes}] (lhsf);
+
+  \draw[->] (lhstl)
+  to[to path={
+      .. controls +(0,\arcxx) and +(0,\arcxx) .. (\tikztotarget) \tikztonodes}] (rhstl);
+
+  \draw[->] (rhstl)
+  to[to path={
+      .. controls +(0,-\arcxx) and +(0,-\arcxx) .. (\tikztotarget) \tikztonodes}]
+  (lhstl);
+
+
+\end{tikzpicture}
+\end{center}
+
+\subsection{Duction}
+
+The defining inference rules (for \ZNat and \SNat) jointly define
+\(\Nat\). It is critically important to understand exactly what this
+means: they define the \textit{type} \(\Nat\). A type is not a set;
+although it is fine to say they define the natural number\textit{s},
+plural, we should probably \textit{not} say that they define the
+\textit{set} of natural numbers. It may be ok to say they
+\textit{determine} that set, but as the etymology of ``define''
+suggests, it would be an oxyoron to say they \textit{define} it. That
+would imply that the rules define the set as a complete whole, and
+that would make it finite. A fundamental tenet of intuitionism is that
+infinities must not be thought of as completed totalities.
+
+Similarly, the codefining inference rules for \(\cohead\) and
+\(\cotail\) jointly codefine the cotype \(\colist{X}\) (infinite
+stream of \(X\)). They differ fundamentally from the defining rules
+for inductive types like \(\Nat\). The rules for \(\ZNat\) and
+\(\SNat\) make no ontological presuppositions. The \(\ZNat\) rule is
+an axiom; it licenses the inference to \(\tj{\ZNat}{\Nat}\) from
+nothing. The rule for \(\SNat\) does assume an arbitrary
+\(\tj{n}{\Nat}\), but the assumption is that any such object has been
+built up by the rules themselves starting from \(\ZNat\). So the
+assumption is warranted by the rules themselves.
+
+The codefinition rules for \(\colist{X}\) are different. They both
+assume that an arbitrary \(\tj{\coseq{x}}{\colist{X}}\) is already
+available, so to speak, without having been constructed by the rules
+themselves. They license inferences, but those inferences have an
+indeterminate, undefined premise, namely
+\(\tj{\coseq{x}}{\colist{X}}\). They are purely formal, whereas the
+rules for \(\List{X}\) have substance.
+
+Furthermore, defining rules for types are promorphisms (their domains
+are the types they define), while the codefining rules for cotypes a
+apomorphisms (their codomains are the cotypes they codefine). In fact
+that orientation is part of what makes an inference rule a primitive
+constructor or co-constructor.
+
+We might think of the inference rules for \(\colist{X}\) in
+counterfactual terms: \textit{if} we had arbitrary
+\(\tj{\coseq{x}}{\colist{X}}\), \textit{then} we could make the
+inferences licensed by the codefining inference rules.
+
+irrealis mood.
+
+Now that we have a defined type and a codefined cotype, we can explore
+the consequences. There's really only one: that we can define
+functions and codefine cofunctions. Again there are radical differences between functions and cofunctions.
+
+Functions are defined over the type. In fact we can think of the
+\textit{role} of types defined by induction is to serve as a domain
+for functions. In a sense that is what they are for. That's the point
+of defining types.
+
+Cofunctions, again, are very different. Like the inference rules for
+codefining a cotype, the rules for codefining cofunctions are based on
+the assumption that what is being codefined already exists. They do
+not \textit{define} the cofunction over elements of the type; rather,
+they license inferences from the result of applying the function. They
+say \textit{what} the cofunction must be capable of doing, not
+\textit{how} it should do it. Which suggests the co-ctor rules may be
+best thought of as \textit{specifications} rather than definitions.
+
+The primary role of cotypes codefined by coinduction is to serve as
+the codomain for cofunctions. Cofunctions are codefined by specifying
+the ``action'' of the co-constructors on the result of using the
+cofunction. In other words, they are codefined in terms of their image
+in their codomain.
+
+All of which suggests it is fundamentally misleading, if not wrong, to
+speak of either definition or codefinition of cofunctions. Those
+``functions'' or cofunctions are inert phantoms; what we actually do
+is adapt the co-constructors to work with elements in the codomain of
+the cofunction. To ``define'' a function by coinduction is to extend
+the definitions of the co-constructors of the type to accomodate the
+output of the function; \textit{how} the function actually manages to
+work correctly according to the revised co-constructor rules is
+irrelevant. The co-constructors, not the functions, play the lead
+role.
+
+\paragraph{Relating induction and coinduction}
+
+Functions are defined \textit{over} their type; the type is their
+domain. Cofunctions are defined \textit{under} their cotype; the
+cotype is their codomain.
+
+(co)Functions go into or out. Out: ``apo'' (Greek) Apodictic,
+apostacy, apoptosis, apostrophe (turn away to address sb briefly)
+
+Definitions and codefinitions always involve two steps: declare the
+type, and give a definition or co-definition.
+
+Co-constructors are under-determined. Codefinitions refine
+co-constructors. They ``partition'' the meaning, make it more
+articulated.
+
+Functions expand; cofunctions contract.
+
+Functions expand their base, perhaps indirectly. Their codomain is a
+superset of their base. For example, the codomain of \(\defn{evens}\)
+is a subset of all \(\tj{\seq{x}}{\List{X}}\), but that is indirectly
+a superset of the base of \(\List{X}\), which is \([]\), the null
+list. Indirectly because its domain, \(\List{X}\), is itself
+constructed using only the constructors of its type.
+
+Cofunctions contract their base; we will call this its ``cobase'',
+since cotypes have no base case co-constructor. The cobase of type
+\(\colist{X}\) is the entire collection
+\(\tj{\coseq{x}}{\colist{X}}\), which we assume to be antecedently
+determined if not defined. Furthermore, the codomain of every
+cofunction is the cobase; cofunctions are given by defining the
+actions of the co-constructors on their codomains. For example,
+\(\codefn{evens}\) is an endofunction; its domain is the same as its
+codomain, which is its cobase \(\colist{X}\). The codomain of
+\(\codefn{evens}\) is a subset of its cobase (which also happens to be
+its domain).
+
+[TODO: diagram this]
+
+
+Codefinitions are axiom-like. Or they can be viewed as inference rules
+(you need a rule or axiom for each new name that involves a new
+concept/inference, as opposed to fiat definitions). The corresponding
+definitions are theorems.
+
+Example: \defn{evens} and \codefn{evens}.
+
+
+
+\vspace{2ex}
+
+General pattern for codefining \(\overline{f}\): \(\ulcorner
+\cohead\circ\overline{f} = g\circ\cohead\urcorner\), where \(g\) is
+some function that determines the substance of what \(\overline{f}\)
+means. For example it could be a function \(\textsf{\slshape dbl}\)
+that doubles its argument; then \(\overline{f}\) would be the function
+\(\codefn{dbl}\) that applies \(\defn{dbl}\) to each element of a
+colist.\footnote{Where we are using an overline, many other writers
+use a function name, \textsf{\slshape map}, i.e. \(\overline{f} :=
+\textsf{\slshape map}(f)\).}
+
+\vspace{1ex}
+
+The codefinition of \codefn{evens}, using \(g = \idfun\):
+\(\cohead(\codefn{evens}(\coseq{x})) = \idfun(\cohead(\coseq{x}))\).
+This expresses a relation between the input \(\coseq{x}\) and the
+output \(\codefn{evens}(\coseq{x})\). It counts as an axiom of the
+\(\colist{X}\) type; it is not something that could be proved.
+
+The same relation expressed for \(\List{X}\) is a theorem\footnote{TODO: proof}:
+\(\head(\defn{evens}(\seq{x})) = \idfun(\head(\seq{x}))\). The theoremhood may be more clear if we use pattern matching:
+\[\head(\defn{evens}(x\cons\seq{x})) = \idfun(\head(x\cons\seq{x}))\]
+
+This counts as a theorem because it does not \textit{define} either
+\head{} or \defn{evens}, it \textit{uses} them. The definitions:
+
+\begin{align}
+ \tj{\seq{x}}{\List{X}} & \linfer \tj{\head(\seq{x})}{X} \\
+ \tj{x}{X},\tj{\seq{x}}{\List{X}} & \linfer \head(x\cons\seq{x}) = x \\
+ \tj{\seq{x}}{\List{X}} & \linfer \tj{\defn{evens}(\seq{x})}{\List{X}} \\
+ \tj{\seq{x}}{\List{X}} & \linfer \defn{evens}(x\cons\seq{x})
+   = x\cons(\tail(\tail(\seq{x})))
+\end{align}
+
+There is nothing we can do with defined functions that we cannot do
+without them, since they are defined by constructors.
+
+By contrast, cofunctions allow us to do things we cannot do with only
+the co-constructors. That's because they are not defined; rather they
+are assumed to exist. Their codefinitions do not give a method for
+producing their results.
+
+However, if we view codefinitions as \textit{specifications}, then we
+recover symmetry. There is nothing we can \textit{specify} using
+codefinitions that we cannot specify without them, using the
+co-constructors, since codefinitions are expressed (``constructed''
+by) in terms of co-constructors.
+
+Thinking of codefinitions as specifications solves a lot of conceptual
+problems. For example it explains how we can compute with things like
+colists. We cannot implement cofunctions like \(\codefn{evens}\), but
+we can \textit{approximate} them. Given a codefinition for
+\(\codefn{evens}\), that is, given its specification, we can
+inductively define a function that satisfies the specification and
+thereby approximates the (infinite) cofunction.
+
+\subsection{Notes}
+
+It's critical to maintain a clear distinction between syntax and
+semantics in thinking about coinduction et al. And to beware of
+semantic metaphors, which work fine until they don't.
+
+Co-stuff is truly dual to stuff. Thinking about it really does require
+not just an adjustment but a complete reversal of the usual inductive
+way of thinking.  And this goes all the way down.
+
+
