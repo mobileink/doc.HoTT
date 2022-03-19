@@ -1,13 +1,22 @@
-\longnewglossaryentry{devonian}{name={Devonian}}%
-{%
-  The geologic period spanning from the end of the
-  Silurian Period to the beginning of the Carboniferous Period.
-  This age was known for its remarkable variety of
-  fish species.
-}
-\newglossaryentry{fishage}
+\longnewglossaryentry{continuation}{
+        name={Continuation},
+        text={continuation}
+        }{%
+                The rest of the computation/inference...
+        }
+
+\newglossaryentry{context}
 {
-  name={Fish Age},
-  description={Common name for the Devonian period},
-  see={devonian}
+  name={Context},
+  text={context},
+  description={antecedent of a sequent},
+  see={continuation,environment}
+}
+
+\newglossaryentry{environment}
+{
+  name={Environment},
+  text={environment},
+  description={where we keep stuff},
+  see={context,continuation}
 }

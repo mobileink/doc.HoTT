@@ -1,0 +1,98 @@
+\chapter{Continuations}
+
+The concept of a \gls{continuation} emerged from the world of
+programming\footnote{\cite{discovery_continuations}}. But we can have
+logical continuations too.
+
+A full and explicit account of duction must include explicity an
+account of continuations (and environments).
+
+Continuations are one thing induction and coinduction have in common.
+
+This is easy to see from a simple example: counting the number of
+elements in a finite list.
+\begin{align}
+  \texttt{count}(\nillist) &= 0 \\ \texttt{count}(x\cons\seq{x})) &= 1
+  + \texttt{count}(\seq{x}) \label{continuations:count}
+\end{align}
+
+The RHS of equation (\ref{continuations:count}) must wait for its
+recursive call to complete before it can continue, by adding \(1\) and
+then returning.
+
+To make this explicit we can wrap the continuation in a lambda and
+pass it to the recursive call. Etc. Continuation Passing Style (CPS).
+
+Then the question is how well this integrates into inferential logic.
+
+\section{Logical Continuations}
+
+The concept of `continuation' that emerged from the practical work of
+programmers might seem inherently computational. But perhaps
+surprisingly it has a direct analog in formal logic when viewed from
+an inferentialist perspective.
+
+Every concept is determined jointly by its upstream and and downstream
+inferences, those that lead to and from it. Introduction rules express
+upstream inference, and elimination rules express downstream
+inferences.
+
+Both kinds can be thought of as rules of \textit{use}. This is easily
+seen for elimination rules; they tell us what we can do,
+\textit{given} their premise. By contrast, introduction rules tell us
+how to \textit{produce} their conclusion, not how to use it. Yet they
+too count as rules of use, because they tell us how to use
+\textit{other} propositions to make the inference.
+
+But each kind of rule expresses only one side of the story. Both are
+incomplete; neither alone fully determines the meaning of the concept they
+jointly define.
+
+What is the point of producing something, except to use it?
+
+Both kinds of rule leave half of the meaning implicit. Specifically,
+each presupposes the other. Introduction rules implicitly ``depend''
+on elimination rules, and vice-versa. It's not that we could not have
+introduction rules without elimination rules; it's rather that
+elimination is \textit{the piont} of introduction rules. We make stuff
+so that we can use it, so the intended use is always implicitly
+present in the construction.
+
+Put differently, we make inferences when we reach a point in our
+reasoning where we need to prove something in order to continue. At
+that point, our general line of reasoning is put on hold while we work
+out the new inference whose conclusion we need. Once we've made the
+needed inference, we \textit{continue to reason} using the conclusion
+of the inference -- and the elimination rules are what enable us to
+use the conclusion, possibly in conjuction with other propositions and
+rules.
+
+The analogy with computational continuations should be clear. When we
+come to make an inference, there is an implicit ``rest of the proof''
+that awaits the completion of the inference. An inferential
+continuation, as it were; we do not have a name for this concept,
+because it has never (to my knowledge) been noticed in the history of
+logic\footnote{That may well turn out to be untrue, but what we can
+say confidently is that if ``logical continuation'' has been noticed,
+nobody paid any attention.}
+
+So the Curry-Howard isomorphism preserves continuations.
+
+It follows that to make inference rules fully explicit, we need to make logical continuations explicit.
+
+We need first-class continuations within logic. Maybe first-class
+environments as well.
+
+
+
+
+\section{Resources}
+
+For an excellent practical explication of continuations see \citetitle{queinnec2003lisp} (\cite{queinnec2003lisp}).
+
+\begin{itemize}
+\item \citetitle{Strachey2000ContinuationsAM} \cite{Strachey2000ContinuationsAM}
+\item \citetitle{discovery_continuations} \cite{discovery_continuations}
+\item \citetitle{10.1145/62678.62684} \cite{10.1145/62678.62684}
+\end{itemize}
+
