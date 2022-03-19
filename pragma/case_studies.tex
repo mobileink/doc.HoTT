@@ -295,19 +295,6 @@ projects the \textit{nth} element of a stream.
 \end{align} %%at}
 
 %%%%%%%%%%%%%%%%
-\paragraph{\(\texttt{drop}_{\scriptscriptstyle\top}\)}
-removes first \(n\) elements from a stream. Defined by coinduction.
-
-\begin{prooftree}
-  \AxiomC{$\Gamma\linfer\tj{\texttt{drop}}{\Nat\times\colist{X}\func{}\colist{X}}$}
-  \AxiomC{$\Delta\linfer\tj{n}{\Nat}$}
-  \AxiomC{$\Gamma\linfer\tj{\coseq{x}}{\colist{X}}$}
-  \RightLabel{\raisebox{4pt}{$\scriptstyle[drop\texttt{-intro}]$}}
-  \TrinaryInfC{$\Gamma,\Delta,\Lambda\linfer\tj{\texttt{drop}(n,\coseq{x})}{\colist{X}}$}
-\end{prooftree}
-
-
-%%%%%%%%%%%%%%%%
 \paragraph{\(\texttt{take}_{\scriptscriptstyle\top}\)}
 returns finite list of the first \(n\) elements of a stream. Defined
 by induction on the \(\Nat\) arg (it tests for the base case).
@@ -328,8 +315,8 @@ are finite, by induction on the indexing arg.
 
 \begin{align} %%at}{2}
   \texttt{take}(0,\coseq{x}) &= \nillist \\
- \texttt{take}(\SNat{}n,\coseq{x})) &=
- \defnup{\Cons}(\cohead(\coseq{x}),\texttt{take}(n,\cotail(\coseq{x}))) \label{take:ind}
+  \texttt{take}(\SNat{}n,\coseq{x})) &=
+  \defnup{\Cons}(\cohead(\coseq{x}),\texttt{take}(n,\cotail(\coseq{x}))) \label{take:ind}
   %% \\
   %% \cohead(\texttt{take}(\SNat{}n,\coseq{x})) &= \cohead(\coseq{x}) \\
   %% \cotail(\texttt{take}(\SNat{}n,\coseq{x})) &=
@@ -339,7 +326,26 @@ are finite, by induction on the indexing arg.
 
 \subsubsection{Endomorphisms (transformers)}
 
+Endomorphisms always produce a codomain that is the same size as the
+domain? \textit{drop} removes elements from a stream but does not
+reduce the size of the type.
+
+To filters/shrink the type you need to define a subtype.
+
  evens, odds, merge
+
+%%%%%%%%%%%%%%%%
+\paragraph{\(\texttt{drop}_{\scriptscriptstyle\top}\)}
+removes first \(n\) elements from a stream. Defined by coinduction.
+
+\begin{prooftree}
+  \AxiomC{$\Gamma\linfer\tj{\texttt{drop}}{\Nat\times\colist{X}\func{}\colist{X}}$}
+  \AxiomC{$\Delta\linfer\tj{n}{\Nat}$}
+  \AxiomC{$\Gamma\linfer\tj{\coseq{x}}{\colist{X}}$}
+  \RightLabel{\raisebox{4pt}{$\scriptstyle[drop\texttt{-intro}]$}}
+  \TrinaryInfC{$\Gamma,\Delta,\Lambda\linfer\tj{\texttt{drop}(n,\coseq{x})}{\colist{X}}$}
+\end{prooftree}
+
 
 \subsubsection{Pathological cases}
 

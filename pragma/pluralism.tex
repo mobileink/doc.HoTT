@@ -1,0 +1,152 @@
+\section{Inferential Pluralism}\label{sec:pluralism}
+
+We can classify inferences in at least the following ways:
+\begin{itemize}
+\item Qualitative kind (direct, inductive, and coinductive inference)
+\item Form (type, sequent, and proof inferences)
+\item Orientation (apomorphic, promorphic, endomorphic, etc)
+\end{itemize}
+
+\subsection{Varieties of Inference}
+
+Direct, inductive, and coinductive inference are species of a single
+genus.
+
+Examples:
+
+\begin{description}
+\item[Direct inference:]  \(\tj{\seq{x}}{\List{X}}\linfer \tj{\head(n)}{X}\)
+\item[Inductive inference:] x
+\item[Coinductive inference:] x
+\end{description}
+
+\subsection{Formal inference types}
+
+Reasoning with types in a formal calculus involves three distinct
+forms of inference:
+
+\begin{enumerate}
+\item type inferences (\(\tinfer\)) go from tokens to types; e.g. \(a\tinfer
+  A (= \mbox{\tj{a}{A}})\). The proposition ``a has type A'' is underwritten by the
+  (material) inference from particular a to general A.
+\item sequent inferences (\(\sso\)) go from type inference to type inference.  E.g. \(a:A\sso b:B\)
+\item proof inferences (\(\pso\) or \(\Vdash\) or  \(\Vert\)) go
+  from sequent inferences to sequent inferences. The horizontal line
+  in proofs.
+\end{enumerate}
+
+To these we might add a four kind, for dealing with equality:
+
+\begin{itemize}
+\item equality inferences ...??? what kind of inference is \(a=b:B\)?
+  Note this is token equality. In a sense all tokens of a type are
+  equal, for example tokens of the word type ``the'' on this page are
+  equally tokens of the type, even if they are distinct individuals.
+  In HoTT different paths can be equal. Different proofs of the same
+  proposition serve equally \textit{as} proofs. So evidently equals
+  need not mean ``same particular''.
+\end{itemize}
+
+Whether or not these are all species of the same genus is a
+philosophical question. Here it suffices to observe that in the
+sequent calculus inferences adhere to a type discipline that
+constrains what can serve as premises and conclusion for each type of
+inference. This is compatible with the notion that the same kind of
+inference is used in every case, but used in three different ways.
+
+A more substantial argument in favor of inferential pluralism would
+start by arguing that each type of inference presupposes a different
+set of practical skills. Type inference presupposes the ability to
+subsume particulars under general concepts. The ability to go from
+``Rover'' to ``Rover is a dog'', for example.
+
+\subsubsection{Type Inference}
+
+The standard symbol for type inference is the colon \(\ulcorner :\urcorner\).
+
+Alternatively, we can use a turnstile to emphasize commonality across inference types: \(\linfer_{\tau}\).
+
+To emphasize another kind of equivalence (power?) we can use a horizontal line, possibly annotated to indicate inference type:
+%% \AxiomC{$a$}
+%% \RightLabel{$\scriptstyle\linfer_{\tau}$}
+%% \UnaryInfC{$A$}
+%% \DisplayProof
+
+Instead of a turnstile annotation, we could use a box:
+%% \fbox{
+%% \AxiomC{$a$}
+%% \UnaryInfC{$A$}
+%% \DisplayProof
+%% }
+
+Example: \(\land\text{-intro}\):
+
+%% \begin{displaymath}
+%%   \prftree[r]{$\scriptstyle\supset\mathrm{I}$}
+%%           {\prftree[r]{$\scriptstyle\supset\mathrm{I}$}
+%%             {\prftree[r]{$\scriptstyle\supset\mathrm{E}$}
+%%               {\prfboundedassumption{A}}
+%%               {\prfboundedassumption{\neg A}}
+%%               {\bot}}
+%%             {\neg\neg A}}
+%%           {A \supset \neg\neg A}
+%% \end{displaymath}
+
+
+%% \begin{prfenv}
+  %% \prftree[r]{$\supset\mathrm{I}_{\prfref<assum:A>}$}
+  %%         {\prftree[r]{$\supset\mathrm{I}_{\prfref<assum:not_A>}$}
+  %%           {\prftree[r]{$\supset$E}
+  %%             {\prfboundedassumption<assum:A>{A}}
+  %%             {\prfboundedassumption<assum:not_A>{\neg A}}
+  %%             {\bot}}
+  %%           {\neg\neg A}}
+  %%         {A \supset \neg\neg A}
+%% \end{prfenv}
+
+\subsubsection{Sequent Inference}
+Sequent inference presupposes the ability to combine such
+generalizations to form new generalizations, e.g. that ``Rover is a
+dog \textit{and} Mittens is a cat''. That is, the ability to master
+the practices involving the introduction and elimination of the
+``logical'' constants.
+
+\subsubsection{Proof Inference}
+Finally, proof inference presupposes the ability to operate at a higher
+level of sequent inference management. A detailed argument would show
+how each level presupposes the previous level but adds new skills.
+
+Both sequent and proof inference presuppose the ability to draw an
+inference to a disjunction, to conclude that premises warrant the
+assertion of one or more conclusions. So those two are clearly
+substantially different than type inference.
+
+
+All of Martin-Löf's ``forms of judgment'' are type inferences. There
+is no need to add another level of inference types, by saying for
+example that \mbox{\(a:A\)} and \mbox{\(a=b:A\)} are distinct
+\textit{kinds} of inference. It suffices to say that they are both
+type inferences. So we can dispense with ``forms of judgment''.
+
+[In fairness, \(a=b:A\) clearly seems to involve more than mere type
+  inference. At first glance the inference from \(a=b\) to ``type A''
+  seems a bit off. So maybe we do need to make a distinction between
+  primitive type inference (\(a:A\)) and typed equality inferences.]
+
+
+The forms according to \citetitle{martin1984intuitionistic} \parencite{martin1984intuitionistic}:
+
+\begin{itemize}
+\item A is a set
+\item A and B are equal sets
+\item a is an element of the set A  (\(a:A\))
+\item a and b are equal elements of the set A (\(a=b:A\))
+\end{itemize}
+
+Elsewhere he gives \(A \text{prop}\) and \(A \text{true}\).
+
+\subsection{Orientation}
+
+We can borrow the taxonomy of morphisms to classify inferences. See
+(\ref{morph:classes}) for more information.
+

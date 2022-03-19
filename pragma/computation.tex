@@ -1,0 +1,36 @@
+\section{Computation}\label{sec:computation}
+
+\subsection{Environments}
+
+\subsection{Continuations}
+
+A full and explicit account of duction must include explicity an
+account of continuations (and environments).
+
+Continuations are one thing induction and coinduction have in common.
+
+This is easy to see from a simple example: counting the number of
+elements in a finite list.
+\begin{align}
+  \texttt{count}(\nillist) &= 0 \\ \texttt{count}(x\cons\seq{x})) &= 1
+  + \texttt{count}(\seq{x}) \label{continuations:count}
+\end{align}
+
+The RHS of equation (\ref{continuations:count}) must wait for its
+recursive call to complete before it can continue, by adding \(1\) and
+then returning.
+
+To make this explicit we can wrap the continuation in a lambda and
+pass it to the recursive call. Etc. Continuation Passing Style (CPS).
+
+Then the question is how well this integrates into inferential logic.
+
+\paragraph{Resources}
+
+For an excellent practical explication of continuations see \citetitle{queinnec2003lisp} (\cite{queinnec2003lisp}).
+
+\begin{itemize}
+\item \citetitle{Strachey2000ContinuationsAM} \cite{Strachey2000ContinuationsAM}
+  \item \citetitle{10.1007/BF01019459} \cite{10.1007/BF01019459}
+\item \citetitle{10.1145/62678.62684} \cite{10.1145/62678.62684}
+\end{itemize}

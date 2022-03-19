@@ -1,6 +1,9 @@
-\documentclass{article}
+\documentclass[12pt,book]{memoir}
 
-\usepackage{../hottmacros}
+\usepackage{../../hottmacros}
+\usepackage{../../pragmasyms}
+
+\usepackage{lipsum}
 
 %% load fonts before fontspec
 \usepackage{MnSymbol}
@@ -36,8 +39,10 @@ bibstyle=authoryear,
 citestyle=authoryear,
 %% style=alphabetic,
 natbib=true,
-hyperref,bibencoding=utf8,backref=true,backend=biber]{biblatex}
-\addbibresource{pragmatictt.bib}
+hyperref,bibencoding=utf8,backref=true,backend=biber
+]{biblatex}
+
+\addbibresource{../pragmatictt.bib}
 
 %% \usepackage[nottoc,notlot,notlof]{tocbibind}
 
@@ -68,7 +73,6 @@ hyperref,bibencoding=utf8,backref=true,backend=biber]{biblatex}
 \usepackage{pgfplots,tikz}
 \usetikzlibrary{decorations.markings,arrows.meta,backgrounds}
 \usetikzlibrary{math}
-\usepackage{../pragmasyms}
 
 \usepackage{circuitikz}
 
@@ -77,8 +81,8 @@ hyperref,bibencoding=utf8,backref=true,backend=biber]{biblatex}
 
 %% \usepackage{pgffor}
 
-\usepackage{epigraph}
-\setlength\epigraphwidth{.5\textwidth}
+%% \usepackage{epigraph}
+\setlength\epigraphwidth{0.4\textwidth}
 
 \usepackage{csquotes}
 \renewcommand{\mkcitation}[1]{\footnote{#1}}
@@ -104,7 +108,7 @@ hyperref,bibencoding=utf8,backref=true,backend=biber]{biblatex}
 \makeglossaries
 %% \makenoidxglossaries % use TeX to sort
 
-\input{glossentries}
+\input{../glossentries}
 
 %% \floatstyle{boxed}
 %% \restylefloat{figure}
@@ -118,92 +122,109 @@ hyperref,bibencoding=utf8,backref=true,backend=biber]{biblatex}
 %% }
 
 \includeonly{
+  genesis,
+  analysis,
+  taxonomy,
   %% logical_expressivism,
-  biblio,
-  case_studies,
-  coinduction,
-  computation,
-  definition,
+  %% case_studies,
+  %% coinduction,
+  %% computation,
+  %% definition,
   %% fixpoints,
-  notation,
+  %% appendices
+  ../biblio,
+  glossary,
+  helix,
+  logic_systems,
+  appendices/notation,
+  notes,
   glossary
 }
+
+\makeatletter
+\def\@parttext{}
+\newcommand{\parttext}[1]{\gdef\@parttext{\normalsize\normalfont\justify #1}}
+\renewcommand{\printparttitle}[1]{\parttitlefont #1\vfil\@parttext\vfil\gdef\@parttext{}}
+\makeatother
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 \title{Pragmatic Type Theory}
-\maketitle
-\tableofcontents
+\date{}
+\titlingpageend{\clearpage}{\clearpage}
+\begin{titlingpage}
+  \maketitle
+\epigraph{Speculative informal interpretations of various logics can be very entertaining\ldots}{Katalin Bimbó, \textit{Proof Theory} \parencite{bimbo2014proof}}
+\end{titlingpage}
 
-\vfill
-\large
+%%%% publication details
+\today
+\newpage
 
-\epigraph{Speculative informal interpretations of various logics can be very entertaining\ldots}
-         {Katalin Bimbó, \textit{Proof Theory} (\parencite{bimbo2014proof})}
+%%%%
+\hypertarget{toc}{}
+\bookmark[
+  %% rellevel=1,
+  keeplevel,
+  dest=toc
+]{Table of Contents}
+\tableofcontents*
 
-test:  \(\drawbaseline{2 + \rdotarrow 3}\)
+%%%%
+\mainmatter
+%% \vfill
+%% \large
 
-
-\include{pragmatism}
-
-\include{inferential_semantics}
-
-\include{logical_expressivism}
-
-\include{formal_calculi}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\include{modalities}
-
-\include{composition}
-
-\include{pluralism}
-
-\include{typesystems}
-
-\include{propositions}
-
-\include{definition}
-
-\include{types}
-
-\include{computation}
-
-\include{coinduction}
-
-\include{coalgebra}
-
-\include{fixpoints}
-
-\include{identity}
-
-\include{equality}
-
-\include{case_studies}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\bookmarksetup{startatroot}
-\appendix
-\addcontentsline{toc}{section}{Appendices}
+\nopartblankpage
 \makeatletter
-\addtocontents{toc}{\let\protect\l@section\protect\l@subsection}
-\label{appendices}
+%% \renewcommand*{\beforepartskip}{\null\vskip8cm}
+\renewcommand*{\afterpartskip}{\par\vskip2ex
+\@afterindentfalse} %%\@afterheading}
 \makeatother
+
+\part{Genesis}
+\epigraph{Fiat lux}
+         {Genesis 1:3}
+\newpage
+foobar
+
+\include{book/content/genesis/intro_genesis}
+%% \include{book/content/genesis/pragmatism}
+%% \include{book/content/genesis/inferential_semantics}
+%% \include{book/content/genesis/logical_expressivism}
+
+\part{Analysis}
+\include{book/content/analysis/intro_analysis}
+
+\part{Taxonomy}
+\include{book/content/taxonomy/intro_taxonomy}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part{Appendices}
+%% \bookmarksetup{startatroot}
+\appendix
+%% \addcontentsline{toc}{section}{Appendices}
+%% \makeatletter
+%% \addtocontents{toc}{\let\protect\l@section\protect\l@subsection}
+%% %% \label{appendices}
+%% \makeatother
 
 %% setting bookmark level does not seem to work here
 %% \bookmarksetupnext{rellevel=2}
 
-\section{Notation \& Terminology}\label{appendix:notation}
-\include{notation}
+\include{appendices/notation}
 
-\include{logic_systems}
+%% \include{logic_systems}
 
-\include{helix}
+%% \include{helix}
 
-\include{notes}
+%% \include{notes}
 
 \include{biblio}
+%% \addcontentsline{toc}{section}{References}
+%% \nocite{*}
+%% \printbibliography
 
-\include{glossary}
+%% \include{glossary}
 
 \end{document}
