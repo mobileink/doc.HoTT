@@ -1,0 +1,36 @@
+\ProvidesPackage{pragmasyms}[2022/03/18 v1.0 pragma macros]
+
+\usepackage{tikz}
+\usepackage{tikzsymbols}
+\usetikzlibrary{arrows.meta}
+
+\tikzsymbolsdefinesymbol {rdotarrow} {}
+{%
+\tikzsymbolsprovideandusesavebox {rdotarrow} {%
+  \begin{tikzpicture}[/tikzsymbolsstyle,
+      baseline=-0.5ex
+      %% x=1.1ex, y=1.1ex,
+      %% scale=1,
+      %% line width=0.12ex*#1
+    ]
+    \draw[-Latex,densely dotted, thick]
+    (0,0) -- (4ex,0);
+\end{tikzpicture}%
+}}
+
+%% bisimilarity symbol from Jacobs' Intro to Coalgebra
+\tikzsymbolsdefinesymbol {bisimarrow} {}
+{%
+\tikzsymbolsprovideandusesavebox {bisimarrow} {%
+  \begin{tikzpicture}[/tikzsymbolsstyle,
+      baseline=-0.5ex
+      %% x=1.1ex, y=1.1ex,
+      %% scale=1,
+      %% line width=0.12ex*#1
+    ]
+    \draw[Latex-Latex, thick] (0,0) -- (6ex,0);
+    \draw[thick] (10pt,-2pt) -- (6ex-10pt,-2pt);
+
+\end{tikzpicture}%
+}}
+

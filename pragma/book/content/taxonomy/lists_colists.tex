@@ -1,0 +1,201 @@
+\chapter{Lists and Colists}
+
+Lists and colists are really extensions of products and sums.
+
+Cobasis = cobase set = all elements associated with the cotype treated
+as a set.
+
+\section{Lists and Colists as functions}
+
+Any list can be viewed as a function \(f\) defined over \(\Nat\); then
+\(n^{th}\) element of the sequence is \(f(n)\).\footnote{The idea of
+representing lists as functions in explaining coinduction comes from
+\cite{jacobs_intro_coalgebra}, p. 1.} To express the type of infinite
+lists in functional terms, we start with the set of all functions from
+\(\Nat\) to arbitrary type \(A\). The usual notation for such a type
+is \(\Nat\fnarrow{}A\), but we can use the more compact notation common
+in category theory: \(\morph{A}{\Nat}\defeq\Nat\rightarrow A\). This
+has the advantage of allowing us to express our cotype more concisely:
+\(\morphtop{A}{\Nat}\) is the cotype corresponding to
+\(\morph{A}{\Nat}\). We'll explain this correspondance more precisely
+as we go. For now, the point is that \(\morph{A}{\Nat}\) is a
+function-oriented equivalent to \(\colist{A}\). Recall that the latter
+is our list-oriented notation for ``infinite (\(\omegaup\)) stream of
+terms of type \(A\)''.
+
+A function-oriented perspective allows us to give a somewhat more
+constructive account of the \textit{behavior} of streams, but this
+must not be mistaken for a constructive account of the streams
+themselves.
+
+The set of functions associated with type \(\morphtop{A}{\Nat}\) is
+equal to the set associated with type \(\morph{A}{\Nat}\). The
+difference between the two is the rules. In effect,
+\(\morphtop{A}{\Nat}\) is \(\morph{A}{\Nat}\) extended by a pair of
+inference rules governing the behavior of elements of
+\(\morphtop{A}{\Nat}\). It is a cottype, not a set; the rules that
+determine the cotype \textit{use} the functions of the set
+\(\morph{A}{\Nat}\), but those functions do not in and of themselves
+suffice to \textit{define} the cotype.
+
+Each cofunction \(\sigmatop\) in \(\morphtop{A}{\Nat}\) is the image
+of a function \(\sigmabot\) in \(\morph{A}{\Nat}\) under a ``lifting''
+map. But these lifted functions cannot be directly applied to an
+argument. The decoration on the notation is there for a purpose: the
+elements of \(\morph{A}{\Nat}\) are functions, but the elements of
+\(\morphtop{A}{\Nat}\) are not. Or maybe they are; but it does not
+matter, because they are hidden. The only way to use them is to use
+these two rules:
+
+\begin{itemize}
+\item the \(\cohead\) of an arbitrary element
+  \(\sigma_{\scriptscriptstyle{\top}}\) of type \morphtop{A}{\Nat} is
+  the value of \(\sigma_{\scriptscriptstyle\bot}\) (of type \(A^{\Nat}\)) at \(0\). (Note the \(\bot\) and \(\top\) decorations.)
+\item the \(\cotail\) is \(\lambda{}n.\sigma(n+1)\) -- a ``wrapper''
+  function that, when passed arg \(n\), applies that same \(\sigma_i\)
+  to \(n+1\). Since this is a function of type \(\Nat\fnarrow{}A\), it
+  counts as an element of type \morphtop{A}{\Nat}.
+\end{itemize}
+
+The result is that iteration over an element of \morphtop{A}{\Nat}
+using \(\cohead\) and \(\cotail\) is just like iteratively applying a function from \(A^{\Nat}\) to the elements of \(\Nat\), in order.
+
+In this example we have for tail \(\lambda{}n.\sigma(n+1)\). We can
+rewrite this as \(\lambda{}n.\sigma(f(n))\), where
+\(f\eqdef\lambda{}x.x+1\). We could instead use
+\(f\eqdef\lambda{}x.x+2\); for that matter, we could use any function
+of type \(\morph{\Nat}{\Nat}\) so long as it is injective. The end
+result would be the same: \(\sigma\) would (eventually) be applied to
+all \(\Nat\), so all streams would be represented (but not
+\textit{generated}). That's one reason we do not want to take such
+rules as definitions of the cotype.
+
+[Terminology: \(\lambda{}n.\sigma(g(n))\) as a ``biased'' version of
+  \(\sigma\).]
+
+\vspace{3ex}
+
+Note that we are not compelled to think of streams as functions over
+N. We don't even need N. We just need head and tail.
+
+Here a \textit{major, \textbf{MAJOR}} caveat is in order:
+
+\begin{itemize}
+\item \morphtop{A}{\Nat} is \textit{\textbf{not constructed}}, so
+  there is no sense it which it could be said to be derived from
+  \(A^{\Nat}\)
+\item There is \textit{\textbf{no}} one-to-one mapping from the elements of \(A^{\Nat}\) to the elements of \morphtop{A}{\Nat}
+\item The elements of \morphtop{A}{\Nat} are \textit{\textbf{not}}
+  images of the elements of \(A^{\Nat}\)
+\end{itemize}
+
+That's the negative part.  Here's the affirmative part:
+
+\begin{itemize}
+\item The elements (functions) of \(A^{\Nat}\) are used to
+  \textit{specify} the ``behavior'' of the elements (cofunctions) of
+  \morphtop{A}{\Nat}.
+\item There \textit{is} a mapping from \morphtop{A}{\Nat} to \(A^{\Nat}\).
+\end{itemize}
+
+Here is how we informally describe \morphtop{A}{\Nat}: for arbitrary
+\(\tj{n}{\Nat}\) and \(\tj{\sigma_{\top}}{A_{\top}^{\Nat}}\) we have:
+\begin{align}
+  \cohead(\sigma_{\top}(n)) & = \sigma(0) \label{jacobs:head}
+\end{align}
+
+Now \(\sigma\) is a function from our original type \(A^{\Nat}\), so
+this equation strongly suggests that \(\sigma_{\top}\) (on the LHS)
+must be none other than \(\sigma\) (on the LSH) ``lifted'' into
+\morphtop{A}{\Nat}. But that's too strong. It \textit{could} be the
+case that there is a mapping
+\begin{equation}
+  A^{\Nat}\rightarrow A_{\top}^{\Nat}\label{eq:slift}
+\end{equation}
+\noindent
+but it is not \textit{necessarily} the case. Remember that cotypes are
+completely opaque, so we have no way of knowing how they or their
+members were constructed. Even if there were such a mapping, simple
+logic tells us that
+\begin{equation}
+  A_{\top}^{\Nat}\rightarrow A^{\Nat}
+\end{equation}
+\noindent
+does not follow from \ref{eq:slift}, which is what we need for (\ref{jacobs:head}).
+
+Here is how Jacobs diagrams this:
+
+\vspace{2ex}
+
+\begin{tikzpicture}
+  \node at (0,0) (a) {$A^{\Nat}$};
+  \node at (2.2in,0) (b) {$A\times{}A^{\Nat}$};
+  \draw[-Latex] (a) -- (b) node[pos = .5, above]
+       {\scriptsize\(\sigma\mapsto (\sigma(0), \lambda{}n.\sigma(n+1))\)};
+\end{tikzpicture}%
+
+But this image is misleading. It makes it look like \(A^{\Nat}\) was
+responsible for building the cotype, or something like that. But it's
+the other way around. We started with the cotype and then rooted
+around till we found \(A^{\Nat}\) as a source of suitable behaviors.
+
+Just as bad, it suggests that \(A\times{}A^{\Nat}\) just \textit{is}
+the cotype. But that's wrong, it's the type of the \textit{behaviors}
+of the cotype.
+
+But maybe it's a typo. The picture could easily be fixed by adding some \(\bot\) annotations:
+
+\begin{tikzpicture}
+  \node at (0,0) (a) {$A_{\scriptsize\top}^{\Nat}$};
+  \node at (2.2in,0) (b) {$A\times{}A^{\Nat}$};
+  \draw[-Latex] (a) -- (b) node[pos = .5, above]
+       {\scriptsize\(\sigma_{\top}\mapsto (\sigma(0), \lambda{}n.\sigma(n+1))\)};
+\end{tikzpicture}%
+
+But that still can't be quite right. The lambda is wrong; it needs to
+be deliver element of the cotype, i.e. a lifted function, so we would need
+a lifted lambda.
+
+\section{Promotion (lifting) and Demotion (lowering)}
+
+\section{Lists}
+
+\section{Colists (Streams)}
+
+\subsection{Copermutations}
+
+E.g. swap and other stack operations. swap(n) moves the nth element to
+the front of the list.
+
+Copermutations rather than permutations, because all permutations
+already exist. Copermutation functions just map between existing
+streams.  Permutations on finite lists, by contrast, ...
+
+Copermutations are conservative; they do not contract the cobasis.
+
+For example suppose we start with \(\langle 1,2,\ldots\rangle\) and swap the
+top two elements, yielding \(\langle 2,1,\ldots\rangle\). Since all streams
+already exist, this does not expand the cobasis. Nor does it contract
+it, since the same operation goes the other way around.
+
+\subsection{Contraction}
+
+Functions like \(\codefn{evens}\) and \(\codefn{odds}\) contract the
+cobasis.
+
+\subsection{Demotion (co-lifting)}
+
+See also: promoting (lifting) one \(f:\Nat\fnarrow\Nat\) (e.g. dbl) to
+operate pointwise on a list (\(\cofn{f}\)). Jacobs' example lifts all
+such functions and does more than just apply them pointwise.
+
+Jacobs gives a wonderful example of a colist on the first page of
+\parencite{2017intro_coalgebra}. He calls it a coalgebra; we'll call
+it a cotype. The concept illustrated is enlightening, but the reader
+is warned that the presentation rather misleading, and sometimes
+wrong. For example, right at the beginning the text says
+\textquote{...a coalgebra is given by a set S and a function c with S
+  as domain and with a “structured” codomain...}. But this gets it
+exactly backwards: it says or at least suggests that such cotypes are
+constructed, which is plainly false.
+

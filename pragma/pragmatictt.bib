@@ -1,3 +1,82 @@
+@article{WANSING201723,
+title = {A more general general proof theory},
+journal = {Journal of Applied Logic},
+volume = {25},
+pages = {23-46},
+year = {2017},
+issn = {1570-8683},
+doi = {https://doi.org/10.1016/j.jal.2017.01.002},
+url = {https://www.sciencedirect.com/science/article/pii/S1570868317300022},
+author = {Heinrich Wansing},
+keywords = {Proofs, Dual proofs, Negation, Co-implication, 2Int, Bi-intuitionistic logic, Dual intuitionistic logic, Normal form, Assertion, Denial, Compositionality, Bilateralism},
+abstract = {In this paper it is suggested to generalize our understanding of general (structural) proof theory and to consider it as a general theory of two kinds of derivations, namely proofs and dual proofs. The proposal is substantiated by (i) considerations on assertion, denial, and bi-lateralism, (ii) remarks on compositionality in proof-theoretic semantics, and (iii) comments on falsification and co-implication. The main formal result of the paper is a normal form theorem for the natural deduction proof system N2Int of the bi-intuitionistic logic 2Int. The proof makes use of the faithful embedding of 2Int into intuitionistic logic with respect to validity and shows that conversions of dual proofs can be sidestepped.}
+}
+
+@article{Zeilberger2008-ZEIOTU,
+	title = {On the Unity of Duality},
+	year = {2008},
+	pages = {66--96},
+	journal = {Annals of Pure and Applied Logic},
+	publisher = {Elsevier},
+	number = {1-3},
+	volume = {153},
+	doi = {10.1016/j.apal.2008.01.001},
+	author = {Noam Zeilberger}
+}
+
+@inproceedings{reasoning_continuations_2,
+author = {Sitaram, Dorai and Felleisen, Matthias},
+title = {Reasoning with Continuations II: Full Abstraction for Models of Control},
+year = {1990},
+isbn = {089791368X},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/91556.91626},
+doi = {10.1145/91556.91626},
+abstract = {A fully abstract model of a programming language assigns the same meaning to two terms if and only if they have the same operational behavior. Such models are well-known for functional languages but little is known about extended functional languages with sophisticated control structures. We show that a direct model with error values and the conventional continuation model are adequate for functional languages augmented with first- and higher-order control facilities, respectively. Furthermore, both models become fully abstract on adding a control delimiter and a parallel conditional to the programming languages.},
+booktitle = {Proceedings of the 1990 ACM Conference on LISP and Functional Programming},
+pages = {161–175},
+numpages = {15},
+location = {Nice, France},
+series = {LFP '90}
+}
+
+@article{10.1145/74818.74837,
+author = {Jouvelot, P. and Gifford, D. K.},
+title = {Reasoning about Continuations with Control Effects},
+year = {1989},
+issue_date = {July 1989},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {24},
+number = {7},
+issn = {0362-1340},
+url = {https://doi.org/10.1145/74818.74837},
+doi = {10.1145/74818.74837},
+abstract = {We present a new static analysis method for first-class continuations that uses an effect system to classify the control domain behavior of expressions in a typed polymorphic language. We introduce two new control effects, goto and comefrom, that describe the control flow properties of expressions. An expression that does not have a goto effect is said to be continuation following because it will always call its passed return continuation. An expression that does not have a comefrom effect is said to be continuation discarding because it will never preserve its return continuation for later use. Unobservable control effects can be masked by the effect system. Control effect soundness theorems guarantee that the effects computed statically by the effect system are a conservative approximation of the dynamic behavior of an expression.The effect system that we describe performs certain kinds of control flow analysis that were not previously feasible. We discuss how this analysis can enable a variety of compiler optimizations, including parallel expression scheduling in the presence of complex control structures, and stack allocation of continuations. The effect system we describe has been implemented as an extension to the FX-87 programming language.},
+journal = {SIGPLAN Not.},
+month = {jun},
+pages = {218–226},
+numpages = {9}
+}
+
+@inproceedings{10.1145/73141.74837,
+author = {Jouvelot, P. and Gifford, D. K.},
+title = {Reasoning about Continuations with Control Effects},
+year = {1989},
+isbn = {089791306X},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/73141.74837},
+doi = {10.1145/73141.74837},
+abstract = {We present a new static analysis method for first-class continuations that uses an effect system to classify the control domain behavior of expressions in a typed polymorphic language. We introduce two new control effects, goto and comefrom, that describe the control flow properties of expressions. An expression that does not have a goto effect is said to be continuation following because it will always call its passed return continuation. An expression that does not have a comefrom effect is said to be continuation discarding because it will never preserve its return continuation for later use. Unobservable control effects can be masked by the effect system. Control effect soundness theorems guarantee that the effects computed statically by the effect system are a conservative approximation of the dynamic behavior of an expression.The effect system that we describe performs certain kinds of control flow analysis that were not previously feasible. We discuss how this analysis can enable a variety of compiler optimizations, including parallel expression scheduling in the presence of complex control structures, and stack allocation of continuations. The effect system we describe has been implemented as an extension to the FX-87 programming language.},
+booktitle = {Proceedings of the ACM SIGPLAN 1989 Conference on Programming Language Design and Implementation},
+pages = {218–226},
+numpages = {9},
+location = {Portland, Oregon, USA},
+series = {PLDI '89}
+}
+
 @article{discovery_continuations,
 author = {Reynolds, John C.},
 title = {The Discoveries of Continuations},
@@ -17,7 +96,7 @@ numpages = {16},
 keywords = {continuation, continuation-passing style, semantics}
 }
 
-@inproceedings{10.1145/96709.96714,
+@inproceedings{griffin_ch_control,
 author = {Griffin, Timothy G.},
 title = {A Formulae-as-Type Notion of Control},
 year = {1989},
@@ -88,8 +167,9 @@ abstract = {In the semantics of programming, finite data types such as finite li
     publisher = {Springer}
 }
 
-@book{2017intro_coalgebra,
+@book{jacobs_intro_coalgebra,
   title={Introduction to Coalgebra},
+  author={Bart Jacobs},
   isbn={9781107177895},
   lccn={2016023664},
   series={CAMBRIDGE TRACTS IN THEORETICA},
@@ -835,6 +915,21 @@ MRREVIEWER = {Charles F. Kielkopf},
 	year = {2012},
 	keywords = {Normativity,Brandom, Pragmatism, Rule following},
 	pages = {101–126}
+}
+
+@article{GIRARD1993201,
+title = {On the unity of logic},
+journal = {Annals of Pure and Applied Logic},
+volume = {59},
+number = {3},
+pages = {201-217},
+year = {1993},
+issn = {0168-0072},
+doi = {https://doi.org/10.1016/0168-0072(93)90093-S},
+url = {https://www.sciencedirect.com/science/article/pii/016800729390093S},
+author = {Jean-Yves Girard},
+abstract = {We present a single sequent calculus common to classical, intuitionistic and linear logics. The main novelty is that classical, intuitionistic and linear logics appear as fragments, i.e. as particular classes of formulas and sequents. For instance, a proof of an intuitionistic formula A may use classical or linear lemmas without any restriction: but after cut-elimination the proof of A is wholly intuitionistic, what is superficially achieved by the subformula property (only intuitionistic formulas are used) and more deeply by a very careful treatment of structural rules. This approach is radically different from the one that consists in “changing the rule of the game” when we want to change logic, e.g. pass from one style of sequent to another: here, there is only one logic, which—depending on its use—may appear classical, intuitionistic or linear.
+Nous présentons un calcul des séquents unifié, commun aux logiques classique, intuitionniste et linéaire. La principale nouveautéest que les logiques classique, intuitionniste et linéaire apparaissent comme des fragments, c'estádire comme des classes particuliéres de formules et de séquents. Par exemple la démonstration d'unénoncéintuitionniste pourra utiliser des lemmes classiques ou intuitionnistes sans limitation: simplement aprèsélimination des coupures, la démonstration se fera entièrement dans le fragment intuitionniste, ce qui est superficiellement assurépar la propriétéde la sous-formule (seulement des formules intuitionnistes sont utilisées) et plus profondément par un traitement très rigoureux des règles structurelles. Cette approche est radicalement différente de l'approche habituelle qui consiste tout bonnementàchanger la règle du jeu quand on veut changer de logique, c'estàdire de style de séquent: ici il n'y a plus qu'une seule logique, qui au grédes utilisation peut apparaître classique, intuitionniste ou linéaire.}
 }
 
 @InCollection{Girard94lla,

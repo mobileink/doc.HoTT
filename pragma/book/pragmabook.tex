@@ -5,18 +5,12 @@
 
 \usepackage{lipsum}
 
-%% load fonts before fontspec
-\usepackage{MnSymbol}
-\usepackage{dsfont}
-\usepackage{stmaryrd}
-\usepackage{unicode-math}
-\usepackage{cmll}
-
 %% \usepackage{xltxtra,xunicode}
 \usepackage{fontspec}
 \defaultfontfeatures{Scale=MatchLowercase}
 
 \setmainfont[Ligatures=TeX]{Times New Roman}
+\setmonofont{Latin Modern Mono}
 %% \setromanfont[Mapping=tex-text]{Times New Roman}
 %% \setsansfont[Mapping=tex-text]{Arial}
 
@@ -72,13 +66,12 @@ hyperref,bibencoding=utf8,backref=true,backend=biber
 \bookmarksetup{numbered}
 
 \usepackage{pgfplots,tikz}
-\usetikzlibrary{decorations.markings,arrows.meta,backgrounds}
+\usetikzlibrary{decorations.markings,arrows,arrows.meta,backgrounds}
 \usetikzlibrary{math}
 
 \usepackage{circuitikz}
 
 \pgfplotsset{compat=newest}
-\usepackage{amsmath}
 
 %% \usepackage{pgffor}
 
@@ -103,7 +96,7 @@ hyperref,bibencoding=utf8,backref=true,backend=biber
 \usepackage{float}
 \usepackage{cancel}
 
-\titleformat*{\paragraph}{\ttfamily}
+%% \titleformat*{\paragraph}{\normalsize}
 
 \usepackage[toc,xindy]{glossaries}
 \makeglossaries
@@ -123,15 +116,21 @@ hyperref,bibencoding=utf8,backref=true,backend=biber
   %% content/genesis/inferential_semantics,
   %% content/genesis/logical_expressivism,
   %%
-  %% content/analysis/intro_analysis,
-  content/analysis/continuations,
-  %% content/taxonomy/intro_taxonomy,
+  content/analysis/intro_analysis,
+  content/analysis/promotion_demotion,
+  %% content/analysis/continuations,
+  %%
+  content/taxonomy/intro_taxonomy,
+  content/taxonomy/numbers_conumbers,
+  content/taxonomy/products_coproducts,
+  content/taxonomy/lists_colists,
+  content/taxonomy/sums_cosums,
   %% appendices/biblio,
-  appendices/glossary,
+  %% appendices/glossary,
   %% helix,
   %% logic_systems,
   appendices/notation,
-  notes,
+  %% appendices/notes,
 }
 
 \makeatletter
@@ -139,6 +138,8 @@ hyperref,bibencoding=utf8,backref=true,backend=biber
 \newcommand{\parttext}[1]{\gdef\@parttext{\normalsize\normalfont\justify #1}}
 \renewcommand{\printparttitle}[1]{\parttitlefont #1\vfil\@parttext\vfil\gdef\@parttext{}}
 \makeatother
+
+\setcounter{tocdepth}{3}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -189,12 +190,20 @@ hyperref,bibencoding=utf8,backref=true,backend=biber
 
 %%%%%%%%%%%%%%%%
 \part{Analysis}
+
 \include{content/analysis/intro_analysis}
 \include{content/analysis/continuations}
+\include{content/analysis/promotion_demotion}
 
 %%%%%%%%%%%%%%%%
 \part{Taxonomy}
-\include{book/content/taxonomy/intro_taxonomy}
+\include{content/taxonomy/intro_taxonomy}
+\include{content/taxonomy/numbers_conumbers}
+\include{content/taxonomy/products_coproducts}
+\include{content/taxonomy/lists_colists}
+\include{content/taxonomy/sums_cosums}
+
+\include{content/taxonomy/colist_taxonomy}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \part{Appendices}

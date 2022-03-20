@@ -1,9 +1,41 @@
 \ProvidesPackage{hottmacros}[2011/02/23 v1.0 My own macros]
 
 \usepackage[fleqn]{amsmath}
+
+%% load fonts before fontspec
 \usepackage{amssymb}
 \usepackage{amsthm}
+
+\usepackage{MnSymbol} %% clashes with mathabx
+%% \let\veebar\undefined
+%% \let\barwedge\undefined
+%% \let\doublebarwedge\undefined
+%% \let\circledS\undefined
+%% \let\centerdot\undefined
+%% \let\dotplus\undefined
+%% \let\complement\undefined
+%% \let\divideontimes\undefined
+%% \let\mid\undefined
+
+\usepackage{dsfont}
+\usepackage{stmaryrd}
+
+\usepackage{unicode-math}
+\let\bullet\undefined
+\let\circ\undefined
+\let\coloneq\undefined
+\let\dagger\undefined
+\let\ddagger\undefined
+\let\diamond\undefined
+\let\emptyset\undefined
+\let\owns\undefined
+\let\bigominus\undefined
+\let\bigplus\undefined
+\let\bigtimes\undefined
+
+\usepackage{cmll}
 \usepackage{txfonts}
+
 \usepackage{relsize}
 \usepackage{stackengine}
 
@@ -68,6 +100,25 @@
 \fi}
 \end{tikzpicture}}
 
+%% object kinds
+\newcommand{\inductive}[1]{\ensuremath{#1_{\scriptscriptstyle\bot}}}
+\newcommand{\coinductive}[1]{\ensuremath{#1_{\scriptscriptstyle\top}}}
+\newcommand{\tbot}[1]{\ensuremath{#1_{\scriptscriptstyle\bot}}}
+\newcommand{\ttop}[1]{\ensuremath{#1_{\scriptscriptstyle\top}}}
+
+%% morphisms
+\let\exp\undefined %% we use \exp for CT-style exponentiated functions
+\newcommand{\exp}[2]{\ensuremath{#1^{#2}}}
+\newcommand{\expbot}[2]{\ensuremath{#1_{\scriptscriptstyle\bot}^{#2}}}
+\newcommand{\coexp}[2]{\ensuremath{#1_{\scriptscriptstyle\top}^{#2}}}
+\newcommand{\exptop}[2]{\ensuremath{#1_{\scriptscriptstyle\top}^{#2}}}
+%% \newcommand{\morph}[2]{\ensuremath{#1^{#2}}}
+\newcommand{\morph}[2]{\ensuremath{#1\fnarrow{}#2}}
+
+\newcommand{\morphbot}[2]{\ensuremath{#1_{\scriptscriptstyle\bot}^{#2}}}
+\newcommand{\morphtop}[2]{\ensuremath{#1_{\scriptscriptstyle\top}^{#2}}}
+
+
 %% dark numbers
 \newcommand{\NDark}{\Nat_{\bullet}}
 \newcommand{\ZDark}{\textsf{\slshape Z}_{\bullet}}
@@ -94,6 +145,9 @@
 \newcommand{\defnup}[1]{\ensuremath{#1_{\scriptscriptstyle\bot}}}
 %% \newcommand{\defn}[1]{\ensuremath{\texttt{\upshape #1}}}
 \newcommand{\codefn}[1]{\ensuremath{\texttt{\upshape #1}_{\scriptscriptstyle\top}}}
+\newcommand{\fn}[1]{\ensuremath{#1_{\scriptscriptstyle\bot}}}
+\newcommand{\cofn}[1]{\ensuremath{#1_{\scriptscriptstyle\top}}}
+
 \newcommand{\defndn}[1]{\ensuremath{#1_{\scriptscriptstyle\top}}}
 
 %% \newcommand{\codefn}[1]{\ensuremath{\texttt{\upshape #1}^{\omegaup}}}
@@ -110,6 +164,12 @@
 \newcommand{\ONat}{\ensuremath{\omega}}
 %% lifting
 \newcommand{\Lift}[2]{\ensuremath{#1^{#2}}}
+\newcommand{\promote}[2]{\ensuremath{#1\rightharpoonup{}#2}}
+\newcommand{\revpromote}[2]{\ensuremath{#1\leftharpoonup{}#2}}
+\newcommand{\demote}[2]{\ensuremath{#1\rightharpoondown{}#2}}
+\newcommand{\revdemote}[2]{\ensuremath{#1\leftharpoondown{}#2}}
+\newcommand{\prodemote}[2]{\ensuremath{#1\rightleftharpoons{}#2}}
+\newcommand{\depromote}[2]{\ensuremath{#1\leftrightharpoons{}#2}}
 
 %% identity function
 \newcommand{\idfun}{\ensuremath{\textsf{\slshape Id}}}
@@ -118,7 +178,9 @@
 \newcommand{\dual}{\ensuremath{\hspace{1em}\rightleftarrows\hspace{1em}}}
 
 %% types and cotypes
-\newcommand{\cotype}[1]{\ensuremath{\overline{#1}}}
+%% \newcommand{\type}[1]{\ensuremath{#1}}
+\newcommand{\type}[1]{\ensuremath{#1_{\scriptscriptstyle\bot}}}
+\newcommand{\cotype}[1]{\ensuremath{#1_{\scriptscriptstyle\top}}}
 \newcommand{\cotok}[1]{\ensuremath{\overline{#1}}}
 \newcommand{\ctor}[1]{\ensuremath{\textsf{\slshape c}_{#1}}}
 \newcommand{\coctor}[1]{\ensuremath{\overline{\textsf{\slshape c}}_{#1}}}
@@ -141,9 +203,12 @@
 \newcommand{\stream}[2]{\ensuremath{\langle{}#1,#2\ldots\rangle}}
 \newcommand{\colist}[1]{\ensuremath{{#1^{\omegaup}}}}
 \newcommand{\coseq}[1]{\ensuremath{\overline{#1s}}}
-\newcommand{\cohead}{\ensuremath{\texttt{\upshape head}^{\omegaup}}}
-\newcommand{\cotail}{\ensuremath{\texttt{\upshape tail}^{\omegaup}}}
-\newcommand{\cocons}{\ensuremath{\texttt{\upshape cons}^{\omegaup}}}
+\newcommand{\cohead}{\ensuremath{\texttt{\upshape head}_{\scriptscriptstyle\top}}}
+\newcommand{\cotail}{\ensuremath{\texttt{\upshape tail}_{\scriptscriptstyle\top}}}
+\newcommand{\cocons}{\ensuremath{\texttt{\upshape cons}_{\scriptscriptstyle\top}}}
+
+\newcommand{\sigmabot}{\ensuremath{\sigma_{\scriptscriptstyle{\bot}}}}
+\newcommand{\sigmatop}{\ensuremath{\sigma_{\scriptscriptstyle{\top}}}}
 
 %% demo
 \newcommand{\eqstream}[1]{\ensuremath{{#1^{c}}}}
@@ -163,13 +228,16 @@
 \newcommand{\linfer}{\ensuremath{\assert}} %% {\vdash}}
 
 %% functions
-\newcommand{\func}{\ensuremath{\rightarrow}}
+\newcommand{\fnarrow}{\ensuremath{\rightarrow}}
+\newcommand{\func}[2]{\ensuremath{#1\fnarrow{}#2}}
+\newcommand{\funcbot}[2]{\ensuremath{(#1\fnarrow{}#2})_{\scriptscriptstyle\bot}}
+\newcommand{\functop}[2]{\ensuremath{(#1\fnarrow{}#2})_{\scriptscriptstyle\bot}}
 
 % type inference
 %% for brevity: tj for typing judgment, even though we don't say that
 \newcommand{\tj}[2]{\ensuremath{#1\hspace{1pt}\mathpunct{:}\hspace{-1pt}#2}}
 \newcommand{\tjsmall}[2]{\ensuremath{#1\hspace{-0pt}\mathpunct{:}\hspace{-0pt}#2}}
-\newcommand{\type}{\ensuremath{\hspace{-2pt}\mathpunct{:}\hspace{-3pt}}}
+%% \newcommand{\type}{\ensuremath{\hspace{-2pt}\mathpunct{:}\hspace{-3pt}}}
 \newcommand{\tinfer}{\ensuremath{\assert_{\tau}}}
 % sequent inference
 \newcommand{\sso}{\ensuremath{\assert_{\sigma}}}

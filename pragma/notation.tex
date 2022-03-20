@@ -1,17 +1,69 @@
 %% \section{Notation \& Terminology}\label{appendix:notation}
 
-\subsection{Infinities}
+Remember that it's duality all the way down. We need parallel sets of symbols, one for induction and one for coinduction.
+
+\paragraph{Kind decorations}
 
 \begin{itemize}
-\item Nat w/o zero: \(\Nat\)
-\item Nat w/zero: \(\NatZ\)
+\item \(\inductive{A}\)\hfill \verb|\inductive{A}|, \verb|\type{A}|
+\item \(\coinductive{A}\)\hfill \verb|\coinductive{A}|, \verb|\cotype{A}|
+\item \(\fn{f}\)\hfill \verb|\fn{f}|
+\item \(\cofn{f}\)\hfill \verb|\cofn{f}|
 \end{itemize}
 
-\subsection{Lifting}
+\paragraph{Equalities}
 
 \begin{itemize}
-\item Finite lists: \(\Lift{X}{\Nat}\)
-\item Streams: \(\Lift{X}{\omega}\)
+\item \(=\)\hfill \verb|=|
+
+  Inductive equality. This is 'ordinary' equality.
+\item \(\simeq\)\hfill \verb|\simeq|
+
+Bisimilarity (Coinductive equality) . There is no universally
+agreed-upon symbol for this; some authors use \(\sim\), others use a
+double-headed arrow of some kind, e.g. \(\bisimarrow\) is used by
+\parencite{2017intro_coalgebra}.
+\end{itemize}
+
+\paragraph{Infinities}
+
+\begin{itemize}
+\item \(\Nat\)\quad the natural numbers w/o zero\hfill \verb|\Nat|
+\item \(\NatZ\)\quad with zero\hfill \verb|\NatZ|
+\end{itemize}
+
+\paragraph{Morphisms}
+
+\begin{itemize}
+\item \(\morph{A}{B}\)\hfill \verb|\morph{A}{B}|
+\item \(\exp{B}{A}\)\hfill \verb|\exp{B}{A}|
+\item \(\type{(\exp{B}{A})}\)\hfill\verb|\type{(\exp{B}{A})}|
+\item \(\expbot{B}{A}\eqdef\type{(\exp{B}{A})}\)\hfill \verb|\expbot{B}{A}|
+\item \(\exp{{\type{B}}}{A}\neq\expbot{B}{A}\) \hfill \verb|\exp{{\type{B}}}{A}|
+%%
+\item \(\coexp{B}{A}\)\hfill \verb|\coexp{B}{A}|
+\item \(\cotype{(\exp{B}{A})}\)\hfill\verb|\cotype{(\exp{B}{A})}|
+\item \(\coexp{B}{A}\eqdef\ttop{(\exp{B}{A})}\)
+\item \(\exptop{B}{A}\)\neq\(\exp{{\cotype{B}}}{A}\)
+\end{itemize}
+
+The exponential notation \(\exp{Y}{X}\) for \(\morph{X}{Y}\) comes from
+category theory. In CT, arrows are reserved to express morphisms in
+the most general sense. Since functions are a species of morphism,
+clarity demands a different notation, hence exponentiation. (There are
+deeper reasons to favor exponential notation, but for our purposes we
+just need distinct notation.)
+
+\textbf{Caveat}: exponentiation does double duty. We also use it to
+indicate that a function is ``lifted'', e.g.
+\(\promote{\expbot{f}{X}}{\coexp{f}{X}}\). Here \(\exp{f}{X}\)
+indicates that \(X\) is the domain of \(f\); it does not mean
+``functions from \(X\) to \(f\)''.
+
+Exponentiation examples:
+\begin{itemize}
+\item \(\exp{X}{\Nat}\)\quad lists expressed as functions
+\item \(\exp{X}{\omega}\)\quad infinite lists expressed as functions
 \item \(f\) lifted over finite lists: \(\Lift{f}{\scriptscriptstyle\Nat}\)
 \item \(f\) lifted over streams: \(\Lift{f}{\omega}\)
 \end{itemize}
@@ -20,14 +72,35 @@ See \ref{notation:definition} below for decorations that add even more
 detail.
 
 
-\subsection{Meta-variables}
+
+\paragraph{Promotion and demotion}
+
+\begin{itemize}
+\item \(\promote{X}{Y}\)\quad promotion\hfill \verb|\promote{X}{Y}|
+\item \(\revpromote{X}{Y}\)\quad reverse promotion\hfill \verb|\revpromote{X}{Y}|
+\item \(\demote{Y}{X}\)\quad demotion\hfill\verb|\demote{Y}{X}|
+\item \(\revdemote{Y}{X}\)\quad reverse demotion\hfill\verb|\revdemote{Y}{X}|
+\item \(\prodemote{Y}{X}\)\quad both\hfill \verb|\prodemote{Y}{X}|
+\item \(\depromote{Y}{X}\)\hfill\verb|\depromote{Y}{X}|
+\end{itemize}
+
+Examples:
+
+\begin{itemize}
+\item \(\promote{\funcbot{A}{B}}{\morphtop{B}{A}}\)
+\item \(\revdemote{\funcbot{A}{B}}{\morphtop{B}{A}}\)
+\item \(\demote{\exp{B}{A}}{(A\fnarrow{}B)}\)
+\end{itemize}
+
+
+\paragraph{Meta-variables}
 
 Statements: \(\stmt{A}, \stmt{B}, \ldots\)
 
 Propositions: \(\prop{A}, \prop{B}, \ldots\)
 
 
-\subsection{Definition}\label{notation:definition}
+\paragraph{Definition}\label{notation:definition}
 
 \begin{itemize}
 \item Definition operator: \(\equiv\) or \(\eqdef\)

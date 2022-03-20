@@ -1,0 +1,26 @@
+\chapter{Promotion and Demotion}
+
+Types and cotypes are dual. Duality is an algebraic notion; it comes
+from Category Theory. It does not involve construction or
+co-construction. It's a description, not a recipe.
+
+\paragraph{Promotion}
+To obtain a cotype from a type:
+
+\begin{itemize}
+\item discard the base ctors
+\item map (``lift'') the remaining ctors to cofunctions (promotion)
+\item add co-constructors
+\item lift functions over the type to cofunctions over the cotype
+\end{itemize}
+
+\paragraph{Demotion}
+To obtain a type from a cotype:
+\begin{itemize}
+\item add base ctors
+\item map (``lower'') the remaining co-ctors to functions (demotion)
+\item add constructors
+\item lower cofunctions over the cotype to functions over the type
+\end{itemize}
+
+Case study: function-oriented presentation of lists and colists.

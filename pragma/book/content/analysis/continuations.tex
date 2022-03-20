@@ -74,7 +74,11 @@ continuation, as it were; we do not have a name for this concept,
 because it has never (to my knowledge) been noticed in the history of
 logic\footnote{That may well turn out to be untrue, but what we can
 say confidently is that if ``logical continuation'' has been noticed,
-nobody paid any attention.}
+nobody paid any attention. The possibility of interpreting
+continuations under Curry-Howard has been noticed, but that's a
+different topic. I'm talking about a purely logical concept that
+corresponds to computational continuation but does not itself
+presuppose any notion of computation.}
 
 So the Curry-Howard isomorphism preserves continuations.
 
@@ -83,16 +87,33 @@ It follows that to make inference rules fully explicit, we need to make logical 
 We need first-class continuations within logic. Maybe first-class
 environments as well.
 
+We might as well make first-class ``co-continuations''. The
+``current'' inference (function) splits the reasoning into pre- and
+post- (or temporal before and after). Continuations represent
+``after'' co-continuations, ``before''. Co-continuations are called
+``environments''. Actually, they're both environments. The difference
+is in orientation or directionality relative to the ``current'' state.
 
+NB: this is not new; it was noticed as early as the 1980s
+\parencite{griffin_ch_control} that computational continuations were
+compatible with Curry-Howard and thus with logic. But an explanation
+based on inferential semantics is new, to my knowledge. Probably
+because nobody uses inferential semantics. What we want is in the
+sequent calculus of logic, not the lambda calculus of functions.
 
+For the computer scientist, continuations are about control. For the
+logician, continuation is about explanation, specifically of inductive
+and co-inductive inference.
 
 \section{Resources}
 
 For an excellent practical explication of continuations see \citetitle{queinnec2003lisp} (\cite{queinnec2003lisp}).
 
 \begin{itemize}
+\item \citetitle{griffin_ch_control} \cite{griffin_ch_control}
 \item \citetitle{Strachey2000ContinuationsAM} \cite{Strachey2000ContinuationsAM}
 \item \citetitle{discovery_continuations} \cite{discovery_continuations}
 \item \citetitle{10.1145/62678.62684} \cite{10.1145/62678.62684}
+\item \citetitle{reasoning_continuations_2} \cite{reasoning_continuations_2}
 \end{itemize}
 
