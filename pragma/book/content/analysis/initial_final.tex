@@ -1,0 +1,156 @@
+\chapter{Initial Algebras and Final Coalgebras}
+
+\section{Ethnonumbers}
+
+To demonstrate the concepts of initial algebra and final coalgebra, we
+show how to define variant versions of \(\Nat\).
+\begin{itemize}
+\item \(\Nat^1\)\quad equivalence class of \(\Nat\)-algebras with one successor operation
+\item \(\Nat^2\)\quad equivalence class of \(\Nat\)-algebras with two successor operation
+\end{itemize}
+
+Standard \(\Nat\) definition:
+
+\begin{center}
+  \AxiomC{$\Gamma\linfer$}
+  \RightLabel{$\linfer\ZNat$}
+  \UnaryInfC{$\Gamma\linfer\tj{\ZNat}{\Nat}$}
+  \DisplayProof
+  \hspace{2em}
+  \AxiomC{$\Gamma\linfer\tj{n}{\Nat}$}
+  \RightLabel{$\linfer\langle\SNat\rangle$}
+  \UnaryInfC{$\Gamma\linfer\tj{\langle{}n\SNat\rangle}{\Nat}$}
+  \DisplayProof
+\end{center}
+
+Since numbers and counting originated in Mesopotamia, we'll start by
+defining \textit{Babylonian numbers}, \(\Nat_B\):
+
+\begin{center}
+  \AxiomC{$\Gamma\linfer$}
+  \RightLabel{$\linfer\ZNat_B$}
+  \UnaryInfC{$\Gamma\linfer\tj{\ZNat_B}{\Nat_B}$}
+  \DisplayProof
+  \hspace{2em}
+  \AxiomC{$\Gamma\linfer\tj{n}{\Nat_B}$}
+  \RightLabel{$\linfer\langle\SNat\rangle_B$}
+  \UnaryInfC{$\Gamma\linfer\tj{\langle{}n\SNat\rangle_B}{\Nat_B}$}
+  \DisplayProof
+\end{center}
+
+Now we're going to define two additional versions of \(\Nat\). Since
+``successor'' is a Latin word, we'll design one version for the Romans
+and one for the Greeks. These definitions will have the exact same
+form as \(\Nat_B\) except for the symbols. That's enough to make them
+different systems.
+
+Greek:
+\begin{center}
+  \AxiomC{$\Gamma\linfer$}
+  \RightLabel{$\linfer\ZNat_{g}$}
+  \UnaryInfC{$\Gamma\linfer\tj{\ZNat_{g}}{\Nat_{g}}$}
+  \DisplayProof
+  \hspace{2em}
+  \AxiomC{$\Gamma\linfer\tj{n}{\Nat_{g}}$}
+  \RightLabel{$\linfer\langle\SNat\rangle_{g}$}
+  \UnaryInfC{$\Gamma\linfer\tj{\langle{}n\SNat\rangle_{g}}{\Nat_{g}}$}
+  \DisplayProof
+\end{center}
+
+Latin:
+\begin{center}
+  \AxiomC{$\Gamma\linfer$}
+  \RightLabel{$\linfer\ZNat_l$}
+  \UnaryInfC{$\Gamma\linfer\tj{\ZNat_l}{\Nat_l}$}
+  \DisplayProof
+  \hspace{2em}
+  \AxiomC{$\Gamma\linfer\tj{n}{\Nat_l}$}
+  \RightLabel{$\linfer\langle\SNat\rangle_l$}
+  \UnaryInfC{$\Gamma\linfer\tj{\langle{}n\SNat\rangle_l}{\Nat_l}$}
+  \DisplayProof
+\end{center}
+
+These systems are all isomorphic. So they form an equivalence class,
+which we'll call \(\Nat^1\). We can nominate any member of that class
+to serve as its canonical member; we'll use \(\Nat_B\). Then
+\(\Nat_B\) is the \textit{initial algebra} of \(\Nat^1\), because
+there is a unique homomorphism from every member of that class to
+\(\Nat_B\).
+
+Since the members of \(\Nat^1\) are isomorphic, we can treat them as
+``equal'': they have the same extension, which is an abstraction over
+their isomorphic elements:
+
+\begin{align}
+  0 \eqdef \ZNat & \cong \ZNat_B \cong \ZNat_{\gamma} \cong \ZNat_L \\
+  \SNat & \cong \SNat_B \cong \SNat_{\gamma} \cong \SNat_L
+\end{align}
+
+But they are all extensionally distinct, since they do have different
+constructors, which must be used to define functions and prove
+propositions involving them. That would of course be extremely
+cumbersome. The nice thing about an initial algebra is that you can
+use it as a proxy for any other algebra to which it has a
+homomorphism. So for example a proof of something for the initial
+algebra counts as a proof for all those other algebras.
+
+That's all fine, but its pretty boring, since all we have so far is
+isomorphisms. What really reveals the usefulness of initial algebras
+is the existence of other algebras to which the initial algebra is
+homomorphic, but which have some additional structure. It's not so
+easy to imagine such a beast if we stick to the standard collection of
+mathematical objects like products and sums. But it's very easy to
+clearly demonstrate the concept by simply adding a constructor to our
+\(\Nat\)-algebras.\footnote{What about the rationals and reals?
+There's a homomorphism from \(\Nat\) to \(\Real\), but a proof of
+something for all \(\Nat\) does not prove it for all \(\Real\), does
+it? But it does prove it for the subset of \(\Real\) that is
+isomorphic to \(\Nat\). That's the target of the homomorphism. So for
+example a proof that \(a+b=b+a\) for \(\Nat\) suffices to prove the
+same for the reals that correspond to the nats - and note that they are
+not natural numbers, they have a different type, which we express by
+adding a decimal point, e.g. \(2.0\) not \(2\). So we could use
+\(\Real\) to demonstrate the point of initial algebras, but that has
+the disadvantage that constructing the reals from \(\Nat\) is
+complicated. Merely adding ctors to \(\Nat\) demonstrates the same
+thing in the simplest possible manner.}
+
+So our next step is to define the Greco-Roman numbers. We'll need only
+one \(\ZNat\) constructor but two successors:
+
+\begin{center}
+  \AxiomC{$\Gamma\linfer$}
+  \RightLabel{$\linfer\ZNat_{GL}$}
+  \UnaryInfC{$\Gamma\linfer\tj{\ZNat_{GL}}{\Nat_{GL}}$}
+  \DisplayProof
+\end{center}
+\vspace{2ex}
+\begin{center}
+  \AxiomC{$\Gamma\linfer\tj{n}{\Nat_{GL}}$}
+  \RightLabel{$\linfer\langle\SNat\rangle_G$}
+  \UnaryInfC{$\Gamma\linfer\tj{\langle{}n\SNat\rangle_{G}}{\Nat_{GL}}$}
+  \DisplayProof
+  \hspace{2em}
+  \AxiomC{$\Gamma\linfer\tj{n}{\Nat_{GL}}$}
+  \RightLabel{$\linfer\langle\SNat\rangle_L$}
+  \UnaryInfC{$\Gamma\linfer\tj{\langle{}n\SNat\rangle_L}{\Nat_{GL}}$}
+  \DisplayProof
+\end{center}
+
+Now we can construct hybrid numbers like
+\(\langle\ZNat_{GL}\SNat_G\SNat_L\rangle_{GL}\)
+
+
+Clearly \(Nat_{GL}\) has the same cardinality as \(\Nat_B\), but are
+they isomorphic? No. The latter is homomorphic to the former, but not
+the other way around.
+
+[TODO: demonstrate the morphisms]
+
+Then we can make more ethnonumbers. For example, we can define Chinese
+and Indic \(\Nat\), and then combine them to form Sino-Indic \(\Nat\).
+The latter would be isomorphic to Greco-Roman \(\Nat\), so they would
+form an equivalence class \(\Nat^2\). We can go on to form \(\Nat^3
+\ldots \Nat^n\) just by adding successor operators (the superscript
+indicating the number of successor operators). They would all have the
+same initial algebra, \(\Nat_B\).

@@ -4,23 +4,23 @@
 \subsection{Natural Deduction}
 
 %% Logical And
-%% \begin{center}
-%% \AxiomC{$A\kern-1.2em$}
-%% \AxiomC{$B$}
-%% \RightLabel{$\scriptstyle{[\land \textrm{-intro}]}$}
-%% \BinaryInfC{$A\land B$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$A\land B$}
-%% \RightLabel{$\scriptstyle{[\land\ \text{-exit}_{\text{L}}]}$}
-%% \UnaryInfC{$A$}
-%% \DisplayProof
-%% \hskip 1.4em
-%% \AxiomC{$A\land B$}
-%% \RightLabel{$\scriptstyle{[\land\ \text{-exit}_{\text{R}}]}$}
-%% \UnaryInfC{$B$}
-%% \DisplayProof
-%% \end{center}
+\begin{center}
+\AxiomC{$A\kern-1.2em$}
+\AxiomC{$B$}
+\RightLabel{$\scriptstyle{[\lkand \textrm{-intro}]}$}
+\BinaryInfC{$A\lkand B$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$A\lkand B$}
+\RightLabel{$\scriptstyle{[\lkand\ \text{-exit}_{\text{L}}]}$}
+\UnaryInfC{$A$}
+\DisplayProof
+\hskip 1.4em
+\AxiomC{$A\lkand B$}
+\RightLabel{$\scriptstyle{[\lkand\ \text{-exit}_{\text{R}}]}$}
+\UnaryInfC{$B$}
+\DisplayProof
+\end{center}
 
 %%%%%%%%%%%%%%%%
 \subsection{LK}
@@ -32,8 +32,8 @@ First some helpful vocabulary:
   \item[Antecedent] The part of a sequent preceding \(\linfer\).
   \item[Consequent] The part of a sequent following \(\linfer\).
   \item[Principle formula] The (sub-)formula containing the logical
-    constant being defined. For example, in rule \(\land\linfer\), the
-    principle formula is \mbox{\(A\land B,\Gamma\linfer \Delta\)}.
+    constant being defined. For example, in rule \(\lkand\linfer\), the
+    principle formula is \mbox{\(A\lkand B,\Gamma\linfer \Delta\)}.
   \item[Structure] A sequence of formulae. Uppercase Greek letters
     \(\Gamma, \Delta, \Theta, \Sigma\), etc. are used as
     meta-variables to represent sequences of formulae, which may be
@@ -41,7 +41,7 @@ First some helpful vocabulary:
     example, \(\ulcorner A,\Gamma\urcorner\) and \(\ulcorner \Gamma,
     A\urcorner\) are structures.
     \item[Structure connectives] There is only one structure
-      connective: comma. Represents conjunction (\(\land\)) in
+      connective: comma. Represents conjunction (\(\lkand\)) in
       antecedents and disjunction (\(\lor\)) in consequents.
     \item[Sequent connective] There are two sequent connectivess,
       \(\seqand\), meaning ``and also'' and \(\seqor\), meaning
@@ -52,14 +52,14 @@ First some helpful vocabulary:
       connectives are not made explicit, but making them explicit
       brings out features, especially symmetries, that otherwise may
       not be so clear.
-    \item[Logical connectives] The usual logical constants: \(\land,
+    \item[Logical connectives] The usual logical constants: \(\lkand,
       \lor\), etc.
 \end{description}
 
 By convention, rules are categorized as left or right, depending on 1)
 the location of the principle formula on the bottom; and 2) the
 location of the propositional variables in the sequents. For example,
-rule \(\land\linfer\) is the left rule for \(\land\).
+rule \(\lkand\linfer\) is the left rule for \(\lkand\).
 
 Left rules correspond to elimination rules, right rules, to
 introduction rules. We want the introduction rules on the left, since
@@ -78,7 +78,7 @@ kind of backward reasoning.
 \begin{center}
 \AxiomC{}
 \RightLabel{$\text{Id}$}
-\UnaryInfC{$A\land A$}
+\UnaryInfC{$A\lkand A$}
 \DisplayProof
 \hskip 1.4em
 \AxiomC{$\Gamma\linfer \Delta_1,C,\Delta_2\kern-1.2em$}
@@ -96,15 +96,15 @@ kind of backward reasoning.
 \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
 \AxiomC{$\seqand\kern-1.2em$}
 \AxiomC{$\Gamma\linfer \Delta, B$}
-\RightLabel{$\linfer\land$}
-\TrinaryInfC{$\Gamma\linfer \Delta, A\land B$}
+\RightLabel{$\linfer\lkand$}
+\TrinaryInfC{$\Gamma\linfer \Delta, A\lkand B$}
 \DisplayProof
 \hskip 1.4em  %% and-elim
 \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
 \AxiomC{$\seqor\kern-1.2em$}
 \AxiomC{$B,\Gamma\linfer \Delta$}
-\RightLabel{$\land\linfer$}
-\TrinaryInfC{$A\land B,\Gamma\linfer \Delta$}
+\RightLabel{$\lkand\linfer$}
+\TrinaryInfC{$A\lkand B,\Gamma\linfer \Delta$}
 \DisplayProof
 \end{center}
 
@@ -248,7 +248,7 @@ the surface.
 \begin{center}
 \AxiomC{}
 \RightLabel{$\text{Id}$}
-\UnaryInfC{$A\land A$}
+\UnaryInfC{$A\lkand A$}
 \DisplayProof
 \hskip 1.4em
 \AxiomC{$\Gamma\linfer \Delta_1,C,\Delta_2\kern-1.2em$}
@@ -298,15 +298,15 @@ the surface.
 \AxiomC{$\Gamma\linfer \Delta, A\kern-1.2em$}
 \AxiomC{$\seqand\kern-1.2em$}
 \AxiomC{$\Gamma\linfer \Delta, B$}
-\RightLabel{$\linfer\land$}
-\TrinaryInfC{$\Gamma\linfer \Delta, A\land B$}
+\RightLabel{$\linfer\lkand$}
+\TrinaryInfC{$\Gamma\linfer \Delta, A\lkand B$}
 \DisplayProof
 \hskip 1.4em
 \AxiomC{$A,\Gamma\linfer \Delta\kern-1.2em$}
 \AxiomC{$\seqor\kern-1.2em$}
 \AxiomC{$B,\Gamma\linfer \Delta$}
-\RightLabel{$\land\linfer$}
-\TrinaryInfC{$A\land B,\Gamma\linfer \Delta$}
+\RightLabel{$\lkand\linfer$}
+\TrinaryInfC{$A\lkand B,\Gamma\linfer \Delta$}
 \DisplayProof
 \end{center}
 

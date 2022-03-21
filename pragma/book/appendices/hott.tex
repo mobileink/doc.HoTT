@@ -1,0 +1,45 @@
+\chapter{HoTT Inference Rules}
+
+
+\section{Identity}
+
+\paragraph{A.2.10 Identity Types}
+
+\begin{center}
+\makebox[\textwidth][c]{
+\AxiomC{$\Gamma\linfer\tj{A}{\Univ_i}$}
+\AxiomC{$\Gamma\linfer\tj{a}{A}$}
+\AxiomC{$\Gamma\linfer\tj{b}{A}$}
+\RightLabel{$=\text{-\texttt{form}}$}
+\TrinaryInfC{$\Gamma\linfer a=_A{}b:\Univ_i$}
+\DisplayProof
+\hspace{2em}
+\AxiomC{$\Gamma\linfer\tj{A}{\Univ_i}$}
+\AxiomC{$\Gamma\linfer\tj{a}{A}$}
+\RightLabel{$=\text{-\texttt{intro}}$}
+\BinaryInfC{$\Gamma\linfer\tj{\textsf{\upshape refl}_a}{a=_A{}a$}}
+\DisplayProof
+}
+\end{center}
+
+Seq calc:
+
+Type defn:
+\begin{prooftree}
+\AxiomC{$\Gamma\linfer\tj{A}{\Univ_i}$}
+\AxiomC{$\Gamma\linfer\tj{a}{A}$}
+\AxiomC{$\Gamma\linfer\tj{b}{A}$}
+\RightLabel{$\linfer^2 =$}
+\TrinaryInfC{$\Gamma\linfer a=_A{}b:\Univ_i$}
+\end{prooftree}
+
+\begin{center}
+\makebox[\textwidth][c]{
+\AxiomC{$\Gamma\linfer\tj{A}{\Univ_i}$}
+\AxiomC{$\Gamma\linfer\tj{a}{A}$}
+\RightLabel{$\linfer \textsf{\upshape refl}$}
+\BinaryInfC{$\Gamma\linfer\tj{\textsf{\upshape refl}_a}{a=_A{}a$}}
+\DisplayProof
+}
+\end{center}
+

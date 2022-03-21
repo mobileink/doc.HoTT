@@ -1,0 +1,61 @@
+\chapter{Construction and Composition}
+
+\section{Making Composition Explicit}
+
+General principle: composition is primitive; it is presupposed by
+construction.
+
+Case study: \(\Nat\)
+
+The successor operation for \(\Nat\) is commonly expressed as a
+function: \(\tj{S}{\morph{\Nat}{\Nat}}\). But this is a mistake. For
+one thing, it presupposes the concept ``function'', which we have not
+yet defined. More fundamentally it hides the notion of composition,
+which is the heart of the matter.
+
+A better approach is to use an inference rule:
+\AxiomC{$\Gamma\linfer\tj{n}{\Nat}$}
+\RightLabel{$\linfer{}\SNat$}
+\UnaryInfC{$\Gamma\linfer\tj{n\SNat}{\Nat}$}
+\DisplayProof
+
+The problem with this is that the rule does double duty. In explicitly
+introduces \(\SNat\); implicitly it introduces \textit{composition}.
+The syntactic concatenation of the symbols \(n\) and \(\SNat\) in the
+conclusion has semantic significance.
+
+Compare the (natural deduction) rule for \(\lkand\) introduction:
+\AxiomC{$A\kern-1.2em$}
+\AxiomC{$B$}
+\RightLabel{$\scriptstyle{[\lkand \textrm{-intro}]}$}
+\BinaryInfC{$A\lkand B$}
+\DisplayProof
+
+This rule explicity introduces \(\lkand\), but it does not
+surreptitiously introduce composition. Rather, \(\lkand\) itself
+explicitly expresses \textit{logical} composition. The concatenation
+of the symbols \(A, \lkand\), and \(B\) is purely syntactic; it has no
+semantic significance.
+
+To make the rule for \(\SNat\) introduction fully explicit, we need an
+explicit symbol for \textit{numeric} composition. Any symbol would do;
+for example we could
+use\ \(\ulcorner\,\text{\upshape\textasciicircum}\,\urcorner\) and
+write \(n\text{\upshape\textasciicircum}\SNat\). The drawback with
+this sort of infix symbol is that it will be cumbersome when we need
+to express additional types of numeric composition, which we will do
+shortly. Subscripting doesn't look so great: \(n\text{\upshape
+  \textasciicircum}_{0}\SNat\) So instead we will use bracketing so we
+can write things like \(\langle n\SNat\SNat\SNat\rangle_0\). This
+gives us:
+\AxiomC{$\Gamma\linfer\tj{n}{\Nat}$}
+\RightLabel{$\linfer{}\langle\SNat\rangle$}
+\UnaryInfC{$\Gamma\linfer\tj{\langle{}n\SNat\rangle}{\Nat}$}
+\DisplayProof
+
+Note that the rule has been renamed to indicate explicitly that it
+introduces both \(SNat\) and concatenation \(\langle\,\rangle\).
+
+
+
+

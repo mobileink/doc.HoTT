@@ -1,4 +1,10 @@
-\section{Types and Cotypes}\label{sec:types}
+\chapter{Types and Cotypes}\label{ch:types}
+
+
+
+Types as literally prototypes; cotypes as templates.
+
+Prototypes are a starting point from which you go forward; templates are the final blueprint ...?
 
 \paragraph{Duality}  Duality is an all-or-nothing affair. If you reverse one arrow, you must reverse all other arrows related to the first.
 
@@ -42,7 +48,7 @@ NB: instead of ``token'' and ``cotoken'' most writers use ``term''
 semantics.
 
 %%%%%%%%%%%%%%%%
-\subsection{Semantics}
+\section{Semantics}
 
 Inferential semantics: upstream and downstream inferences determine
 conceptual content.
@@ -82,7 +88,7 @@ Indeterminate type?
 
 What about an empty type. Determinate or indeterminate?
 
-\subsubsection{Classic v. Intuitionistic Interpretation}
+\subsection{Classic v. Intuitionistic Interpretation}
 
 For the Platonist coinductive reasoning etc. presents some problems.
 Cotypes are assumed to already be populated etc.  As described elsewhere in this document.
@@ -95,9 +101,9 @@ Same way they make sense of other infinitudes? E.g. real numbers, the
 continum, etc. They've figured out ways to finesse such stuff. E.g.
 fans, bar theorem, apartness, etc.
 
-\subsubsection{Type and cotype}
+\section{Types}
 
-\subsubsection{Definition and codefinition}
+\subsection{Definition and codefinition}
 
 \textquote[\cite{pierce2004advanced} ``Type Definitions'' p.
   348]{[T]he addition of definitional mechanisms can change the
@@ -212,7 +218,7 @@ definition, to which we now turn.
 Critically important: the partial determinations expressed by the
 co-constructors are global! They apply to every cotoken of the cotype.
 
-\subsubsection{Constructor and Co-constructor}
+\subsection{Constructor and Co-constructor}
 
 Ctors and co-ctors determine (define?) a protocol. A functor tin CT
 terms. Cofunctions implement the protocol. Each has its own
@@ -229,7 +235,7 @@ the co-ctors. But then they would not be co-ctors for the type.
 Either way: do cotypes and cofunctions make sense without some kind of
 polymorphism?
 
-\subsubsection{Function and Cofunction}
+\subsection{Function and Cofunction}
 
 Domain and codomain.
 
@@ -246,7 +252,7 @@ provide implementations\footnote{Co-implementations?}.
 
 (Compare: inheritance)
 
-\subsubsection{Note}
+\subsection{Note}
 
 Some writers seem to get it wrong, unless I've badly misunderstood something.
 
@@ -277,7 +283,110 @@ or equal to the original stream set.
 
 
 %%%%%%%%%%%%%%%%
-\subsection{Morphism classes}\label{morph:classes}
+\section{Cotypes}
+
+Cotypes are specified, not defined. The specification tells us how to
+recognize cotype instances when we see them, but it does not tell us
+how to build them.
+
+\paragraph{Case study: function-oriented streams}
+
+The following diagram, from \cite{jacobs_intro_coalgebra}, is intended
+to depict the coalgebra of infinite lists. Here \(\exp{A}{\Nat}\) is
+the set of all functions from domain \(\Nat\) to arbitrary set \(A\) -
+note that these are sets, not types. The symbol \(\sigma\) is an
+arbitrary element of \(\exp{A}{\Nat}\):
+
+\begin{tikzpicture}
+  \node at (0,0) (a) {$A^{\Nat}$};
+  \node at (2.5in,0) (b) {$A\times{}A^{\Nat}$};
+  \draw[-Latex] (a) -- (b) node[pos = .5, above]
+       {\scriptsize\(\sigma\mapsto (\sigma(0), \lambda{}n.\sigma(n+1))\)};
+\end{tikzpicture}%
+
+It looks simple, but in fact it is very complex.
+
+To pull it apart, we start by assigning some names and making the type
+structure explicit. First consider the maplet:
+\begin{align}
+  & \sigma\mapsto (\sigma(0), \lambda{}n.\sigma(n+1))\label{sigmap}
+\end{align}
+
+\begin{itemize}
+\item The symbol \(\mapsto\) obviously represents a function, so let's
+  name it. It takes a single argument and uses it to produce a pair, so
+  we'll call it \texttt{pairgen}. Note that since its argument is a
+  function, \texttt{pairgen} is a higher-order function; in particular
+  it is \textit{not} a member of \(\exp{A}{\Nat}\). We can declare its
+  type and define it schematically:
+  \begin{align*}
+    & \tj{\texttt{pairgen}}{\exp{A}{\Nat}\fnarrow(A\times\exp{A}{\Nat})} \\
+    & \texttt{pairgen}\eqdef\lambda{}f.(f(0),\lambda{}n.f(n+1)) & \textit{untyped} \\
+    & \texttt{pairgen}\eqdef\lambda{}f:\exp{A}{\Nat}.(f(0),\lambda{}n.f(n+1)):A\times\exp{A}{\Nat} & \textit{typed}
+  \end{align*}
+\item The pairing uses standard \((\, ,\, )\) syntax to denote the pairing
+  operation. To make this explicit, we'll call it \texttt{pair}. This
+  is the primitive binary pairing operation that does nothing more
+  than combine its arguments without using them.
+\item The second element of the output pair is a lambda expression, so
+  let's name that too:
+  \begin{equation}
+  g\eqdef\lambda{}n.f(n+1) \label{gdef}
+  \end{equation}
+  But in this expression the argument to \(f\) is itself a function
+  application, so we can abstract out the function:
+  \(h\eqdef\lambda{}m.m+1\).
+\item The function we've just defined, \(h\) uses two constant
+  symbols, \(+\) and \(1\). We can parameterize them:
+  \(h'\eqdef\lambda{}c,op,m.op(m,c)\). Then we can rewrite (\ref{gdef}) as:
+  \begin{equation}
+    g\eqdef\lambda{}n.f(h'(1,+,n))
+  \end{equation}
+  \item Alternatively, notice that \(h\eqdef\lambda{}m.m+1\) is a
+    member of \(\exp{\Nat}{\Nat}\) - an injective endomorphism, to be
+    precise. In fact we can replace it with any \textit{arbitrary}
+    injective member of \(\exp{\Nat}{\Nat}\)! So we can rewrite
+    \ref{gdef} as simply
+    \begin{align}
+      & g\eqdef\lambda{}n.f(h(n))\hfill &
+      \text{where}\ \tj{h}{\exp{\Nat}{\Nat}}, h\ \text{injective}
+    \end{align}
+  \item We're now in a position to generalize \ref{sigmap}:
+    \begin{align}
+      & \sigma\mapsto (\sigma(0), \lambda{}n.\sigma(n+1)) \\
+      & \texttt{pairgen}\eqdef\lambda{}f.(f(0),g(n))
+    \end{align}
+    Which means that \ref{sigmap} will work with \texttt{pairgen}
+    parameterized by \textit{any} injective member of
+    \(\exp{\Nat}{\Nat}\). If we were to iterate over those, we would
+    produce one ``permutation'' per function.
+\end{itemize}
+
+The upshot of all this is that what we've described using
+\(\exp{A}{\Nat}\) is not \textit{the} cotype of infinite streams, but
+a family of instances indexed by the members \(\exp{\Nat}{\Nat}\) --
+each a ``proof'' of the (meta-)type (proofs of the stream type or just
+streams). In other words, if we can think of a stream as generated by
+a function over \(\Nat\), we can think of the \texttt{tail} operation
+as a family of ... or something.
+
+Think of these not as ``proofs'' of the type, but as refinements.
+They're subtypes, not members. But there is a sense in which
+refinements count as proofs, I think.
+
+We prove \(\Nat\) by constructing a natural number. But if we cannot
+construct an element of a cotype, then what counts as proof of the
+type? Answer: an implementation that conforms to the spec. So the sets
+we've just described are all equally ``the'' set of streams, but they
+are all different ``implementations'', which also means they are
+\textit{intensionally} different. Which would imply intensional
+semantics make a real difference for cotypes. Also that proofs of
+cotypes are intensional.
+
+%%%%%%%%%%%%%%%%
+\section{Morphism classes}\label{morph:classes}
+
+FIXME: move to taxonomy
 
 First some terminology. We classify morphisms for a type/cotype by the
 role played by the type in the type signature of the morphism. For
@@ -288,37 +397,37 @@ If the type (or cotype) of interest is \(X\), then:
 
 \begin{description}
 \item[Endomorphism\footnotemark:]\footnotetext{Greek ἕνδον,
-  \textit{endon}, inside, within, internal} \(\tj{f}{X\func X}\)
+  \textit{endon}, inside, within, internal} \(\tj{f}{\morph{X}{X}}\)
 \item[Promorphism\footnotemark:]\footnotetext{Greek προσ, \textit{pros},
-  to, toward} \(\tj{f}{A\func X}\)
+  to, toward} \(\tj{f}{\morph{A}{X}}\)
 \item[Apomorphism\footnotemark:]\footnotetext{Greek απο, \textit{apo},
-  from, away from} \(\tj{f}{X\func A}\)
+  from, away from} \(\tj{f}{\morph{X}{A}}\)
 \item[Synthetic morphism:] the codomain is a polynomial type
   (combination of products and sums) containing \(X\) e.g.
   \begin{itemize}
-  \item \(\tj{f}{X\func X\times X}\) is a synthetic endomorphism
-  \item \(\tj{f}{X\func A\times B}\) is a synthetic apomorphism
+  \item \(\tj{f}{\morph{X}{X}\times X}\) is a synthetic endomorphism
+  \item \(\tj{f}{\morph{X}{A}\times B}\) is a synthetic apomorphism
   \end{itemize}
 \item[Analytic morphism:] the domain is a polynomial type containing \(X\), e.g.
   \begin{itemize}
-    \item \(\tj{f}{X\times X\func X}\) is an analytic endomorphism
-    \item \(\tj{f}{X\times X\func A}\) is an analytic apomorphism
+    \item \(\tj{f}{X\times \morph{X}{X}}\) is an analytic endomorphism
+    \item \(\tj{f}{X\times \morph{X}{A}}\) is an analytic apomorphism
   \end{itemize}
 \item[Hybrid morphism:] anything that does not fit in the above categories:
   \begin{itemize}
-  \item \(\tj{f}{X\func A\times X}\)
-  \item \(\tj{f}{X\func X\times B}\)
-  \item \(\tj{f}{X\func A\times B + C}\)
-  \item \(\tj{f}{A\times X\func X}\)
-  \item \(\tj{f}{A\times X\func B}\)
-  \item \(\tj{f}{X\func A\times B + C}\)
+  \item \(\tj{f}{\morph{X}{A}\times X}\)
+  \item \(\tj{f}{\morph{X}{X}\times B}\)
+  \item \(\tj{f}{\morph{X}{A}\times B + C}\)
+  \item \(\tj{f}{A\times \morph{X}{X}}\)
+  \item \(\tj{f}{A\times \morph{X}{B}}\)
+  \item \(\tj{f}{\morph{X}{A}\times B + C}\)
   \item etc.
   \end{itemize}
 \end{description}
 
 
 %%%%%%%%%%%%%%%%
-\subsection{Implementation}
+\section{Implementation}
 
 An implementation is an approximation.
 
@@ -344,21 +453,21 @@ protocol.
 
 
 %%%%%%%%%%%%%%%%
-\subsection{Calculi}
+\section{Calculi}
 The concepts of types and cotypes may be presented in a variety of forms.
 
-\subsubsection{Typed calculus of types and cotypes}
+\section{Typed calculus of types and cotypes}
 
 This section uses the kind of type-theoretic notation commonly used to
 present types and cotypes. Derived from Martin-Löf Type Theory by way
 of HoTT.
 
-\subsubsection{Logic of types and cotypes}
+\subsection{Logic of types and cotypes}
 
 This section presents types, cotypes, etc. using a sequent calculus
 commonly used to express various logics.
 
-\subsubsection{Algebraics of types and cotypes}
+\subsection{Algebraics of types and cotypes}
 
 Yet a third mode of presentation takes an algebraic perspective. This
 is a popular way of presenting and explaining induction and

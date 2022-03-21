@@ -5,23 +5,34 @@ Lists and colists are really extensions of products and sums.
 Cobasis = cobase set = all elements associated with the cotype treated
 as a set.
 
-\section{Lists and Colists as functions}
+There are two ways to present streams. On is the coinductive way, so
+to speak: start by assuming we already have the cotype, and specify
+its co-constructors. Meaning, specify their types. The other is
+quasi-inductive: show how to construct the equivalent of the cotype,
+starting from a type. This strategy uses defined functions to express
+the co-ctors. Case study: treating streams as functions over \(\Nat\),
+and using functions to express \cohead and \cotail.
+
+\section{Function-oriented presentation of Lists and Colists}
 
 Any list can be viewed as a function \(f\) defined over \(\Nat\); then
-\(n^{th}\) element of the sequence is \(f(n)\).\footnote{The idea of
-representing lists as functions in explaining coinduction comes from
-\cite{jacobs_intro_coalgebra}, p. 1.} To express the type of infinite
-lists in functional terms, we start with the set of all functions from
-\(\Nat\) to arbitrary type \(A\). The usual notation for such a type
-is \(\Nat\fnarrow{}A\), but we can use the more compact notation common
-in category theory: \(\morph{A}{\Nat}\defeq\Nat\rightarrow A\). This
-has the advantage of allowing us to express our cotype more concisely:
-\(\morphtop{A}{\Nat}\) is the cotype corresponding to
-\(\morph{A}{\Nat}\). We'll explain this correspondance more precisely
-as we go. For now, the point is that \(\morph{A}{\Nat}\) is a
-function-oriented equivalent to \(\colist{A}\). Recall that the latter
-is our list-oriented notation for ``infinite (\(\omegaup\)) stream of
-terms of type \(A\)''.
+the \(n^{th}\) element of the sequence is \(f(n)\).\footnote{The idea
+of representing lists as functions in explaining coinduction comes
+from \cite{jacobs_intro_coalgebra}, p. 1.} To express the type of
+infinite lists in functional terms, we start with the set of all
+functions from \(\Nat\) to arbitrary type \(A\). The usual notation
+for such a type is \(\Nat\fnarrow{}A\), but we can use the more
+compact exponential notation common in category theory:
+\(\exp{A}{\Nat}\defeq\Nat\rightarrow A\). This has the advantage of
+allowing us to express our cotype more concisely: \(\exp{A}{\Nat}\) is
+the cotype corresponding to \(\morph{\Nat}{A}\). We'll explain this
+correspondance more precisely as we go. For now, the point is that
+\(\exp{A}{\Nat}\) is a function-oriented equivalent to
+\(\colist{A}\).\footnote{Caveat: remember that \(\colist{A}\) does not
+express functions from \(\omegaup\) to \(A\)! It's just a notation
+that (informally) conveys the concept ``stream of \(A\)''.} Recall
+that the latter is our list-oriented notation for ``infinite
+(\(\omegaup\)) stream of terms of type \(A\)''.
 
 A function-oriented perspective allows us to give a somewhat more
 constructive account of the \textit{behavior} of streams, but this

@@ -12,7 +12,7 @@
 \setmainfont[Ligatures=TeX]{Times New Roman}
 \setmonofont{Latin Modern Mono}
 %% \setromanfont[Mapping=tex-text]{Times New Roman}
-%% \setsansfont[Mapping=tex-text]{Arial}
+\setsansfont[Mapping=tex-text]{Arial}
 
 %% \setmainfont[Ligatures=TeX]{Palatino}
 %% \setmainfont[Ligatures=TeX]{TeX Gyre Pagella}
@@ -79,11 +79,12 @@ hyperref,bibencoding=utf8,backref=true,backend=biber
 \setlength\epigraphwidth{0.4\textwidth}
 
 \usepackage{csquotes}
-\renewcommand{\mkcitation}[1]{\footnote{#1}}
-\newenvironment*{smallquote}
-  {\quote\sffamily\slshape}
-  {\endquote}
-\SetBlockEnvironment{smallquote}
+%% \renewcommand{\mkcitation}[1]{\footnote{#1}}
+%% \newenvironment*{smallquote}
+%%   {\quote\sffamily\slshape}
+%%   {\endquote}
+%% \SetBlockEnvironment{smallquote}
+%% \renewcommand{\mktextquote}[6]{#1\sffamily\slshape #2#4#3#6#5}
 
 %% \setquotestyle
 \usepackage{titlesec}
@@ -108,28 +109,33 @@ hyperref,bibencoding=utf8,backref=true,backend=biber
 %% \floatstyle{boxed}
 %% \restylefloat{figure}
 
-\renewcommand{\mktextquote}[6]{#1\sffamily\slshape #2#4#3#6#5}
-
 \includeonly{
   %% content/genesis/intro_genesis,
   %% content/genesis/pragmatism,
   %% content/genesis/inferential_semantics,
   %% content/genesis/logical_expressivism,
   %%
-  content/analysis/intro_analysis,
-  content/analysis/promotion_demotion,
+  %% content/analysis/intro_analysis,
+  content/analysis/construction_composition,
+  content/analysis/initial_final,
+  %% content/analysis/promotion_demotion,
+  %% content/analysis/conformance_behavior,
+  %% content/analysis/proof_coproof,
+  %% content/analysis/types_cotypes,
+  %% content/analysis/product_coproduct,
   %% content/analysis/continuations,
   %%
-  content/taxonomy/intro_taxonomy,
-  content/taxonomy/numbers_conumbers,
-  content/taxonomy/products_coproducts,
-  content/taxonomy/lists_colists,
-  content/taxonomy/sums_cosums,
+  %% content/taxonomy/intro_taxonomy,
+  %% content/taxonomy/numbers_conumbers,
+  %% content/taxonomy/products_coproducts,
+  %% content/taxonomy/lists_colists,
+  %% content/taxonomy/sums_cosums,
   %% appendices/biblio,
   %% appendices/glossary,
+  %% appendices/hott,
   %% helix,
   %% logic_systems,
-  appendices/notation,
+  %% appendices/notation,
   %% appendices/notes,
 }
 
@@ -192,6 +198,12 @@ hyperref,bibencoding=utf8,backref=true,backend=biber
 \part{Analysis}
 
 \include{content/analysis/intro_analysis}
+\include{content/analysis/construction_composition}
+\include{content/analysis/initial_final}
+\include{content/analysis/proof_coproof}
+\include{content/analysis/conformance_behavior}
+\include{content/analysis/types_cotypes}
+\include{content/analysis/product_coproduct}
 \include{content/analysis/continuations}
 \include{content/analysis/promotion_demotion}
 
@@ -219,6 +231,7 @@ hyperref,bibencoding=utf8,backref=true,backend=biber
 %% \bookmarksetupnext{rellevel=2}
 
 \include{appendices/notation}
+\include{appendices/hott}
 
 %% \include{logic_systems}
 

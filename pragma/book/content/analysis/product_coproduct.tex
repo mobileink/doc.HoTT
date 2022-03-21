@@ -1,0 +1,87 @@
+\chapter{Product and Coproduct}
+
+The duality of products and coproducts (which are \textit{not} sums)
+demonstrates that cotypes need not be infinite. They just need to be
+indeterminate.
+
+Also: no need for self-reference? Coproduct can be defined w/o self
+reference.
+
+Projection ops: we use ``front'' and ``back'' instead of subscripts or
+the awkward ``fst'' and ``snd''.
+
+\paragraph{Induction}
+
+Induction is abstraction. This is evident in the common idiom of
+``constructing new types'', since a type is a kind of abstraction.
+
+So we start with our collection of types, which does not yet include
+product types. Then we construct a product type, e.g.
+\(A\times{}B:\Univ\).
+
+\paragraph{Coinduction}
+
+Coinduction is specialization. We start with the abstract,
+unstructured product type, and specialize it to particular types.
+
+This is easiest to see if we start with an untyped calculus. We're
+given a dyad \(d\), from which we can infer \(\textsf{\slshape
+  pr}_0(d)\) and \(\textsf{\slshape pr}_1(d)\). Voila, we've got two
+new things.
+
+The standard way to decompose a (constructed) product type is to
+define the projectors in terms of the ctors of the type. The
+projectors are functions defined on pairs of type \(A\times{}B\),
+which presupposes both \(A\) and \(B\), and their pairing. We go from
+\((a,b):\product{A}{B}\) to \(\tj{\lproj{a}}{A}\) and
+\(\tj{\lproj{b}}{B}\). The conclusions are easily visible in the
+premises, and vice-versa. That's the inductive way.
+
+The coinductive way is to start with an opaque type and define the
+projectors \(\lcoproj\) and \(\rcoproj\) not as functions but as
+primitives that deliver arbitrary tokens. So instead of starting from
+\(\tj{(a,b)}{\product{A}{B}}\), we start from \(\tj{d}{Prod}\), and
+infer \(\tj{\lcoproj(d)}{T_0}\) and \(\tj{\rcoproj(d)}{T_1}\), where
+\(\tj{T_0}{\Univ}\) and \(\tj{T_1}{\Univ}\). That is, we derive two
+\textit{arbitrary} but particular tokens of two arbitrary but
+particular types from an arbitrary token \(d\) of type \(Prod\), which
+is opaque. That last bit about opacity is the critical point - we're
+\textit{given} the type \(Prod\) and the two co-ctor rules, and that's
+all. We're not given any information about the internal structure of
+either \(Prod\) or \(d\). All we know is what the inference rules tell
+us: that we can derive two tokens, which is to say we can
+\textit{specialize} the generic info we're given.
+
+To make good on that we can define functions that produce something
+that ``behaves'' in conformance with the co-ctor rules of the cotype
+\(Prod\) - for example, we can define a function \texttt{mypair} that
+pairs tokens such that the resulting token behaves under the
+projection operations the way the \(Prod\) rules say they should: each
+projection operator returns one of the tokens passed to
+\texttt{mypair}.
+
+Then our \texttt{mypair}-based type will be homomorphic to the
+\(Prod\) type. It will count as a specialization.
+
+Or we can specialize \(Prod\) even further, by defining our function
+to operate only on \(\Nat\), for example, producing pairs of \(\Nat\).
+This would count as an implementation of \(Prod\), which can be viewed
+as a specification.
+
+All of which suggests that the crucial difference between induction
+and coiduction is not the presence or absence of a base case, but the
+difference between abstraction and specialization.
+
+It also suggests that the standard product type must be both inductive
+and coinductive. Inductive insofar as it supports constructing
+(abstracting) \(\tj{(a,b)}{\product{A}{B}}\), and coinductive insofar
+as it supports specialization of the abstract co-ctor protocol over an
+opaque type.
+
+BTW, this gives us another kind of proof: particular
+\(\product{\Nat}{\Nat}\) as proof of the generic type \(Prod\) (with
+its co-ctor rules), or of the schema \(product{A}{B}\). This is
+instance-as-proof of its abstraction (generic type). Well, I suppose
+it will turn out that that is exactly what the ``coinductive proof
+principle'' amounts to - not construction as proof, but conformance
+(homomorphism) as proof.

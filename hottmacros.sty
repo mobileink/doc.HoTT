@@ -77,6 +77,13 @@
 \newcommand{\riota}{\ensuremath{\iota}}
 %% \newcommand{\riota}{\ensuremath{\rotatebox[origin=c]{180}{\iota}}}
 
+%% products and coproducts
+\newcommand{\product}[2]{\ensuremath{#1\times{}#2}}
+\newcommand{\lproj}{\ensuremath{\textsf{\slshape pr}_0}}
+\newcommand{\rproj}{\ensuremath{\textsf{\slshape pr}_1}}
+\newcommand{\lcoproj}{\ensuremath{\textsf{\slshape copr}_0}}
+\newcommand{\rcoproj}{\ensuremath{\textsf{\slshape copr}_1}}
+
 %% equality
 \newcommand{\fregeq}{\ensuremath{≡}}
 \newcommand{\defeq}{\ensuremath{\eqdef}} %% {≡}} %% \coloneq
@@ -119,6 +126,12 @@
 \newcommand{\morphtop}[2]{\ensuremath{#1_{\scriptscriptstyle\top}^{#2}}}
 
 
+%% nat numbers
+\newcommand{\ZNat}{\textsf{\slshape Z}}
+\newcommand{\SNat}{\textsf{\slshape S}}
+\newcommand{\ZS}{\textsf{\slshape ZS}}
+\newcommand{\ZSS}{\textsf{\slshape ZSS}}
+
 %% dark numbers
 \newcommand{\NDark}{\Nat_{\bullet}}
 \newcommand{\ZDark}{\textsf{\slshape Z}_{\bullet}}
@@ -127,11 +140,7 @@
 
 \newcommand{\hmorph}{\hspace{-2pt}\rightsquigarrow}
 
-%% nat numbers
-\newcommand{\ZNat}{\textsf{\slshape Z}}
-\newcommand{\SNat}{\textsf{\slshape S}}
-\newcommand{\ZS}{\textsf{\slshape ZS}}
-\newcommand{\ZSS}{\textsf{\slshape ZSS}}
+\newcommand{\Real}{\mathbb{R}}
 
 %%%%
 \DeclareRobustCommand*{\Fusion}{$\boldmath\fusion$}
@@ -229,7 +238,7 @@
 
 %% functions
 \newcommand{\fnarrow}{\ensuremath{\rightarrow}}
-\newcommand{\func}[2]{\ensuremath{#1\fnarrow{}#2}}
+%% \newcommand{\func}[2]{\ensuremath{#1\fnarrow{}#2}}
 \newcommand{\funcbot}[2]{\ensuremath{(#1\fnarrow{}#2})_{\scriptscriptstyle\bot}}
 \newcommand{\functop}[2]{\ensuremath{(#1\fnarrow{}#2})_{\scriptscriptstyle\bot}}
 
